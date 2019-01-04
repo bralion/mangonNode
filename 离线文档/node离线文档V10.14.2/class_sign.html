@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Sign 类 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/crypto/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712016017" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-crypto">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>Sign 类</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="crypto.html#crypto_class_sign" tppabs="http://nodejs.cn/api/crypto.html#crypto_class_sign" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.92</span>
+</div><p>&#x201C;Sign&#x201D;&#x7C7B;&#x662F;&#x751F;&#x6210;&#x7B7E;&#x540D;&#x7684;&#x5B9E;&#x7528;&#x5DE5;&#x5177;&#x3002;&#x5B83;&#x6709;&#x4E24;&#x79CD;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;:</p><ul>
+<li>&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x53EF;&#x5199;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/kUvpNm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/kUvpNm'" tppabs="http://nodejs.cn/s/kUvpNm" rel="nofollow">stream</a>&#xFF0C;&#x5728;&#x8FD9;&#x91CC;&#xFF0C;&#x8981;&#x7B7E;&#x7F72;&#x7684;&#x6570;&#x636E;&#x662F;&#x5199;&#x51FA;&#x6765;&#x7684;&#xFF0C;<a href="javascript:if(confirm('http://nodejs.cn/s/BqvRRL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BqvRRL'" tppabs="http://nodejs.cn/s/BqvRRL" rel="nofollow"><code>sign.sign()</code></a>&#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x751F;&#x6210;&#x5E76;&#x8FD4;&#x56DE;&#x7B7E;&#x540D;</li>
+<li>&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/F5GSv3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F5GSv3'" tppabs="http://nodejs.cn/s/F5GSv3" rel="nofollow"><code>sign.update()</code></a>&#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/BqvRRL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BqvRRL'" tppabs="http://nodejs.cn/s/BqvRRL" rel="nofollow"><code>sign.sign()</code></a>&#x65B9;&#x6CD5;&#x751F;&#x4EA7;&#x7B7E;&#x540D;&#x3002;</li>
+</ul><p><a href="javascript:if(confirm('http://nodejs.cn/s/cbC8zx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/cbC8zx'" tppabs="http://nodejs.cn/s/cbC8zx" rel="nofollow"><code>crypto.createSign()</code></a>&#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x521B;&#x5EFA;<code>Sign</code>&#x5B9E;&#x4F8B;&#x3002;<code>Sign</code>&#x5B9E;&#x4F8B;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>new</code>&#x5173;&#x952E;&#x5B57;&#x521B;&#x5EFA;&#x3002;</p><p>&#x793A;&#x4F8B;:&#x4F7F;&#x7528;&#x201C;&#x7B26;&#x53F7;&#x201D;&#x5BF9;&#x8C61;&#x4F5C;&#x4E3A;&#x6D41;:</p><pre><code class="language-js">const crypto = require(&apos;crypto&apos;);
+const sign = crypto.createSign(&apos;SHA256&apos;);
+
+sign.write(&apos;some data to sign&apos;);
+sign.end();
+
+const privateKey = getPrivateKeySomehow();
+console.log(sign.sign(privateKey, &apos;hex&apos;));
+// Prints: the calculated signature using the specified private key and
+// SHA-256. For RSA keys, the algorithm is RSASSA-PKCS1-v1_5 (see padding
+// parameter below for RSASSA-PSS). For EC keys, the algorithm is ECDSA.
+</code></pre><p>&#x793A;&#x4F8B;&#xFF1A;&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/F5GSv3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F5GSv3'" tppabs="http://nodejs.cn/s/F5GSv3" rel="nofollow"><code>sign.update()</code></a>&#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/BqvRRL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BqvRRL'" tppabs="http://nodejs.cn/s/BqvRRL" rel="nofollow"><code>sign.sign()</code></a>&#x65B9;&#x6CD5;&#xFF1A;</p><pre><code class="language-js">const crypto = require(&apos;crypto&apos;);
+const sign = crypto.createSign(&apos;SHA256&apos;);
+
+sign.update(&apos;some data to sign&apos;);
+
+const privateKey = getPrivateKeySomehow();
+console.log(sign.sign(privateKey, &apos;hex&apos;));
+// Prints: the calculated signature
+</code></pre><p>&#x4E00;&#x4E2A;<code>Sign</code>&#x5B9E;&#x4F8B;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EC5;&#x4EC5;&#x901A;&#x8FC7;&#x6458;&#x8981;&#x6765;&#x521B;&#x5EFA;&#x7B97;&#x6CD5;&#x540D;&#x79F0;&#xFF0C;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;OpenSSL&#x5C06;&#x4F1A;&#x4ECE;PEM-formatted&#x79C1;&#x94A5;&#x7684;&#x7C7B;&#x578B;&#x63A8;&#x65AD;&#x51FA;&#x5B8C;&#x6574;&#x7684;&#x7B7E;&#x540D;&#x7B97;&#x6CD5;&#xFF0C;&#x5305;&#x62EC;&#x4E0D;&#x76F4;&#x63A5;&#x66B4;&#x9732;&#x59D3;&#x540D;&#x5E38;&#x6570;&#x7684;&#x7B97;&#x6CD5;&#x3002;&#x6BD4;&#x5982;&apos;ecdsa-with-SHA256&apos;&#x3002;</p><p>&#x793A;&#x4F8B;:&#x4F7F;&#x7528;ECDSA&#x4E0E;SHA256&#x8FDB;&#x884C;&#x7B7E;&#x540D;</p><pre><code class="language-js">const crypto = require(&apos;crypto&apos;);
+const sign = crypto.createSign(&apos;RSA-SHA256&apos;);
+
+sign.update(&apos;some data to sign&apos;);
+
+const privateKey = getPrivateKeySomehow();
+console.log(sign.sign(privateKey, &apos;hex&apos;));
+// Prints: the calculated signature
+</code></pre></div>
+          <div id="content_right"><div class="api_metadata">
+<span>Added in: v0.1.92</span>
+</div><p>The <code>Sign</code> Class is a utility for generating signatures. It can be used in one
+of two ways:</p><ul>
+<li>As a writable <a href="javascript:if(confirm('http://nodejs.cn/s/kUvpNm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/kUvpNm'" tppabs="http://nodejs.cn/s/kUvpNm" rel="nofollow">stream</a>, where data to be signed is written and the
+<a href="javascript:if(confirm('http://nodejs.cn/s/BqvRRL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BqvRRL'" tppabs="http://nodejs.cn/s/BqvRRL" rel="nofollow"><code>sign.sign()</code></a> method is used to generate and return the signature, or</li>
+<li>Using the <a href="javascript:if(confirm('http://nodejs.cn/s/F5GSv3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F5GSv3'" tppabs="http://nodejs.cn/s/F5GSv3" rel="nofollow"><code>sign.update()</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/BqvRRL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BqvRRL'" tppabs="http://nodejs.cn/s/BqvRRL" rel="nofollow"><code>sign.sign()</code></a> methods to produce the
+signature.</li>
+</ul><p>The <a href="javascript:if(confirm('http://nodejs.cn/s/cbC8zx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/cbC8zx'" tppabs="http://nodejs.cn/s/cbC8zx" rel="nofollow"><code>crypto.createSign()</code></a> method is used to create <code>Sign</code> instances. The
+argument is the string name of the hash function to use. <code>Sign</code> objects are not
+to be created directly using the <code>new</code> keyword.</p><p>Example: Using <code>Sign</code> objects as streams:</p><pre><code class="language-js">const crypto = require(&apos;crypto&apos;);
+const sign = crypto.createSign(&apos;SHA256&apos;);
+
+sign.write(&apos;some data to sign&apos;);
+sign.end();
+
+const privateKey = getPrivateKeySomehow();
+console.log(sign.sign(privateKey, &apos;hex&apos;));
+// Prints: the calculated signature using the specified private key and
+// SHA-256. For RSA keys, the algorithm is RSASSA-PKCS1-v1_5 (see padding
+// parameter below for RSASSA-PSS). For EC keys, the algorithm is ECDSA.
+</code></pre><p>Example: Using the <a href="javascript:if(confirm('http://nodejs.cn/s/F5GSv3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F5GSv3'" tppabs="http://nodejs.cn/s/F5GSv3" rel="nofollow"><code>sign.update()</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/BqvRRL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BqvRRL'" tppabs="http://nodejs.cn/s/BqvRRL" rel="nofollow"><code>sign.sign()</code></a> methods:</p><pre><code class="language-js">const crypto = require(&apos;crypto&apos;);
+const sign = crypto.createSign(&apos;SHA256&apos;);
+
+sign.update(&apos;some data to sign&apos;);
+
+const privateKey = getPrivateKeySomehow();
+console.log(sign.sign(privateKey, &apos;hex&apos;));
+// Prints: the calculated signature
+</code></pre><p>In some cases, a <code>Sign</code> instance can also be created by passing in a signature
+algorithm name, such as &apos;RSA-SHA256&apos;. This will use the corresponding digest
+algorithm. This does not work for all signature algorithms, such as
+&apos;ecdsa-with-SHA256&apos;. Use digest names instead.</p><p>Example: signing using legacy signature algorithm name</p><pre><code class="language-js">const crypto = require(&apos;crypto&apos;);
+const sign = crypto.createSign(&apos;RSA-SHA256&apos;);
+
+sign.update(&apos;some data to sign&apos;);
+
+const privateKey = getPrivateKeySomehow();
+console.log(sign.sign(privateKey, &apos;hex&apos;));
+// Prints: the calculated signature
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712016017"><\/script>');
+  </script>
+</body>
+</html>

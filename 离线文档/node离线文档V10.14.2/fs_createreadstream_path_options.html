@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>fs.createReadStream(path[, options]) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/fs/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712023841" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-fs">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>fs.createReadStream(path[, options])</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="fs.html#fs_fs_createreadstream_path_options" tppabs="http://nodejs.cn/api/fs.html#fs_fs_createreadstream_path_options" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v7.6.0</td>
+<td><p>The <code>path</code> parameter can be a WHATWG <code>URL</code> object using <code>file:</code> protocol. Support is currently still <em>experimental</em>.</p></td></tr>
+<tr><td>v7.0.0</td>
+<td><p>The passed <code>options</code> object will never be modified.</p></td></tr>
+<tr><td>v2.3.0</td>
+<td><p>The passed <code>options</code> object can be a string now.</p></td></tr>
+<tr><td>v0.1.31</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.31</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> | <a href="url.html#url_the_whatwg_url_api" tppabs="http://nodejs.cn/api/url.html#url_the_whatwg_url_api" target="_blank" rel="nofollow" class="type">&lt;URL&gt;</a></li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>flags</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x8BE6;&#x89C1;<a href="javascript:if(confirm('http://nodejs.cn/s/JjbY8n  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JjbY8n'" tppabs="http://nodejs.cn/s/JjbY8n" rel="nofollow">&#x652F;&#x6301;&#x7684; flag</a>&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>&apos;r&apos;</code>&#x3002;</li>
+<li><code>encoding</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x9ED8;&#x8BA4;&#x4E3A; <code>null</code>&#x3002;</li>
+<li><code>fd</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> &#x9ED8;&#x8BA4;&#x4E3A; <code>null</code>&#x3002;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3002;</li>
+<li><code>mode</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> &#x9ED8;&#x8BA4;&#x4E3A; <code>0o666</code>&#x3002;</li>
+<li><code>autoClose</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x9ED8;&#x8BA4;&#x4E3A; <code>true</code>&#x3002;</li>
+<li><code>start</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+<li><code>end</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> &#x9ED8;&#x8BA4;&#x4E3A; <code>Infinity</code>&#x3002;</li>
+<li><code>highWaterMark</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> &#x9ED8;&#x8BA4;&#x4E3A; <code>64 * 1024</code>&#x3002;</li>
+</ul>
+</li>
+<li>&#x8FD4;&#x56DE;: <a href="fs.html#fs_class_fs_readstream" tppabs="http://nodejs.cn/api/fs.html#fs_class_fs_readstream" target="_blank" rel="nofollow" class="type">&lt;fs.ReadStream&gt;</a> &#x8BE6;&#x89C1;<a href="javascript:if(confirm('http://nodejs.cn/s/YuDKX1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YuDKX1'" tppabs="http://nodejs.cn/s/YuDKX1" rel="nofollow">&#x53EF;&#x8BFB;&#x6D41;</a>&#x3002;</li>
+</ul><p>&#x53EF;&#x8BFB;&#x6D41;&#x7684; <code>highWaterMark</code> &#x4E00;&#x822C;&#x9ED8;&#x8BA4;&#x4E3A; 16 kb&#xFF0C;&#x4F46;&#x672C;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x53EF;&#x8BFB;&#x6D41;&#x9ED8;&#x8BA4;&#x4E3A; 64 kb&#x3002;</p><p><code>start</code> &#x4E0E; <code>end</code> &#x7528;&#x4E8E;&#x4ECE;&#x6587;&#x4EF6;&#x8BFB;&#x53D6;&#x6307;&#x5B9A;&#x8303;&#x56F4;&#x7684;&#x5B57;&#x8282;&#x3002;
+<code>start</code> &#x4E0E; <code>end</code> &#x90FD;&#x662F;&#x5305;&#x62EC;&#x5728;&#x5185;&#x7684;&#x3002;
+&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; <code>fd</code> &#x4E14;&#x4E0D;&#x6307;&#x5B9A; <code>start</code>&#xFF0C;&#x5219;&#x4ECE;&#x5F53;&#x524D;&#x4F4D;&#x7F6E;&#x5F00;&#x59CB;&#x8BFB;&#x53D6;&#x3002;</p><p>&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; <code>fd</code>&#xFF0C;&#x5219;&#x5FFD;&#x7565; <code>path</code>&#x3002;
+&#x8FD9;&#x610F;&#x5473;&#x7740;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1; <code>&apos;open&apos;</code> &#x4E8B;&#x4EF6;&#x3002;
+<code>fd</code> &#x5FC5;&#x987B;&#x662F;&#x963B;&#x585E;&#x7684;&#xFF0C;&#x975E;&#x963B;&#x585E;&#x7684; <code>fd</code> &#x5E94;&#x8BE5;&#x4F20;&#x7ED9; <a href="javascript:if(confirm('http://nodejs.cn/s/wsJ1o1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wsJ1o1'" tppabs="http://nodejs.cn/s/wsJ1o1" rel="nofollow"><code>net.Socket</code></a>&#x3002;</p><p>&#x5982;&#x679C; <code>fd</code> &#x662F;&#x4E00;&#x4E2A;&#x53EA;&#x652F;&#x6301;&#x963B;&#x585E;&#x8BFB;&#x53D6;&#xFF08;&#x6BD4;&#x5982;&#x952E;&#x76D8;&#x6216;&#x58F0;&#x5361;&#xFF09;&#x7684;&#x5B57;&#x7B26;&#x8BBE;&#x5907;&#xFF0C;&#x5219;&#x8BFB;&#x53D6;&#x64CD;&#x4F5C;&#x5728;&#x8BFB;&#x53D6;&#x5230;&#x6570;&#x636E;&#x4E4B;&#x524D;&#x4E0D;&#x4F1A;&#x7ED3;&#x675F;&#x3002;
+&#x8FD9;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x8FDB;&#x7A0B;&#x9000;&#x51FA;&#x6216;&#x8005;&#x6D41;&#x88AB;&#x5173;&#x95ED;&#x3002;</p><pre><code class="language-js">const fs = require(&apos;fs&apos;);
+// &#x4ECE;&#x5B57;&#x7B26;&#x8BBE;&#x5907;&#x521B;&#x5EFA;&#x53EF;&#x8BFB;&#x6D41;&#x3002;
+const stream = fs.createReadStream(&apos;/dev/input/event0&apos;);
+setTimeout(() =&gt; {
+  stream.close(); // &#x8FD9;&#x4E0D;&#x4F1A;&#x5173;&#x95ED;&#x6D41;&#x3002;
+  // &#x5FC5;&#x987B;&#x624B;&#x52A8;&#x5730;&#x6307;&#x793A;&#x6D41;&#x5DF2;&#x5230;&#x5C3D;&#x5934;&#xFF0C;&#x6D41;&#x624D;&#x4F1A;&#x5173;&#x95ED;&#x3002;
+  // &#x8FD9;&#x4E0D;&#x4F1A;&#x53D6;&#x6D88;&#x8BFB;&#x53D6;&#x64CD;&#x4F5C;&#x7684;&#x7B49;&#x5F85;&#xFF0C;&#x8FDB;&#x7A0B;&#x5728;&#x8BFB;&#x53D6;&#x5B8C;&#x6210;&#x524D;&#x4E0D;&#x4F1A;&#x9000;&#x51FA;&#x3002;
+  stream.push(null);
+  stream.read(0);
+}, 100);
+</code></pre><p>&#x5982;&#x679C; <code>autoClose</code> &#x8BBE;&#x4E3A; <code>false</code>&#xFF0C;&#x5219;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x4E0D;&#x4F1A;&#x81EA;&#x52A8;&#x5173;&#x95ED;&#xFF0C;&#x5373;&#x4F7F;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#x3002;
+&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x9700;&#x8981;&#x8D1F;&#x8D23;&#x5173;&#x95ED;&#x5B83;&#xFF0C;&#x5E76;&#x4E14;&#x786E;&#x4FDD;&#x6CA1;&#x6709;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x6CC4;&#x6F0F;&#x3002;
+&#x5982;&#x679C; <code>autoClose</code> &#x8BBE;&#x4E3A; <code>true</code>&#xFF08;&#x9ED8;&#x8BA4;&#xFF09;&#xFF0C;&#x5219;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x5728; <code>error</code> &#x6216; <code>end</code> &#x4E8B;&#x4EF6;&#x65F6;&#x4F1A;&#x81EA;&#x52A8;&#x5173;&#x95ED;&#x3002;</p><p><code>mode</code> &#x7528;&#x4E8E;&#x8BBE;&#x7F6E;&#x6587;&#x4EF6;&#x6A21;&#x5F0F;&#xFF08;&#x6743;&#x9650;&#xFF09;&#xFF0C;&#x4F46;&#x4EC5;&#x9650;&#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x65F6;&#x6709;&#x6548;&#x3002;</p><p>&#x4F8B;&#x5B50;&#xFF0C;&#x4ECE;&#x4E00;&#x4E2A;&#x5927;&#x5C0F;&#x4E3A; 100 &#x5B57;&#x8282;&#x7684;&#x6587;&#x4EF6;&#x4E2D;&#x8BFB;&#x53D6;&#x6700;&#x540E; 10 &#x4E2A;&#x5B57;&#x8282;&#xFF1A;</p><pre><code class="language-js">fs.createReadStream(&apos;sample.txt&apos;, { start: 90, end: 99 });
+</code></pre><p>&#x5982;&#x679C; <code>options</code> &#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x6307;&#x5B9A;&#x5B57;&#x7B26;&#x7F16;&#x7801;&#x3002;</p></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v7.6.0</td>
+<td><p>The <code>path</code> parameter can be a WHATWG <code>URL</code> object using <code>file:</code> protocol. Support is currently still <em>experimental</em>.</p></td></tr>
+<tr><td>v7.0.0</td>
+<td><p>The passed <code>options</code> object will never be modified.</p></td></tr>
+<tr><td>v2.3.0</td>
+<td><p>The passed <code>options</code> object can be a string now.</p></td></tr>
+<tr><td>v0.1.31</td>
+<td><p><span>Added in: v0.1.31</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> | <a href="url.html#url_the_whatwg_url_api" tppabs="http://nodejs.cn/api/url.html#url_the_whatwg_url_api" target="_blank" rel="nofollow" class="type">&lt;URL&gt;</a></li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>flags</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> See <a href="javascript:if(confirm('http://nodejs.cn/s/JjbY8n  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JjbY8n'" tppabs="http://nodejs.cn/s/JjbY8n" rel="nofollow">support of file system <code>flags</code></a>. <strong>Default:</strong>
+<code>&apos;r&apos;</code>.</li>
+<li><code>encoding</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> <strong>Default:</strong> <code>null</code></li>
+<li><code>fd</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> <strong>Default:</strong> <code>null</code></li>
+<li><code>mode</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> <strong>Default:</strong> <code>0o666</code></li>
+<li><code>autoClose</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> <strong>Default:</strong> <code>true</code></li>
+<li><code>start</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+<li><code>end</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> <strong>Default:</strong> <code>Infinity</code></li>
+<li><code>highWaterMark</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> <strong>Default:</strong> <code>64 * 1024</code></li>
+</ul>
+</li>
+<li>Returns: <a href="fs.html#fs_class_fs_readstream" tppabs="http://nodejs.cn/api/fs.html#fs_class_fs_readstream" target="_blank" rel="nofollow" class="type">&lt;fs.ReadStream&gt;</a> See <a href="javascript:if(confirm('http://nodejs.cn/s/YuDKX1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YuDKX1'" tppabs="http://nodejs.cn/s/YuDKX1" rel="nofollow">Readable Streams</a>.</li>
+</ul><p>Unlike the 16 kb default <code>highWaterMark</code> for a readable stream, the stream
+returned by this method has a default <code>highWaterMark</code> of 64 kb.</p><p><code>options</code> can include <code>start</code> and <code>end</code> values to read a range of bytes from
+the file instead of the entire file. Both <code>start</code> and <code>end</code> are inclusive and
+start counting at 0. If <code>fd</code> is specified and <code>start</code> is omitted or <code>undefined</code>,
+<code>fs.createReadStream()</code> reads sequentially from the current file position.
+The <code>encoding</code> can be any one of those accepted by <a href="javascript:if(confirm('http://nodejs.cn/s/FApxjh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FApxjh'" tppabs="http://nodejs.cn/s/FApxjh" rel="nofollow"><code>Buffer</code></a>.</p><p>If <code>fd</code> is specified, <code>ReadStream</code> will ignore the <code>path</code> argument and will use
+the specified file descriptor. This means that no <code>&apos;open&apos;</code> event will be
+emitted. <code>fd</code> should be blocking; non-blocking <code>fd</code>s should be passed to
+<a href="javascript:if(confirm('http://nodejs.cn/s/wsJ1o1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wsJ1o1'" tppabs="http://nodejs.cn/s/wsJ1o1" rel="nofollow"><code>net.Socket</code></a>.</p><p>If <code>fd</code> points to a character device that only supports blocking reads
+(such as keyboard or sound card), read operations do not finish until data is
+available. This can prevent the process from exiting and the stream from
+closing naturally.</p><pre><code class="language-js">const fs = require(&apos;fs&apos;);
+// Create a stream from some character  device.
+const stream = fs.createReadStream(&apos;/dev/input/event0&apos;);
+setTimeout(() =&gt; {
+  stream.close(); // This may not close the stream.
+  // Artificially marking end-of-stream, as if the underlying resource had
+  // indicated end-of-file by itself, allows the stream to close.
+  // This does not cancel pending read operations, and if there is such an
+  // operation, the process may still not be able to exit successfully
+  // until it finishes.
+  stream.push(null);
+  stream.read(0);
+}, 100);
+</code></pre><p>If <code>autoClose</code> is false, then the file descriptor won&apos;t be closed, even if
+there&apos;s an error. It is the application&apos;s responsibility to close it and make
+sure there&apos;s no file descriptor leak. If <code>autoClose</code> is set to true (default
+behavior), on <code>&apos;error&apos;</code> or <code>&apos;end&apos;</code> the file descriptor will be closed
+automatically.</p><p><code>mode</code> sets the file mode (permission and sticky bits), but only if the
+file was created.</p><p>An example to read the last 10 bytes of a file which is 100 bytes long:</p><pre><code class="language-js">fs.createReadStream(&apos;sample.txt&apos;, { start: 90, end: 99 });
+</code></pre><p>If <code>options</code> is a string, then it specifies the encoding.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712023841"><\/script>');
+  </script>
+</body>
+</html>

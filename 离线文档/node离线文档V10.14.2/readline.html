@@ -1,0 +1,537 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>readline | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712035690" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-readline">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline active" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="readline" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><span class="stability_2"><a href="#readline_readline">readline&#xFF08;&#x9010;&#x884C;&#x8BFB;&#x53D6;&#xFF09;</a></span></p>
+<ul>
+<li>
+<p><a href="#readline_class_interface">Interface &#x7C7B;</a></p>
+<ul>
+<li><a href="#readline_event_close">&apos;close&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#readline_event_line">&apos;line&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#readline_event_pause">&apos;pause&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#readline_event_resume">&apos;resume&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#readline_event_sigcont">&apos;SIGCONT&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#readline_event_sigint">&apos;SIGINT&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#readline_event_sigtstp">&apos;SIGTSTP&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#readline_rl_close">rl.close()</a></li>
+<li><a href="#readline_rl_pause">rl.pause()</a></li>
+<li><a href="#readline_rl_prompt_preservecursor">rl.prompt([preserveCursor])</a></li>
+<li><a href="#readline_rl_question_query_callback">rl.question(query, callback)</a></li>
+<li><a href="#readline_rl_resume">rl.resume()</a></li>
+<li><a href="#readline_rl_setprompt_prompt">rl.setPrompt(prompt)</a></li>
+<li><a href="#readline_rl_write_data_key">rl.write(data[, key])</a></li>
+</ul>
+</li>
+<li><a href="#readline_readline_clearline_stream_dir">readline.clearLine(stream, dir)</a></li>
+<li><a href="#readline_readline_clearscreendown_stream">readline.clearScreenDown(stream)</a></li>
+<li>
+<p><a href="#readline_readline_createinterface_options">readline.createInterface(options)</a></p>
+<ul>
+<li><a href="#readline_use_of_the_completer_function"><code>completer</code> &#x51FD;&#x6570;&#x7684;&#x4F7F;&#x7528;</a></li>
+</ul>
+</li>
+<li><a href="#readline_readline_cursorto_stream_x_y">readline.cursorTo(stream, x, y)</a></li>
+<li><a href="#readline_readline_emitkeypressevents_stream_interface">readline.emitKeypressEvents(stream[, interface])</a></li>
+<li><a href="#readline_readline_movecursor_stream_dx_dy">readline.moveCursor(stream, dx, dy)</a></li>
+<li><a href="#readline_example_tiny_cli">&#x4F8B;&#x5B50;&#xFF1A;&#x7B80;&#x5355;&#x7684;&#x547D;&#x4EE4;&#x884C;&#x754C;&#x9762;</a></li>
+<li><a href="#readline_example_read_file_stream_line_by_line">&#x4F8B;&#x5B50;&#xFF1A;&#x9010;&#x884C;&#x5730;&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x6D41;</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>readline&#xFF08;&#x9010;&#x884C;&#x8BFB;&#x53D6;&#xFF09;<span><a class="mark" href="#readline_readline" id="readline_readline" rel="nofollow">#</a></span></h1><p class="tip_wrap"><a href="readline-1.html" tppabs="http://nodejs.cn/api/readline/readline.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<!--introduced_in=v0.10.0-->
+<p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p>
+<p><code>require(&apos;readline&apos;)</code> &#x6A21;&#x5757;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x7528;&#x4E8E;&#x4ECE;<a href="javascript:if(confirm('http://nodejs.cn/s/zz7Dx3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zz7Dx3'" tppabs="http://nodejs.cn/s/zz7Dx3" rel="nofollow">&#x53EF;&#x8BFB;&#x6D41;</a>&#xFF08;&#x5982; <a href="javascript:if(confirm('http://nodejs.cn/s/gagmJq  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gagmJq'" tppabs="http://nodejs.cn/s/gagmJq" rel="nofollow"><code>process.stdin</code></a>&#xFF09;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x6BCF;&#x6B21;&#x8BFB;&#x53D6;&#x4E00;&#x884C;&#x3002;
+&#x5B83;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE5;&#x4E0B;&#x65B9;&#x5F0F;&#x4F7F;&#x7528;&#xFF1A;</p>
+<pre><code class="language-js">const readline = require(&apos;readline&apos;);
+</code></pre>
+<p>&#x4F8B;&#x5B50;&#xFF0C;<code>readline</code> &#x6A21;&#x5757;&#x7684;&#x57FA;&#x672C;&#x7528;&#x6CD5;&#xFF1A;</p>
+<pre><code class="language-js">const readline = require(&apos;readline&apos;);
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question(&apos;&#x4F60;&#x8BA4;&#x4E3A; Node.js &#x4E2D;&#x6587;&#x7F51;&#x600E;&#x4E48;&#x6837;&#xFF1F;&apos;, (answer) =&gt; {
+  // &#x5BF9;&#x7B54;&#x6848;&#x8FDB;&#x884C;&#x5904;&#x7406;
+  console.log(`&#x591A;&#x8C22;&#x4F60;&#x7684;&#x53CD;&#x9988;&#xFF1A;${answer}`);
+
+  rl.close();
+});
+</code></pre>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x5F53;&#x8C03;&#x7528;&#x8BE5;&#x4EE3;&#x7801;&#x65F6;&#xFF0C;Node.js &#x7A0B;&#x5E8F;&#x4E0D;&#x4F1A;&#x7EC8;&#x6B62;&#xFF0C;&#x76F4;&#x5230; <code>readline.Interface</code> &#x88AB;&#x5173;&#x95ED;&#xFF0C;&#x56E0;&#x4E3A;&#x63A5;&#x53E3;&#x5728;&#x7B49;&#x5F85; <code>input</code> &#x6D41;&#x4E2D;&#x8981;&#x88AB;&#x63A5;&#x6536;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<h2>Interface &#x7C7B;<span><a class="mark" href="#readline_class_interface" id="readline_class_interface" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="class_interface.html" tppabs="http://nodejs.cn/api/readline/class_interface.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.104</span>
+</div>
+<p><code>readline.Interface</code> &#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#x662F;&#x4F7F;&#x7528; <code>readline.createInterface()</code> &#x65B9;&#x6CD5;&#x6784;&#x9020;&#x7684;&#x3002;
+&#x6BCF;&#x4E2A;&#x5B9E;&#x4F8B;&#x90FD;&#x5173;&#x8054;&#x4E00;&#x4E2A; <code>input</code> <a href="javascript:if(confirm('http://nodejs.cn/s/zz7Dx3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zz7Dx3'" tppabs="http://nodejs.cn/s/zz7Dx3" rel="nofollow">&#x53EF;&#x8BFB;&#x6D41;</a>&#x548C;&#x4E00;&#x4E2A; <code>output</code> <a href="javascript:if(confirm('http://nodejs.cn/s/LzH75p  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LzH75p'" tppabs="http://nodejs.cn/s/LzH75p" rel="nofollow">&#x53EF;&#x5199;&#x6D41;</a>&#x3002;
+<code>output</code> &#x6D41;&#x7528;&#x4E8E;&#x4E3A;&#x5230;&#x8FBE;&#x7684;&#x7528;&#x6237;&#x8F93;&#x5165;&#x6253;&#x5370;&#x63D0;&#x793A;&#xFF0C;&#x4E14;&#x4ECE; <code>input</code> &#x6D41;&#x8BFB;&#x53D6;&#x3002;</p>
+<h3>&apos;close&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#readline_event_close" id="readline_event_close" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_close-5.html" tppabs="http://nodejs.cn/api/readline/event_close.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.98</span>
+</div>
+<p>&#x5F53;&#x4EE5;&#x4E0B;&#x4E4B;&#x4E00;&#x53D1;&#x751F;&#x65F6;&#xFF0C;&#x89E6;&#x53D1; <code>&apos;close&apos;</code> &#x4E8B;&#x4EF6;&#xFF1A;</p>
+<ul>
+<li><code>rl.close()</code> &#x65B9;&#x6CD5;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x4E14; <code>readline.Interface</code> &#x5B9E;&#x4F8B;&#x5DF2;&#x64A4;&#x56DE;&#x5BF9; <code>input</code> &#x6D41;&#x548C; <code>output</code> &#x6D41;&#x7684;&#x63A7;&#x5236;&#xFF1B;</li>
+<li><code>input</code> &#x6D41;&#x63A5;&#x6536;&#x5230; <code>&apos;end&apos;</code> &#x4E8B;&#x4EF6;&#xFF1B;</li>
+<li><code>input</code> &#x6D41;&#x63A5;&#x6536;&#x5230;&#x8868;&#x793A;&#x7ED3;&#x675F;&#x4F20;&#x8F93;&#x7684; <code>&lt;ctrl&gt;-D</code>&#xFF1B;</li>
+<li><code>input</code> &#x6D41;&#x63A5;&#x6536;&#x5230;&#x8868;&#x793A; <code>SIGINT</code> &#x7684; <code>&lt;ctrl&gt;-C</code>&#xFF0C;&#x4E14; <code>readline.Interface</code> &#x5B9E;&#x4F8B;&#x4E0A;&#x6CA1;&#x6709;&#x6CE8;&#x518C; <code>SIGINT</code> &#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x5668;&#x3002;</li>
+</ul>
+<p>&#x76D1;&#x542C;&#x5668;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#x4E0D;&#x4F20;&#x5165;&#x4EFB;&#x4F55;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x5F53; <code>&apos;close&apos;</code> &#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x65F6;&#xFF0C;<code>readline.Interface</code> &#x5B9E;&#x4F8B;&#x4F1A;&#x88AB;&#x7ED3;&#x675F;&#x3002;</p>
+<h3>&apos;line&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#readline_event_line" id="readline_event_line" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_line.html" tppabs="http://nodejs.cn/api/readline/event_line.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.98</span>
+</div>
+<p>&#x6BCF;&#x5F53; <code>input</code> &#x6D41;&#x63A5;&#x6536;&#x5230;&#x63A5;&#x6536;&#x884C;&#x7ED3;&#x675F;&#x7B26;&#xFF08;<code>\n</code>&#x3001;<code>\r</code> &#x6216; <code>\r\n</code>&#xFF09;&#x65F6;&#x89E6;&#x53D1; <code>&apos;line&apos;</code> &#x4E8B;&#x4EF6;&#x3002;
+&#x901A;&#x5E38;&#x53D1;&#x751F;&#x5728;&#x7528;&#x6237;&#x6309;&#x4E0B; <code>&lt;Enter&gt;</code> &#x952E;&#x6216; <code>&lt;Return&gt;</code> &#x952E;&#x3002;</p>
+<p>&#x76D1;&#x542C;&#x5668;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#x4F1A;&#x5E26;&#x4E0A;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x63A5;&#x6536;&#x7684;&#x90A3;&#x4E00;&#x884C;&#x8F93;&#x5165;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">rl.on(&apos;line&apos;, (input) =&gt; {
+  console.log(`&#x63A5;&#x6536;&#x5230;&#xFF1A;${input}`);
+});
+</code></pre>
+<h3>&apos;pause&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#readline_event_pause" id="readline_event_pause" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_pause.html" tppabs="http://nodejs.cn/api/readline/event_pause.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.5</span>
+</div>
+<p>&#x5F53;&#x4EE5;&#x4E0B;&#x4E4B;&#x4E00;&#x53D1;&#x751F;&#x65F6;&#x89E6;&#x53D1; <code>&apos;pause&apos;</code> &#x4E8B;&#x4EF6;&#xFF1A;</p>
+<ul>
+<li><code>input</code> &#x6D41;&#x88AB;&#x6682;&#x505C;&#x3002;</li>
+<li><code>input</code> &#x6D41;&#x4E0D;&#x662F;&#x6682;&#x505C;&#x7684;&#xFF0C;&#x4E14;&#x63A5;&#x6536;&#x5230; <code>SIGCONT</code> &#x4E8B;&#x4EF6;&#x3002;&#xFF08;&#x8BE6;&#x89C1; [<code>SIGTSTP</code>] &#x4E8B;&#x4EF6;&#x548C; [<code>SIGCONT</code>] &#x4E8B;&#x4EF6;&#xFF09;</li>
+</ul>
+<p>&#x76D1;&#x542C;&#x5668;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#x4E0D;&#x4F20;&#x5165;&#x4EFB;&#x4F55;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">rl.on(&apos;pause&apos;, () =&gt; {
+  console.log(&apos;Readline &#x88AB;&#x6682;&#x505C;&#x3002;&apos;);
+});
+</code></pre>
+<h3>&apos;resume&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#readline_event_resume" id="readline_event_resume" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_resume.html" tppabs="http://nodejs.cn/api/readline/event_resume.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.5</span>
+</div>
+<p>&#x6BCF;&#x5F53; <code>input</code> &#x6D41;&#x88AB;&#x6062;&#x590D;&#x65F6;&#x89E6;&#x53D1; <code>&apos;resume&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p>
+<p>&#x76D1;&#x542C;&#x5668;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#x4E0D;&#x4F20;&#x5165;&#x4EFB;&#x4F55;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">rl.on(&apos;resume&apos;, () =&gt; {
+  console.log(&apos;Readline &#x88AB;&#x6062;&#x590D;&#x3002;&apos;);
+});
+</code></pre>
+<h3>&apos;SIGCONT&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#readline_event_sigcont" id="readline_event_sigcont" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_sigcont.html" tppabs="http://nodejs.cn/api/readline/event_sigcont.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.5</span>
+</div>
+<p>&#x5F53;&#x4E00;&#x4E2A; Node.js &#x8FDB;&#x7A0B;&#x4F7F;&#x7528; <code>&lt;ctrl&gt;-Z</code>&#xFF08;&#x4E5F;&#x5C31;&#x662F; <code>SIGTSTP</code>&#xFF09;&#x79FB;&#x5165;&#x540E;&#x53F0;&#x4E4B;&#x540E;&#x518D;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/_man/1/fg.1p  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_man/1/fg.1p'" tppabs="http://nodejs.cn/s/_man/1/fg.1p" rel="nofollow"><code>fg(1p)</code></a> &#x79FB;&#x56DE;&#x524D;&#x53F0;&#x65F6;&#xFF0C;&#x89E6;&#x53D1; <code>&apos;SIGCONT&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>input</code> &#x6D41;&#x5728; <code>SIGTSTP</code> &#x8BF7;&#x6C42;&#x4E4B;&#x524D;&#x88AB;&#x6682;&#x505C;&#xFF0C;&#x5219;&#x4E8B;&#x4EF6;&#x4E0D;&#x4F1A;&#x88AB;&#x89E6;&#x53D1;&#x3002;</p>
+<p>&#x76D1;&#x542C;&#x5668;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#x4E0D;&#x4F20;&#x5165;&#x4EFB;&#x4F55;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">rl.on(&apos;SIGCONT&apos;, () =&gt; {
+  // `prompt` &#x4F1A;&#x81EA;&#x52A8;&#x6062;&#x590D;&#x6D41;
+  rl.prompt();
+});
+</code></pre>
+<p>&#x6CE8;&#x610F;&#xFF1A;Windows &#x7CFB;&#x7EDF;&#x4E0D;&#x652F;&#x6301; <code>&apos;SIGCONT&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p>
+<h3>&apos;SIGINT&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#readline_event_sigint" id="readline_event_sigint" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_sigint.html" tppabs="http://nodejs.cn/api/readline/event_sigint.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.0</span>
+</div>
+<p>&#x6BCF;&#x5F53; <code>input</code> &#x6D41;&#x63A5;&#x6536;&#x5230;&#x4E00;&#x4E2A; <code>&lt;ctrl&gt;-C</code> &#x8F93;&#x5165;&#xFF08;&#x901A;&#x5E38;&#x88AB;&#x79F0;&#x4E3A; <code>SIGINT</code>&#xFF09;&#x65F6;&#xFF0C;&#x89E6;&#x53D1; <code>&apos;SIGINT&apos;</code> &#x4E8B;&#x4EF6;&#x3002;
+&#x5F53; <code>input</code> &#x6D41;&#x63A5;&#x6536;&#x5230;&#x4E00;&#x4E2A; <code>SIGINT</code> &#x65F6;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6CE8;&#x518C; <code>&apos;SIGINT&apos;</code> &#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x5219; <code>&apos;pause&apos;</code> &#x4E8B;&#x4EF6;&#x4F1A;&#x88AB;&#x89E6;&#x53D1;&#x3002;</p>
+<p>&#x76D1;&#x542C;&#x5668;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#x4E0D;&#x4F20;&#x5165;&#x4EFB;&#x4F55;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">rl.on(&apos;SIGINT&apos;, () =&gt; {
+  rl.question(&apos;&#x786E;&#x5B9A;&#x8981;&#x9000;&#x51FA;&#x5417;&#xFF1F; &apos;, (answer) =&gt; {
+    if (answer.match(/^y(es)?$/i)) rl.pause();
+  });
+});
+</code></pre>
+<h3>&apos;SIGTSTP&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#readline_event_sigtstp" id="readline_event_sigtstp" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_sigtstp.html" tppabs="http://nodejs.cn/api/readline/event_sigtstp.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.5</span>
+</div>
+<p>&#x6BCF;&#x5F53; <code>input</code> &#x6D41;&#x63A5;&#x6536;&#x5230;&#x4E00;&#x4E2A; <code>&lt;ctrl&gt;-Z</code> &#x8F93;&#x5165;&#xFF08;&#x901A;&#x5E38;&#x88AB;&#x79F0;&#x4E3A; <code>SIGTSTP</code>&#xFF09;&#x65F6;&#xFF0C;&#x89E6;&#x53D1; <code>&apos;SIGTSTP&apos;</code> &#x4E8B;&#x4EF6;&#x3002;
+&#x5F53; <code>input</code> &#x6D41;&#x63A5;&#x6536;&#x5230;&#x4E00;&#x4E2A; <code>SIGTSTP</code> &#x65F6;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6CE8;&#x518C; <code>&apos;SIGTSTP&apos;</code> &#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x5219; Node.js &#x8FDB;&#x7A0B;&#x4F1A;&#x88AB;&#x53D1;&#x9001;&#x5230;&#x540E;&#x53F0;&#x3002;</p>
+<p>&#x5F53;&#x7A0B;&#x5E8F;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/_man/1/fg.1p  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_man/1/fg.1p'" tppabs="http://nodejs.cn/s/_man/1/fg.1p" rel="nofollow"><code>fg(1p)</code></a> &#x6062;&#x590D;&#x65F6;<code>&apos;pause&apos;</code> &#x548C; <code>SIGCONT</code> &#x4E8B;&#x4EF6;&#x4F1A;&#x88AB;&#x89E6;&#x53D1;&#x3002;
+&#x8FD9;&#x53EF;&#x88AB;&#x7528;&#x6765;&#x6062;&#x590D; <code>input</code> &#x6D41;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>input</code> &#x6D41;&#x5728;&#x8FDB;&#x7A0B;&#x88AB;&#x53D1;&#x9001;&#x5230;&#x540E;&#x53F0;&#x4E4B;&#x524D;&#x88AB;&#x6682;&#x505C;&#xFF0C;&#x5219; <code>&apos;pause&apos;</code> &#x548C; <code>SIGCONT</code> &#x4E8B;&#x4EF6;&#x4E0D;&#x4F1A;&#x88AB;&#x89E6;&#x53D1;&#x3002;</p>
+<p>&#x76D1;&#x542C;&#x5668;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#x4E0D;&#x4F20;&#x5165;&#x4EFB;&#x4F55;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">rl.on(&apos;SIGTSTP&apos;, () =&gt; {
+  // &#x8FD9;&#x4F1A;&#x91CD;&#x5199; SIGTSTP&#xFF0C;&#x4E14;&#x9632;&#x6B62;&#x7A0B;&#x5E8F;&#x8FDB;&#x5165;&#x540E;&#x53F0;&#x3002;
+  console.log(&apos;&#x6355;&#x83B7; SIGTSTP&#x3002;&apos;);
+});
+</code></pre>
+<p>&#x6CE8;&#x610F;&#xFF1A;Windows &#x7CFB;&#x7EDF;&#x4E0D;&#x652F;&#x6301; <code>&apos;SIGTSTP&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p>
+<h3>rl.close()<span><a class="mark" href="#readline_rl_close" id="readline_rl_close" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="rl_close.html" tppabs="http://nodejs.cn/api/readline/rl_close.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.98</span>
+</div>
+<p><code>rl.close()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x5173;&#x95ED; <code>readline.Interface</code> &#x5B9E;&#x4F8B;&#xFF0C;&#x4E14;&#x64A4;&#x56DE;&#x5BF9; <code>input</code> &#x548C; <code>output</code> &#x6D41;&#x7684;&#x63A7;&#x5236;&#x3002;
+&#x4F46;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;<code>&apos;close&apos;</code> &#x4E8B;&#x4EF6;&#x4F1A;&#x88AB;&#x89E6;&#x53D1;&#x3002;</p>
+<h3>rl.pause()<span><a class="mark" href="#readline_rl_pause" id="readline_rl_pause" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="rl_pause.html" tppabs="http://nodejs.cn/api/readline/rl_pause.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.4</span>
+</div>
+<p><code>rl.pause()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x6682;&#x505C; <code>input</code> &#x6D41;&#xFF0C;&#x4E14;&#x7A0D;&#x540E;&#x9700;&#x8981;&#x65F6;&#x53EF;&#x88AB;&#x6062;&#x590D;&#x3002;</p>
+<p>&#x8C03;&#x7528; <code>rl.pause()</code> &#x4E0D;&#x4F1A;&#x7ACB;&#x523B;&#x6682;&#x505C;&#x5176;&#x4ED6;&#x4E8B;&#x4EF6;&#xFF08;&#x5305;&#x62EC; <code>&apos;line&apos;</code>&#xFF09;&#x88AB; <code>readline.Interface</code> &#x5B9E;&#x4F8B;&#x89E6;&#x53D1;&#x3002;</p>
+<h3>rl.prompt([preserveCursor])<span><a class="mark" href="#readline_rl_prompt_preservecursor" id="readline_rl_prompt_preservecursor" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="rl_prompt_preservecursor.html" tppabs="http://nodejs.cn/api/readline/rl_prompt_preservecursor.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.98</span>
+</div>
+<ul>
+<li><code>preserveCursor</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C;&#x4E3A; <code>true</code>&#xFF0C;&#x5219;&#x963B;&#x6B62;&#x5149;&#x6807;&#x843D;&#x70B9;&#x88AB;&#x8BBE;&#x4E3A; <code>0</code>&#x3002;</li>
+</ul>
+<p><code>rl.prompt()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x5728; <code>output</code> &#x6D41;&#x4E2D;&#x65B0;&#x7684;&#x4E00;&#x884C;&#x5199;&#x5165; <code>readline.Interface</code> &#x5B9E;&#x4F8B;&#x914D;&#x7F6E;&#x540E;&#x7684; <code>prompt</code>&#xFF0C;&#x7528;&#x4E8E;&#x4E3A;&#x7528;&#x6237;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x53EF;&#x4F9B;&#x8F93;&#x5165;&#x7684;&#x65B0;&#x7684;&#x4F4D;&#x7F6E;&#x3002;</p>
+<p>&#x5F53;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x5982;&#x679C; <code>input</code> &#x6D41;&#x5DF2;&#x88AB;&#x6682;&#x505C;&#xFF0C;&#x5219; <code>rl.prompt()</code> &#x4F1A;&#x6062;&#x590D; <code>input</code> &#x6D41;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>readline.Interface</code> &#x88AB;&#x521B;&#x5EFA;&#x65F6; <code>output</code> &#x88AB;&#x8BBE;&#x4E3A; <code>null</code> &#x6216; <code>undefined</code>&#xFF0C;&#x5219;&#x63D0;&#x793A;&#x4E0D;&#x4F1A;&#x88AB;&#x5199;&#x5165;&#x3002;</p>
+<h3>rl.question(query, callback)<span><a class="mark" href="#readline_rl_question_query_callback" id="readline_rl_question_query_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="rl_question_query_callback.html" tppabs="http://nodejs.cn/api/readline/rl_question_query_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.3</span>
+</div>
+<ul>
+<li><code>query</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x4E00;&#x4E2A;&#x5728;&#x63D0;&#x793A;&#x7B26;&#x4E4B;&#x524D;&#x3001;&#x8981;&#x5199;&#x5165; <code>output</code> &#x7684;&#x53D9;&#x8FF0;&#x6216;&#x8BE2;&#x95EE;&#x3002;</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x4E00;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x4F1A;&#x88AB;&#x8C03;&#x7528;&#x5E76;&#x5E26;&#x4E0A;&#x7528;&#x6237;&#x54CD;&#x5E94; <code>query</code> &#x7684;&#x8F93;&#x5165;&#x3002;</li>
+</ul>
+<p><code>rl.question()</code> &#x65B9;&#x6CD5;&#x901A;&#x8FC7;&#x5199;&#x5165;&#x5230; <code>output</code> &#x6765;&#x5C55;&#x793A; <code>query</code>&#xFF0C;&#x5E76;&#x7B49;&#x5F85;&#x7528;&#x6237;&#x63D0;&#x4F9B;&#x5230; <code>input</code> &#x7684;&#x8F93;&#x5165;&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528; <code>callback</code> &#x51FD;&#x6570;&#x5E76;&#x4F20;&#x5165;&#x63D0;&#x4F9B;&#x7684;&#x8F93;&#x5165;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x5F53;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x5982;&#x679C; <code>input</code> &#x6D41;&#x5DF2;&#x88AB;&#x6682;&#x505C;&#xFF0C;&#x5219; <code>rl.question()</code> &#x4F1A;&#x6062;&#x590D; <code>input</code> &#x6D41;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>readline.Interface</code> &#x88AB;&#x521B;&#x5EFA;&#x65F6; <code>output</code> &#x88AB;&#x8BBE;&#x4E3A; <code>null</code> &#x6216; <code>undefined</code>&#xFF0C;&#x5219; <code>query</code> &#x4E0D;&#x4F1A;&#x88AB;&#x5199;&#x5165;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">rl.question(&apos;&#x4F60;&#x6700;&#x559C;&#x6B22;&#x7684;&#x98DF;&#x7269;&#x662F;&#x4EC0;&#x4E48;&#xFF1F; &apos;, (answer) =&gt; {
+  console.log(`&#x4F60;&#x6700;&#x559C;&#x6B22;&#x7684;&#x98DF;&#x7269;&#x662F; ${answer}`);
+});
+</code></pre>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x4F20;&#x5165;&#x7684; <code>rl.question()</code> &#x7684; <code>callback</code> &#x51FD;&#x6570;&#x4E0D;&#x9075;&#x5FAA;&#x63A5;&#x53D7;&#x4E00;&#x4E2A; <code>Error</code> &#x5BF9;&#x8C61;&#x6216; <code>null</code> &#x4F5C;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x6807;&#x51C6;&#x6A21;&#x5F0F;&#x3002;
+<code>callback</code> &#x88AB;&#x8C03;&#x7528;&#x65F6;&#x53EA;&#x5E26;&#x4E0A;&#x63D0;&#x4F9B;&#x7684;&#x7B54;&#x6848;&#x4F5C;&#x4E3A;&#x552F;&#x4E00;&#x7684;&#x53C2;&#x6570;&#x3002;</p>
+<h3>rl.resume()<span><a class="mark" href="#readline_rl_resume" id="readline_rl_resume" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="rl_resume.html" tppabs="http://nodejs.cn/api/readline/rl_resume.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.4</span>
+</div>
+<p>&#x5982;&#x679C; <code>input</code> &#x6D41;&#x5DF2;&#x88AB;&#x6682;&#x505C;&#xFF0C;&#x5219; <code>rl.resume()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x6062;&#x590D; <code>input</code> &#x6D41;&#x3002;</p>
+<h3>rl.setPrompt(prompt)<span><a class="mark" href="#readline_rl_setprompt_prompt" id="readline_rl_setprompt_prompt" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="rl_setprompt_prompt.html" tppabs="http://nodejs.cn/api/readline/rl_setprompt_prompt.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.98</span>
+</div>
+<ul>
+<li><code>prompt</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p><code>rl.setPrompt()</code> &#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x8BBE;&#x7F6E;&#x6BCF;&#x5F53; <code>rl.prompt()</code> &#x88AB;&#x8C03;&#x7528;&#x65F6;&#x8981;&#x88AB;&#x5199;&#x5165;&#x5230; <code>output</code> &#x7684;&#x63D0;&#x793A;&#x3002;</p>
+<h3>rl.write(data[, key])<span><a class="mark" href="#readline_rl_write_data_key" id="readline_rl_write_data_key" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="rl_write_data_key.html" tppabs="http://nodejs.cn/api/readline/rl_write_data_key.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.98</span>
+</div>
+<ul>
+<li><code>data</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>key</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>ctrl</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C;&#x4E3A; <code>true</code> &#x5219;&#x8868;&#x793A; <code>&lt;ctrl&gt;</code> &#x952E;&#x3002;</li>
+<li><code>meta</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C;&#x4E3A; <code>true</code> &#x5219;&#x8868;&#x793A; <code>&lt;Meta&gt;</code> &#x952E;&#x3002;</li>
+<li><code>shift</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C;&#x4E3A; <code>true</code> &#x5219;&#x8868;&#x793A; <code>&lt;Shift&gt;</code> &#x952E;&#x3002;</li>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x4E00;&#x4E2A;&#x6309;&#x952E;&#x7684;&#x540D;&#x79F0;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p><code>rl.write()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x628A; <code>data</code> &#x6216;&#x4E00;&#x4E2A;&#x7531; <code>key</code> &#x6307;&#x5B9A;&#x7684;&#x6309;&#x952E;&#x5E8F;&#x5217;&#x5199;&#x5165;&#x5230; <code>output</code>&#x3002;
+&#x53EA;&#x6709;&#x5F53; <code>output</code> &#x662F;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/JGk7iB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JGk7iB'" tppabs="http://nodejs.cn/s/JGk7iB" rel="nofollow">TTY</a> &#x6587;&#x672C;&#x7EC8;&#x7AEF;&#x65F6;&#xFF0C;<code>key</code> &#x53C2;&#x6570;&#x624D;&#x88AB;&#x652F;&#x6301;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; <code>key</code>&#xFF0C;&#x5219; <code>data</code> &#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;</p>
+<p>&#x5F53;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x5982;&#x679C; <code>input</code> &#x6D41;&#x5DF2;&#x88AB;&#x6682;&#x505C;&#xFF0C;&#x5219; <code>rl.write()</code> &#x4F1A;&#x6062;&#x590D; <code>input</code> &#x6D41;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>readline.Interface</code> &#x88AB;&#x521B;&#x5EFA;&#x65F6; <code>output</code> &#x88AB;&#x8BBE;&#x4E3A; <code>null</code> &#x6216; <code>undefined</code>&#xFF0C;&#x5219; <code>data</code> &#x548C; <code>key</code> &#x4E0D;&#x4F1A;&#x88AB;&#x5199;&#x5165;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">rl.write(&apos;&#x5220;&#x9664;&#x8FD9;&#x4E2A;&#xFF01;&apos;);
+// &#x6A21;&#x62DF; Ctrl+u &#x5220;&#x9664;&#x5199;&#x5165;&#x7684;&#x524D;&#x4E00;&#x884C;&#x3002;
+rl.write(null, { ctrl: true, name: &apos;u&apos; });
+</code></pre>
+<p>&#x6CE8;&#x610F;&#xFF1A;<code>rl.write()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x5199;&#x5165;&#x6570;&#x636E;&#x5230; <code>readline</code> &#x63A5;&#x53E3;&#x7684; <code>input</code>&#xFF0C;&#x72B9;&#x5982;&#x5B83;&#x662F;&#x7528;&#x6237;&#x63D0;&#x4F9B;&#x7684;&#x3002;</p>
+<h2>readline.clearLine(stream, dir)<span><a class="mark" href="#readline_readline_clearline_stream_dir" id="readline_readline_clearline_stream_dir" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="readline_clearline_stream_dir.html" tppabs="http://nodejs.cn/api/readline/readline_clearline_stream_dir.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.7</span>
+</div>
+<ul>
+<li><code>stream</code> <a href="stream.html#stream_class_stream_writable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_writable" target="_blank" rel="nofollow" class="type">&lt;stream.Writable&gt;</a></li>
+<li>
+<p><code>dir</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></p>
+<ul>
+<li><code>-1</code> - &#x5149;&#x6807;&#x5DE6;&#x8FB9;</li>
+<li><code>1</code> - &#x5149;&#x6807;&#x53F3;&#x8FB9;</li>
+<li><code>0</code> - &#x6574;&#x884C;</li>
+</ul>
+</li>
+</ul>
+<p><code>readline.clearLine()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x4EE5; <code>dir</code> &#x6307;&#x5B9A;&#x7684;&#x65B9;&#x5411;&#x6E05;&#x9664;&#x7ED9;&#x5B9A;&#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/JGk7iB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JGk7iB'" tppabs="http://nodejs.cn/s/JGk7iB" rel="nofollow">TTY</a> &#x6D41;&#x7684;&#x5F53;&#x524D;&#x884C;&#x3002;</p>
+<h2>readline.clearScreenDown(stream)<span><a class="mark" href="#readline_readline_clearscreendown_stream" id="readline_readline_clearscreendown_stream" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="readline_clearscreendown_stream.html" tppabs="http://nodejs.cn/api/readline/readline_clearscreendown_stream.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.7</span>
+</div>
+<ul>
+<li><code>stream</code> <a href="stream.html#stream_class_stream_writable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_writable" target="_blank" rel="nofollow" class="type">&lt;stream.Writable&gt;</a></li>
+</ul>
+<p><code>readline.clearScreenDown()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x4ECE;&#x5149;&#x6807;&#x7684;&#x5F53;&#x524D;&#x4F4D;&#x7F6E;&#x5411;&#x4E0B;&#x6E05;&#x9664;&#x7ED9;&#x5B9A;&#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/JGk7iB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JGk7iB'" tppabs="http://nodejs.cn/s/JGk7iB" rel="nofollow">TTY</a> &#x6D41;&#x3002;</p>
+<h2>readline.createInterface(options)<span><a class="mark" href="#readline_readline_createinterface_options" id="readline_readline_createinterface_options" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="readline_createinterface_options.html" tppabs="http://nodejs.cn/api/readline/readline_createinterface_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.3.0, 6.11.4</td>
+<td><p>Remove max limit of <code>crlfDelay</code> option.</p></td></tr>
+<tr><td>v6.6.0</td>
+<td><p>The <code>crlfDelay</code> option is supported now.</p></td></tr>
+<tr><td>v6.3.0</td>
+<td><p>The <code>prompt</code> option is supported now.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>The <code>historySize</code> option can be <code>0</code> now.</p></td></tr>
+<tr><td>v0.1.98</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.98</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>input</code> <a href="stream.html#stream_class_stream_readable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_readable" target="_blank" rel="nofollow" class="type">&lt;stream.Readable&gt;</a> &#x8981;&#x76D1;&#x542C;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/zz7Dx3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zz7Dx3'" tppabs="http://nodejs.cn/s/zz7Dx3" rel="nofollow">&#x53EF;&#x8BFB;&#x6D41;</a>&#x3002;&#x8BE5;&#x9009;&#x9879;&#x662F;&#x5FC5;&#x9700;&#x7684;&#x3002;</li>
+<li><code>output</code> <a href="stream.html#stream_class_stream_writable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_writable" target="_blank" rel="nofollow" class="type">&lt;stream.Writable&gt;</a> &#x8981;&#x5199;&#x5165;&#x9010;&#x884C;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/LzH75p  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LzH75p'" tppabs="http://nodejs.cn/s/LzH75p" rel="nofollow">&#x53EF;&#x5199;&#x6D41;</a>&#x3002;</li>
+<li><code>completer</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x7528;&#x4E8E; Tab &#x81EA;&#x52A8;&#x8865;&#x5168;&#x3002;</li>
+<li><code>terminal</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C; <code>input</code> &#x548C; <code>output</code> &#x5E94;&#x88AB;&#x5F53;&#x4F5C;&#x4E00;&#x4E2A; TTY&#xFF0C;&#x4E14;&#x8981;&#x5199;&#x5165; ANSI/VT100 &#x8F6C;&#x6362;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5219;&#x8BBE;&#x4E3A; <code>true</code>&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A;&#x5B9E;&#x4F8B;&#x5316;&#x65F6;&#x5728; <code>output</code> &#x6D41;&#x4E0A;&#x68C0;&#x67E5; <code>isTTY</code>&#x3002;</li>
+<li><code>historySize</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x4FDD;&#x7559;&#x7684;&#x5386;&#x53F2;&#x884C;&#x6570;&#x7684;&#x6700;&#x5927;&#x6570;&#x91CF;&#x3002;
+&#x8BBE;&#x4E3A; <code>0</code> &#x53EF;&#x7981;&#x7528;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x3002;
+&#x8BE5;&#x9009;&#x9879;&#x53EA;&#x6709;&#x5F53; <code>terminal</code> &#x88AB;&#x7528;&#x6237;&#x6216;&#x5185;&#x90E8; <code>output</code> &#x8BBE;&#x4E3A; <code>true</code> &#x65F6;&#x624D;&#x6709;&#x610F;&#x4E49;&#xFF0C;&#x5426;&#x5219;&#x5386;&#x53F2;&#x7F13;&#x5B58;&#x673A;&#x5236;&#x4E0D;&#x4F1A;&#x88AB;&#x521D;&#x59CB;&#x5316;&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>30</code>&#x3002;</li>
+<li><code>prompt</code> - &#x8981;&#x4F7F;&#x7528;&#x7684;&#x63D0;&#x793A;&#x5B57;&#x7B26;&#x4E32;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>&apos;&gt; &apos;</code>&#x3002;</li>
+<li><code>crlfDelay</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5982;&#x679C; <code>\r</code> &#x4E0E; <code>\n</code> &#x4E4B;&#x95F4;&#x7684;&#x5EF6;&#x8FDF;&#x8D85;&#x8FC7; <code>crlfDelay</code> &#x6BEB;&#x79D2;&#xFF0C;&#x5219; <code>\r</code> &#x548C; <code>\n</code> &#x90FD;&#x4F1A;&#x88AB;&#x5F53;&#x4F5C;&#x6362;&#x884C;&#x5206;&#x9694;&#x7B26;&#x3002;
+<code>crlfDelay</code> &#x5F3A;&#x5236;&#x8BBE;&#x7F6E;&#x4E3A;&#x4E0D;&#x5C11;&#x4E8E; <code>100</code>. &#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x4E3A;
+<code>Infinity</code>, &#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C; <code>\r</code> &#x8DDF;&#x7740; <code>\n</code> &#x4F1A;&#x88AB;&#x89C6;&#x4E3A;&#x5355;&#x4E2A;&#x65B0;&#x884C;(&#x4E5F;&#x8BB8;&#x5BF9;&#x5E26;&#x6709;<code>\r\n</code>&#x5206;&#x9694;&#x7B26;&#x7684;<code>[reading files][]</code>&#x6765;&#x8BF4;&#x662F;&#x975E;&#x5E38;&#x5408;&#x7406;&#x7684;)&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>100</code> &#x6BEB;&#x79D2;&#x3002;</li>
+<li><code>removeHistoryDuplicates</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C;&#x4E3A; <code>true</code>, &#x5F53;&#x65B0;&#x8F93;&#x5165;&#x884C;&#x4E0E;&#x5386;&#x53F2;&#x5217;&#x8868;&#x4E2D;&#x7684;&#x67D0;&#x884C;&#x76F8;&#x540C;&#x65F6;&#xFF0C;
+&#x90A3;&#x4E48;&#x79FB;&#x9664;&#x65E7;&#x6709;&#x7684;&#x884C;&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>false</code>&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p><code>readline.createInterface()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>readline.Interface</code> &#x5B9E;&#x4F8B;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">const readline = require(&apos;readline&apos;);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+</code></pre>
+<p>&#x4E00;&#x65E6; <code>readline.Interface</code> &#x5B9E;&#x4F8B;&#x88AB;&#x521B;&#x5EFA;&#xFF0C;&#x6700;&#x5E38;&#x89C1;&#x7684;&#x7528;&#x6CD5;&#x662F;&#x76D1;&#x542C; <code>&apos;line&apos;</code> &#x4E8B;&#x4EF6;&#xFF1A;</p>
+<pre><code class="language-js">rl.on(&apos;line&apos;, (line) =&gt; {
+  console.log(`&#x63A5;&#x6536;&#x5230;&#xFF1A;${line}`);
+});
+</code></pre>
+<p>&#x5982;&#x679C;&#x8BE5;&#x5B9E;&#x4F8B;&#x7684; <code>terminal</code> &#x4E3A; <code>true</code>&#xFF0C;&#x5219;&#x82E5;&#x5B83;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A; <code>output.columns</code> &#x5C5E;&#x6027;&#x5219; <code>output</code> &#x6D41;&#x4F1A;&#x83B7;&#x5F97;&#x6700;&#x4F73;&#x517C;&#x5BB9;&#x6027;&#xFF0C;&#x4E14;&#x5982;&#x679C;&#x6216;&#x5F53;&#x5217;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x65F6;&#xFF0C;<code>output</code> &#x4E0A;&#x89E6;&#x53D1;&#x4E00;&#x4E2A; <code>&apos;resize&apos;</code> &#x4E8B;&#x4EF6;&#xFF08;&#x5F53;&#x5B83;&#x4E3A;&#x4E00;&#x4E2A; TTY &#x65F6;&#xFF0C;<a href="javascript:if(confirm('http://nodejs.cn/s/tQWUzG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tQWUzG'" tppabs="http://nodejs.cn/s/tQWUzG" rel="nofollow"><code>process.stdout</code></a> &#x4F1A;&#x81EA;&#x52A8;&#x5904;&#x7406;&#x8FD9;&#x4E2A;&#xFF09;&#x3002;</p>
+<h3><code>completer</code> &#x51FD;&#x6570;&#x7684;&#x4F7F;&#x7528;<span><a class="mark" href="#readline_use_of_the_completer_function" id="readline_use_of_the_completer_function" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="use_of_the_completer_function.html" tppabs="http://nodejs.cn/api/readline/use_of_the_completer_function.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>completer</code> &#x51FD;&#x6570;&#x4F1A;&#x83B7;&#x53D6;&#x7528;&#x6237;&#x8F93;&#x5165;&#x7684;&#x5F53;&#x524D;&#x884C;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x4E24;&#x4E2A;&#x6761;&#x76EE;&#x7684;&#x6570;&#x7EC4;&#xFF1A;</p>
+<ul>
+<li>&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x5339;&#x914D;&#x8865;&#x5168;&#x8F93;&#x5165;&#x7684;&#x6570;&#x7EC4;&#x3002;</li>
+<li>&#x7528;&#x4E8E;&#x5339;&#x914D;&#x7684;&#x5B50;&#x5B57;&#x7B26;&#x4E32;&#x3002;</li>
+</ul>
+<p>&#x4F8B;&#x5982;&#xFF1A;<code>[[substr1, substr2, ...], originalsubstring]</code>&#x3002;</p>
+<pre><code class="language-js">function completer(line) {
+  const completions = &apos;.help .error .exit .quit .q&apos;.split(&apos; &apos;);
+  const hits = completions.filter((c) =&gt; c.startsWith(line));
+  // &#x5982;&#x679C;&#x6CA1;&#x5339;&#x914D;&#x5230;&#x5219;&#x5C55;&#x793A;&#x5168;&#x90E8;&#x8865;&#x5168;
+  return [hits.length ? hits : completions, line];
+}
+</code></pre>
+<p>&#x5982;&#x679C; <code>completer</code> &#x51FD;&#x6570;&#x63A5;&#x53D7;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5219;&#x53EF;&#x88AB;&#x5F02;&#x6B65;&#x5730;&#x8C03;&#x7528;&#xFF1A;</p>
+<pre><code class="language-js">function completer(linePartial, callback) {
+  callback(null, [[&apos;123&apos;], linePartial]);
+}
+</code></pre>
+<h2>readline.cursorTo(stream, x, y)<span><a class="mark" href="#readline_readline_cursorto_stream_x_y" id="readline_readline_cursorto_stream_x_y" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="readline_cursorto_stream_x_y.html" tppabs="http://nodejs.cn/api/readline/readline_cursorto_stream_x_y.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.7</span>
+</div>
+<ul>
+<li><code>stream</code> <a href="stream.html#stream_class_stream_writable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_writable" target="_blank" rel="nofollow" class="type">&lt;stream.Writable&gt;</a></li>
+<li><code>x</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+<li><code>y</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p><code>readline.cursorTo()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x79FB;&#x52A8;&#x5149;&#x6807;&#x5230;&#x7ED9;&#x5B9A;&#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/JGk7iB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JGk7iB'" tppabs="http://nodejs.cn/s/JGk7iB" rel="nofollow">TTY</a> <code>stream</code> &#x4E2D;&#x6307;&#x5B9A;&#x7684;&#x4F4D;&#x7F6E;&#x3002;</p>
+<h2>readline.emitKeypressEvents(stream[, interface])<span><a class="mark" href="#readline_readline_emitkeypressevents_stream_interface" id="readline_readline_emitkeypressevents_stream_interface" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="readline_emitkeypressevents_stream_interface.html" tppabs="http://nodejs.cn/api/readline/readline_emitkeypressevents_stream_interface.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.7</span>
+</div>
+<ul>
+<li><code>stream</code> <a href="stream.html#stream_class_stream_readable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_readable" target="_blank" rel="nofollow" class="type">&lt;stream.Readable&gt;</a></li>
+<li><code>interface</code> <a href="readline.html#readline_class_interface" tppabs="http://nodejs.cn/api/readline.html#readline_class_interface" target="_blank" rel="nofollow" class="type">&lt;readline.Interface&gt;</a></li>
+</ul>
+<p><code>readline.emitKeypressEvents()</code> &#x65B9;&#x6CD5;&#x4F7F;&#x7ED9;&#x5B9A;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/zz7Dx3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zz7Dx3'" tppabs="http://nodejs.cn/s/zz7Dx3" rel="nofollow">&#x53EF;&#x8BFB;&#x6D41;</a> <code>stream</code> &#x76F8;&#x5E94;&#x4E8E;&#x63A5;&#x6536;&#x5230;&#x7684;&#x8F93;&#x5165;&#x89E6;&#x53D1; <code>&apos;keypress&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p>
+<p>&#x53EF;&#x9009;&#x7684; <code>interface</code> &#x6307;&#x5B9A;&#x4E86;&#x4E00;&#x4E2A; <code>readline.Interface</code> &#x5B9E;&#x4F8B;&#xFF0C;&#x7528;&#x4E8E;&#x5F53;&#x81EA;&#x52A8;&#x8865;&#x5168;&#x88AB;&#x7981;&#x7528;&#x65F6;&#x68C0;&#x6D4B;&#x5230;&#x590D;&#x5236;&#x7C98;&#x8D34;&#x8F93;&#x5165;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>stream</code> &#x662F;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/JGk7iB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JGk7iB'" tppabs="http://nodejs.cn/s/JGk7iB" rel="nofollow">TTY</a>&#xFF0C;&#x5219;&#x5B83;&#x5FC5;&#x987B;&#x4E3A;&#x539F;&#x59CB;&#x6A21;&#x5F0F;&#x3002;</p>
+<p><em>&#x6CE8;&#x610F;</em>: &#x5982;&#x679C;<code>input</code>&#x662F;&#x4E00;&#x4E2A;&#x7EC8;&#x7AEF;&#xFF0C;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;readline&#x5B9E;&#x4F8B;&#x4E00;&#x70B9;&#x6709;<code>input</code>&#xFF0C;&#x8FD9;&#x90FD;&#x4F1A;&#x88AB;&#x81EA;&#x52A8;&#x8C03;&#x7528;&#x3002;
+&#x5173;&#x95ED;<code>readline</code>&#x5B9E;&#x4F8B;&#x4E0D;&#x80FD;&#x4F7F;<code>input</code>&#x505C;&#x6B62;&#x53D1;&#x5C04;<code>&apos;keypress&apos;</code>&#x4E8B;&#x4EF6;&#x3002;</p>
+<pre><code class="language-js">readline.emitKeypressEvents(process.stdin);
+if (process.stdin.isTTY)
+  process.stdin.setRawMode(true);
+</code></pre>
+<h2>readline.moveCursor(stream, dx, dy)<span><a class="mark" href="#readline_readline_movecursor_stream_dx_dy" id="readline_readline_movecursor_stream_dx_dy" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="readline_movecursor_stream_dx_dy.html" tppabs="http://nodejs.cn/api/readline/readline_movecursor_stream_dx_dy.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.7</span>
+</div>
+<ul>
+<li><code>stream</code> <a href="stream.html#stream_class_stream_writable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_writable" target="_blank" rel="nofollow" class="type">&lt;stream.Writable&gt;</a></li>
+<li><code>dx</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+<li><code>dy</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p><code>readline.moveCursor()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x79FB;&#x52A8;&#x5149;&#x6807;&#x5230;&#x7ED9;&#x5B9A;&#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/JGk7iB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JGk7iB'" tppabs="http://nodejs.cn/s/JGk7iB" rel="nofollow">TTY</a> <code>stream</code> &#x4E2D;&#x76F8;&#x5BF9;&#x5F53;&#x524D;&#x7684;&#x4F4D;&#x7F6E;&#x3002;</p>
+<h2>&#x4F8B;&#x5B50;&#xFF1A;&#x7B80;&#x5355;&#x7684;&#x547D;&#x4EE4;&#x884C;&#x754C;&#x9762;<span><a class="mark" href="#readline_example_tiny_cli" id="readline_example_tiny_cli" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="example_tiny_cli.html" tppabs="http://nodejs.cn/api/readline/example_tiny_cli.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x4F8B;&#x5B50;&#xFF0C;&#x4F7F;&#x7528; <code>readline.Interface</code> &#x7C7B;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x547D;&#x4EE4;&#x884C;&#x754C;&#x9762;&#xFF1A;</p>
+<pre><code class="language-js">const readline = require(&apos;readline&apos;);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  prompt: &apos;&#x8BF7;&#x8F93;&#x5165;&gt; &apos;
+});
+
+rl.prompt();
+
+rl.on(&apos;line&apos;, (line) =&gt; {
+  switch (line.trim()) {
+    case &apos;hello&apos;:
+      console.log(&apos;world!&apos;);
+      break;
+    default:
+      console.log(`&#x4F60;&#x8F93;&#x5165;&#x7684;&#x662F;&#xFF1A;&apos;${line.trim()}&apos;`);
+      break;
+  }
+  rl.prompt();
+}).on(&apos;close&apos;, () =&gt; {
+  console.log(&apos;&#x518D;&#x89C1;!&apos;);
+  process.exit(0);
+});
+</code></pre>
+<h2>&#x4F8B;&#x5B50;&#xFF1A;&#x9010;&#x884C;&#x5730;&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x6D41;<span><a class="mark" href="#readline_example_read_file_stream_line_by_line" id="readline_example_read_file_stream_line_by_line" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="example_read_file_stream_line_by_line.html" tppabs="http://nodejs.cn/api/readline/example_read_file_stream_line_by_line.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x4F8B;&#x5B50;&#xFF0C;&#x4ECE;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;<a href="javascript:if(confirm('http://nodejs.cn/s/zz7Dx3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zz7Dx3'" tppabs="http://nodejs.cn/s/zz7Dx3" rel="nofollow">&#x53EF;&#x8BFB;&#x6D41;</a>&#x4E2D;&#x6BCF;&#x6B21;&#x4E00;&#x884C;&#x5730;&#x6D88;&#x8017;&#x8F93;&#x5165;&#xFF1A;</p>
+<pre><code class="language-js">const readline = require(&apos;readline&apos;);
+const fs = require(&apos;fs&apos;);
+
+const rl = readline.createInterface({
+  input: fs.createReadStream(&apos;sample.txt&apos;),
+  crlfDelay: Infinity
+});
+
+rl.on(&apos;line&apos;, (line) =&gt; {
+  console.log(`&#x6587;&#x4EF6;&#x7684;&#x5355;&#x884C;&#x5185;&#x5BB9;&#xFF1A;${line}`);
+});
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712035690"><\/script>');
+  </script>
+
+</body></html>

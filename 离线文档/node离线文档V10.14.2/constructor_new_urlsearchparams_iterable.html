@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>new URLSearchParams(iterable) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/url/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712040318" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-url">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>new URLSearchParams(iterable)</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="url.html#url_constructor_new_urlsearchparams_iterable" tppabs="http://nodejs.cn/api/url.html#url_constructor_new_urlsearchparams_iterable" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.10.0</span>
+</div><ul>
+<li><code>iterable</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Iteration_protocols  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterable_protocol'" tppabs="http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterable_protocol" target="_blank" rel="nofollow" class="type">&lt;Iterable&gt;</a> &#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x65F6;&#x952E;&#x503C;&#x5BF9;&#x7684;&#x8FED;&#x4EE3;&#x5BF9;&#x8C61;</li>
+</ul><p>&#x4EE5;&#x4E00;&#x79CD;&#x7C7B;&#x4F3C;&#x4E8E;<a href="javascript:if(confirm('http://nodejs.cn/s/EnuJtG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/EnuJtG'" tppabs="http://nodejs.cn/s/EnuJtG" rel="nofollow"><code>Map</code></a>&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x7684;&#x8FED;&#x4EE3;&#x6620;&#x5C04;&#x65B9;&#x5F0F;&#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;&#x65B0;&#x7684;<code>URLSearchParams</code>&#x5BF9;&#x8C61;&#x3002;<code>iterable</code>&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x6216;&#x8005;&#x4EFB;&#x4F55;&#x8FED;&#x4EE3;&#x5BF9;&#x8C61;&#x3002;&#x8FD9;&#x5C31;&#x610F;&#x5473;&#x7740;<code>iterable</code>&#x80FD;&#x591F;&#x4F7F;&#x53E6;&#x4E00;&#x4E2A;<code>URLSearchParams</code>&#xFF0C;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x6784;&#x9020;&#x51FD;&#x6570;&#x5C06;&#x7B80;&#x5355;&#x5730;&#x6839;&#x636E;&#x63D0;&#x4F9B;&#x7684;<code>URLSearchParams</code>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x514B;&#x9686;<code>URLSearchParams</code>&#x3002;<code>iterable</code>&#x7684;&#x5143;&#x7D20;&#x662F;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x5E76;&#x4E14;&#x5176;&#x672C;&#x8EAB;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x4EFB;&#x4F55;&#x8FED;&#x4EE3;&#x5BF9;&#x8C61;&#x3002;</p><p>&#x5141;&#x8BB8;&#x91CD;&#x590D;&#x7684;&#x952E;&#x3002;</p><pre><code class="language-js">const { URLSearchParams } = require(&apos;url&apos;);
+let params;
+
+// Using an array
+params = new URLSearchParams([
+  [&apos;user&apos;, &apos;abc&apos;],
+  [&apos;query&apos;, &apos;first&apos;],
+  [&apos;query&apos;, &apos;second&apos;]
+]);
+console.log(params.toString());
+ &#xA0;// &#x8F93;&#x51FA; &apos;user=abc&amp;query=first&amp;query=second&apos;
+
+// &#x4F7F;&#x7528;Map&#x5BF9;&#x8C61;
+const map = new Map();
+map.set(&apos;user&apos;, &apos;abc&apos;);
+map.set(&apos;query&apos;, &apos;xyz&apos;);
+params = new URLSearchParams(map);
+console.log(params.toString());
+ &#xA0;// &#x8F93;&#x51FA; &apos;user=abc&amp;query=xyz&apos;
+
+// &#x4F7F;&#x7528;generator&#x51FD;&#x6570;
+function* getQueryPairs() {
+  yield [&apos;user&apos;, &apos;abc&apos;];
+  yield [&apos;query&apos;, &apos;first&apos;];
+  yield [&apos;query&apos;, &apos;second&apos;];
+}
+params = new URLSearchParams(getQueryPairs());
+console.log(params.toString());
+ &#xA0;// &#x8F93;&#x51FA; &apos;user=abc&amp;query=first&amp;query=second&apos;
+
+// &#x6BCF;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#x5FC5;&#x987B;&#x6709;&#x4E24;&#x4E2A;&#x5143;&#x7D20;
+new URLSearchParams([
+  [&apos;user&apos;, &apos;abc&apos;, &apos;error&apos;]
+]);
+ &#xA0;// &#x629B;&#x51FA; TypeError [ERR_INVALID_TUPLE]:
+ &#xA0;// &#xA0; &#xA0; &#xA0;  &#x6BCF;&#x4E00;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#x5FC5;&#x987B;&#x662F;&#x8FED;&#x4EE3;&#x7684;[&#x952E;&#xFF0C;&#x503C;]&#x5143;&#x7EC4;
+</code></pre></div>
+          <div id="content_right"><div class="api_metadata">
+<span>Added in: v7.10.0</span>
+</div><ul>
+<li><code>iterable</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Iteration_protocols  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterable_protocol'" tppabs="http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterable_protocol" target="_blank" rel="nofollow" class="type">&lt;Iterable&gt;</a> An iterable object whose elements are key-value pairs</li>
+</ul><p>Instantiate a new <code>URLSearchParams</code> object with an iterable map in a way that
+is similar to <a href="javascript:if(confirm('http://nodejs.cn/s/EnuJtG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/EnuJtG'" tppabs="http://nodejs.cn/s/EnuJtG" rel="nofollow"><code>Map</code></a>&apos;s constructor. <code>iterable</code> can be an <code>Array</code> or any
+iterable object. That means <code>iterable</code> can be another <code>URLSearchParams</code>, in
+which case the constructor will simply create a clone of the provided
+<code>URLSearchParams</code>. Elements of <code>iterable</code> are key-value pairs, and can
+themselves be any iterable object.</p><p>Duplicate keys are allowed.</p><pre><code class="language-js">let params;
+
+// Using an array
+params = new URLSearchParams([
+  [&apos;user&apos;, &apos;abc&apos;],
+  [&apos;query&apos;, &apos;first&apos;],
+  [&apos;query&apos;, &apos;second&apos;]
+]);
+console.log(params.toString());
+// Prints &apos;user=abc&amp;query=first&amp;query=second&apos;
+
+// Using a Map object
+const map = new Map();
+map.set(&apos;user&apos;, &apos;abc&apos;);
+map.set(&apos;query&apos;, &apos;xyz&apos;);
+params = new URLSearchParams(map);
+console.log(params.toString());
+// Prints &apos;user=abc&amp;query=xyz&apos;
+
+// Using a generator function
+function* getQueryPairs() {
+  yield [&apos;user&apos;, &apos;abc&apos;];
+  yield [&apos;query&apos;, &apos;first&apos;];
+  yield [&apos;query&apos;, &apos;second&apos;];
+}
+params = new URLSearchParams(getQueryPairs());
+console.log(params.toString());
+// Prints &apos;user=abc&amp;query=first&amp;query=second&apos;
+
+// Each key-value pair must have exactly two elements
+new URLSearchParams([
+  [&apos;user&apos;, &apos;abc&apos;, &apos;error&apos;]
+]);
+// Throws TypeError [ERR_INVALID_TUPLE]:
+//        Each query pair must be an iterable [name, value] tuple
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712040318"><\/script>');
+  </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>process.emitWarning(warning[, type[, code]][, ctor]) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/process/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712034535" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-process">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>process.emitWarning(warning[, type[, code]][, ctor])</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="process.html#process_process_emitwarning_warning_type_code_ctor" tppabs="http://nodejs.cn/api/process.html#process_process_emitwarning_warning_type_code_ctor" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.0.0</span>
+</div><ul>
+<li><code>warning</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a> &#x53D1;&#x51FA;&#x7684;&#x8B66;&#x544A;&#x3002;</li>
+<li><code>type</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5982;&#x679C; <code>warning</code> &#x662F;String, <code>type</code> &#x662F;&#x8B66;&#x544A;&#x7C7B;&#x578B;&#x7684;&#x540D;&#x5B57;&#x3002; &#x9ED8;&#x8BA4;&#x503C;: <code>Warning</code>&#x3002;</li>
+<li><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5F53;&#x524D;&#x8B66;&#x544A;&#x7684;&#x552F;&#x4E00;&#x6807;&#x8BC6;&#x7B26;&#x3002;</li>
+<li><code>ctor</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x5982;&#x679C;<code>warning</code>&#x662F;String&#xFF0C;<code>ctor</code>&#x662F;&#x53EF;&#x9009;&#x7684;function&#xFF0C;&#x7528;&#x4E8E;&#x9650;&#x5236;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x4FE1;&#x606F;&#x3002;&#x9ED8;&#x8BA4;<code>process.emitWarning</code></li>
+</ul><p><code>process.emitWarning()</code>&#x65B9;&#x6CD5;&#x53EF;&#x7528;&#x4E8E;&#x53D1;&#x51FA;&#x5B9A;&#x5236;&#x7684;&#x6216;&#x5E94;&#x7528;&#x7279;&#x5B9A;&#x7684;&#x8FDB;&#x7A0B;&#x8B66;&#x544A;&#x3002;
+&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7ED9;<a href="javascript:if(confirm('http://nodejs.cn/s/YXSqii  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YXSqii'" tppabs="http://nodejs.cn/s/YXSqii" rel="nofollow"><code>process.on(&apos;warning&apos;)</code></a>&#x4E8B;&#x4EF6;&#x589E;&#x52A0;&#x5904;&#x7406;&#x5668;&#xFF0C;&#x76D1;&#x542C;&#x8FD9;&#x4E9B;&#x8B66;&#x544A;&#x3002;</p><pre><code class="language-js">// Emit a warning using a string.
+process.emitWarning(&apos;Something happened!&apos;);
+// Emits: (node: 56338) Warning: Something happened!
+</code></pre><pre><code class="language-js">// Emit a warning using a string and a type.
+process.emitWarning(&apos;Something Happened!&apos;, &apos;CustomWarning&apos;);
+// Emits: (node:56338) CustomWarning: Something Happened!
+</code></pre><pre><code class="language-js">process.emitWarning(&apos;Something happened!&apos;, &apos;CustomWarning&apos;, &apos;WARN001&apos;);
+// Emits: (node:56338) [WARN001] CustomWarning: Something happened!
+</code></pre><p>&#x5728;&#x4E0A;&#x9762;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;<code>process.emitWarning()</code>&#x5185;&#x90E8;&#x751F;&#x6210;&#x4E86;&#x4E00;&#x4E2A;<code>Error</code>&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x4F20;&#x9012;&#x7ED9;<a href="javascript:if(confirm('http://nodejs.cn/s/YXSqii  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YXSqii'" tppabs="http://nodejs.cn/s/YXSqii" rel="nofollow"><code>process.on(&apos;warning&apos;)</code></a>&#x4E8B;&#x4EF6;&#x3002;</p><pre><code class="language-js">process.on(&apos;warning&apos;, (warning) =&gt; {
+  console.warn(warning.name);
+  console.warn(warning.message);
+  console.warn(warning.code);
+  console.warn(warning.stack);
+});
+</code></pre><p>&#x5982;&#x679C;<code>warning</code>&#x53C2;&#x6570;&#x503C;&#x662F;&#x4E00;&#x4E2A;<code>Error</code>&#x5BF9;&#x8C61;&#xFF0C;&#x5B83;&#x4F1A;&#x88AB;&#x900F;&#x4F20;&#x7ED9;<code>process.on(&apos;warning&apos;)</code>&#x7684;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x5668;(&#x53EF;&#x9009;&#x53C2;&#x6570;&#x503C;<code>type</code>&#xFF0C;<code>code</code> and <code>ctor</code>&#x4F1A;&#x88AB;&#x5FFD;&#x7565;)&#xFF1A;</p><pre><code class="language-js">// Emit a warning using an Error object.
+const myWarning = new Error(&apos;Something happened!&apos;);
+// Use the Error name property to specify the type name
+myWarning.name = &apos;CustomWarning&apos;;
+myWarning.code = &apos;WARN001&apos;;
+
+process.emitWarning(myWarning);
+// Emits: (node:56338) [WARN001] CustomWarning: Something happened!
+</code></pre><p>&#x5982;&#x679C;<code>warning</code>&#x7684;&#x53C2;&#x6570;&#x503C;&#x4E0D;&#x662F;string&#x6216;<code>Error</code>&#xFF0C;&#x4F1A;&#x629B;&#x51FA; <code>TypeError</code>&#x3002;</p><p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x4F7F;&#x7528;<code>Error</code>&#x5BF9;&#x8C61;&#x505A;&#x4E3A;&#x8FDB;&#x7A0B;&#x8B66;&#x544A;&#xFF0C;<strong>&#x5E76;&#x4E0D;&#x662F;</strong>&#x5E38;&#x7528;&#x7684;&#x9519;&#x8BEF;&#x5904;&#x7406;&#x673A;&#x5236;&#x7684;&#x66FF;&#x4EE3;&#x65B9;&#x5F0F;&#x3002;</p><p>&#x5982;&#x679C;&#x8B66;&#x544A;<code>type</code>&#x662F;<code>DeprecationWarning</code>&#xFF0C;&#x4F1A;&#x6D89;&#x53CA;&#x5982;&#x4E0B;&#x989D;&#x5916;&#x7684;&#x5904;&#x7406;&#xFF1A;</p><ul>
+<li>
+<p>&#x5982;&#x679C;&#x547D;&#x4EE4;&#x884C;&#x6807;&#x8BC6;&#x5305;&#x542B;<code>--throw-deprecation</code>&#xFF0C;deprecation warning&#x4F1A;&#x4F5C;&#x4E3A;&#x5F02;&#x5E38;&#x629B;&#x51FA;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4F5C;&#x4E3A;&#x4E8B;&#x4EF6;&#x88AB;&#x53D1;&#x51FA;&#x3002;</p>
+</li>
+<li>
+<p>&#x5982;&#x679C;&#x547D;&#x4EE4;&#x884C;&#x6807;&#x8BC6;&#x5305;&#x542B;<code>--no-deprecation</code>&#xFF0C;deprecation warning&#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;</p>
+</li>
+<li>
+<p>&#x5982;&#x679C;&#x547D;&#x4EE4;&#x884C;&#x6807;&#x8BC6;&#x5305;&#x542B;<code>--trace-deprecation</code>&#xFF0C;deprecation warning&#x53CA;&#x5176;&#x5168;&#x90E8;&#x5806;&#x6808;&#x4FE1;&#x606F;&#x4F1A;&#x88AB;&#x6253;&#x5370;&#x5230;<code>stderr</code>&#x3002;</p>
+</li>
+</ul></div>
+          <div id="content_right"><div class="api_metadata">
+<span>Added in: v6.0.0</span>
+</div><ul>
+<li><code>warning</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a> The warning to emit.</li>
+<li><code>type</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> When <code>warning</code> is a <code>String</code>, <code>type</code> is the name to use
+for the <em>type</em> of warning being emitted. <strong>Default:</strong> <code>&apos;Warning&apos;</code>.</li>
+<li><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> A unique identifier for the warning instance being emitted.</li>
+<li><code>ctor</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> When <code>warning</code> is a <code>String</code>, <code>ctor</code> is an optional
+function used to limit the generated stack trace. <strong>Default:</strong>
+<code>process.emitWarning</code>.</li>
+</ul><p>The <code>process.emitWarning()</code> method can be used to emit custom or application
+specific process warnings. These can be listened for by adding a handler to the
+<a href="javascript:if(confirm('http://nodejs.cn/s/YXSqii  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YXSqii'" tppabs="http://nodejs.cn/s/YXSqii" rel="nofollow"><code>&apos;warning&apos;</code></a> event.</p><pre><code class="language-js">// Emit a warning using a string.
+process.emitWarning(&apos;Something happened!&apos;);
+// Emits: (node: 56338) Warning: Something happened!
+</code></pre><pre><code class="language-js">// Emit a warning using a string and a type.
+process.emitWarning(&apos;Something Happened!&apos;, &apos;CustomWarning&apos;);
+// Emits: (node:56338) CustomWarning: Something Happened!
+</code></pre><pre><code class="language-js">process.emitWarning(&apos;Something happened!&apos;, &apos;CustomWarning&apos;, &apos;WARN001&apos;);
+// Emits: (node:56338) [WARN001] CustomWarning: Something happened!
+</code></pre><p>In each of the previous examples, an <code>Error</code> object is generated internally by
+<code>process.emitWarning()</code> and passed through to the <a href="javascript:if(confirm('http://nodejs.cn/s/YXSqii  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YXSqii'" tppabs="http://nodejs.cn/s/YXSqii" rel="nofollow"><code>&apos;warning&apos;</code></a>
+handler.</p><pre><code class="language-js">process.on(&apos;warning&apos;, (warning) =&gt; {
+  console.warn(warning.name);
+  console.warn(warning.message);
+  console.warn(warning.code);
+  console.warn(warning.stack);
+});
+</code></pre><p>If <code>warning</code> is passed as an <code>Error</code> object, it will be passed through to the
+<code>&apos;warning&apos;</code> event handler unmodified (and the optional <code>type</code>,
+<code>code</code> and <code>ctor</code> arguments will be ignored):</p><pre><code class="language-js">// Emit a warning using an Error object.
+const myWarning = new Error(&apos;Something happened!&apos;);
+// Use the Error name property to specify the type name
+myWarning.name = &apos;CustomWarning&apos;;
+myWarning.code = &apos;WARN001&apos;;
+
+process.emitWarning(myWarning);
+// Emits: (node:56338) [WARN001] CustomWarning: Something happened!
+</code></pre><p>A <code>TypeError</code> is thrown if <code>warning</code> is anything other than a string or <code>Error</code>
+object.</p><p>Note that while process warnings use <code>Error</code> objects, the process warning
+mechanism is <strong>not</strong> a replacement for normal error handling mechanisms.</p><p>The following additional handling is implemented if the warning <code>type</code> is
+<code>&apos;DeprecationWarning&apos;</code>:</p><ul>
+<li>If the <code>--throw-deprecation</code> command-line flag is used, the deprecation
+warning is thrown as an exception rather than being emitted as an event.</li>
+<li>If the <code>--no-deprecation</code> command-line flag is used, the deprecation
+warning is suppressed.</li>
+<li>If the <code>--trace-deprecation</code> command-line flag is used, the deprecation
+warning is printed to <code>stderr</code> along with the full stack trace.</li>
+</ul></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712034535"><\/script>');
+  </script>
+</body>
+</html>

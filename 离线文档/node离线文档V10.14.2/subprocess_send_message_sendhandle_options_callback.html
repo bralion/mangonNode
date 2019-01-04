@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>subprocess.send(message[, sendHandle[, options]][, callback]) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/child_process/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712012962" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-child_process">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>subprocess.send(message[, sendHandle[, options]][, callback])</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="child_process.html#child_process_subprocess_send_message_sendhandle_options_callback" tppabs="http://nodejs.cn/api/child_process.html#child_process_subprocess_send_message_sendhandle_options_callback" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v5.8.0</td>
+<td><p>The <code>options</code> parameter, and the <code>keepOpen</code> option in particular, is supported now.</p></td></tr>
+<tr><td>v5.0.0</td>
+<td><p>This method returns a boolean for flow control now.</p></td></tr>
+<tr><td>v4.0.0</td>
+<td><p>The <code>callback</code> parameter is supported now.</p></td></tr>
+<tr><td>v0.5.9</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.5.9</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+<li><code>sendHandle</code> <a href="net.html#net_server_listen_handle_backlog_callback" tppabs="http://nodejs.cn/api/net.html#net_server_listen_handle_backlog_callback" target="_blank" rel="nofollow" class="type">&lt;Handle&gt;</a></li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>keepOpen</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x8BBE;&#x4E3A; <code>true</code> &#x65F6;&#xFF0C;&#x53D1;&#x9001;&#x8FDB;&#x7A0B;&#x7684; socket &#x4F1A;&#x4FDD;&#x6301;&#x6253;&#x5F00;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; false`&#x3002;</li>
+</ul>
+</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a></li>
+</ul><p>&#x5F53;&#x7236;&#x8FDB;&#x7A0B;&#x548C;&#x5B50;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x5EFA;&#x7ACB;&#x4E86;&#x4E00;&#x4E2A; IPC &#x901A;&#x9053;&#x65F6;&#xFF08;&#x4F8B;&#x5982;&#xFF0C;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/VDCJMa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/VDCJMa'" tppabs="http://nodejs.cn/s/VDCJMa" rel="nofollow"><code>child_process.fork()</code></a>&#xFF09;&#xFF0C;<code>subprocess.send()</code> &#x65B9;&#x6CD5;&#x53EF;&#x7528;&#x4E8E;&#x53D1;&#x9001;&#x6D88;&#x606F;&#x5230;&#x5B50;&#x8FDB;&#x7A0B;&#x3002;
+&#x5F53;&#x5B50;&#x8FDB;&#x7A0B;&#x662F;&#x4E00;&#x4E2A; Node.js &#x5B9E;&#x4F8B;&#x65F6;&#xFF0C;&#x6D88;&#x606F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <a href="javascript:if(confirm('http://nodejs.cn/s/vYuu5g  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vYuu5g'" tppabs="http://nodejs.cn/s/vYuu5g" rel="nofollow"><code>&apos;message&apos;</code></a> &#x4E8B;&#x4EF6;&#x63A5;&#x6536;&#x3002;</p><p>&#x6D88;&#x606F;&#x901A;&#x8FC7;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x89E3;&#x6790;&#x8FDB;&#x884C;&#x4F20;&#x9012;&#xFF0C;&#x63A5;&#x6536;&#x5230;&#x6D88;&#x606F;&#x53EF;&#x80FD;&#x8DDF;&#x53D1;&#x9001;&#x7684;&#x4E0D;&#x5B8C;&#x5168;&#x4E00;&#x6837;&#x3002;</p><p>&#x4F8B;&#x5B50;&#xFF0C;&#x7236;&#x8FDB;&#x7A0B;&#x811A;&#x672C;&#x5982;&#x4E0B;&#xFF1A;</p><pre><code class="language-js">const cp = require(&apos;child_process&apos;);
+const n = cp.fork(`${__dirname}/sub.js`);
+
+n.on(&apos;message&apos;, (m) =&gt; {
+  console.log(&apos;&#x7236;&#x8FDB;&#x7A0B;&#x6536;&#x5230;&#x6D88;&#x606F;&apos;, m);
+});
+
+// &#x4F7F;&#x5B50;&#x8FDB;&#x7A0B;&#x8F93;&#x51FA;: &#x5B50;&#x8FDB;&#x7A0B;&#x6536;&#x5230;&#x6D88;&#x606F; { hello: &apos;world&apos; }
+n.send({ hello: &apos;world&apos; });
+</code></pre><p>&#x5B50;&#x8FDB;&#x7A0B;&#x811A;&#x672C; <code>&apos;sub.js&apos;</code> &#x5982;&#x4E0B;&#xFF1A;</p><pre><code class="language-js">process.on(&apos;message&apos;, (m) =&gt; {
+  console.log(&apos;&#x5B50;&#x8FDB;&#x7A0B;&#x6536;&#x5230;&#x6D88;&#x606F;&apos;, m);
+});
+
+// &#x4F7F;&#x7236;&#x8FDB;&#x7A0B;&#x8F93;&#x51FA;: &#x7236;&#x8FDB;&#x7A0B;&#x6536;&#x5230;&#x6D88;&#x606F; { foo: &apos;bar&apos;, baz: null }
+process.send({ foo: &apos;bar&apos;, baz: NaN });
+</code></pre><p>Node.js &#x4E2D;&#x7684;&#x5B50;&#x8FDB;&#x7A0B;&#x6709;&#x4E00;&#x4E2A;&#x81EA;&#x5DF1;&#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/Cd2TZw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Cd2TZw'" tppabs="http://nodejs.cn/s/Cd2TZw" rel="nofollow"><code>process.send()</code></a> &#x65B9;&#x6CD5;&#xFF0C;&#x5141;&#x8BB8;&#x5B50;&#x8FDB;&#x7A0B;&#x53D1;&#x9001;&#x6D88;&#x606F;&#x56DE;&#x7236;&#x8FDB;&#x7A0B;&#x3002;</p><p>&#x5F53;&#x53D1;&#x9001;&#x4E00;&#x4E2A; <code>{cmd: &apos;NODE_foo&apos;}</code> &#x6D88;&#x606F;&#x65F6;&#xFF0C;&#x662F;&#x4E00;&#x4E2A;&#x7279;&#x4F8B;&#x3002;
+<code>cmd</code> &#x5C5E;&#x6027;&#x4E2D;&#x5305;&#x542B; <code>NODE_</code> &#x524D;&#x7F00;&#x7684;&#x6D88;&#x606F;&#x662F;&#x9884;&#x7559;&#x7ED9; Node.js &#x6838;&#x5FC3;&#x4EE3;&#x7801;&#x5185;&#x90E8;&#x4F7F;&#x7528;&#x7684;&#xFF0C;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;&#x5B50;&#x8FDB;&#x7A0B;&#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/vYuu5g  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vYuu5g'" tppabs="http://nodejs.cn/s/vYuu5g" rel="nofollow"><code>&apos;message&apos;</code></a> &#x4E8B;&#x4EF6;&#x3002;
+&#x800C;&#x662F;&#xFF0C;&#x8FD9;&#x79CD;&#x6D88;&#x606F;&#x53EF;&#x4F7F;&#x7528; <code>process.on(&apos;internalMessage&apos;)</code> &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#xFF0C;&#x4E14;&#x88AB; Node.js &#x5185;&#x90E8;&#x6D88;&#x8D39;&#x3002;
+&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5E94;&#x907F;&#x514D;&#x4F7F;&#x7528;&#x8FD9;&#x79CD;&#x6D88;&#x606F;&#x6216;&#x76D1;&#x542C; <code>&apos;internalMessage&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p><p>&#x53EF;&#x9009;&#x7684; <code>sendHandle</code> &#x53C2;&#x6570;&#x53EF;&#x80FD;&#x88AB;&#x4F20;&#x7ED9; <code>subprocess.send()</code>&#xFF0C;&#x5B83;&#x7528;&#x4E8E;&#x4F20;&#x5165;&#x4E00;&#x4E2A; TCP &#x670D;&#x52A1;&#x5668;&#x6216; socket &#x5BF9;&#x8C61;&#x7ED9;&#x5B50;&#x8FDB;&#x7A0B;&#x3002;
+&#x5B50;&#x8FDB;&#x7A0B;&#x4F1A;&#x63A5;&#x6536;&#x5BF9;&#x8C61;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5E76;&#x4F20;&#x7ED9;&#x6CE8;&#x518C;&#x5728; <a href="javascript:if(confirm('http://nodejs.cn/s/vYuu5g  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vYuu5g'" tppabs="http://nodejs.cn/s/vYuu5g" rel="nofollow"><code>&apos;message&apos;</code></a> &#x4E8B;&#x4EF6;&#x4E0A;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;
+socket &#x4E0A;&#x63A5;&#x6536;&#x6216;&#x7F13;&#x51B2;&#x7684;&#x4EFB;&#x4F55;&#x6570;&#x636E;&#x4E0D;&#x4F1A;&#x88AB;&#x53D1;&#x9001;&#x7ED9;&#x5B50;&#x8FDB;&#x7A0B;&#x3002;</p><p>&#x53EF;&#x9009;&#x7684; <code>callback</code> &#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x5728;&#x6D88;&#x606F;&#x53D1;&#x9001;&#x4E4B;&#x540E;&#x3001;&#x5B50;&#x8FDB;&#x7A0B;&#x6536;&#x5230;&#x6D88;&#x606F;&#x4E4B;&#x524D;&#x88AB;&#x8C03;&#x7528;&#x3002;
+&#x8BE5;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF1A;&#x6210;&#x529F;&#x65F6;&#x662F; <code>null</code>&#xFF0C;&#x5931;&#x8D25;&#x65F6;&#x662F;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> &#x5BF9;&#x8C61;&#x3002;</p><p>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x63D0;&#x4F9B; <code>callback</code> &#x51FD;&#x6570;&#xFF0C;&#x4E14;&#x6D88;&#x606F;&#x6CA1;&#x88AB;&#x53D1;&#x9001;&#xFF0C;&#x5219;&#x4E00;&#x4E2A; <code>&apos;error&apos;</code> &#x4E8B;&#x4EF6;&#x5C06;&#x88AB; <a href="javascript:if(confirm('http://nodejs.cn/s/uALgct  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uALgct'" tppabs="http://nodejs.cn/s/uALgct" rel="nofollow"><code>ChildProcess</code></a> &#x5BF9;&#x8C61;&#x89E6;&#x53D1;&#x3002;
+&#x8FD9;&#x662F;&#x6709;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x7684;&#xFF0C;&#x4F8B;&#x5982;&#x5F53;&#x5B50;&#x8FDB;&#x7A0B;&#x5DF2;&#x7ECF;&#x9000;&#x51FA;&#x65F6;&#x3002;</p><p>&#x5982;&#x679C;&#x901A;&#x9053;&#x5DF2;&#x5173;&#x95ED;&#xFF0C;&#x6216;&#x5F53;&#x672A;&#x53D1;&#x9001;&#x7684;&#x6D88;&#x606F;&#x7684;&#x79EF;&#x538B;&#x8D85;&#x8FC7;&#x9608;&#x503C;&#x4F7F;&#x5176;&#x65E0;&#x6CD5;&#x53D1;&#x9001;&#x66F4;&#x591A;&#x65F6;&#xFF0C;<code>subprocess.send()</code> &#x4F1A;&#x8FD4;&#x56DE; <code>false</code>&#x3002;
+&#x9664;&#x6B64;&#x4EE5;&#x5916;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE; <code>true</code>&#x3002;
+<code>callback</code> &#x51FD;&#x6570;&#x53EF;&#x7528;&#x4E8E;&#x5B9E;&#x73B0;&#x6D41;&#x91CF;&#x63A7;&#x5236;&#x3002;</p></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v5.8.0</td>
+<td><p>The <code>options</code> parameter, and the <code>keepOpen</code> option in particular, is supported now.</p></td></tr>
+<tr><td>v5.0.0</td>
+<td><p>This method returns a boolean for flow control now.</p></td></tr>
+<tr><td>v4.0.0</td>
+<td><p>The <code>callback</code> parameter is supported now.</p></td></tr>
+<tr><td>v0.5.9</td>
+<td><p><span>Added in: v0.5.9</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+<li><code>sendHandle</code> <a href="net.html#net_server_listen_handle_backlog_callback" tppabs="http://nodejs.cn/api/net.html#net_server_listen_handle_backlog_callback" target="_blank" rel="nofollow" class="type">&lt;Handle&gt;</a></li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> The <code>options</code> argument, if present, is an object used to
+parameterize the sending of certain types of handles. <code>options</code> supports
+the following properties:</p>
+<ul>
+<li><code>keepOpen</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> A value that can be used when passing instances of
+<code>net.Socket</code>. When <code>true</code>, the socket is kept open in the sending process.
+<strong>Default:</strong> <code>false</code>.</li>
+</ul>
+</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a></li>
+</ul><p>When an IPC channel has been established between the parent and child (
+i.e. when using <a href="javascript:if(confirm('http://nodejs.cn/s/VDCJMa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/VDCJMa'" tppabs="http://nodejs.cn/s/VDCJMa" rel="nofollow"><code>child_process.fork()</code></a>), the <code>subprocess.send()</code> method can
+be used to send messages to the child process. When the child process is a
+Node.js instance, these messages can be received via the <a href="javascript:if(confirm('http://nodejs.cn/s/vYuu5g  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vYuu5g'" tppabs="http://nodejs.cn/s/vYuu5g" rel="nofollow"><code>&apos;message&apos;</code></a> event.</p><p>The message goes through serialization and parsing. The resulting
+message might not be the same as what is originally sent.</p><p>For example, in the parent script:</p><pre><code class="language-js">const cp = require(&apos;child_process&apos;);
+const n = cp.fork(`${__dirname}/sub.js`);
+
+n.on(&apos;message&apos;, (m) =&gt; {
+  console.log(&apos;PARENT got message:&apos;, m);
+});
+
+// Causes the child to print: CHILD got message: { hello: &apos;world&apos; }
+n.send({ hello: &apos;world&apos; });
+</code></pre><p>And then the child script, <code>&apos;sub.js&apos;</code> might look like this:</p><pre><code class="language-js">process.on(&apos;message&apos;, (m) =&gt; {
+  console.log(&apos;CHILD got message:&apos;, m);
+});
+
+// Causes the parent to print: PARENT got message: { foo: &apos;bar&apos;, baz: null }
+process.send({ foo: &apos;bar&apos;, baz: NaN });
+</code></pre><p>Child Node.js processes will have a <a href="javascript:if(confirm('http://nodejs.cn/s/Cd2TZw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Cd2TZw'" tppabs="http://nodejs.cn/s/Cd2TZw" rel="nofollow"><code>process.send()</code></a> method of their own that
+allows the child to send messages back to the parent.</p><p>There is a special case when sending a <code>{cmd: &apos;NODE_foo&apos;}</code> message. Messages
+containing a <code>NODE_</code> prefix in the <code>cmd</code> property are reserved for use within
+Node.js core and will not be emitted in the child&apos;s <a href="javascript:if(confirm('http://nodejs.cn/s/vYuu5g  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vYuu5g'" tppabs="http://nodejs.cn/s/vYuu5g" rel="nofollow"><code>&apos;message&apos;</code></a>
+event. Rather, such messages are emitted using the
+<code>&apos;internalMessage&apos;</code> event and are consumed internally by Node.js.
+Applications should avoid using such messages or listening for
+<code>&apos;internalMessage&apos;</code> events as it is subject to change without notice.</p><p>The optional <code>sendHandle</code> argument that may be passed to <code>subprocess.send()</code> is
+for passing a TCP server or socket object to the child process. The child will
+receive the object as the second argument passed to the callback function
+registered on the <a href="javascript:if(confirm('http://nodejs.cn/s/vYuu5g  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vYuu5g'" tppabs="http://nodejs.cn/s/vYuu5g" rel="nofollow"><code>&apos;message&apos;</code></a> event. Any data that is received
+and buffered in the socket will not be sent to the child.</p><p>The optional <code>callback</code> is a function that is invoked after the message is
+sent but before the child may have received it. The function is called with a
+single argument: <code>null</code> on success, or an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> object on failure.</p><p>If no <code>callback</code> function is provided and the message cannot be sent, an
+<code>&apos;error&apos;</code> event will be emitted by the <a href="javascript:if(confirm('http://nodejs.cn/s/uALgct  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uALgct'" tppabs="http://nodejs.cn/s/uALgct" rel="nofollow"><code>ChildProcess</code></a> object. This can happen,
+for instance, when the child process has already exited.</p><p><code>subprocess.send()</code> will return <code>false</code> if the channel has closed or when the
+backlog of unsent messages exceeds a threshold that makes it unwise to send
+more. Otherwise, the method returns <code>true</code>. The <code>callback</code> function can be
+used to implement flow control.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712012962"><\/script>');
+  </script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>信号常量 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/os/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712032873" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-os">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>信号常量</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="os.html#os_signal_constants" tppabs="http://nodejs.cn/api/os.html#os_signal_constants" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v5.11.0</td>
+<td><p>Added support for <code>SIGINFO</code>.</p></td></tr>
+</tbody></table>
+</details>
+</div><p>&#x4E0B;&#x9762;&#x7684;&#x4FE1;&#x53F7;&#x5E38;&#x91CF;&#x7531; <code>os.constants.signals</code> &#x7ED9;&#x51FA;:</p><table>
+  <tbody><tr>
+    <th>&#x5E38;&#x91CF;</th>
+    <th>&#x63CF;&#x8FF0;</th>
+  </tr>
+  <tr>
+    <td><code>SIGHUP</code></td>
+    <td>&#x53D1;&#x9001;&#x6765;&#x8868;&#x660E;&#x5F53;&#x4E00;&#x4E2A;&#x63A7;&#x5236;&#x7EC8;&#x7AEF;&#x5173;&#x95ED;&#x6216;&#x8005;&#x662F;&#x7236;&#x8FDB;&#x7A0B;&#x9000;&#x51FA;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGINT</code></td><td>&#x53D1;&#x9001;&#x6765;&#x8868;&#x660E;&#x5F53;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x671F;&#x671B;&#x4E2D;&#x65AD;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x65F6;.
+    (`(Ctrl+C)`).</td>
+  </tr>
+  <tr>
+    <td><code>SIGQUIT</code></td>
+    <td>&#x53D1;&#x9001;&#x6765;&#x8868;&#x660E;&#x5F53;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x5E0C;&#x671B;&#x7EC8;&#x6B62;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5E76;&#x4E14;&#x6267;&#x884C;&#x6838;&#x5FC3;&#x8F6C;&#x50A8;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGILL</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x901A;&#x77E5;&#x5B83;&#x5DF2;&#x7ECF;&#x8BD5;&#x56FE;&#x6267;&#x884C;&#x4E00;&#x4E2A;&#x975E;&#x6CD5;&#x7684;,&#x7578;&#x5F62;&#x7684;,&#x672A;&#x77E5;&#x7684;&#x6216;&#x7279;&#x6743;&#x7684;&#x6307;&#x4EE4;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTRAP</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x5F02;&#x5E38;&#x5DF2;&#x7ECF;&#x53D1;&#x751F;&#x4E86;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGABRT</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x8BF7;&#x6C42;&#x7EC8;&#x6B62;</td>
+  </tr>
+  <tr>
+    <td><code>SIGIOT</code></td>
+    <td><code>SIGABRT</code>&#x7684;&#x540C;&#x4E49;&#x8BCD;</td>
+  </tr>
+  <tr>
+    <td><code>SIGBUS</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x901A;&#x77E5;&#x5B83;&#x5DF2;&#x7ECF;&#x9020;&#x6210;&#x4E86;&#x603B;&#x7EBF;&#x9519;&#x8BEF;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGFPE</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x901A;&#x77E5;&#x5B83;&#x5DF2;&#x7ECF;&#x6267;&#x884C;&#x4E86;&#x4E00;&#x4E2A;&#x975E;&#x6CD5;&#x7684;&#x7B97;&#x672F;&#x64CD;&#x4F5C;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGKILL</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x7ACB;&#x5373;&#x7EC8;&#x6B62;&#x5B83;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGUSR1</code> <code>SIGUSR2</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x786E;&#x5B9A;&#x5B83;&#x7684;&#x7528;&#x6237;&#x5B9A;&#x4E49;&#x60C5;&#x51B5;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGSEGV</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x901A;&#x77E5;&#x6BB5;&#x9519;&#x8BEF;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGPIPE</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x5B83;&#x8BD5;&#x56FE;&#x5199;&#x5165;&#x4E00;&#x4E2A;&#x975E;&#x8FDE;&#x63A5;&#x7684;&#x7BA1;&#x9053;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGALRM</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x7CFB;&#x7EDF;&#x65F6;&#x949F;&#x6D88;&#x901D;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTERM</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x8BF7;&#x6C42;&#x7EC8;&#x6B62;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGCHLD</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x4E00;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x7EC8;&#x6B62;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGSTKFLT</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x534F;&#x5904;&#x7406;&#x5668;&#x7684;&#x6808;&#x9519;&#x8BEF;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGCONT</code></td>
+    <td>&#x53D1;&#x9001;&#x6765;&#x901A;&#x77E5;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7EE7;&#x7EED;&#x4E00;&#x4E2A;&#x6682;&#x505C;&#x7684;&#x8FDB;&#x7A0B;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGSTOP</code></td>
+    <td>&#x53D1;&#x9001;&#x6765;&#x901A;&#x77E5;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x6682;&#x505C;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTSTP</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x8BF7;&#x6C42;&#x5B83;&#x505C;&#x6B62;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGBREAK</code></td>
+    <td>&#x53D1;&#x9001;&#x6765;&#x8868;&#x660E;&#x5F53;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x5E0C;&#x671B;&#x7EC8;&#x6B62;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTTIN</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x5B83;&#x5728;&#x540E;&#x53F0;&#x8BFB;&#x53D6;TTY&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTTOU</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x5B83;&#x5728;&#x540E;&#x53F0;&#x5199;&#x5165;TTY&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGURG</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;socket&#x7531;&#x7D27;&#x6025;&#x7684;&#x6570;&#x636E;&#x9700;&#x8981;&#x8BFB;&#x53D6;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGXCPU</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x5B83;&#x8D85;&#x8FC7;&#x4ED6;&#x5728;CPU&#x4F7F;&#x7528;&#x4E0A;&#x7684;&#x9650;&#x5236;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGXFSZ</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x5B83;&#x6587;&#x4EF6;&#x6210;&#x957F;&#x7684;&#x6BD4;&#x6700;&#x5927;&#x5141;&#x8BB8;&#x7684;&#x503C;&#x8FD8;&#x5927;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGVTALRM</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x4E00;&#x4E2A;&#x865A;&#x62DF;&#x65F6;&#x949F;&#x6D88;&#x901D;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGPROF</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#x65F6;&#x949F;&#x6D88;&#x901D;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGWINCH</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x63A7;&#x5236;&#x7EC8;&#x7AEF;&#x6539;&#x53D8;&#x5B83;&#x7684;&#x5927;&#x5C0F;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGIO</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;I/O&#x53EF;&#x7528;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGPOLL</code></td>
+    <td><code>SIGIO</code>&#x540C;&#x4E49;&#x8BCD;</td>
+  </tr>
+  <tr>
+    <td><code>SIGLOST</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x6587;&#x4EF6;&#x9501;&#x4E22;&#x5931;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGPWR</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x901A;&#x77E5;&#x529F;&#x7387;&#x9519;&#x8BEF;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGINFO</code></td>
+    <td><code>SIGPWR</code>&#x540C;&#x4E49;&#x8BCD;</td>
+  </tr>
+  <tr>
+    <td><code>SIGSYS</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x901A;&#x77E5;&#x6709;&#x9519;&#x8BEF;&#x7684;&#x53C2;&#x6570;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGUNUSED</code></td>
+    <td><code>SIGSYS</code>&#x7684;&#x540C;&#x4E49;&#x8BCD;</td>
+  </tr>
+</tbody></table></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v5.11.0</td>
+<td><p>Added support for <code>SIGINFO</code>.</p></td></tr>
+</tbody></table>
+</details>
+</div><p>The following signal constants are exported by <code>os.constants.signals</code>:</p><table>
+  <tbody><tr>
+    <th>Constant</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>SIGHUP</code></td>
+    <td>Sent to indicate when a controlling terminal is closed or a parent
+    process exits.</td>
+  </tr>
+  <tr>
+    <td><code>SIGINT</code></td>
+    <td>Sent to indicate when a user wishes to interrupt a process
+    (<code>(Ctrl+C)</code>).</td>
+  </tr>
+  <tr>
+    <td><code>SIGQUIT</code></td>
+    <td>Sent to indicate when a user wishes to terminate a process and perform a
+    core dump.</td>
+  </tr>
+  <tr>
+    <td><code>SIGILL</code></td>
+    <td>Sent to a process to notify that it has attempted to perform an illegal,
+    malformed, unknown, or privileged instruction.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTRAP</code></td>
+    <td>Sent to a process when an exception has occurred.</td>
+  </tr>
+  <tr>
+    <td><code>SIGABRT</code></td>
+    <td>Sent to a process to request that it abort.</td>
+  </tr>
+  <tr>
+    <td><code>SIGIOT</code></td>
+    <td>Synonym for <code>SIGABRT</code></td>
+  </tr>
+  <tr>
+    <td><code>SIGBUS</code></td>
+    <td>Sent to a process to notify that it has caused a bus error.</td>
+  </tr>
+  <tr>
+    <td><code>SIGFPE</code></td>
+    <td>Sent to a process to notify that it has performed an illegal arithmetic
+    operation.</td>
+  </tr>
+  <tr>
+    <td><code>SIGKILL</code></td>
+    <td>Sent to a process to terminate it immediately.</td>
+  </tr>
+  <tr>
+    <td><code>SIGUSR1</code> <code>SIGUSR2</code></td>
+    <td>Sent to a process to identify user-defined conditions.</td>
+  </tr>
+  <tr>
+    <td><code>SIGSEGV</code></td>
+    <td>Sent to a process to notify of a segmentation fault.</td>
+  </tr>
+  <tr>
+    <td><code>SIGPIPE</code></td>
+    <td>Sent to a process when it has attempted to write to a disconnected
+    pipe.</td>
+  </tr>
+  <tr>
+    <td><code>SIGALRM</code></td>
+    <td>Sent to a process when a system timer elapses.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTERM</code></td>
+    <td>Sent to a process to request termination.</td>
+  </tr>
+  <tr>
+    <td><code>SIGCHLD</code></td>
+    <td>Sent to a process when a child process terminates.</td>
+  </tr>
+  <tr>
+    <td><code>SIGSTKFLT</code></td>
+    <td>Sent to a process to indicate a stack fault on a coprocessor.</td>
+  </tr>
+  <tr>
+    <td><code>SIGCONT</code></td>
+    <td>Sent to instruct the operating system to continue a paused process.</td>
+  </tr>
+  <tr>
+    <td><code>SIGSTOP</code></td>
+    <td>Sent to instruct the operating system to halt a process.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTSTP</code></td>
+    <td>Sent to a process to request it to stop.</td>
+  </tr>
+  <tr>
+    <td><code>SIGBREAK</code></td>
+    <td>Sent to indicate when a user wishes to interrupt a process.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTTIN</code></td>
+    <td>Sent to a process when it reads from the TTY while in the
+    background.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTTOU</code></td>
+    <td>Sent to a process when it writes to the TTY while in the
+    background.</td>
+  </tr>
+  <tr>
+    <td><code>SIGURG</code></td>
+    <td>Sent to a process when a socket has urgent data to read.</td>
+  </tr>
+  <tr>
+    <td><code>SIGXCPU</code></td>
+    <td>Sent to a process when it has exceeded its limit on CPU usage.</td>
+  </tr>
+  <tr>
+    <td><code>SIGXFSZ</code></td>
+    <td>Sent to a process when it grows a file larger than the maximum
+    allowed.</td>
+  </tr>
+  <tr>
+    <td><code>SIGVTALRM</code></td>
+    <td>Sent to a process when a virtual timer has elapsed.</td>
+  </tr>
+  <tr>
+    <td><code>SIGPROF</code></td>
+    <td>Sent to a process when a system timer has elapsed.</td>
+  </tr>
+  <tr>
+    <td><code>SIGWINCH</code></td>
+    <td>Sent to a process when the controlling terminal has changed its
+    size.</td>
+  </tr>
+  <tr>
+    <td><code>SIGIO</code></td>
+    <td>Sent to a process when I/O is available.</td>
+  </tr>
+  <tr>
+    <td><code>SIGPOLL</code></td>
+    <td>Synonym for <code>SIGIO</code></td>
+  </tr>
+  <tr>
+    <td><code>SIGLOST</code></td>
+    <td>Sent to a process when a file lock has been lost.</td>
+  </tr>
+  <tr>
+    <td><code>SIGPWR</code></td>
+    <td>Sent to a process to notify of a power failure.</td>
+  </tr>
+  <tr>
+    <td><code>SIGINFO</code></td>
+    <td>Synonym for <code>SIGPWR</code></td>
+  </tr>
+  <tr>
+    <td><code>SIGSYS</code></td>
+    <td>Sent to a process to notify of a bad argument.</td>
+  </tr>
+  <tr>
+    <td><code>SIGUNUSED</code></td>
+    <td>Synonym for <code>SIGSYS</code></td>
+  </tr>
+</tbody></table></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712032873"><\/script>');
+  </script>
+</body>
+</html>

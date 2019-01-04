@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Verify 类 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/crypto/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712016025" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-crypto">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>Verify 类</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="crypto.html#crypto_class_verify" tppabs="http://nodejs.cn/api/crypto.html#crypto_class_verify" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.92</span>
+</div><p><code>Verify</code>&#x7C7B;&#x662F;&#x9A8C;&#x8BC1;&#x7B7E;&#x540D;&#x7684;&#x5DE5;&#x5177;&#x3002;&#x5B83;&#x53EF;&#x4EE5;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x4F7F;&#x7528;:</p><ul>
+<li>&#x4F5C;&#x4E3A;&#x53EF;&#x5199;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/kUvpNm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/kUvpNm'" tppabs="http://nodejs.cn/s/kUvpNm" rel="nofollow">stream</a>&#xFF0C;&#x4F7F;&#x7528;&#x4E66;&#x9762;&#x6570;&#x636E;&#x6765;&#x9A8C;&#x8BC1;&#x63D0;&#x4F9B;&#x7684;&#x7B7E;&#x540D;</li>
+<li>&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/xw5mUp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xw5mUp'" tppabs="http://nodejs.cn/s/xw5mUp" rel="nofollow"><code>verify.update()</code></a>&#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/8nFPxa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8nFPxa'" tppabs="http://nodejs.cn/s/8nFPxa" rel="nofollow"><code>verify.verify()</code></a>&#x7684;&#x65B9;&#x6CD5;&#x6765;&#x9A8C;&#x8BC1;&#x7B7E;&#x540D;&#x3002;</li>
+</ul><p><a href="javascript:if(confirm('http://nodejs.cn/s/sXCgdr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/sXCgdr'" tppabs="http://nodejs.cn/s/sXCgdr" rel="nofollow"><code>crypto.createVerify()</code></a>&#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x521B;&#x5EFA;<code>Verify</code>&#x5B9E;&#x4F8B;&#x3002;
+<code>Verify</code>&#x5BF9;&#x8C61;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>new</code>&#x5173;&#x952E;&#x5B57;&#x521B;&#x5EFA;&#x3002;</p><p>&#x793A;&#x4F8B;:&#x4F7F;&#x7528;&#x201C;&#x9A8C;&#x8BC1;&#x201D;&#x5BF9;&#x8C61;&#x4F5C;&#x4E3A;&#x6D41;:</p><pre><code class="language-js">const crypto = require(&apos;crypto&apos;);
+const verify = crypto.createVerify(&apos;SHA256&apos;);
+
+verify.write(&apos;some data to sign&apos;);
+verify.end();
+
+const publicKey = getPublicKeySomehow();
+const signature = getSignatureToVerify();
+console.log(verify.verify(publicKey, signature));
+// Prints: true or false
+</code></pre><p>&#x793A;&#x4F8B;&#xFF1A;&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/xw5mUp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xw5mUp'" tppabs="http://nodejs.cn/s/xw5mUp" rel="nofollow"><code>verify.update()</code></a>&#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/8nFPxa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8nFPxa'" tppabs="http://nodejs.cn/s/8nFPxa" rel="nofollow"><code>verify.verify()</code></a>&#x65B9;&#x6CD5;</p><pre><code class="language-js">const crypto = require(&apos;crypto&apos;);
+const verify = crypto.createVerify(&apos;SHA256&apos;);
+
+verify.update(&apos;some data to sign&apos;);
+
+const publicKey = getPublicKeySomehow();
+const signature = getSignatureToVerify();
+console.log(verify.verify(publicKey, signature));
+// Prints: true or false
+</code></pre></div>
+          <div id="content_right"><div class="api_metadata">
+<span>Added in: v0.1.92</span>
+</div><p>The <code>Verify</code> class is a utility for verifying signatures. It can be used in one
+of two ways:</p><ul>
+<li>As a writable <a href="javascript:if(confirm('http://nodejs.cn/s/kUvpNm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/kUvpNm'" tppabs="http://nodejs.cn/s/kUvpNm" rel="nofollow">stream</a> where written data is used to validate against the
+supplied signature, or</li>
+<li>Using the <a href="javascript:if(confirm('http://nodejs.cn/s/xw5mUp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xw5mUp'" tppabs="http://nodejs.cn/s/xw5mUp" rel="nofollow"><code>verify.update()</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/8nFPxa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8nFPxa'" tppabs="http://nodejs.cn/s/8nFPxa" rel="nofollow"><code>verify.verify()</code></a> methods to verify
+the signature.</li>
+</ul><p>The <a href="javascript:if(confirm('http://nodejs.cn/s/sXCgdr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/sXCgdr'" tppabs="http://nodejs.cn/s/sXCgdr" rel="nofollow"><code>crypto.createVerify()</code></a> method is used to create <code>Verify</code> instances.
+<code>Verify</code> objects are not to be created directly using the <code>new</code> keyword.</p><p>Example: Using <code>Verify</code> objects as streams:</p><pre><code class="language-js">const crypto = require(&apos;crypto&apos;);
+const verify = crypto.createVerify(&apos;SHA256&apos;);
+
+verify.write(&apos;some data to sign&apos;);
+verify.end();
+
+const publicKey = getPublicKeySomehow();
+const signature = getSignatureToVerify();
+console.log(verify.verify(publicKey, signature));
+// Prints: true or false
+</code></pre><p>Example: Using the <a href="javascript:if(confirm('http://nodejs.cn/s/xw5mUp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xw5mUp'" tppabs="http://nodejs.cn/s/xw5mUp" rel="nofollow"><code>verify.update()</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/8nFPxa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8nFPxa'" tppabs="http://nodejs.cn/s/8nFPxa" rel="nofollow"><code>verify.verify()</code></a> methods:</p><pre><code class="language-js">const crypto = require(&apos;crypto&apos;);
+const verify = crypto.createVerify(&apos;SHA256&apos;);
+
+verify.update(&apos;some data to sign&apos;);
+
+const publicKey = getPublicKeySomehow();
+const signature = getSignatureToVerify();
+console.log(verify.verify(publicKey, signature));
+// Prints: true or false
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712016025"><\/script>');
+  </script>
+</body>
+</html>

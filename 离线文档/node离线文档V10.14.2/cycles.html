@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>循环 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/modules/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712029414" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-modules">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>循环</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="modules.html#modules_cycles" tppabs="http://nodejs.cn/api/modules.html#modules_cycles" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p>&#x5F53;&#x5FAA;&#x73AF;&#x8C03;&#x7528; <code>require()</code> &#x65F6;&#xFF0C;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#x53EF;&#x80FD;&#x5728;&#x672A;&#x5B8C;&#x6210;&#x6267;&#x884C;&#x65F6;&#x88AB;&#x8FD4;&#x56DE;&#x3002;</p><p>&#x4F8B;&#x5982;&#x4EE5;&#x4E0B;&#x60C5;&#x51B5;:</p><p><code>a.js</code>:</p><pre><code class="language-js">console.log(&apos;a &#x5F00;&#x59CB;&apos;);
+exports.done = false;
+const b = require(&apos;./b.js&apos;);
+console.log(&apos;&#x5728; a &#x4E2D;&#xFF0C;b.done = %j&apos;, b.done);
+exports.done = true;
+console.log(&apos;a &#x7ED3;&#x675F;&apos;);
+</code></pre><p><code>b.js</code>:</p><pre><code class="language-js">console.log(&apos;b &#x5F00;&#x59CB;&apos;);
+exports.done = false;
+const a = require(&apos;./a.js&apos;);
+console.log(&apos;&#x5728; b &#x4E2D;&#xFF0C;a.done = %j&apos;, a.done);
+exports.done = true;
+console.log(&apos;b &#x7ED3;&#x675F;&apos;);
+</code></pre><p><code>main.js</code>:</p><pre><code class="language-js">console.log(&apos;main &#x5F00;&#x59CB;&apos;);
+const a = require(&apos;./a.js&apos;);
+const b = require(&apos;./b.js&apos;);
+console.log(&apos;&#x5728; main &#x4E2D;&#xFF0C;a.done=%j&#xFF0C;b.done=%j&apos;, a.done, b.done);
+</code></pre><p>&#x5F53; <code>main.js</code> &#x52A0;&#x8F7D; <code>a.js</code> &#x65F6;&#xFF0C;<code>a.js</code> &#x53C8;&#x52A0;&#x8F7D; <code>b.js</code>&#x3002;
+&#x6B64;&#x65F6;&#xFF0C;<code>b.js</code> &#x4F1A;&#x5C1D;&#x8BD5;&#x53BB;&#x52A0;&#x8F7D; <code>a.js</code>&#x3002;
+&#x4E3A;&#x4E86;&#x9632;&#x6B62;&#x65E0;&#x9650;&#x7684;&#x5FAA;&#x73AF;&#xFF0C;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; <code>a.js</code> &#x7684; <code>exports</code> &#x5BF9;&#x8C61;&#x7684; <strong>&#x672A;&#x5B8C;&#x6210;&#x7684;&#x526F;&#x672C;</strong> &#x7ED9; <code>b.js</code> &#x6A21;&#x5757;&#x3002;
+&#x7136;&#x540E; <code>b.js</code> &#x5B8C;&#x6210;&#x52A0;&#x8F7D;&#xFF0C;&#x5E76;&#x5C06; <code>exports</code> &#x5BF9;&#x8C61;&#x63D0;&#x4F9B;&#x7ED9; <code>a.js</code> &#x6A21;&#x5757;&#x3002;</p><p>&#x5F53; <code>main.js</code> &#x52A0;&#x8F7D;&#x8FD9;&#x4E24;&#x4E2A;&#x6A21;&#x5757;&#x65F6;&#xFF0C;&#x5B83;&#x4EEC;&#x90FD;&#x5DF2;&#x7ECF;&#x5B8C;&#x6210;&#x52A0;&#x8F7D;&#x3002;
+&#x56E0;&#x6B64;&#xFF0C;&#x8BE5;&#x7A0B;&#x5E8F;&#x7684;&#x8F93;&#x51FA;&#x4F1A;&#x662F;&#xFF1A;</p><pre><code class="language-txt">$ node main.js
+main &#x5F00;&#x59CB;
+a &#x5F00;&#x59CB;
+b &#x5F00;&#x59CB;
+&#x5728; b &#x4E2D;&#xFF0C;a.done = false
+b &#x7ED3;&#x675F;
+&#x5728; a &#x4E2D;&#xFF0C;b.done = true
+a &#x7ED3;&#x675F;
+&#x5728; main &#x4E2D;&#xFF0C;a.done=true&#xFF0C;b.done=true
+</code></pre><p>&#x9700;&#x8981;&#x4ED4;&#x7EC6;&#x7684;&#x89C4;&#x5212;, &#x4EE5;&#x5141;&#x8BB8;&#x5FAA;&#x73AF;&#x6A21;&#x5757;&#x4F9D;&#x8D56;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5185;&#x6B63;&#x5E38;&#x5DE5;&#x4F5C;.</p></div>
+          <div id="content_right"><p>When there are circular <code>require()</code> calls, a module might not have finished
+executing when it is returned.</p><p>Consider this situation:</p><p><code>a.js</code>:</p><pre><code class="language-js">console.log(&apos;a starting&apos;);
+exports.done = false;
+const b = require(&apos;./b.js&apos;);
+console.log(&apos;in a, b.done = %j&apos;, b.done);
+exports.done = true;
+console.log(&apos;a done&apos;);
+</code></pre><p><code>b.js</code>:</p><pre><code class="language-js">console.log(&apos;b starting&apos;);
+exports.done = false;
+const a = require(&apos;./a.js&apos;);
+console.log(&apos;in b, a.done = %j&apos;, a.done);
+exports.done = true;
+console.log(&apos;b done&apos;);
+</code></pre><p><code>main.js</code>:</p><pre><code class="language-js">console.log(&apos;main starting&apos;);
+const a = require(&apos;./a.js&apos;);
+const b = require(&apos;./b.js&apos;);
+console.log(&apos;in main, a.done = %j, b.done = %j&apos;, a.done, b.done);
+</code></pre><p>When <code>main.js</code> loads <code>a.js</code>, then <code>a.js</code> in turn loads <code>b.js</code>. At that
+point, <code>b.js</code> tries to load <code>a.js</code>. In order to prevent an infinite
+loop, an <strong>unfinished copy</strong> of the <code>a.js</code> exports object is returned to the
+<code>b.js</code> module. <code>b.js</code> then finishes loading, and its <code>exports</code> object is
+provided to the <code>a.js</code> module.</p><p>By the time <code>main.js</code> has loaded both modules, they&apos;re both finished.
+The output of this program would thus be:</p><pre><code class="language-txt">$ node main.js
+main starting
+a starting
+b starting
+in b, a.done = false
+b done
+in a, b.done = true
+a done
+in main, a.done = true, b.done = true
+</code></pre><p>Careful planning is required to allow cyclic module dependencies to work
+correctly within an application.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712029414"><\/script>');
+  </script>
+</body>
+</html>

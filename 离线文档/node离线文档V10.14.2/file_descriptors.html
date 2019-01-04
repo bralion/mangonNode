@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>文件描述符 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/fs/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712023523" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-fs">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>文件描述符</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="fs.html#fs_file_descriptors" tppabs="http://nodejs.cn/api/fs.html#fs_file_descriptors" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p>&#x5728; POSIX &#x7CFB;&#x7EDF;&#xFF0C;&#x5185;&#x6838;&#x4E3A;&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x7EF4;&#x62A4;&#x7740;&#x4E00;&#x5F20;&#x5F53;&#x524D;&#x6253;&#x5F00;&#x7740;&#x7684;&#x6587;&#x4EF6;&#x4E0E;&#x8D44;&#x6E90;&#x7684;&#x8868;&#x683C;&#x3002;
+&#x6BCF;&#x4E2A;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#x90FD;&#x4F1A;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x7684;&#x6570;&#x503C;&#x6807;&#x8BC6;&#x3002;
+&#x5728;&#x7CFB;&#x7EDF;&#x5C42;&#xFF0C;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x64CD;&#x4F5C;&#x4F7F;&#x7528;&#x8FD9;&#x4E9B;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x6765;&#x8BC6;&#x522B;&#x4E0E;&#x8FFD;&#x8E2A;&#x6BCF;&#x4E2A;&#x7279;&#x5B9A;&#x7684;&#x6587;&#x4EF6;&#x3002;
+Window &#x7CFB;&#x7EDF;&#x4F7F;&#x7528;&#x4E86;&#x4E00;&#x4E2A;&#x4E0D;&#x540C;&#x4F46;&#x6982;&#x5FF5;&#x7C7B;&#x4F3C;&#x7684;&#x673A;&#x5236;&#x6765;&#x8FFD;&#x8E2A;&#x8D44;&#x6E90;&#x3002;
+&#x4E3A;&#x65B9;&#x4FBF;&#x7528;&#x6237;&#xFF0C;Node.js &#x62BD;&#x8C61;&#x4E86;&#x4E0D;&#x540C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x95F4;&#x7684;&#x5DEE;&#x5F02;&#xFF0C;&#x4E3A;&#x6240;&#x6709;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#x5206;&#x914D;&#x4E86;&#x6570;&#x503C;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3002;</p><p><code>fs.open()</code> &#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3002;
+&#x4E00;&#x65E6;&#x5206;&#x914D;&#x4E86;&#xFF0C;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x53EF;&#x7528;&#x4E8E;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x3001;&#x5199;&#x5165;&#x6570;&#x636E;&#x3001;&#x6216;&#x67E5;&#x770B;&#x6587;&#x4EF6;&#x4FE1;&#x606F;&#x3002;</p><pre><code class="language-js">fs.open(&apos;/open/some/file.txt&apos;, &apos;r&apos;, (err, fd) =&gt; {
+  if (err) throw err;
+  fs.fstat(fd, (err, stat) =&gt; {
+    if (err) throw err;
+    // &#x5404;&#x79CD;&#x64CD;&#x4F5C;
+
+    // &#x5FC5;&#x987B;&#x5173;&#x95ED;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#xFF01;
+    fs.close(fd, (err) =&gt; {
+      if (err) throw err;
+    });
+  });
+});
+</code></pre><p>&#x5927;&#x591A;&#x6570;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4F1A;&#x9650;&#x5236;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x6240;&#x4EE5;&#x5F53;&#x64CD;&#x4F5C;&#x5B8C;&#x6210;&#x65F6;&#x9700;&#x5173;&#x95ED;&#x63CF;&#x8FF0;&#x7B26;&#x3002;
+&#x5982;&#x679C;&#x4E0D;&#x8FD9;&#x6837;&#x505A;&#x4F1A;&#x5BFC;&#x81F4;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF0C;&#x6700;&#x7EC8;&#x9020;&#x6210;&#x5E94;&#x7528;&#x5954;&#x6E83;&#x3002;</p></div>
+          <div id="content_right"><p>On POSIX systems, for every process, the kernel maintains a table of currently
+open files and resources. Each open file is assigned a simple numeric
+identifier called a <em>file descriptor</em>. At the system-level, all file system
+operations use these file descriptors to identify and track each specific
+file. Windows systems use a different but conceptually similar mechanism for
+tracking resources. To simplify things for users, Node.js abstracts away the
+specific differences between operating systems and assigns all open files a
+numeric file descriptor.</p><p>The <code>fs.open()</code> method is used to allocate a new file descriptor. Once
+allocated, the file descriptor may be used to read data from, write data to,
+or request information about the file.</p><pre><code class="language-js">fs.open(&apos;/open/some/file.txt&apos;, &apos;r&apos;, (err, fd) =&gt; {
+  if (err) throw err;
+  fs.fstat(fd, (err, stat) =&gt; {
+    if (err) throw err;
+    // use stat
+
+    // always close the file descriptor!
+    fs.close(fd, (err) =&gt; {
+      if (err) throw err;
+    });
+  });
+});
+</code></pre><p>Most operating systems limit the number of file descriptors that may be open
+at any given time so it is critical to close the descriptor when operations
+are completed. Failure to do so will result in a memory leak that will
+eventually cause an application to crash.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712023523"><\/script>');
+  </script>
+</body>
+</html>

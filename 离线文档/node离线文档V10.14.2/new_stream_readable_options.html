@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>new stream.Readable([options]) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/stream/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712037192" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-stream">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>new stream.Readable([options])</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="stream.html#stream_new_stream_readable_options" tppabs="http://nodejs.cn/api/stream.html#stream_new_stream_readable_options" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>highWaterMark</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x4ECE;&#x5E95;&#x5C42;&#x8D44;&#x6E90;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x5E76;&#x5B58;&#x50A8;&#x5728;&#x5185;&#x90E8;&#x7F13;&#x51B2;&#x533A;&#x4E2D;&#x7684;&#x6700;&#x5927;<a href="javascript:if(confirm('http://nodejs.cn/s/K499k3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/K499k3'" tppabs="http://nodejs.cn/s/K499k3" rel="nofollow">&#x5B57;&#x8282;&#x6570;</a>&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>16384</code> (16kb), &#x5BF9;&#x8C61;&#x6A21;&#x5F0F;&#x7684;&#x6D41;&#x9ED8;&#x8BA4;&#x4E3A; <code>16</code>&#x3002;</li>
+<li><code>encoding</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86;&#xFF0C;&#x5219;&#x4F7F;&#x7528;&#x6307;&#x5B9A;&#x7684;&#x5B57;&#x7B26;&#x7F16;&#x7801;&#x5C06; buffer &#x89E3;&#x7801;&#x6210;&#x5B57;&#x7B26;&#x4E32;&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>null</code>&#x3002;</li>
+<li><code>objectMode</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x6D41;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x6D41;&#x3002;
+&#x4E5F;&#x5C31;&#x662F;&#x8BF4; <a href="javascript:if(confirm('http://nodejs.cn/s/SpgRaa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SpgRaa'" tppabs="http://nodejs.cn/s/SpgRaa" rel="nofollow"><code>stream.read(n)</code></a> &#x4F1A;&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x800C;&#x4E0D;&#x662F; <code>Buffer</code>&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>false</code>&#x3002;</li>
+<li><code>read</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x5BF9; <a href="javascript:if(confirm('http://nodejs.cn/s/5hv4Rd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5hv4Rd'" tppabs="http://nodejs.cn/s/5hv4Rd" rel="nofollow"><code>stream._read()</code></a> &#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;&#x3002;</li>
+<li><code>destroy</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x5BF9; <a href="javascript:if(confirm('http://nodejs.cn/s/2c9czW  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2c9czW'" tppabs="http://nodejs.cn/s/2c9czW" rel="nofollow"><code>stream._destroy()</code></a> &#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;&#x3002;</li>
+</ul>
+</li>
+</ul><p>&#x4F8B;&#x5B50;&#xFF1A;</p><pre><code class="language-js">const { Readable } = require(&apos;stream&apos;);
+
+class MyReadable extends Readable {
+  constructor(options) {
+    // &#x8C03;&#x7528; stream.Readable(options) &#x6784;&#x9020;&#x51FD;&#x6570;&#x3002;
+    super(options);
+    // ...
+  }
+}
+</code></pre><p>&#x4F7F;&#x7528; ES6 &#x4E4B;&#x524D;&#x7684;&#x8BED;&#x6CD5;&#xFF1A;</p><pre><code class="language-js">const { Readable } = require(&apos;stream&apos;);
+const util = require(&apos;util&apos;);
+
+function MyReadable(options) {
+  if (!(this instanceof MyReadable))
+    return new MyReadable(options);
+  Readable.call(this, options);
+}
+util.inherits(MyReadable, Readable);
+</code></pre><p>&#x4F7F;&#x7528;&#x7B80;&#x5316;&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#xFF1A;</p><pre><code class="language-js">const { Readable } = require(&apos;stream&apos;);
+
+const myReadable = new Readable({
+  read(size) {
+    // ...
+  }
+});
+</code></pre></div>
+          <div id="content_right"><ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>highWaterMark</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> The maximum <a href="javascript:if(confirm('http://nodejs.cn/s/K499k3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/K499k3'" tppabs="http://nodejs.cn/s/K499k3" rel="nofollow">number of bytes</a> to store
+in the internal buffer before ceasing to read from the underlying resource.
+<strong>Default:</strong> <code>16384</code> (16kb), or <code>16</code> for <code>objectMode</code> streams.</li>
+<li><code>encoding</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> If specified, then buffers will be decoded to
+strings using the specified encoding. <strong>Default:</strong> <code>null</code>.</li>
+<li><code>objectMode</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> Whether this stream should behave
+as a stream of objects. Meaning that <a href="javascript:if(confirm('http://nodejs.cn/s/SpgRaa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SpgRaa'" tppabs="http://nodejs.cn/s/SpgRaa" rel="nofollow"><code>stream.read(n)</code></a> returns
+a single value instead of a <code>Buffer</code> of size <code>n</code>. <strong>Default:</strong> <code>false</code>.</li>
+<li><code>read</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> Implementation for the <a href="javascript:if(confirm('http://nodejs.cn/s/5hv4Rd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5hv4Rd'" tppabs="http://nodejs.cn/s/5hv4Rd" rel="nofollow"><code>stream._read()</code></a>
+method.</li>
+<li><code>destroy</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> Implementation for the
+<a href="javascript:if(confirm('http://nodejs.cn/s/2c9czW  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2c9czW'" tppabs="http://nodejs.cn/s/2c9czW" rel="nofollow"><code>stream._destroy()</code></a> method.</li>
+</ul>
+</li>
+</ul><pre><code class="language-js">const { Readable } = require(&apos;stream&apos;);
+
+class MyReadable extends Readable {
+  constructor(options) {
+    // Calls the stream.Readable(options) constructor
+    super(options);
+    // ...
+  }
+}
+</code></pre><p>Or, when using pre-ES6 style constructors:</p><pre><code class="language-js">const { Readable } = require(&apos;stream&apos;);
+const util = require(&apos;util&apos;);
+
+function MyReadable(options) {
+  if (!(this instanceof MyReadable))
+    return new MyReadable(options);
+  Readable.call(this, options);
+}
+util.inherits(MyReadable, Readable);
+</code></pre><p>Or, using the Simplified Constructor approach:</p><pre><code class="language-js">const { Readable } = require(&apos;stream&apos;);
+
+const myReadable = new Readable({
+  read(size) {
+    // ...
+  }
+});
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712037192"><\/script>');
+  </script>
+</body>
+</html>

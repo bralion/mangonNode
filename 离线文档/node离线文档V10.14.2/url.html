@@ -1,0 +1,1090 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>url | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712040183" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-url">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url active" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="url" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><span class="stability_2"><a href="#url_url">url&#xFF08;URL&#xFF09;</a></span></p>
+<ul>
+<li><a href="#url_url_strings_and_url_objects">URL &#x5B57;&#x7B26;&#x4E32;&#x4E0E; URL &#x5BF9;&#x8C61;</a></li>
+<li>
+<p><a href="#url_the_whatwg_url_api">WHATWG &#x7684; URL &#x63A5;&#x53E3;</a></p>
+<ul>
+<li>
+<p><a href="#url_class_url">URL &#x7C7B;</a></p>
+<ul>
+<li><a href="#url_constructor_new_url_input_base">new URL(input[, base])</a></li>
+<li><a href="#url_url_hash">url.hash</a></li>
+<li><a href="#url_url_host">url.host</a></li>
+<li><a href="#url_url_hostname">url.hostname</a></li>
+<li><a href="#url_url_href">url.href</a></li>
+<li><a href="#url_url_origin">url.origin</a></li>
+<li><a href="#url_url_password">url.password</a></li>
+<li><a href="#url_url_pathname">url.pathname</a></li>
+<li><a href="#url_url_port">url.port</a></li>
+<li>
+<p><a href="#url_url_protocol">url.protocol</a></p>
+<ul>
+<li><a href="#url_special_schemes">&#x7279;&#x6B8A;&#x534F;&#x8BAE;</a></li>
+</ul>
+</li>
+<li><a href="#url_url_search">url.search</a></li>
+<li><a href="#url_url_searchparams">url.searchParams</a></li>
+<li><a href="#url_url_username">url.username</a></li>
+<li><a href="#url_url_tostring">url.toString()</a></li>
+<li><a href="#url_url_tojson">url.toJSON()</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#url_class_urlsearchparams">URLSearchParams &#x7C7B;</a></p>
+<ul>
+<li><a href="#url_constructor_new_urlsearchparams">new URLSearchParams()</a></li>
+<li><a href="#url_constructor_new_urlsearchparams_string">new URLSearchParams(string)</a></li>
+<li><a href="#url_constructor_new_urlsearchparams_obj">new URLSearchParams(obj)</a></li>
+<li><a href="#url_constructor_new_urlsearchparams_iterable">new URLSearchParams(iterable)</a></li>
+<li><a href="#url_urlsearchparams_append_name_value">urlSearchParams.append(name, value)</a></li>
+<li><a href="#url_urlsearchparams_delete_name">urlSearchParams.delete(name)</a></li>
+<li><a href="#url_urlsearchparams_entries">urlSearchParams.entries()</a></li>
+<li><a href="#url_urlsearchparams_foreach_fn_thisarg">urlSearchParams.forEach(fn[, thisArg])</a></li>
+<li><a href="#url_urlsearchparams_get_name">urlSearchParams.get(name)</a></li>
+<li><a href="#url_urlsearchparams_getall_name">urlSearchParams.getAll(name)</a></li>
+<li><a href="#url_urlsearchparams_has_name">urlSearchParams.has(name)</a></li>
+<li><a href="#url_urlsearchparams_keys">urlSearchParams.keys()</a></li>
+<li><a href="#url_urlsearchparams_set_name_value">urlSearchParams.set(name, value)</a></li>
+<li><a href="#url_urlsearchparams_sort">urlSearchParams.sort()</a></li>
+<li><a href="#url_urlsearchparams_tostring">urlSearchParams.toString()</a></li>
+<li><a href="#url_urlsearchparams_values">urlSearchParams.values()</a></li>
+<li><a href="#url_urlsearchparams_symbol_iterator">urlSearchParams[Symbol.iterator]()</a></li>
+</ul>
+</li>
+<li><a href="#url_url_domaintoascii_domain">url.domainToASCII(domain)</a></li>
+<li><a href="#url_url_domaintounicode_domain">url.domainToUnicode(domain)</a></li>
+<li><a href="#url_url_fileurltopath_url">url.fileURLToPath(url)</a></li>
+<li><a href="#url_url_format_url_options">url.format(URL[, options])</a></li>
+<li><a href="#url_url_pathtofileurl_path">url.pathToFileURL(path)</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#url_legacy_url_api">&#x9057;&#x7559;&#x7684; URL &#x63A5;&#x53E3;</a></p>
+<ul>
+<li>
+<p><a href="#url_legacy_urlobject">&#x9057;&#x7559;&#x7684; urlObject</a></p>
+<ul>
+<li><a href="#url_urlobject_auth">urlObject.auth</a></li>
+<li><a href="#url_urlobject_hash">urlObject.hash</a></li>
+<li><a href="#url_urlobject_host">urlObject.host</a></li>
+<li><a href="#url_urlobject_hostname">urlObject.hostname</a></li>
+<li><a href="#url_urlobject_href">urlObject.href</a></li>
+<li><a href="#url_urlobject_path">urlObject.path</a></li>
+<li><a href="#url_urlobject_pathname">urlObject.pathname</a></li>
+<li><a href="#url_urlobject_port">urlObject.port</a></li>
+<li><a href="#url_urlobject_protocol">urlObject.protocol</a></li>
+<li><a href="#url_urlobject_query">urlObject.query</a></li>
+<li><a href="#url_urlobject_search">urlObject.search</a></li>
+<li><a href="#url_urlobject_slashes">urlObject.slashes</a></li>
+</ul>
+</li>
+<li><a href="#url_url_format_urlobject">url.format(urlObject)</a></li>
+<li><a href="#url_url_parse_urlstring_parsequerystring_slashesdenotehost">url.parse(urlString[, parseQueryString[, slashesDenoteHost]])</a></li>
+<li><a href="#url_url_resolve_from_to">url.resolve(from, to)</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#url_percent_encoding_in_urls">URL &#x4E2D;&#x7684;&#x767E;&#x5206;&#x53F7;&#x7F16;&#x7801;</a></p>
+<ul>
+<li><a href="#url_legacy_api">&#x9057;&#x7559;&#x7684;&#x63A5;&#x53E3;</a></li>
+<li><a href="#url_whatwg_api">WHATWG &#x63A5;&#x53E3;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>url&#xFF08;URL&#xFF09;<span><a class="mark" href="#url_url" id="url_url" rel="nofollow">#</a></span></h1><p class="tip_wrap"><a href="url-2.html" tppabs="http://nodejs.cn/api/url/url.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<!--introduced_in=v0.10.0-->
+<p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p>
+<p><code>url</code> &#x6A21;&#x5757;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x4E0E;&#x89E3;&#x6790; URL&#x3002;
+&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="language-js">const url = require(&apos;url&apos;);
+</code></pre>
+<h2>URL &#x5B57;&#x7B26;&#x4E32;&#x4E0E; URL &#x5BF9;&#x8C61;<span><a class="mark" href="#url_url_strings_and_url_objects" id="url_url_strings_and_url_objects" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="url_strings_and_url_objects.html" tppabs="http://nodejs.cn/api/url/url_strings_and_url_objects.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>URL &#x5B57;&#x7B26;&#x4E32;&#x662F;&#x7ED3;&#x6784;&#x5316;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5305;&#x542B;&#x591A;&#x4E2A;&#x542B;&#x4E49;&#x4E0D;&#x540C;&#x7684;&#x7EC4;&#x6210;&#x90E8;&#x5206;&#x3002;
+&#x89E3;&#x6790;&#x5B57;&#x7B26;&#x4E32;&#x540E;&#x8FD4;&#x56DE;&#x7684; URL &#x5BF9;&#x8C61;&#xFF0C;&#x6BCF;&#x4E2A;&#x5C5E;&#x6027;&#x5BF9;&#x5E94;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5404;&#x4E2A;&#x7EC4;&#x6210;&#x90E8;&#x5206;&#x3002;</p>
+<p><code>url</code> &#x6A21;&#x5757;&#x63D0;&#x4F9B;&#x4E86;&#x4E24;&#x5957; API &#x6765;&#x5904;&#x7406; URL&#xFF1A;&#x4E00;&#x4E2A;&#x662F;&#x65E7;&#x7248;&#x672C;&#x9057;&#x7559;&#x7684; API&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x5B9E;&#x73B0;&#x4E86; <a href="javascript:if(confirm('http://nodejs.cn/s/fKgW8d  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fKgW8d'" tppabs="http://nodejs.cn/s/fKgW8d" rel="nofollow">WHATWG&#x6807;&#x51C6;</a>&#x7684;&#x65B0; API&#x3002;</p>
+<p>&#x9057;&#x7559;&#x7684; API &#x8FD8;&#x6CA1;&#x6709;&#x88AB;&#x5E9F;&#x5F03;&#xFF0C;&#x4FDD;&#x7559;&#x662F;&#x4E3A;&#x4E86;&#x517C;&#x5BB9;&#x5DF2;&#x5B58;&#x5728;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;
+&#x65B0;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5E94;&#x4F7F;&#x7528; WHATWG &#x7684; API&#x3002;</p>
+<p>WHATWG &#x7684; API &#x4E0E;&#x9057;&#x7559;&#x7684; API &#x7684;&#x533A;&#x522B;&#x5982;&#x4E0B;&#x3002;
+&#x5728;&#x4E0B;&#x56FE;&#x4E2D;&#xFF0C;URL <code>&apos;http://user:pass@sub.example.com:8080/p/a/t/h?query=string#hash&apos;</code> &#x4E0A;&#x65B9;&#x7684;&#x662F;&#x9057;&#x7559;&#x7684; <code>url.parse()</code> &#x8FD4;&#x56DE;&#x7684;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x3002;
+&#x4E0B;&#x65B9;&#x7684;&#x5219;&#x662F; WHATWG &#x7684; <code>URL</code> &#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x3002;</p>
+<p>WHATWG &#x7684; <code>origin</code> &#x5C5E;&#x6027;&#x5305;&#x62EC; <code>protocol</code> &#x548C; <code>host</code>&#xFF0C;&#x4F46;&#x4E0D;&#x5305;&#x62EC; <code>username</code> &#x6216; <code>password</code>&#x3002;</p>
+<pre><code class="language-txt">&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+&#x2502;                                              href                                              &#x2502;
+&#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;
+&#x2502; protocol &#x2502;  &#x2502;        auth         &#x2502;          host          &#x2502;           path            &#x2502; hash  &#x2502;
+&#x2502;          &#x2502;  &#x2502;                     &#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x253C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;       &#x2502;
+&#x2502;          &#x2502;  &#x2502;                     &#x2502;    hostname     &#x2502; port &#x2502; pathname &#x2502;     search     &#x2502;       &#x2502;
+&#x2502;          &#x2502;  &#x2502;                     &#x2502;                 &#x2502;      &#x2502;          &#x251C;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;       &#x2502;
+&#x2502;          &#x2502;  &#x2502;                     &#x2502;                 &#x2502;      &#x2502;          &#x2502; &#x2502;    query     &#x2502;       &#x2502;
+&quot;  https:   //    user   :   pass   @ sub.example.com : 8080   /p/a/t/h  ?  query=string   #hash &quot;
+&#x2502;          &#x2502;  &#x2502;          &#x2502;          &#x2502;    hostname     &#x2502; port &#x2502;          &#x2502;                &#x2502;       &#x2502;
+&#x2502;          &#x2502;  &#x2502;          &#x2502;          &#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;          &#x2502;                &#x2502;       &#x2502;
+&#x2502; protocol &#x2502;  &#x2502; username &#x2502; password &#x2502;          host          &#x2502;          &#x2502;                &#x2502;       &#x2502;
+&#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x253C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x253C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;          &#x2502;                &#x2502;       &#x2502;
+&#x2502;   origin    &#x2502;                     &#x2502;         origin         &#x2502; pathname &#x2502;     search     &#x2502; hash  &#x2502;
+&#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;
+&#x2502;                                              href                                              &#x2502;
+&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+<p>&#x4F7F;&#x7528; WHATWG &#x7684; API &#x89E3;&#x6790; URL &#x5B57;&#x7B26;&#x4E32;&#xFF1A;</p>
+<pre><code class="language-js">const myURL =
+  new URL(&apos;https://user:pass@sub.host.com:8080/p/a/t/h?query=string#hash&apos;);
+</code></pre>
+<p>&#x4F7F;&#x7528;&#x9057;&#x7559;&#x7684; API &#x89E3;&#x6790; URL &#x5B57;&#x7B26;&#x4E32;&#xFF1A;</p>
+<pre><code class="language-js">const url = require(&apos;url&apos;);
+const myURL =
+  url.parse(&apos;https://user:pass@sub.host.com:8080/p/a/t/h?query=string#hash&apos;);
+</code></pre>
+<h2>WHATWG &#x7684; URL &#x63A5;&#x53E3;<span><a class="mark" href="#url_the_whatwg_url_api" id="url_the_whatwg_url_api" rel="nofollow">#</a></span></h2>
+<h3>URL &#x7C7B;<span><a class="mark" href="#url_class_url" id="url_class_url" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="class_url.html" tppabs="http://nodejs.cn/api/url/class_url.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x6D4F;&#x89C8;&#x5668;&#x517C;&#x5BB9;&#x7684; <code>URL</code> &#x7C7B;&#xFF0C;&#x6839;&#x636E; WHATWG URL &#x6807;&#x51C6;&#x5B9E;&#x73B0;&#x3002;[&#x89E3;&#x6790;URL&#x7684;&#x793A;&#x4F8B;][]&#x53EF;&#x4EE5;&#x5728;&#x6807;&#x51C6;&#x672C;&#x8EAB;&#x91CC;&#x8FB9;&#x627E;&#x5230;&#x3002;</p>
+<p><em>&#x6CE8;&#x610F;</em>: &#x6839;&#x636E;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x7EA6;&#x5B9A;&#xFF0C;<code>URL</code> &#x5BF9;&#x8C61;&#x7684;&#x6240;&#x6709;&#x5C5E;&#x6027;&#x90FD;&#x662F;&#x5728;&#x7C7B;&#x7684;&#x539F;&#x578B;&#x4E0A;&#x5B9E;&#x73B0;&#x4E3A;getter&#x548C;setter&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4F5C;&#x4E3A;&#x5BF9;&#x8C61;&#x672C;&#x8EAB;&#x7684;&#x6570;&#x636E;&#x5C5E;&#x6027;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x4E0E;[&#x9057;&#x7559;&#x7684;urlObjects][]&#x4E0D;&#x540C;&#xFF0C;&#x5728; <code>URL</code> &#x5BF9;&#x8C61;&#x7684;&#x4EFB;&#x4F55;&#x5C5E;&#x6027;(&#x4F8B;&#x5982; <code>delete myURL.protocol</code>&#xFF0C;<code>delete myURL.pathname</code>&#x7B49;)&#x4E0A;&#x4F7F;&#x7528; <code>delete</code> &#x5173;&#x952E;&#x5B57;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x6548;&#x679C;&#xFF0C;&#x4F46;&#x4ECD;&#x8FD4;&#x56DE; <code>true</code>&#x3002;</p>
+<h4>new URL(input[, base])<span><a class="mark" href="#url_constructor_new_url_input_base" id="url_constructor_new_url_input_base" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="constructor_new_url_input_base.html" tppabs="http://nodejs.cn/api/url/constructor_new_url_input_base.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><code>input</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x8981;&#x89E3;&#x6790;&#x7684;&#x8F93;&#x5165;URL</li>
+<li><code>base</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="url.html#url_the_whatwg_url_api" tppabs="http://nodejs.cn/api/url.html#url_the_whatwg_url_api" target="_blank" rel="nofollow" class="type">&lt;URL&gt;</a> &#x5982;&#x679C;&#x201C;input&#x201D;&#x662F;&#x76F8;&#x5BF9;URL&#xFF0C;&#x5219;&#x4E3A;&#x8981;&#x89E3;&#x6790;&#x7684;&#x57FA;&#x672C;URL&#x3002;</li>
+</ul>
+<p>&#x901A;&#x8FC7;&#x5C06;<code>input</code>&#x89E3;&#x6790;&#x5230;<code>base</code>&#x4E0A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;<code>URL</code>&#x5BF9;&#x8C61;&#x3002;&#x5982;&#x679C;<code>base</code>&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x89E3;&#x6790;&#x65B9;&#x6CD5;&#x4E0E;<code>new URL(base)</code>&#x76F8;&#x540C;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;/foo&apos;, &apos;https://example.org/&apos;);
+  // https://example.org/foo
+</code></pre>
+<p>&#x5982;&#x679C;<code>input</code>&#x6216;<code>base</code>&#x662F;&#x65E0;&#x6548;URLs&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA;<code>TypeError</code>&#x3002;&#x8BF7;&#x6CE8;&#x610F;&#x7ED9;&#x5B9A;&#x503C;&#x5C06;&#x88AB;&#x5F3A;&#x5236;&#x8F6C;&#x6362;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#x3002;&#x4F8B;&#x5982;&#xFF1A;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL({ toString: () =&gt; &apos;https://example.org/&apos; });
+  // https://example.org/
+</code></pre>
+<p>&#x5B58;&#x5728;&#x4E8E;<code>input</code>&#x4E3B;&#x673A;&#x540D;&#x4E2D;&#x7684;Unicode&#x5B57;&#x7B26;&#x5C06;&#x88AB;&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/C2g98n  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/C2g98n'" tppabs="http://nodejs.cn/s/C2g98n" rel="nofollow">Punycode</a>&#x7B97;&#x6CD5;&#x81EA;&#x52A8;&#x8F6C;&#x6362;&#x4E3A;ASCII&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://&#x4F60;&#x597D;&#x4F60;&#x597D;&apos;);
+  // https://xn--6qqa088eba/
+</code></pre>
+<p><em>Note</em>: This feature is only available if the <code>node</code> executable was compiled
+with <a href="javascript:if(confirm('http://nodejs.cn/s/e2VfyT  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/e2VfyT'" tppabs="http://nodejs.cn/s/e2VfyT" rel="nofollow">ICU</a> enabled. If not, the domain names are passed through unchanged.</p>
+<h4>url.hash<span><a class="mark" href="#url_url_hash" id="url_url_hash" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_hash.html" tppabs="http://nodejs.cn/api/url/url_hash.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x83B7;&#x53D6;&#x53CA;&#x8BBE;&#x7F6E;URL&#x7684;&#x5206;&#x6BB5;(hash)&#x90E8;&#x5206;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://example.org/foo#bar&apos;);
+console.log(myURL.hash);
+ &#xA0;// &#x8F93;&#x51FA; #bar
+
+myURL.hash = &apos;baz&apos;;
+console.log(myURL.href);
+ &#xA0;// &#x8F93;&#x51FA; https://example.org/foo#baz
+</code></pre>
+<p>&#x5305;&#x542B;&#x5728;&#x8D4B;&#x7ED9;<code>hash</code>&#x5C5E;&#x6027;&#x7684;&#x503C;&#x4E2D;&#x7684;&#x65E0;&#x6548;URL&#x5B57;&#x7B26;&#x662F;[&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;][]&#x3002;&#x8BF7;&#x6CE8;&#x610F;&#x9009;&#x62E9;&#x54EA;&#x4E9B;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x53EF;&#x80FD;&#x4E0E;[url.parse()][]&#x548C;[url.format()][]&#x65B9;&#x6CD5;&#x4EA7;&#x751F;&#x7684;&#x4E0D;&#x540C;&#x3002;</p>
+<h4>url.host<span><a class="mark" href="#url_url_host" id="url_url_host" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_host.html" tppabs="http://nodejs.cn/api/url/url_host.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x83B7;&#x53D6;&#x53CA;&#x8BBE;&#x7F6E;URL&#x7684;&#x4E3B;&#x673A;(host)&#x90E8;&#x5206;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://example.org:81/foo&apos;);
+console.log(myURL.host);
+ &#xA0;// &#x8F93;&#x51FA; example.org:81
+
+myURL.host = &apos;example.com:82&apos;;
+console.log(myURL.href);
+ &#xA0;// &#x8F93;&#x51FA; https://example.com:82/foo
+</code></pre>
+<p>&#x5982;&#x679C;&#x7ED9;<code>host</code>&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;&#x7684;&#x503C;&#x662F;&#x65E0;&#x6548;&#x503C;&#xFF0C;&#x90A3;&#x4E48;&#x8BE5;&#x503C;&#x5C06;&#x88AB;&#x5FFD;&#x7565;&#x3002;</p>
+<h4>url.hostname<span><a class="mark" href="#url_url_hostname" id="url_url_hostname" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_hostname.html" tppabs="http://nodejs.cn/api/url/url_hostname.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x83B7;&#x53D6;&#x53CA;&#x8BBE;&#x7F6E;URL&#x7684;&#x4E3B;&#x673A;&#x540D;(hostname)&#x90E8;&#x5206;&#x3002; <code>url.host</code>&#x548C;<code>url.hostname</code>&#x4E4B;&#x95F4;&#x7684;&#x533A;&#x522B;&#x662F;<code>url.hostname</code><em>&#x4E0D;</em> &#x5305;&#x542B;&#x7AEF;&#x53E3;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://example.org:81/foo&apos;);
+console.log(myURL.hostname);
+ &#xA0;// &#x8F93;&#x51FA; example.org
+
+myURL.hostname = &apos;example.com:82&apos;;
+console.log(myURL.href);
+  // &#x8F93;&#x51FA; https://example.com:81/foo
+</code></pre>
+<p>&#x5982;&#x679C;&#x7ED9;<code>hostname</code>&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;&#x7684;&#x503C;&#x662F;&#x65E0;&#x6548;&#x503C;&#xFF0C;&#x90A3;&#x4E48;&#x8BE5;&#x503C;&#x5C06;&#x88AB;&#x5FFD;&#x7565;&#x3002;</p>
+<h4>url.href<span><a class="mark" href="#url_url_href" id="url_url_href" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_href.html" tppabs="http://nodejs.cn/api/url/url_href.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x83B7;&#x53D6;&#x53CA;&#x8BBE;&#x7F6E;&#x5E8F;&#x5217;&#x5316;&#x7684;URL&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://example.org/foo&apos;);
+console.log(myURL.href);
+ &#xA0;// &#x8F93;&#x51FA; https://example.org/foo
+
+myURL.href = &apos;https://example.com/bar&apos;;
+console.log(myURL.href);
+ &#xA0;// &#x8F93;&#x51FA; https://example.com/bar
+</code></pre>
+<p>&#x83B7;&#x53D6;<code>href</code>&#x5C5E;&#x6027;&#x7684;&#x503C;&#x7B49;&#x540C;&#x4E8E;&#x8C03;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/EXzgVB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/EXzgVB'" tppabs="http://nodejs.cn/s/EXzgVB" rel="nofollow"><code>url.toString()</code></a>&#x3002;</p>
+<p>&#x5C06;&#x6B64;&#x5C5E;&#x6027;&#x7684;&#x503C;&#x8BBE;&#x7F6E;&#x4E3A;&#x65B0;&#x503C;&#x7B49;&#x540C;&#x4E8E;<a href="javascript:if(confirm('http://nodejs.cn/s/a19aPx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/a19aPx'" tppabs="http://nodejs.cn/s/a19aPx" rel="nofollow"><code>new URL(value)</code></a>&#x4F7F;&#x7528;&#x521B;&#x5EFA;&#x65B0;&#x7684;<code>URL</code>&#x5BF9;&#x8C61;&#x3002;<code>URL</code>&#x5BF9;&#x8C61;&#x7684;&#x6BCF;&#x4E2A;&#x5C5E;&#x6027;&#x90FD;&#x5C06;&#x88AB;&#x4FEE;&#x6539;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x7ED9;<code>href</code>&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;&#x7684;&#x503C;&#x662F;&#x65E0;&#x6548;URL&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA;<code>TypeError</code>&#x3002;</p>
+<h4>url.origin<span><a class="mark" href="#url_url_origin" id="url_url_origin" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_origin.html" tppabs="http://nodejs.cn/api/url/url_origin.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x83B7;&#x53D6;&#x53EA;&#x8BFB;&#x5E8F;&#x5217;&#x5316;&#x7684;URL origin&#x90E8;&#x5206;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://example.org/foo/bar?baz&apos;);
+console.log(myURL.origin);
+ &#xA0;// &#x8F93;&#x51FA; https://example.org
+</code></pre>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const idnURL = new URL(&apos;https://&#x4F60;&#x597D;&#x4F60;&#x597D;&apos;);
+console.log(idnURL.origin);
+  // &#x8F93;&#x51FA; https://xn--6qqa088eba
+
+console.log(idnURL.hostname);
+  // &#x8F93;&#x51FA; xn--6qqa088eba
+</code></pre>
+<h4>url.password<span><a class="mark" href="#url_url_password" id="url_url_password" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_password.html" tppabs="http://nodejs.cn/api/url/url_password.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x83B7;&#x53D6;&#x53CA;&#x8BBE;&#x7F6E;URL&#x7684;&#x5BC6;&#x7801;(password)&#x90E8;&#x5206;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://abc:xyz@example.com&apos;);
+console.log(myURL.password);
+ &#xA0;// &#x8F93;&#x51FA; xyz
+
+myURL.password = &apos;123&apos;;
+console.log(myURL.href);
+ &#xA0;// &#x8F93;&#x51FA; https://abc:123@example.com
+</code></pre>
+<p>&#x5305;&#x542B;&#x5728;&#x8D4B;&#x7ED9;<code>password</code>&#x5C5E;&#x6027;&#x7684;&#x503C;&#x4E2D;&#x7684;&#x65E0;&#x6548;URL&#x5B57;&#x7B26;&#x662F;[&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;][]&#x3002;&#x8BF7;&#x6CE8;&#x610F;&#x9009;&#x62E9;&#x54EA;&#x4E9B;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x53EF;&#x80FD;&#x4E0E;<a href="javascript:if(confirm('http://nodejs.cn/s/b28B2A  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/b28B2A'" tppabs="http://nodejs.cn/s/b28B2A" rel="nofollow"><code>url.parse()</code></a>&#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/qWw3iQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qWw3iQ'" tppabs="http://nodejs.cn/s/qWw3iQ" rel="nofollow"><code>url.format()</code></a>&#x65B9;&#x6CD5;&#x4EA7;&#x751F;&#x7684;&#x4E0D;&#x540C;&#x3002;</p>
+<h4>url.pathname<span><a class="mark" href="#url_url_pathname" id="url_url_pathname" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_pathname.html" tppabs="http://nodejs.cn/api/url/url_pathname.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x83B7;&#x53D6;&#x53CA;&#x8BBE;&#x7F6E;URL&#x7684;&#x8DEF;&#x5F84;(path)&#x90E8;&#x5206;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://example.org/abc/xyz?123&apos;);
+console.log(myURL.pathname);
+ &#xA0;// &#x8F93;&#x51FA; /abc/xyz
+
+myURL.pathname = &apos;/abcdef&apos;;
+console.log(myURL.href);
+ &#xA0;// &#x8F93;&#x51FA; https://example.org/abcdef?123
+</code></pre>
+<p>&#x5305;&#x542B;&#x5728;&#x8D4B;&#x7ED9;<code>pathname</code>&#x5C5E;&#x6027;&#x7684;&#x503C;&#x4E2D;&#x7684;&#x65E0;&#x6548;URL&#x5B57;&#x7B26;&#x662F;[&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;][]&#x3002;&#x8BF7;&#x6CE8;&#x610F;&#x9009;&#x62E9;&#x54EA;&#x4E9B;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x53EF;&#x80FD;&#x4E0E;<a href="javascript:if(confirm('http://nodejs.cn/s/b28B2A  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/b28B2A'" tppabs="http://nodejs.cn/s/b28B2A" rel="nofollow"><code>url.parse()</code></a>&#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/qWw3iQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qWw3iQ'" tppabs="http://nodejs.cn/s/qWw3iQ" rel="nofollow"><code>url.format()</code></a>&#x65B9;&#x6CD5;&#x4EA7;&#x751F;&#x7684;&#x4E0D;&#x540C;&#x3002;</p>
+<h4>url.port<span><a class="mark" href="#url_url_port" id="url_url_port" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_port.html" tppabs="http://nodejs.cn/api/url/url_port.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x83B7;&#x53D6;&#x53CA;&#x8BBE;&#x7F6E;URL&#x7684;&#x7AEF;&#x53E3;(port)&#x90E8;&#x5206;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://example.org:8888&apos;);
+console.log(myURL.port);
+ &#xA0;// &#x8F93;&#x51FA; 8888
+
+// &#x9ED8;&#x8BA4;&#x7AEF;&#x53E3;&#x5C06;&#x81EA;&#x52A8;&#x8F6C;&#x6362;&#x4E3A;&#x7A7A;&#x5B57;&#x7B26;
+// (HTTPS&#x534F;&#x8BAE;&#x9ED8;&#x8BA4;&#x7AEF;&#x53E3;&#x662F;443)
+myURL.port = &apos;443&apos;;
+console.log(myURL.port);
+  // &#x8F93;&#x51FA;&#x7A7A;&#x5B57;&#x7B26;
+console.log(myURL.href);
+  // &#x8F93;&#x51FA; https://example.org/
+
+myURL.port = 1234;
+console.log(myURL.port);
+  // &#x8F93;&#x51FA; 1234
+console.log(myURL.href);
+  // &#x8F93;&#x51FA; https://example.org:1234/
+
+// &#x5B8C;&#x5168;&#x65E0;&#x6548;&#x7684;&#x7AEF;&#x53E3;&#x5B57;&#x7B26;&#x4E32;&#x5C06;&#x88AB;&#x5FFD;&#x7565;
+myURL.port = &apos;abcd&apos;;
+console.log(myURL.port);
+  // &#x8F93;&#x51FA; 1234
+
+// &#x5F00;&#x5934;&#x7684;&#x6570;&#x5B57;&#x5C06;&#x4F1A;&#x88AB;&#x5F53;&#x505A;&#x7AEF;&#x53E3;&#x6570;
+myURL.port = &apos;5678abcd&apos;;
+console.log(myURL.port);
+  // &#x8F93;&#x51FA; 5678
+
+// &#x975E;&#x6574;&#x5F62;&#x6570;&#x5B57;&#x5C06;&#x4F1A;&#x88AB;&#x622A;&#x53D6;&#x90E8;&#x5206;
+myURL.port = 1234.5678;
+console.log(myURL.port);
+  // &#x8F93;&#x51FA; 1234
+
+// &#x8D85;&#x51FA;&#x8303;&#x56F4;&#x7684;&#x6570;&#x5B57;&#x5C06;&#x88AB;&#x5FFD;&#x7565;
+myURL.port = 1e10;
+console.log(myURL.port);
+  // &#x8F93;&#x51FA; 1234
+</code></pre>
+<p>&#x7AEF;&#x53E3;&#x503C;&#x53EF;&#x4EE5;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;&#x6570;&#x5B57;&#x6216;&#x5305;&#x542B;&#x6570;&#x5B57;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x6570;&#x5B57;&#x8303;&#x56F4;<code>0</code>~<code>65535</code>(&#x5305;&#x62EC;)&#x3002;&#x4E3A;&#x7ED9;&#x5B9A;<code>protocol</code>&#x7684;<code>URL</code>&#x5BF9;&#x8C61;&#x8BBE;&#x7F6E;&#x7AEF;&#x53E3;&#x503C;&#x5C06;&#x4F1A;&#x5BFC;&#x81F4;<code>port</code>&#x503C;&#x53D8;&#x6210;&#x7A7A;&#x5B57;&#x7B26;(<code>&apos;&apos;</code>)&#x3002;</p>
+<p>&#x5982;&#x679C;&#x7ED9;<code>port</code>&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;&#x7684;&#x503C;&#x662F;&#x65E0;&#x6548;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x4F46;&#x5982;&#x679C;&#x5B57;&#x7B26;&#x4E32;&#x4EE5;&#x6570;&#x5B57;&#x5F00;&#x5934;&#xFF0C;&#x90A3;&#x4E48;&#x5F00;&#x5934;&#x90E8;&#x4F4D;&#x7684;&#x6570;&#x5B57;&#x5C06;&#x4F1A;&#x88AB;&#x8D4B;&#x503C;&#x7ED9;<code>port</code>&#x3002;&#x5426;&#x5219;&#xFF0C;&#x5305;&#x62EC;&#x5982;&#x679C;&#x6570;&#x5B57;&#x8D85;&#x51FA;&#x4E0A;&#x8FF0;&#x8981;&#x6C42;&#x7684;&#x6570;&#x5B57;&#xFF0C;&#x5C06;&#x88AB;&#x5FFD;&#x7565;&#x3002;</p>
+<h4>url.protocol<span><a class="mark" href="#url_url_protocol" id="url_url_protocol" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_protocol.html" tppabs="http://nodejs.cn/api/url/url_protocol.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x83B7;&#x53D6;&#x53CA;&#x8BBE;&#x7F6E;URL&#x7684;&#x534F;&#x8BAE;(protocol)&#x90E8;&#x5206;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://example.org&apos;);
+console.log(myURL.protocol);
+ &#xA0;// &#x8F93;&#x51FA; https:
+
+myURL.protocol = &apos;ftp&apos;;
+console.log(myURL.href);
+  // &#x8F93;&#x51FA; ftp://example.org/
+</code></pre>
+<p>&#x5982;&#x679C;&#x7ED9;<code>protocol</code>&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;&#x7684;&#x503C;&#x662F;&#x65E0;&#x6548;&#x503C;&#xFF0C;&#x90A3;&#x4E48;&#x8BE5;&#x503C;&#x5C06;&#x88AB;&#x5FFD;&#x7565;&#x3002;</p>
+<h5>&#x7279;&#x6B8A;&#x534F;&#x8BAE;<span><a class="mark" href="#url_special_schemes" id="url_special_schemes" rel="nofollow">#</a></span></h5><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/fKgW8d  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fKgW8d'" tppabs="http://nodejs.cn/s/fKgW8d" rel="nofollow">WHATWG URL Standard</a> considers a handful of URL protocol schemes to be
+<em>special</em> in terms of how they are parsed and serialized. When a URL is
+parsed using one of these special protocols, the <code>url.protocol</code> property
+may be changed to another special protocol but cannot be changed to a
+non-special protocol, and vice versa.</p>
+<p>For instance, changing from <code>http</code> to <code>https</code> works:</p>
+<pre><code class="language-js">const u = new URL(&apos;http://example.org&apos;);
+u.protocol = &apos;https&apos;;
+console.log(u.href);
+// https://example.org
+</code></pre>
+<p>However, changing from <code>http</code> to a hypothetical <code>fish</code> protocol does not
+because the new protocol is not special.</p>
+<pre><code class="language-js">const u = new URL(&apos;http://example.org&apos;);
+u.protocol = &apos;fish&apos;;
+console.log(u.href);
+// http://example.org
+</code></pre>
+<p>Likewise, changing from a non-special protocol to a special protocol is also
+not permitted:</p>
+<pre><code class="language-js">const u = new URL(&apos;fish://example.org&apos;);
+u.protocol = &apos;http&apos;;
+console.log(u.href);
+// fish://example.org
+</code></pre>
+<p>The protocol schemes considered to be special by the WHATWG URL Standard
+include: <code>ftp</code>, <code>file</code>, <code>gopher</code>, <code>http</code>, <code>https</code>, <code>ws</code>, and <code>wss</code>.</p>
+<h4>url.search<span><a class="mark" href="#url_url_search" id="url_url_search" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_search.html" tppabs="http://nodejs.cn/api/url/url_search.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x83B7;&#x53D6;&#x53CA;&#x8BBE;&#x7F6E;URL&#x7684;&#x5E8F;&#x5217;&#x5316;&#x67E5;&#x8BE2;(query)&#x90E8;&#x5206;&#x90E8;&#x5206;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://example.org/abc?123&apos;);
+console.log(myURL.search);
+ &#xA0;// &#x8F93;&#x51FA; ?123
+
+myURL.search = &apos;abc=xyz&apos;;
+console.log(myURL.href);
+  // &#x8F93;&#x51FA; https://example.org/abc?abc=xyz
+</code></pre>
+<p>&#x4EFB;&#x4F55;&#x51FA;&#x73B0;&#x5728;&#x8D4B;&#x7ED9;<code>search</code>&#x5C5E;&#x6027;&#x503C;&#x4E2D;&#x7684;&#x65E0;&#x6548;URL&#x5B57;&#x7B26;&#x5C06;&#x88AB;[&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;][]&#x3002;&#x8BF7;&#x6CE8;&#x610F;&#x9009;&#x62E9;&#x54EA;&#x4E9B;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x53EF;&#x80FD;&#x4E0E;<a href="javascript:if(confirm('http://nodejs.cn/s/b28B2A  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/b28B2A'" tppabs="http://nodejs.cn/s/b28B2A" rel="nofollow"><code>url.parse()</code></a>&#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/qWw3iQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qWw3iQ'" tppabs="http://nodejs.cn/s/qWw3iQ" rel="nofollow"><code>url.format()</code></a>&#x65B9;&#x6CD5;&#x4EA7;&#x751F;&#x7684;&#x4E0D;&#x540C;&#x3002;</p>
+<h4>url.searchParams<span><a class="mark" href="#url_url_searchparams" id="url_url_searchparams" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_searchparams.html" tppabs="http://nodejs.cn/api/url/url_searchparams.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><a href="url.html#url_class_urlsearchparams" tppabs="http://nodejs.cn/api/url.html#url_class_urlsearchparams" target="_blank" rel="nofollow" class="type">&lt;URLSearchParams&gt;</a></li>
+</ul>
+<p>&#x83B7;&#x53D6;&#x8868;&#x793A;URL&#x67E5;&#x8BE2;&#x53C2;&#x6570;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/AUtfEw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/AUtfEw'" tppabs="http://nodejs.cn/s/AUtfEw" rel="nofollow"><code>URLSearchParams</code></a>&#x5BF9;&#x8C61;&#x3002;&#x8BE5;&#x5C5E;&#x6027;&#x662F;&#x53EA;&#x8BFB;&#x7684;&#xFF1B;&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/EgNerx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/EgNerx'" tppabs="http://nodejs.cn/s/EgNerx" rel="nofollow"><code>url.search</code></a>&#x8BBE;&#x7F6E;&#x6765;&#x66FF;&#x6362;URL&#x7684;&#x6574;&#x4E2A;&#x67E5;&#x8BE2;&#x53C2;&#x6570;&#x3002;&#x8BF7;&#x6253;&#x5F00;<a href="javascript:if(confirm('http://nodejs.cn/s/AUtfEw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/AUtfEw'" tppabs="http://nodejs.cn/s/AUtfEw" rel="nofollow"><code>URLSearchParams</code></a>&#x6587;&#x6863;&#x6765;&#x67E5;&#x770B;&#x66F4;&#x591A;&#x7EC6;&#x8282;&#x3002;</p>
+<h4>url.username<span><a class="mark" href="#url_url_username" id="url_url_username" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_username.html" tppabs="http://nodejs.cn/api/url/url_username.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x83B7;&#x53D6;&#x53CA;&#x8BBE;&#x7F6E;URL&#x7684;&#x7528;&#x6237;&#x540D;(username)&#x90E8;&#x5206;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://abc:xyz@example.com&apos;);
+console.log(myURL.username);
+ &#xA0;// &#x8F93;&#x51FA; abc
+
+myURL.username = &apos;123&apos;;
+console.log(myURL.href);
+ &#xA0;// &#x8F93;&#x51FA; https://123:xyz@example.com/
+</code></pre>
+<p>&#x4EFB;&#x4F55;&#x51FA;&#x73B0;&#x5728;&#x8D4B;&#x7ED9;<code>username</code>&#x5C5E;&#x6027;&#x503C;&#x4E2D;&#x7684;&#x65E0;&#x6548;URL&#x5B57;&#x7B26;&#x5C06;&#x88AB;[&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;][]&#x3002;&#x8BF7;&#x6CE8;&#x610F;&#x9009;&#x62E9;&#x54EA;&#x4E9B;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x53EF;&#x80FD;&#x4E0E;<a href="javascript:if(confirm('http://nodejs.cn/s/b28B2A  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/b28B2A'" tppabs="http://nodejs.cn/s/b28B2A" rel="nofollow"><code>url.parse()</code></a>&#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/qWw3iQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qWw3iQ'" tppabs="http://nodejs.cn/s/qWw3iQ" rel="nofollow"><code>url.format()</code></a>&#x65B9;&#x6CD5;&#x4EA7;&#x751F;&#x7684;&#x4E0D;&#x540C;&#x3002;</p>
+<h4>url.toString()<span><a class="mark" href="#url_url_tostring" id="url_url_tostring" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_tostring.html" tppabs="http://nodejs.cn/api/url/url_tostring.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x5728;<code>URL</code>&#x5BF9;&#x8C61;&#x4E0A;&#x8C03;&#x7528;<code>toString()</code>&#x65B9;&#x6CD5;&#x5C06;&#x8FD4;&#x56DE;&#x5E8F;&#x5217;&#x5316;&#x7684;URL&#x3002;&#x8FD4;&#x56DE;&#x503C;&#x4E0E;<a href="javascript:if(confirm('http://nodejs.cn/s/Feif9B  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Feif9B'" tppabs="http://nodejs.cn/s/Feif9B" rel="nofollow"><code>url.href</code></a>&#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/naUyEW  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/naUyEW'" tppabs="http://nodejs.cn/s/naUyEW" rel="nofollow"><code>url.toJSON()</code></a>&#x7684;&#x76F8;&#x540C;&#x3002;</p>
+<p>&#x7531;&#x4E8E;&#x9700;&#x8981;&#x7B26;&#x5408;&#x6807;&#x51C6;&#xFF0C;&#x6B64;&#x65B9;&#x6CD5;&#x4E0D;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x81EA;&#x5B9A;&#x4E49;URL&#x7684;&#x5E8F;&#x5217;&#x5316;&#x8FC7;&#x7A0B;&#x3002; &#x5982;&#x679C;&#x9700;&#x8981;&#x66F4;&#x5927;&#x7075;&#x6D3B;&#x6027;&#xFF0C;<a href="javascript:if(confirm('http://nodejs.cn/s/GVUBbh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/GVUBbh'" tppabs="http://nodejs.cn/s/GVUBbh" rel="nofollow"><code>require(&apos;url&apos;).format()</code></a>&#x53EF;&#x80FD;&#x66F4;&#x5408;&#x9002;&#x3002;</p>
+<h4>url.toJSON()<span><a class="mark" href="#url_url_tojson" id="url_url_tojson" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="url_tojson.html" tppabs="http://nodejs.cn/api/url/url_tojson.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x5728;<code>URL</code>&#x5BF9;&#x8C61;&#x4E0A;&#x8C03;&#x7528;<code>toJSON()</code>&#x65B9;&#x6CD5;&#x5C06;&#x8FD4;&#x56DE;&#x5E8F;&#x5217;&#x5316;&#x7684;URL&#x3002;&#x8FD4;&#x56DE;&#x503C;&#x4E0E;<a href="javascript:if(confirm('http://nodejs.cn/s/Feif9B  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Feif9B'" tppabs="http://nodejs.cn/s/Feif9B" rel="nofollow"><code>url.href</code></a>&#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/EXzgVB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/EXzgVB'" tppabs="http://nodejs.cn/s/EXzgVB" rel="nofollow"><code>url.toString()</code></a>&#x7684;&#x76F8;&#x540C;&#x3002;</p>
+<p>&#x5F53;<code>URL</code>&#x5BF9;&#x8C61;&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/bmLTNS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/bmLTNS'" tppabs="http://nodejs.cn/s/bmLTNS" rel="nofollow"><code>JSON.stringify()</code></a>&#x5E8F;&#x5217;&#x5316;&#x65F6;&#x5C06;&#x81EA;&#x52A8;&#x8C03;&#x7528;&#x8BE5;&#x65B9;&#x6CD5;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURLs = [
+  new URL(&apos;https://www.example.com&apos;),
+  new URL(&apos;https://test.example.org&apos;)
+];
+console.log(JSON.stringify(myURLs));
+ &#xA0;// &#x8F93;&#x51FA; [&quot;https://www.example.com/&quot;,&quot;https://test.example.org/&quot;]
+</code></pre>
+<h3>URLSearchParams &#x7C7B;<span><a class="mark" href="#url_class_urlsearchparams" id="url_class_urlsearchparams" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="class_urlsearchparams.html" tppabs="http://nodejs.cn/api/url/class_urlsearchparams.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+
+</div>
+<p><code>URLSearchParams</code>API&#x63A5;&#x53E3;&#x63D0;&#x4F9B;&#x5BF9;<code>URL</code>query&#x90E8;&#x5206;&#x7684;&#x8BFB;&#x5199;&#x6743;&#x9650;&#x3002;<code>URLSearchParams</code>&#x7C7B;&#x4E5F;&#x80FD;&#x591F;&#x4E0E;&#x4EE5;&#x4E0B;&#x56DB;&#x4E2A;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E2D;&#x7684;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x4F7F;&#x7528;&#x3002;</p>
+<p>WHATWG <code>URLSearchParams</code>&#x63A5;&#x53E3;&#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/i23Gdh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/i23Gdh'" tppabs="http://nodejs.cn/s/i23Gdh" rel="nofollow"><code>querystring</code></a>&#x6A21;&#x5757;&#x6709;&#x76F8;&#x4F3C;&#x7684;&#x76EE;&#x7684;&#xFF0C;&#x4F46;&#x662F;<a href="javascript:if(confirm('http://nodejs.cn/s/i23Gdh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/i23Gdh'" tppabs="http://nodejs.cn/s/i23Gdh" rel="nofollow"><code>querystring</code></a>&#x6A21;&#x5757;&#x7684;&#x76EE;&#x7684;&#x66F4;&#x52A0;&#x901A;&#x7528;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x53EF;&#x4EE5;&#x5B9A;&#x5236;&#x5206;&#x9694;&#x7B26;&#xFF08;<code>&#xFF06;</code>&#x548C;<code>=</code>&#xFF09;&#x3002;&#x4F46;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x8FD9;&#x4E2A;API&#x662F;&#x4E13;&#x95E8;&#x4E3A;URL&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#x800C;&#x8BBE;&#x8BA1;&#x7684;&#x3002;</p>
+<pre><code class="language-js">const { URL, URLSearchParams } = require(&apos;url&apos;);
+
+const myURL = new URL(&apos;https://example.org/?abc=123&apos;);
+console.log(myURL.searchParams.get(&apos;abc&apos;));
+// &#x8F93;&#x51FA; 123
+
+myURL.searchParams.append(&apos;abc&apos;, &apos;xyz&apos;);
+console.log(myURL.href);
+// &#x8F93;&#x51FA; https://example.org/?abc=123&amp;abc=xyz
+
+myURL.searchParams.delete(&apos;abc&apos;);
+myURL.searchParams.set(&apos;a&apos;, &apos;b&apos;);
+console.log(myURL.href);
+// &#x8F93;&#x51FA; https://example.org/?a=b
+
+const newSearchParams = new URLSearchParams(myURL.searchParams);
+// &#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x7B49;&#x540C;&#x4E8E;
+// const newSearchParams = new URLSearchParams(myURL.search);
+
+newSearchParams.append(&apos;a&apos;, &apos;c&apos;);
+console.log(myURL.href);
+// &#x8F93;&#x51FA; https://example.org/?a=b
+console.log(newSearchParams.toString());
+// &#x8F93;&#x51FA; a=b&amp;a=c
+
+// newSearchParams.toString() &#x88AB;&#x9690;&#x5F0F;&#x8C03;&#x7528;
+myURL.search = newSearchParams;
+console.log(myURL.href);
+// &#x8F93;&#x51FA; https://example.org/?a=b&amp;a=c
+newSearchParams.delete(&apos;a&apos;);
+console.log(myURL.href);
+// &#x8F93;&#x51FA; https://example.org/?a=b&amp;a=c
+</code></pre>
+<h4>new URLSearchParams()<span><a class="mark" href="#url_constructor_new_urlsearchparams" id="url_constructor_new_urlsearchparams" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="constructor_new_urlsearchparams.html" tppabs="http://nodejs.cn/api/url/constructor_new_urlsearchparams.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7A7A;&#x7684;<code>URLSearchParams</code>&#x5BF9;&#x8C61;&#x3002;</p>
+<h4>new URLSearchParams(string)<span><a class="mark" href="#url_constructor_new_urlsearchparams_string" id="url_constructor_new_urlsearchparams_string" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="constructor_new_urlsearchparams_string.html" tppabs="http://nodejs.cn/api/url/constructor_new_urlsearchparams_string.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><code>string</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x4E00;&#x4E2A;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</li>
+</ul>
+<p>&#x5C06;<code>string</code>&#x89E3;&#x6790;&#x6210;&#x4E00;&#x4E2A;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;, &#x5E76;&#x4E14;&#x4F7F;&#x7528;&#x5B83;&#x6765;&#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;&#x65B0;&#x7684;<code>URLSearchParams</code>&#x5BF9;&#x8C61;. &#xA0;&#x5982;&#x679C;<code>string</code>&#x4EE5;<code>&apos;?&apos;</code>&#x6253;&#x5934;,&#x5219;<code>&apos;?&apos;</code>&#x5C06;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;.</p>
+<pre><code class="language-js">const { URLSearchParams } = require(&apos;url&apos;);
+let params;
+
+params = new URLSearchParams(&apos;user=abc&amp;query=xyz&apos;);
+console.log(params.get(&apos;user&apos;));
+ &#xA0;// &#x8F93;&#x51FA; &apos;abc&apos;
+console.log(params.toString());
+  // &#x8F93;&#x51FA; &apos;user=abc&amp;query=xyz&apos;
+
+params = new URLSearchParams(&apos;?user=abc&amp;query=xyz&apos;);
+console.log(params.toString());
+  // &#x8F93;&#x51FA; &apos;user=abc&amp;query=xyz&apos;
+</code></pre>
+<h4>new URLSearchParams(obj)<span><a class="mark" href="#url_constructor_new_urlsearchparams_obj" id="url_constructor_new_urlsearchparams_obj" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="constructor_new_urlsearchparams_obj.html" tppabs="http://nodejs.cn/api/url/constructor_new_urlsearchparams_obj.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.10.0</span>
+</div>
+<ul>
+<li><code>obj</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x4E00;&#x4E2A;&#x8868;&#x793A;&#x952E;&#x503C;&#x5BF9;&#x96C6;&#x5408;&#x7684;&#x5BF9;&#x8C61;</li>
+</ul>
+<p>&#x901A;&#x8FC7;&#x4F7F;&#x7528;&#x67E5;&#x8BE2;&#x54C8;&#x5E0C;&#x6620;&#x5C04;&#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;&#x65B0;&#x7684;<code>URLSearchParams</code>&#x5BF9;&#x8C61;&#xFF0C;<code>obj</code>&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#x7684;&#x952E;&#x548C;&#x503C;&#x5C06;&#x88AB;&#x5F3A;&#x5236;&#x8F6C;&#x6362;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#x3002;</p>
+<p><em>&#x8BF7;&#x6CE8;&#x610F;</em>: &#x548C; <a href="javascript:if(confirm('http://nodejs.cn/s/i23Gdh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/i23Gdh'" tppabs="http://nodejs.cn/s/i23Gdh" rel="nofollow"><code>querystring</code></a> &#x6A21;&#x5757;&#x4E0D;&#x540C;&#x7684;&#x662F;, &#x5728;&#x6570;&#x7EC4;&#x7684;&#x5F62;&#x5F0F;&#x4E2D;&#xFF0C;&#x91CD;&#x590D;&#x7684;&#x952E;&#x662F;&#x4E0D;&#x5141;&#x8BB8;&#x7684;&#x3002;&#x6570;&#x7EC4;&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/q2o4mr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/q2o4mr'" tppabs="http://nodejs.cn/s/q2o4mr" rel="nofollow"><code>array.toString()</code></a>&#x8FDB;&#x884C;&#x5B57;&#x7B26;&#x4E32;&#x5316;&#x65F6;&#xFF0C;&#x53EA;&#x9700;&#x7528;&#x9017;&#x53F7;&#x8FDE;&#x63A5;&#x6240;&#x6709;&#x7684;&#x6570;&#x7EC4;&#x5143;&#x7D20;&#x5373;&#x53EF;&#x3002;</p>
+<pre><code class="language-js">const { URLSearchParams } = require(&apos;url&apos;);
+const params = new URLSearchParams({
+  user: &apos;abc&apos;,
+  query: [&apos;first&apos;, &apos;second&apos;]
+});
+console.log(params.getAll(&apos;query&apos;));
+ &#xA0;// &#x8F93;&#x51FA; [ &apos;first,second&apos; ]
+console.log(params.toString());
+  // &#x8F93;&#x51FA; &apos;user=abc&amp;query=first%2Csecond&apos;
+</code></pre>
+<h4>new URLSearchParams(iterable)<span><a class="mark" href="#url_constructor_new_urlsearchparams_iterable" id="url_constructor_new_urlsearchparams_iterable" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="constructor_new_urlsearchparams_iterable.html" tppabs="http://nodejs.cn/api/url/constructor_new_urlsearchparams_iterable.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.10.0</span>
+</div>
+<ul>
+<li><code>iterable</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Iteration_protocols  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterable_protocol'" tppabs="http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterable_protocol" target="_blank" rel="nofollow" class="type">&lt;Iterable&gt;</a> &#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x65F6;&#x952E;&#x503C;&#x5BF9;&#x7684;&#x8FED;&#x4EE3;&#x5BF9;&#x8C61;</li>
+</ul>
+<p>&#x4EE5;&#x4E00;&#x79CD;&#x7C7B;&#x4F3C;&#x4E8E;<a href="javascript:if(confirm('http://nodejs.cn/s/EnuJtG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/EnuJtG'" tppabs="http://nodejs.cn/s/EnuJtG" rel="nofollow"><code>Map</code></a>&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x7684;&#x8FED;&#x4EE3;&#x6620;&#x5C04;&#x65B9;&#x5F0F;&#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;&#x65B0;&#x7684;<code>URLSearchParams</code>&#x5BF9;&#x8C61;&#x3002;<code>iterable</code>&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x6216;&#x8005;&#x4EFB;&#x4F55;&#x8FED;&#x4EE3;&#x5BF9;&#x8C61;&#x3002;&#x8FD9;&#x5C31;&#x610F;&#x5473;&#x7740;<code>iterable</code>&#x80FD;&#x591F;&#x4F7F;&#x53E6;&#x4E00;&#x4E2A;<code>URLSearchParams</code>&#xFF0C;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x6784;&#x9020;&#x51FD;&#x6570;&#x5C06;&#x7B80;&#x5355;&#x5730;&#x6839;&#x636E;&#x63D0;&#x4F9B;&#x7684;<code>URLSearchParams</code>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x514B;&#x9686;<code>URLSearchParams</code>&#x3002;<code>iterable</code>&#x7684;&#x5143;&#x7D20;&#x662F;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x5E76;&#x4E14;&#x5176;&#x672C;&#x8EAB;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x4EFB;&#x4F55;&#x8FED;&#x4EE3;&#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x5141;&#x8BB8;&#x91CD;&#x590D;&#x7684;&#x952E;&#x3002;</p>
+<pre><code class="language-js">const { URLSearchParams } = require(&apos;url&apos;);
+let params;
+
+// Using an array
+params = new URLSearchParams([
+  [&apos;user&apos;, &apos;abc&apos;],
+  [&apos;query&apos;, &apos;first&apos;],
+  [&apos;query&apos;, &apos;second&apos;]
+]);
+console.log(params.toString());
+ &#xA0;// &#x8F93;&#x51FA; &apos;user=abc&amp;query=first&amp;query=second&apos;
+
+// &#x4F7F;&#x7528;Map&#x5BF9;&#x8C61;
+const map = new Map();
+map.set(&apos;user&apos;, &apos;abc&apos;);
+map.set(&apos;query&apos;, &apos;xyz&apos;);
+params = new URLSearchParams(map);
+console.log(params.toString());
+ &#xA0;// &#x8F93;&#x51FA; &apos;user=abc&amp;query=xyz&apos;
+
+// &#x4F7F;&#x7528;generator&#x51FD;&#x6570;
+function* getQueryPairs() {
+  yield [&apos;user&apos;, &apos;abc&apos;];
+  yield [&apos;query&apos;, &apos;first&apos;];
+  yield [&apos;query&apos;, &apos;second&apos;];
+}
+params = new URLSearchParams(getQueryPairs());
+console.log(params.toString());
+ &#xA0;// &#x8F93;&#x51FA; &apos;user=abc&amp;query=first&amp;query=second&apos;
+
+// &#x6BCF;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#x5FC5;&#x987B;&#x6709;&#x4E24;&#x4E2A;&#x5143;&#x7D20;
+new URLSearchParams([
+  [&apos;user&apos;, &apos;abc&apos;, &apos;error&apos;]
+]);
+ &#xA0;// &#x629B;&#x51FA; TypeError [ERR_INVALID_TUPLE]:
+ &#xA0;// &#xA0; &#xA0; &#xA0;  &#x6BCF;&#x4E00;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#x5FC5;&#x987B;&#x662F;&#x8FED;&#x4EE3;&#x7684;[&#x952E;&#xFF0C;&#x503C;]&#x5143;&#x7EC4;
+</code></pre>
+<h4>urlSearchParams.append(name, value)<span><a class="mark" href="#url_urlsearchparams_append_name_value" id="url_urlsearchparams_append_name_value" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_append_name_value.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_append_name_value.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>value</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x5728;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x9644;&#x52A0;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x952E;&#x503C;&#x5BF9;&#x3002;</p>
+<h4>urlSearchParams.delete(name)<span><a class="mark" href="#url_urlsearchparams_delete_name" id="url_urlsearchparams_delete_name" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_delete_name.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_delete_name.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x5220;&#x9664;&#x6240;&#x6709;&#x952E;&#x4E3A;<code>name</code>&#x7684;&#x952E;&#x503C;&#x5BF9;&#x3002;</p>
+<h4>urlSearchParams.entries()<span><a class="mark" href="#url_urlsearchparams_entries" id="url_urlsearchparams_entries" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_entries.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_entries.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Iteration_protocols  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterator_protocol'" tppabs="http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterator_protocol" target="_blank" rel="nofollow" class="type">&lt;Iterator&gt;</a>
+&#x5728;&#x67E5;&#x8BE2;&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#x4E0A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;ES6&#x8FED;&#x4EE3;&#x5668;&#x3002; &#x8FED;&#x4EE3;&#x5668;&#x7684;&#x6BCF;&#x4E00;&#x9879;&#x90FD;&#x662F;&#x4E00;&#x4E2A;JavaScript&#x6570;&#x7EC4;&#x3002; Array&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x9879;&#x662F;&#x952E;<code>name</code>&#xFF0C;Array&#x7684;&#x7B2C;&#x4E8C;&#x4E2A;&#x9879;&#x662F;&#x503C;<code>value</code>&#x3002;</li>
+</ul>
+<p>&#x522B;&#x540D;&#x4E3A;<a href="javascript:if(confirm('http://nodejs.cn/s/tkT8B6  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tkT8B6'" tppabs="http://nodejs.cn/s/tkT8B6" rel="nofollow"><code>urlSearchParams[@@iterator]()</code></a>.</p>
+<h4>urlSearchParams.forEach(fn[, thisArg])<span><a class="mark" href="#url_urlsearchparams_foreach_fn_thisarg" id="url_urlsearchparams_foreach_fn_thisarg" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_foreach_fn_thisarg.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_foreach_fn_thisarg.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><code>fn</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x5728;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#x7684;&#x8C03;&#x7528;&#x51FD;&#x6570;&#x3002;</li>
+<li><code>thisArg</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x5F53;<code>fn</code>&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x88AB;&#x7528;&#x4F5C;<code>this</code>&#x503C;&#x7684;&#x5BF9;&#x8C61;</li>
+</ul>
+<p>&#x5728;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x8FED;&#x4EE3;&#x6BCF;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x5E76;&#x8C03;&#x7528;&#x7ED9;&#x5B9A;&#x7684;&#x51FD;&#x6570;&#x3002;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://example.org/?a=b&amp;c=d&apos;);
+myURL.searchParams.forEach((value, name, searchParams) =&gt; {
+  console.log(name, value, myURL.searchParams === searchParams);
+});
+ &#xA0;// &#x8F93;&#x51FA;:
+  // a b true
+  // c d true
+</code></pre>
+<h4>urlSearchParams.get(name)<span><a class="mark" href="#url_urlsearchparams_get_name" id="url_urlsearchparams_get_name" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_get_name.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_get_name.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x952E;&#x503C;&#x5BF9;&#x5BF9;&#x5E94;&#x7ED9;&#x5B9A;&#x7684;<code>name</code>&#x5219;&#x8FD4;&#x56DE;<code>null</code>&#x3002;</li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x952E;&#x662F;<code>name</code>&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#x7684;&#x503C;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x5BF9;&#x5E94;&#x7684;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;<code>null</code>&#x3002;</p>
+<h4>urlSearchParams.getAll(name)<span><a class="mark" href="#url_urlsearchparams_getall_name" id="url_urlsearchparams_getall_name" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_getall_name.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_getall_name.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Array  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Array'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Array" target="_blank" rel="nofollow" class="type">&lt;Array&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x952E;&#x662F;<code>name</code>&#x7684;&#x6240;&#x6709;&#x952E;&#x503C;&#x5BF9;&#x7684;&#x503C;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x7684;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x7A7A;&#x7684;&#x6570;&#x7EC4;&#x3002;</p>
+<h4>urlSearchParams.has(name)<span><a class="mark" href="#url_urlsearchparams_has_name" id="url_urlsearchparams_has_name" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_has_name.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_has_name.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a></li>
+</ul>
+<p>&#x5982;&#x679C;&#x5B58;&#x5728;&#x81F3;&#x5C11;&#x4E00;&#x5BF9;&#x952E;&#x662F;name&#x7684;&#x952E;&#x503C;&#x5BF9;&#x5219;&#x8FD4;&#x56DE; <code>true</code>&#x3002;</p>
+<h4>urlSearchParams.keys()<span><a class="mark" href="#url_urlsearchparams_keys" id="url_urlsearchparams_keys" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_keys.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_keys.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Iteration_protocols  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterator_protocol'" tppabs="http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterator_protocol" target="_blank" rel="nofollow" class="type">&lt;Iterator&gt;</a></li>
+</ul>
+<p>&#x5728;&#x6BCF;&#x4E00;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#x4E0A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x952E;&#x7684;ES6&#x8FED;&#x4EE3;&#x5668;&#x3002;</p>
+<pre><code class="language-js">const { URLSearchParams } = require(&apos;url&apos;);
+const params = new URLSearchParams(&apos;foo=bar&amp;foo=baz&apos;);
+for (const name of params.keys()) {
+  console.log(name);
+}
+ &#xA0;// &#x8F93;&#x51FA;:
+  // foo
+  // foo
+</code></pre>
+<h4>urlSearchParams.set(name, value)<span><a class="mark" href="#url_urlsearchparams_set_name_value" id="url_urlsearchparams_set_name_value" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_set_name_value.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_set_name_value.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>value</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x5C06;<code>URLSearchParams</code>&#x5BF9;&#x8C61;&#x4E2D;&#x4E0E;<code>name</code>&#x76F8;&#x5BF9;&#x5E94;&#x7684;&#x503C;&#x8BBE;&#x7F6E;&#x4E3A;<code>value</code>&#x3002;&#x5982;&#x679C;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x952E;&#x4E3A;<code>name</code>&#x7684;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x5C06;&#x7B2C;&#x4E00;&#x5BF9;&#x7684;&#x503C;&#x8BBE;&#x4E3A;<code>value</code>&#x5E76;&#x4E14;&#x5220;&#x9664;&#x5176;&#x4ED6;&#x5BF9;&#x3002;&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x5C06;&#x6B64;&#x952E;&#x503C;&#x5BF9;&#x9644;&#x52A0;&#x5728;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#x540E;&#x3002;</p>
+<pre><code class="language-js">const { URLSearchParams } = require(&apos;url&apos;);
+
+const params = new URLSearchParams();
+params.append(&apos;foo&apos;, &apos;bar&apos;);
+params.append(&apos;foo&apos;, &apos;baz&apos;);
+params.append(&apos;abc&apos;, &apos;def&apos;);
+console.log(params.toString());
+ &#xA0;// &#x8F93;&#x51FA; foo=bar&amp;foo=baz&amp;abc=def
+
+params.set(&apos;foo&apos;, &apos;def&apos;);
+params.set(&apos;xyz&apos;, &apos;opq&apos;);
+console.log(params.toString());
+  // &#x8F93;&#x51FA; foo=def&amp;abc=def&amp;xyz=opq
+</code></pre>
+<h4>urlSearchParams.sort()<span><a class="mark" href="#url_urlsearchparams_sort" id="url_urlsearchparams_sort" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_sort.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_sort.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.7.0</span>
+</div>
+<p>&#x6309;&#x73B0;&#x6709;&#x540D;&#x79F0;&#x5C31;&#x5730;&#x6392;&#x5217;&#x6240;&#x6709;&#x7684;&#x540D;&#x79F0;-&#x503C;&#x5BF9;&#x3002;&#x4F7F;&#x7528;[&#x7A33;&#x5B9A;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;][]&#x5B8C;&#x6210;&#x6392;&#x5E8F;&#xFF0C;&#x56E0;&#x6B64;&#x4FDD;&#x7559;&#x5177;&#x6709;&#x76F8;&#x540C;&#x540D;&#x79F0;&#x7684;&#x540D;&#x79F0;-&#x503C;&#x5BF9;&#x4E4B;&#x95F4;&#x7684;&#x76F8;&#x5BF9;&#x987A;&#x5E8F;&#x3002;</p>
+<p>&#x7279;&#x522B;&#x5730;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x589E;&#x52A0;&#x7F13;&#x5B58;&#x547D;&#x4E2D;&#x3002;</p>
+<pre><code class="language-js">const { URLSearchParams } = require(&apos;url&apos;);
+const params = new URLSearchParams(&apos;query[]=abc&amp;type=search&amp;query[]=123&apos;);
+params.sort();
+console.log(params.toString());
+  // Prints query%5B%5D=abc&amp;query%5B%5D=123&amp;type=search
+</code></pre>
+<h4>urlSearchParams.toString()<span><a class="mark" href="#url_urlsearchparams_tostring" id="url_urlsearchparams_tostring" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_tostring.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_tostring.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x67E5;&#x8BE2;&#x53C2;&#x6570;&#x5E8F;&#x5217;&#x5316;&#x540E;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5FC5;&#x8981;&#x65F6;&#x5B58;&#x5728;&#x767E;&#x5206;&#x53F7;&#x7F16;&#x7801;&#x5B57;&#x7B26;&#x3002;</p>
+<h4>urlSearchParams.values()<span><a class="mark" href="#url_urlsearchparams_values" id="url_urlsearchparams_values" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_values.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_values.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Iteration_protocols  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterator_protocol'" tppabs="http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterator_protocol" target="_blank" rel="nofollow" class="type">&lt;Iterator&gt;</a></li>
+</ul>
+<p>&#x5728;&#x6BCF;&#x4E00;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#x4E0A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x503C;&#x7684;ES6&#x8FED;&#x4EE3;&#x5668;&#x3002;</p>
+<h4>urlSearchParams[Symbol.iterator]()<span><a class="mark" href="#url_urlsearchparams_symbol_iterator" id="url_urlsearchparams_symbol_iterator" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlsearchparams_symbol_iterator.html" tppabs="http://nodejs.cn/api/url/urlsearchparams_symbol_iterator.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Iteration_protocols  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterator_protocol'" tppabs="http://nodejs.cn/s/_moz/Reference/Iteration_protocols#The_iterator_protocol" target="_blank" rel="nofollow" class="type">&lt;Iterator&gt;</a></li>
+</ul>
+<p>&#x6839;&#x636E;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x952E;&#x503C;&#x5BF9;&#x5F62;&#x5F0F;&#x7684; ES6 <code>Iterator</code>&#x3002;&#x6BCF;&#x4E2A;&#x8FED;&#x4EE3;&#x5668;&#x7684;&#x9879;&#x662F;&#x4E00;&#x4E2A; JavaScript <code>Array</code>&#x3002;
+&#x5176;&#x4E2D;&#xFF0C;<code>Array</code> &#x7684;&#x7B2C;&#x4E00;&#x9879;&#x662F; <code>name</code>&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x662F; <code>value</code>&#x3002;</p>
+<p>&#x662F; <a href="javascript:if(confirm('http://nodejs.cn/s/qW6kzi  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qW6kzi'" tppabs="http://nodejs.cn/s/qW6kzi" rel="nofollow"><code>urlSearchParams.entries()</code></a> &#x7684;&#x522B;&#x540D;&#x3002;</p>
+<pre><code class="language-js">const params = new URLSearchParams(&apos;foo=bar&amp;xyz=baz&apos;);
+for (const [name, value] of params) {
+  console.log(name, value);
+}
+// Prints:
+//   foo bar
+//   xyz baz
+</code></pre>
+<h3>url.domainToASCII(domain)<span><a class="mark" href="#url_url_domaintoascii_domain" id="url_url_domaintoascii_domain" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="url_domaintoascii_domain.html" tppabs="http://nodejs.cn/api/url/url_domaintoascii_domain.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.4.0</span>
+</div>
+<ul>
+<li><code>domain</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;<a href="javascript:if(confirm('http://nodejs.cn/s/C2g98n  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/C2g98n'" tppabs="http://nodejs.cn/s/C2g98n" rel="nofollow">Punycode</a> ASCII&#x5E8F;&#x5217;&#x5316;&#x7684;<code>domain</code>. &#x5982;&#x679C;<code>domain</code>&#x662F;&#x65E0;&#x6548;&#x57DF;&#x540D;&#xFF0C;&#x5C06;&#x8FD4;&#x56DE;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#x3002;</p>
+<p>&#x5B83;&#x6267;&#x884C;&#x7684;&#x662F;<a href="javascript:if(confirm('http://nodejs.cn/s/396eXf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/396eXf'" tppabs="http://nodejs.cn/s/396eXf" rel="nofollow"><code>url.domainToUnicode()</code></a>&#x7684;&#x9006;&#x8FD0;&#x7B97;&#x3002;</p>
+<pre><code class="language-js">const url = require(&apos;url&apos;);
+console.log(url.domainToASCII(&apos;espa&#xF1;ol.com&apos;));
+  // &#x8F93;&#x51FA; xn--espaol-zwa.com
+console.log(url.domainToASCII(&apos;&#x4E2D;&#x6587;.com&apos;));
+  // &#x8F93;&#x51FA; xn--fiq228c.com
+console.log(url.domainToASCII(&apos;xn--i&#xF1;valid.com&apos;));
+  // &#x8F93;&#x51FA;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;
+</code></pre>
+<h3>url.domainToUnicode(domain)<span><a class="mark" href="#url_url_domaintounicode_domain" id="url_url_domaintounicode_domain" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="url_domaintounicode_domain.html" tppabs="http://nodejs.cn/api/url/url_domaintounicode_domain.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.4.0</span>
+</div>
+<ul>
+<li><code>domain</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;Unicode&#x5E8F;&#x5217;&#x5316;&#x7684;<code>domain</code>. &#x5982;&#x679C;<code>domain</code>&#x662F;&#x65E0;&#x6548;&#x57DF;&#x540D;&#xFF0C;&#x5C06;&#x8FD4;&#x56DE;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#x3002;</p>
+<p>&#x5B83;&#x6267;&#x884C;&#x7684;&#x662F;<a href="javascript:if(confirm('http://nodejs.cn/s/TQ8Wpc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/TQ8Wpc'" tppabs="http://nodejs.cn/s/TQ8Wpc" rel="nofollow"><code>url.domainToASCII()</code></a>&#x7684;&#x9006;&#x8FD0;&#x7B97;&#x3002;</p>
+<pre><code class="language-js">const url = require(&apos;url&apos;);
+console.log(url.domainToUnicode(&apos;xn--espaol-zwa.com&apos;));
+  // &#x8F93;&#x51FA; espa&#xF1;ol.com
+console.log(url.domainToUnicode(&apos;xn--fiq228c.com&apos;));
+  // &#x8F93;&#x51FA; &#x4E2D;&#x6587;.com
+console.log(url.domainToUnicode(&apos;xn--i&#xF1;valid.com&apos;));
+  // &#x8F93;&#x51FA;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;
+</code></pre>
+<h3>url.fileURLToPath(url)<span><a class="mark" href="#url_url_fileurltopath_url" id="url_url_fileurltopath_url" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="url_fileurltopath_url.html" tppabs="http://nodejs.cn/api/url/url_fileurltopath_url.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><code>url</code> <a href="url.html#url_the_whatwg_url_api" tppabs="http://nodejs.cn/api/url.html#url_the_whatwg_url_api" target="_blank" rel="nofollow" class="type">&lt;URL&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> The file URL string or URL object to convert to a path.</li>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> The fully-resolved platform-specific Node.js file path.</li>
+</ul>
+<p>This function ensures the correct decodings of percent-encoded characters as
+well as ensuring a cross-platform valid absolute path string.</p>
+<pre><code class="language-js">new URL(&apos;file:///C:/path/&apos;).pathname;    // Incorrect: /C:/path/
+fileURLToPath(&apos;file:///C:/path/&apos;);       // Correct:   C:\path\ (Windows)
+
+new URL(&apos;file://nas/foo.txt&apos;).pathname;  // Incorrect: /foo.txt
+fileURLToPath(&apos;file://nas/foo.txt&apos;);     // Correct:   \\nas\foo.txt (Windows)
+
+new URL(&apos;file:///&#x4F60;&#x597D;.txt&apos;).pathname;    // Incorrect: /%E4%BD%A0%E5%A5%BD.txt
+fileURLToPath(&apos;file:///&#x4F60;&#x597D;.txt&apos;);       // Correct:   /&#x4F60;&#x597D;.txt (POSIX)
+
+new URL(&apos;file:///hello world&apos;).pathname; // Incorrect: /hello%20world
+fileURLToPath(&apos;file:///hello world&apos;);    // Correct:   /hello world (POSIX)
+</code></pre>
+<h3>url.format(URL[, options])<span><a class="mark" href="#url_url_format_url_options" id="url_url_format_url_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="url_format_url_options.html" tppabs="http://nodejs.cn/api/url/url_format_url_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.6.0</span>
+</div>
+<ul>
+<li><code>URL</code> <a href="url.html#url_the_whatwg_url_api" tppabs="http://nodejs.cn/api/url.html#url_the_whatwg_url_api" target="_blank" rel="nofollow" class="type">&lt;URL&gt;</a> &#x4E00;&#x4E2A;<a href="javascript:if(confirm('http://nodejs.cn/s/5dwq7G  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5dwq7G'" tppabs="http://nodejs.cn/s/5dwq7G" rel="nofollow">WHATWG URL</a>&#x5BF9;&#x8C61;</li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>auth</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C;&#x5E8F;&#x5217;&#x5316;&#x7684;URL&#x5B57;&#x7B26;&#x4E32;&#x5E94;&#x8BE5;&#x5305;&#x542B;&#x7528;&#x6237;&#x540D;&#x548C;&#x5BC6;&#x7801;&#x4E3A;<code>true</code>&#xFF0C;&#x5426;&#x5219;&#x4E3A;<code>false</code>&#x3002;&#x9ED8;&#x8BA4;&#x4E3A;<code>true</code>&#x3002;</li>
+<li><code>fragment</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C;&#x5E8F;&#x5217;&#x5316;&#x7684;URL&#x5B57;&#x7B26;&#x4E32;&#x5E94;&#x8BE5;&#x5305;&#x542B;&#x5206;&#x6BB5;&#x4E3A;<code>true</code>&#xFF0C;&#x5426;&#x5219;&#x4E3A;<code>false</code>&#x3002;&#x9ED8;&#x8BA4;&#x4E3A;<code>true</code>&#x3002;</li>
+<li><code>search</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C;&#x5E8F;&#x5217;&#x5316;&#x7684;URL&#x5B57;&#x7B26;&#x4E32;&#x5E94;&#x8BE5;&#x5305;&#x542B;&#x641C;&#x7D22;&#x67E5;&#x8BE2;&#x4E3A;<code>true</code>&#xFF0C;&#x5426;&#x5219;&#x4E3A;<code>false</code>&#x3002;&#x9ED8;&#x8BA4;&#x4E3A;<code>true</code>&#x3002;</li>
+<li><code>unicode</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> <code>true</code> &#x5982;&#x679C;&#x51FA;&#x73B0;&#x5728;URL&#x5B57;&#x7B26;&#x4E32;&#x4E3B;&#x673A;&#x5143;&#x7D20;&#x91CC;&#x7684;Unicode&#x5B57;&#x7B26;&#x5E94;&#x8BE5;&#x88AB;&#x76F4;&#x63A5;&#x7F16;&#x7801;&#x800C;&#x4E0D;&#x662F;&#x4F7F;&#x7528;Punycode&#x7F16;&#x7801;&#x4E3A;<code>true</code>&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;<code>false</code>&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;<a href="javascript:if(confirm('http://nodejs.cn/s/5dwq7G  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5dwq7G'" tppabs="http://nodejs.cn/s/5dwq7G" rel="nofollow">WHATWG URL</a>&#x5BF9;&#x8C61;&#x7684;&#x53EF;&#x81EA;&#x5B9A;&#x4E49;&#x5E8F;&#x5217;&#x5316;&#x7684;URL&#x5B57;&#x7B26;&#x4E32;&#x8868;&#x8FBE;&#x3002;</p>
+<p>&#x867D;&#x7136;URL&#x5BF9;&#x8C61;&#x7684;<code>toString()</code>&#x65B9;&#x6CD5;&#x548C;<code>href</code>&#x5C5E;&#x6027;&#x90FD;&#x53EF;&#x4EE5;&#x8FD4;&#x56DE;URL&#x7684;&#x5E8F;&#x5217;&#x5316;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x4E24;&#x8005;&#x90FD;&#x4E0D;&#x53EF;&#x4EE5;&#x88AB;&#x81EA;&#x5B9A;&#x4E49;&#x3002;&#x800C;<code>url.format(URL[, options])</code>&#x65B9;&#x6CD5;&#x5141;&#x8BB8;&#x8F93;&#x51FA;&#x7684;&#x57FA;&#x672C;&#x81EA;&#x5B9A;&#x4E49;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://a:b@&#x4F60;&#x597D;&#x4F60;&#x597D;?abc#foo&apos;);
+
+console.log(myURL.href);
+ &#xA0;// &#x8F93;&#x51FA; https://a:b@xn--6qqa088eba/?abc#foo
+
+console.log(myURL.toString());
+  // &#x8F93;&#x51FA; https://a:b@xn--6qqa088eba/?abc#foo
+
+console.log(url.format(myURL, { fragment: false, unicode: true, auth: false }));
+  // &#x8F93;&#x51FA; &apos;https://&#x4F60;&#x597D;&#x4F60;&#x597D;/?abc&apos;
+</code></pre>
+<h3>url.pathToFileURL(path)<span><a class="mark" href="#url_url_pathtofileurl_path" id="url_url_pathtofileurl_path" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> The path to convert to a File URL.</li>
+<li>Returns: <a href="url.html#url_the_whatwg_url_api" tppabs="http://nodejs.cn/api/url.html#url_the_whatwg_url_api" target="_blank" rel="nofollow" class="type">&lt;URL&gt;</a> The file URL object.</li>
+</ul>
+<p>This function ensures that <code>path</code> is resolved absolutely, and that the URL
+control characters are correctly encoded when converting into a File URL.</p>
+<pre><code class="language-js">new URL(__filename);                // Incorrect: throws (POSIX)
+new URL(__filename);                // Incorrect: C:\... (Windows)
+pathToFileURL(__filename);          // Correct:   file:///... (POSIX)
+pathToFileURL(__filename);          // Correct:   file:///C:/... (Windows)
+
+new URL(&apos;/foo#1&apos;, &apos;file:&apos;);         // Incorrect: file:///foo#1
+pathToFileURL(&apos;/foo#1&apos;);            // Correct:   file:///foo%231 (POSIX)
+
+new URL(&apos;/some/path%.js&apos;, &apos;file:&apos;); // Incorrect: file:///some/path%
+pathToFileURL(&apos;/some/path%.js&apos;);    // Correct:   file:///some/path%25 (POSIX)
+</code></pre>
+<h2>&#x9057;&#x7559;&#x7684; URL &#x63A5;&#x53E3;<span><a class="mark" href="#url_legacy_url_api" id="url_legacy_url_api" rel="nofollow">#</a></span></h2>
+<h3>&#x9057;&#x7559;&#x7684; urlObject<span><a class="mark" href="#url_legacy_urlobject" id="url_legacy_urlobject" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="legacy_urlobject.html" tppabs="http://nodejs.cn/api/url/legacy_urlobject.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x9057;&#x7559;&#x7684;urlObject (<code>require(&apos;url&apos;).Url</code>)&#x7531;<code>url.parse()</code>&#x51FD;&#x6570;&#x521B;&#x5EFA;&#x5E76;&#x8FD4;&#x56DE;&#x3002;</p>
+<h4>urlObject.auth<span><a class="mark" href="#url_urlobject_auth" id="url_urlobject_auth" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlobject_auth.html" tppabs="http://nodejs.cn/api/url/urlobject_auth.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>auth</code> &#x5C5E;&#x6027;&#x662F; URL &#x7684;&#x7528;&#x6237;&#x540D;&#x4E0E;&#x5BC6;&#x7801;&#x90E8;&#x5206;&#x3002;
+&#x8BE5;&#x5B57;&#x7B26;&#x4E32;&#x8DDF;&#x5728; <code>protocol</code> &#x548C;&#x53CC;&#x659C;&#x6760;&#xFF08;&#x5982;&#x679C;&#x6709;&#xFF09;&#x7684;&#x540E;&#x9762;&#xFF0C;&#x6392;&#x5728; <code>host</code> &#x90E8;&#x5206;&#x7684;&#x524D;&#x9762;&#x4E14;&#x88AB;&#x4E00;&#x4E2A; ASCII &#x7684; at &#x7B26;&#x53F7;&#xFF08;<code>@</code>&#xFF09;&#x5206;&#x9694;&#x3002;
+&#x8BE5;&#x5B57;&#x7B26;&#x7684;&#x683C;&#x5F0F;&#x4E3A; <code>{username}[:{password}]</code>&#xFF0C;<code>[:{password}]</code> &#x90E8;&#x5206;&#x662F;&#x53EF;&#x9009;&#x7684;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;<code>&apos;user:pass&apos;</code></p>
+<h4>urlObject.hash<span><a class="mark" href="#url_urlobject_hash" id="url_urlobject_hash" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlobject_hash.html" tppabs="http://nodejs.cn/api/url/urlobject_hash.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>hash</code> &#x5C5E;&#x6027;&#x5305;&#x542B; URL &#x7684;&#x788E;&#x7247;&#x90E8;&#x5206;&#xFF0C;&#x5305;&#x62EC;&#x5F00;&#x5934;&#x7684; ASCII &#x54C8;&#x5E0C;&#x5B57;&#x7B26;&#xFF08;<code>#</code>&#xFF09;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;<code>&apos;#hash&apos;</code></p>
+<h4>urlObject.host<span><a class="mark" href="#url_urlobject_host" id="url_urlobject_host" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlobject_host.html" tppabs="http://nodejs.cn/api/url/urlobject_host.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>host</code> &#x5C5E;&#x6027;&#x662F; URL &#x7684;&#x5B8C;&#x6574;&#x7684;&#x5C0F;&#x5199;&#x7684;&#x4E3B;&#x673A;&#x90E8;&#x5206;&#xFF0C;&#x5305;&#x62EC; <code>port</code>&#xFF08;&#x5982;&#x679C;&#x6709;&#xFF09;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;<code>&apos;sub.host.com:8080&apos;</code></p>
+<h4>urlObject.hostname<span><a class="mark" href="#url_urlobject_hostname" id="url_urlobject_hostname" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlobject_hostname.html" tppabs="http://nodejs.cn/api/url/urlobject_hostname.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>hostname</code> &#x5C5E;&#x6027;&#x662F; <code>host</code> &#x7EC4;&#x6210;&#x90E8;&#x5206;&#x6392;&#x9664; <code>port</code> &#x4E4B;&#x540E;&#x7684;&#x5C0F;&#x5199;&#x7684;&#x4E3B;&#x673A;&#x540D;&#x90E8;&#x5206;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;<code>&apos;sub.host.com&apos;</code></p>
+<h4>urlObject.href<span><a class="mark" href="#url_urlobject_href" id="url_urlobject_href" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlobject_href.html" tppabs="http://nodejs.cn/api/url/urlobject_href.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>href</code> &#x5C5E;&#x6027;&#x662F;&#x89E3;&#x6790;&#x540E;&#x7684;&#x5B8C;&#x6574;&#x7684; URL &#x5B57;&#x7B26;&#x4E32;&#xFF0C;<code>protocol</code> &#x548C; <code>host</code> &#x90FD;&#x4F1A;&#x88AB;&#x8F6C;&#x6362;&#x4E3A;&#x5C0F;&#x5199;&#x7684;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;<code>&apos;http://user:pass@sub.host.com:8080/p/a/t/h?query=string#hash&apos;</code></p>
+<h4>urlObject.path<span><a class="mark" href="#url_urlobject_path" id="url_urlobject_path" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlobject_path.html" tppabs="http://nodejs.cn/api/url/urlobject_path.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>path</code> &#x5C5E;&#x6027;&#x662F;&#x4E00;&#x4E2A; <code>pathname</code> &#x4E0E; <code>search</code> &#x7EC4;&#x6210;&#x90E8;&#x5206;&#x7684;&#x4E32;&#x63A5;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;<code>&apos;/p/a/t/h?query=string&apos;</code></p>
+<p>&#x4E0D;&#x4F1A;&#x5BF9; <code>path</code> &#x6267;&#x884C;&#x89E3;&#x7801;&#x3002;</p>
+<h4>urlObject.pathname<span><a class="mark" href="#url_urlobject_pathname" id="url_urlobject_pathname" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlobject_pathname.html" tppabs="http://nodejs.cn/api/url/urlobject_pathname.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>pathname</code> &#x5C5E;&#x6027;&#x5305;&#x542B; URL &#x7684;&#x6574;&#x4E2A;&#x8DEF;&#x5F84;&#x90E8;&#x5206;&#x3002;
+&#x5B83;&#x8DDF;&#x5728; <code>host</code> &#xFF08;&#x5305;&#x62EC; <code>port</code>&#xFF09;&#x540E;&#x9762;&#xFF0C;&#x6392;&#x5728; <code>query</code> &#x6216; <code>hash</code> &#x7EC4;&#x6210;&#x90E8;&#x5206;&#x7684;&#x524D;&#x9762;&#x4E14;&#x88AB; ASCII &#x95EE;&#x53F7;&#xFF08;<code>?</code>&#xFF09;&#x6216;&#x54C8;&#x5E0C;&#x5B57;&#x7B26;&#xFF08;<code>#</code>&#xFF09;&#x5206;&#x9694;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;<code>&apos;/p/a/t/h&apos;</code></p>
+<p>&#x4E0D;&#x4F1A;&#x5BF9;&#x8DEF;&#x5F84;&#x5B57;&#x7B26;&#x4E32;&#x6267;&#x884C;&#x89E3;&#x7801;&#x3002;</p>
+<h4>urlObject.port<span><a class="mark" href="#url_urlobject_port" id="url_urlobject_port" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlobject_port.html" tppabs="http://nodejs.cn/api/url/urlobject_port.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>port</code> &#x5C5E;&#x6027;&#x662F; <code>host</code> &#x7EC4;&#x6210;&#x90E8;&#x5206;&#x4E2D;&#x7684;&#x6570;&#x503C;&#x578B;&#x7684;&#x7AEF;&#x53E3;&#x90E8;&#x5206;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;<code>&apos;8080&apos;</code></p>
+<h4>urlObject.protocol<span><a class="mark" href="#url_urlobject_protocol" id="url_urlobject_protocol" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlobject_protocol.html" tppabs="http://nodejs.cn/api/url/urlobject_protocol.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>protocol</code> &#x5C5E;&#x6027;&#x8868;&#x660E; URL &#x7684;&#x5C0F;&#x5199;&#x7684;&#x534F;&#x8BAE;&#x4F53;&#x5236;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;<code>&apos;http:&apos;</code></p>
+<h4>urlObject.query<span><a class="mark" href="#url_urlobject_query" id="url_urlobject_query" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlobject_query.html" tppabs="http://nodejs.cn/api/url/urlobject_query.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>query</code> &#x5C5E;&#x6027;&#x662F;&#x4E0D;&#x542B;&#x5F00;&#x5934; ASCII &#x95EE;&#x53F7;&#xFF08;<code>?</code>&#xFF09;&#x7684;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x6216;&#x4E00;&#x4E2A;&#x88AB; <a href="javascript:if(confirm('http://nodejs.cn/s/i23Gdh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/i23Gdh'" tppabs="http://nodejs.cn/s/i23Gdh" rel="nofollow"><code>querystring</code></a> &#x6A21;&#x5757;&#x7684; <code>parse()</code> &#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x5BF9;&#x8C61;&#x3002;
+<code>query</code> &#x5C5E;&#x6027;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x8FD8;&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x662F;&#x7531;&#x4F20;&#x5165; <code>url.parse()</code> &#x7684; <code>parseQueryString</code> &#x53C2;&#x6570;&#x51B3;&#x5B9A;&#x7684;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;<code>&apos;query=string&apos;</code> or <code>{&apos;query&apos;: &apos;string&apos;}</code></p>
+<p>&#x5982;&#x679C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x4E0D;&#x4F1A;&#x5BF9;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#x6267;&#x884C;&#x89E3;&#x7801;&#x3002;
+&#x5982;&#x679C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5219;&#x952E;&#x548C;&#x503C;&#x90FD;&#x4F1A;&#x88AB;&#x89E3;&#x7801;&#x3002;</p>
+<h4>urlObject.search<span><a class="mark" href="#url_urlobject_search" id="url_urlobject_search" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlobject_search.html" tppabs="http://nodejs.cn/api/url/urlobject_search.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>search</code> &#x5C5E;&#x6027;&#x5305;&#x542B; URL &#x7684;&#x6574;&#x4E2A;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#x90E8;&#x5206;&#xFF0C;&#x5305;&#x62EC;&#x5F00;&#x5934;&#x7684; ASCII &#x95EE;&#x53F7;&#x5B57;&#x7B26;&#xFF08;<code>?</code>&#xFF09;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;<code>&apos;?query=string&apos;</code></p>
+<p>&#x4E0D;&#x4F1A;&#x5BF9;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#x6267;&#x884C;&#x89E3;&#x7801;&#x3002;</p>
+<h4>urlObject.slashes<span><a class="mark" href="#url_urlobject_slashes" id="url_urlobject_slashes" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="urlobject_slashes.html" tppabs="http://nodejs.cn/api/url/urlobject_slashes.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>slashes</code> &#x5C5E;&#x6027;&#x662F;&#x4E00;&#x4E2A; <code>boolean</code>&#xFF0C;&#x5982;&#x679C; <code>protocol</code> &#x4E2D;&#x7684;&#x5192;&#x53F7;&#x540E;&#x9762;&#x8DDF;&#x7740;&#x4E24;&#x4E2A; ASCII &#x659C;&#x6760;&#x5B57;&#x7B26;&#xFF08;<code>/</code>&#xFF09;&#xFF0C;&#x5219;&#x503C;&#x4E3A; <code>true</code>&#x3002;</p>
+<h3>url.format(urlObject)<span><a class="mark" href="#url_url_format_urlobject" id="url_url_format_urlobject" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="url_format_urlobject.html" tppabs="http://nodejs.cn/api/url/url_format_urlobject.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v7.0.0</td>
+<td><p>URLs with a <code>file:</code> scheme will now always use the correct number of slashes regardless of <code>slashes</code> option. A false-y <code>slashes</code> option with no protocol is now also respected at all times.</p></td></tr>
+<tr><td>v0.1.25</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.25</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>urlObject</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x4E00;&#x4E2A; URL &#x5BF9;&#x8C61;&#xFF08;&#x5C31;&#x50CF; <code>url.parse()</code> &#x8FD4;&#x56DE;&#x7684;&#xFF09;&#x3002;
+&#x5982;&#x679C;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x901A;&#x8FC7; <code>url.parse()</code> &#x8F6C;&#x6362;&#x4E3A;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x3002;</li>
+</ul>
+<p><code>url.format()</code> &#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x4ECE; <code>urlObject</code> &#x683C;&#x5F0F;&#x5316;&#x540E;&#x7684; URL &#x5B57;&#x7B26;&#x4E32;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>urlObject</code> &#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x6216;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219; <code>url.format()</code> &#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/Z7Lqyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Z7Lqyj'" tppabs="http://nodejs.cn/s/Z7Lqyj" rel="nofollow"><code>TypeError</code></a>&#x3002;</p>
+<p>&#x683C;&#x5F0F;&#x5316;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7A7A;&#x5B57;&#x7B26;&#x4E32; <code>result</code>&#x3002;</li>
+<li>&#x5982;&#x679C; <code>urlObject.protocol</code> &#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x5B83;&#x4F1A;&#x88AB;&#x539F;&#x6837;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.protocol</code> &#x4E0D;&#x662F; <code>undefined</code> &#x4E5F;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+<li>&#x5BF9;&#x4E8E;&#x4E0D;&#x662F;&#x4EE5; <code>:</code> &#x7ED3;&#x675F;&#x7684; <code>urlObject.protocol</code>&#xFF0C;<code>:</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li>
+<p>&#x5982;&#x679C;&#x4EE5;&#x4E0B;&#x6761;&#x4EF6;&#x4E4B;&#x4E00;&#x4E3A;&#x771F;&#xFF0C;&#x5219; <code>//</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#xFF1A;</p>
+<ul>
+<li><code>urlObject.slashes</code> &#x5C5E;&#x6027;&#x4E3A;&#x771F;&#xFF1B;</li>
+<li><code>urlObject.protocol</code> &#x4EE5; <code>http</code>&#x3001;<code>https</code>&#x3001;<code>ftp</code>&#x3001;<code>gopher</code> &#x6216; <code>file</code> &#x5F00;&#x5934;&#xFF1B;</li>
+</ul>
+</li>
+<li>&#x5982;&#x679C; <code>urlObject.auth</code> &#x5C5E;&#x6027;&#x7684;&#x503C;&#x4E3A;&#x771F;&#xFF0C;&#x4E14; <code>urlObject.host</code> &#x6216; <code>urlObject.hostname</code> &#x4E0D;&#x4E3A; <code>undefined</code>&#xFF0C;&#x5219; <code>urlObject.auth</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#xFF0C;&#x4E14;&#x540E;&#x9762;&#x5E26;&#x4E0A; <code>@</code>&#x3002;</li>
+<li>
+<p>&#x5982;&#x679C; <code>urlObject.host</code> &#x5C5E;&#x6027;&#x4E3A; <code>undefined</code>&#xFF0C;&#x5219;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C; <code>urlObject.hostname</code> &#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x5B83;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.hostname</code> &#x4E0D;&#x662F; <code>undefined</code> &#x4E5F;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+<li>
+<p>&#x5982;&#x679C; <code>urlObject.port</code> &#x5C5E;&#x6027;&#x7684;&#x503C;&#x4E3A;&#x771F;&#xFF0C;&#x4E14; <code>urlObject.hostname</code> &#x4E0D;&#x4E3A; <code>undefined</code>&#xFF1A;</p>
+<ul>
+<li><code>:</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li><code>urlObject.port</code> &#x7684;&#x503C;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.host</code> &#x5C5E;&#x6027;&#x7684;&#x503C;&#x4E3A;&#x771F;&#xFF0C;&#x5219; <code>urlObject.host</code> &#x7684;&#x503C;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li>
+<p>&#x5982;&#x679C; <code>urlObject.pathname</code> &#x5C5E;&#x6027;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x4E14;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C; <code>urlObject.pathname</code> &#x4E0D;&#x662F;&#x4EE5; <code>/</code> &#x5F00;&#x5934;&#xFF0C;&#x5219; <code>/</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li><code>urlObject.pathname</code> &#x7684;&#x503C;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+</ul>
+</li>
+<li>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.pathname</code> &#x4E0D;&#x662F; <code>undefined</code> &#x4E5F;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+<li>&#x5982;&#x679C; <code>urlObject.search</code> &#x5C5E;&#x6027;&#x4E3A; <code>undefined</code> &#x4E14; <code>urlObject.query</code> &#x5C5E;&#x6027;&#x662F;&#x4E00;&#x4E2A; <code>Object</code>&#xFF0C;&#x5219; <code>?</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#xFF0C;&#x540E;&#x9762;&#x8DDF;&#x4E0A;&#x628A; <code>urlObject.query</code> &#x7684;&#x503C;&#x4F20;&#x5165; <a href="javascript:if(confirm('http://nodejs.cn/s/i23Gdh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/i23Gdh'" tppabs="http://nodejs.cn/s/i23Gdh" rel="nofollow"><code>querystring</code></a> &#x6A21;&#x5757;&#x7684; <code>stringify()</code> &#x65B9;&#x6CD5;&#x7684;&#x8C03;&#x7528;&#x7ED3;&#x679C;&#x3002;</li>
+<li>
+<p>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.search</code> &#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C; <code>urlObject.search</code> &#x7684;&#x503C;&#x4E0D;&#x662F;&#x4EE5; <code>?</code> &#x5F00;&#x5934;&#xFF0C;&#x5219; <code>?</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li><code>urlObject.search</code> &#x7684;&#x503C;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+</ul>
+</li>
+<li>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.search</code> &#x4E0D;&#x662F; <code>undefined</code> &#x4E5F;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+<li>
+<p>&#x5982;&#x679C; <code>urlObject.hash</code> &#x5C5E;&#x6027;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C; <code>urlObject.hash</code> &#x7684;&#x503C;&#x4E0D;&#x662F;&#x4EE5; <code>#</code> &#x5F00;&#x5934;&#xFF0C;&#x5219; <code>#</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li><code>urlObject.hash</code> &#x7684;&#x503C;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+</ul>
+</li>
+<li>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.hash</code> &#x5C5E;&#x6027;&#x4E0D;&#x662F; <code>undefined</code> &#x4E5F;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+<li>&#x8FD4;&#x56DE; <code>result</code>&#x3002;</li>
+</ul>
+<h3>url.parse(urlString[, parseQueryString[, slashesDenoteHost]])<span><a class="mark" href="#url_url_parse_urlstring_parsequerystring_slashesdenotehost" id="url_url_parse_urlstring_parsequerystring_slashesdenotehost" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="url_parse_urlstring_parsequerystring_slashesdenotehost.html" tppabs="http://nodejs.cn/api/url/url_parse_urlstring_parsequerystring_slashesdenotehost.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>The <code>search</code> property on the returned URL object is now <code>null</code> when no query string is present.</p></td></tr>
+<tr><td>v0.1.25</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.25</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>urlString</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x8981;&#x89E3;&#x6790;&#x7684; URL &#x5B57;&#x7B26;&#x4E32;&#x3002;</li>
+<li><code>parseQueryString</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C;&#x8BBE;&#x4E3A; <code>true</code>&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x7684; URL &#x5BF9;&#x8C61;&#x7684; <code>query</code> &#x5C5E;&#x6027;&#x4F1A;&#x662F;&#x4E00;&#x4E2A;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/i23Gdh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/i23Gdh'" tppabs="http://nodejs.cn/s/i23Gdh" rel="nofollow"><code>querystring</code></a> &#x6A21;&#x5757;&#x7684; <code>parse()</code> &#x751F;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#x3002;
+&#x5982;&#x679C;&#x8BBE;&#x4E3A; <code>false</code>&#xFF0C;&#x5219; <code>query</code> &#x4F1A;&#x662F;&#x4E00;&#x4E2A;&#x672A;&#x89E3;&#x6790;&#x672A;&#x89E3;&#x7801;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>false</code>&#x3002;</li>
+<li><code>slashesDenoteHost</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C;&#x8BBE;&#x4E3A; <code>true</code>&#xFF0C;&#x5219; <code>//</code> &#x4E4B;&#x540E;&#x81F3;&#x4E0B;&#x4E00;&#x4E2A; <code>/</code> &#x4E4B;&#x524D;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x4F1A;&#x89E3;&#x6790;&#x4F5C;&#x4E3A; <code>host</code>&#x3002;
+&#x4F8B;&#x5982;&#xFF0C;<code>//foo/bar</code> &#x4F1A;&#x89E3;&#x6790;&#x4E3A; <code>{host: &apos;foo&apos;, pathname: &apos;/bar&apos;}</code> &#x800C;&#x4E0D;&#x662F; <code>{pathname: &apos;//foo/bar&apos;}</code>&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>false</code>&#x3002;</li>
+</ul>
+<p>&#x89E3;&#x6790; URL &#x5B57;&#x7B26;&#x4E32;&#x5E76;&#x8FD4;&#x56DE; URL &#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>urlString</code> &#x4E0D;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA;<code>TypeError</code>&#x3002;</p>
+<p>&#x5982;&#x679C; <code>auth</code> &#x5C5E;&#x6027;&#x5B58;&#x5728;&#x4F46;&#x65E0;&#x6CD5;&#x89E3;&#x7801;&#xFF0C;&#x5219;&#x629B;&#x51FA; <code>URIError</code>&#x3002;</p>
+<h3>url.resolve(from, to)<span><a class="mark" href="#url_url_resolve_from_to" id="url_url_resolve_from_to" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="url_resolve_from_to.html" tppabs="http://nodejs.cn/api/url/url_resolve_from_to.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.6.0</td>
+<td><p>The <code>auth</code> fields are now kept intact when <code>from</code> and <code>to</code> refer to the same host.</p></td></tr>
+<tr><td>v6.5.0, v4.6.2</td>
+<td><p>The <code>port</code> field is copied correctly now.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>The <code>auth</code> fields is cleared now the <code>to</code> parameter contains a hostname.</p></td></tr>
+<tr><td>v0.1.25</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.25</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>from</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x89E3;&#x6790;&#x65F6;&#x76F8;&#x5BF9;&#x7684;&#x57FA;&#x672C; URL&#x3002;</li>
+<li><code>to</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x8981;&#x89E3;&#x6790;&#x7684;&#x8D85;&#x94FE;&#x63A5; URL&#x3002;</li>
+</ul>
+<p><code>url.resolve()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x4EE5;&#x4E00;&#x79CD; Web &#x6D4F;&#x89C8;&#x5668;&#x89E3;&#x6790;&#x8D85;&#x94FE;&#x63A5;&#x7684;&#x65B9;&#x5F0F;&#x628A;&#x4E00;&#x4E2A;&#x76EE;&#x6807; URL &#x89E3;&#x6790;&#x6210;&#x76F8;&#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;&#x57FA;&#x7840; URL&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">const url = require(&apos;url&apos;);
+url.resolve(&apos;/one/two/three&apos;, &apos;four&apos;);         // &apos;/one/two/four&apos;
+url.resolve(&apos;http://example.com/&apos;, &apos;/one&apos;);    // &apos;http://example.com/one&apos;
+url.resolve(&apos;http://example.com/one&apos;, &apos;/two&apos;); // &apos;http://example.com/two&apos;
+</code></pre>
+<p><a id="whatwg-percent-encoding" rel="nofollow"></a></p>
+<h2>URL &#x4E2D;&#x7684;&#x767E;&#x5206;&#x53F7;&#x7F16;&#x7801;<span><a class="mark" href="#url_percent_encoding_in_urls" id="url_percent_encoding_in_urls" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="percent_encoding_in_urls.html" tppabs="http://nodejs.cn/api/url/percent_encoding_in_urls.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x5141;&#x8BB8;URL&#x53EA;&#x5305;&#x542B;&#x4E00;&#x5B9A;&#x8303;&#x56F4;&#x7684;&#x5B57;&#x7B26;&#x3002; &#x4EFB;&#x4F55;&#x8D85;&#x51FA;&#x8BE5;&#x8303;&#x56F4;&#x7684;&#x5B57;&#x7B26;&#x90FD;&#x5FC5;&#x987B;&#x8FDB;&#x884C;&#x7F16;&#x7801;&#x3002; &#x5982;&#x4F55;&#x5BF9;&#x8FD9;&#x4E9B;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x7F16;&#x7801;&#xFF0C;&#x4EE5;&#x53CA;&#x54EA;&#x4E9B;&#x5B57;&#x7B26;&#x8981;&#x7F16;&#x7801;&#x5B8C;&#x5168;&#x53D6;&#x51B3;&#x4E8E;&#x5B57;&#x7B26;&#x5728;URL&#x7ED3;&#x6784;&#x5185;&#x7684;&#x4F4D;&#x7F6E;&#x3002;</p>
+<h3>&#x9057;&#x7559;&#x7684;&#x63A5;&#x53E3;<span><a class="mark" href="#url_legacy_api" id="url_legacy_api" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="legacy_api.html" tppabs="http://nodejs.cn/api/url/legacy_api.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x5728;&#x9057;&#x7559;&#x7684;API&#x4E2D;&#xFF0C;&#x7A7A;&#x683C;(<code>&apos; &apos;</code>)&#x53CA;&#x4EE5;&#x4E0B;&#x5B57;&#x7B26;&#x5C06;&#x81EA;&#x52A8;&#x8F6C;&#x4E49;&#x4E3A;URL&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#xFF1A;</p>
+<pre><code class="language-txt">&lt; &gt; &quot; ` \r \n \t { } | \ ^ &apos;
+</code></pre>
+<p>&#x4F8B;&#x5982;&#xFF0C;ASCII &#x7A7A;&#x683C;&#x5B57;&#x7B26;&#xFF08;<code>&apos; &apos;</code>&#xFF09;&#x88AB;&#x7F16;&#x7801;&#x6210; <code>%20</code>&#x3002;
+ASCII &#x659C;&#x6760;&#x5B57;&#x7B26;&#xFF08;<code>/</code>&#xFF09;&#x88AB;&#x7F16;&#x7801;&#x6210; <code>%3C</code>&#x3002;</p>
+<h3>WHATWG &#x63A5;&#x53E3;<span><a class="mark" href="#url_whatwg_api" id="url_whatwg_api" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="whatwg_api.html" tppabs="http://nodejs.cn/api/url/whatwg_api.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><a href="javascript:if(confirm('http://nodejs.cn/s/fKgW8d  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fKgW8d'" tppabs="http://nodejs.cn/s/fKgW8d" rel="nofollow">WHATWG URL Standard</a>&#x4F7F;&#x7528;&#x6BD4;&#x9057;&#x7559;&#x7684;API&#x66F4;&#x5177;&#x9009;&#x62E9;&#x6027;&#x548C;&#x66F4;&#x7CBE;&#x7EC6;&#x7684;&#x65B9;&#x6CD5;&#x6765;&#x9009;&#x62E9;&#x4F7F;&#x7528;&#x7684;&#x7F16;&#x7801;&#x5B57;&#x7B26;&#x3002;</p>
+<p>WHATWG&#x7B97;&#x6CD5;&#x5B9A;&#x4E49;&#x4E86;&#x4E09;&#x4E2A;&#x201C;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x96C6;&#x201D;&#xFF0C;&#x5B83;&#x4EEC;&#x63CF;&#x8FF0;&#x4E86;&#x5FC5;&#x987B;&#x8FDB;&#x884C;&#x767E;&#x5206;&#x7F16;&#x7801;&#x7684;&#x5B57;&#x7B26;&#x8303;&#x56F4;&#xFF1A;</p>
+<ul>
+<li>
+<p><em>C0 control percent-encode set(C0&#x63A7;&#x5236;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x96C6;)</em> &#x5305;&#x62EC;&#x8303;&#x56F4;&#x5728;U+0000 ~ U+001F&#xFF08;&#x542B;&#xFF09;&#x7684;&#x4EE3;&#x7801;&#x70B9;&#x53CA;&#x5927;&#x4E8E;U+007E&#x7684;&#x6240;&#x6709;&#x4EE3;&#x7801;&#x70B9;&#x3002;</p>
+</li>
+<li>
+<p><em>path percent-encode set(&#x8DEF;&#x5F84;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x96C6;)</em> &#x5305;&#x62EC; <em>C0 control percent-encode set(C0&#x63A7;&#x5236;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x96C6;)</em> &#x7684;&#x4EE3;&#x7801;&#x70B9; &#x53CA; U+0020, U+0022, U+0023, U+003C, U+003E, U+003F, U+0060,&#xA0;U+007B, &#x548C; U+007D &#x7684;&#x4EE3;&#x7801;&#x70B9;&#x3002;</p>
+</li>
+<li>
+<p><em>userinfo encode set(&#x7528;&#x6237;&#x4FE1;&#x606F;&#x7F16;&#x7801;&#x96C6;)</em> &#x5305;&#x62EC; <em>path percent-encode set(&#x8DEF;&#x5F84;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x96C6;)</em> &#x7684;&#x4EE3;&#x7801;&#x70B9; &#x53CA; U+002F, U+003A, U+003B, U+003D, U+0040, U+005B, U+005C, U+005D, U+005E, &#x548C; U+007C &#x7684;&#x4EE3;&#x7801;&#x70B9;&#x3002;</p>
+</li>
+</ul>
+<p><em>userinfo percent-encode set(&#x7528;&#x6237;&#x4FE1;&#x606F;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x96C6;)</em> &#x4E13;&#x95E8;&#x7528;&#x4E8E;&#x7528;&#x6237;&#x540D;&#x548C;&#x5BC6;&#x7801;&#x90E8;&#x5206;&#x7684;&#x7F16;&#x7801;&#x3002;<em>path percent-encode set(&#x8DEF;&#x5F84;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x96C6;)</em> &#x7528;&#x4E8E;&#x5927;&#x591A;&#x6570;URL&#x7684;&#x8DEF;&#x5F84;&#x90E8;&#x5206;&#x7F16;&#x7801;&#x3002;<em>C0 control percent-encode set(C0&#x63A7;&#x5236;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x96C6;)</em> &#x5219;&#x7528;&#x4E8E;&#x6240;&#x6709;&#x5176;&#x4ED6;&#x60C5;&#x51B5;&#x7684;&#x7F16;&#x7801;&#xFF0C;&#x7279;&#x522B;&#x5730;&#x5305;&#x62EC;URL&#x7684;&#x5206;&#x6BB5;&#x90E8;&#x5206;&#xFF0C;&#x7279;&#x6B8A;&#x6761;&#x4EF6;&#x4E0B;&#x4E5F;&#x5305;&#x62EC;&#x4E3B;&#x673A;&#x53CA;&#x8DEF;&#x5F84;&#x90E8;&#x5206;&#x3002;</p>
+<p>&#x5F53;&#x4E3B;&#x673A;&#x540D;&#x4E2D;&#x51FA;&#x73B0;&#x975E;ASCII&#x5B57;&#x7B26;&#x65F6;&#xFF0C;&#x4E3B;&#x673A;&#x540D;&#x5C06;&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/C2g98n  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/C2g98n'" tppabs="http://nodejs.cn/s/C2g98n" rel="nofollow">Punycode</a>&#x7B97;&#x6CD5;&#x8FDB;&#x884C;&#x7F16;&#x7801;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x8BF7;&#x6CE8;&#x610F;&#xFF0C;&#x4E3B;&#x673A;&#x540D;<em>&#x53EF;&#x80FD;&#x540C;&#x65F6;</em> &#x5305;&#x542B;Punycode&#x7F16;&#x7801;&#x548C;&#x767E;&#x5206;&#x6BD4;&#x7F16;&#x7801;&#x7684;&#x5B57;&#x7B26;&#x3002;&#x4F8B;&#x5982;&#xFF1A;</p>
+<pre><code class="language-js">const { URL } = require(&apos;url&apos;);
+const myURL = new URL(&apos;https://%CF%80.com/foo&apos;);
+console.log(myURL.href);
+ &#xA0;// &#x8F93;&#x51FA; https://xn--1xa.com/foo
+console.log(myURL.origin);
+  // &#x8F93;&#x51FA; https://&#x3C0;.com
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712040183"><\/script>');
+  </script>
+
+</body></html>

@@ -1,0 +1,938 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>net | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712032113" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-net">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net active" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="net" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><span class="stability_2"><a href="#net_net">net&#xFF08;&#x7F51;&#x7EDC;&#xFF09;</a></span></p>
+<ul>
+<li>
+<p><a href="#net_ipc_support">IPC &#x652F;&#x6301;</a></p>
+<ul>
+<li><a href="#net_identifying_paths_for_ipc_connections">IPC &#x8FDE;&#x63A5;&#x7684;&#x8BC6;&#x522B;&#x8DEF;&#x5F84;</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#net_class_net_server">net.Server &#x7C7B;</a></p>
+<ul>
+<li><a href="#net_new_net_server_options_connectionlistener">new net.Server([options][, connectionListener])</a></li>
+<li><a href="#net_event_close">&apos;close&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_event_connection">&apos;connection&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_event_error">&apos;error&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_event_listening">&apos;listening&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_server_address">server.address()</a></li>
+<li><a href="#net_server_close_callback">server.close([callback])</a></li>
+<li><span class="stability_0"><a href="#net_server_connections">server.connections</a></span></li>
+<li><a href="#net_server_getconnections_callback">server.getConnections(callback)</a></li>
+<li>
+<p><a href="#net_server_listen">server.listen()</a></p>
+<ul>
+<li><a href="#net_server_listen_handle_backlog_callback">server.listen(handle[, backlog][, callback])</a></li>
+<li><a href="#net_server_listen_options_callback">server.listen(options[, callback])</a></li>
+<li><a href="#net_server_listen_path_backlog_callback">server.listen(path[, backlog][, callback])</a></li>
+<li><a href="#net_server_listen_port_host_backlog_callback">server.listen([port[, host[, backlog]]][, callback])</a></li>
+</ul>
+</li>
+<li><a href="#net_server_listening">server.listening</a></li>
+<li><a href="#net_server_maxconnections">server.maxConnections</a></li>
+<li><a href="#net_server_ref">server.ref()</a></li>
+<li><a href="#net_server_unref">server.unref()</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#net_class_net_socket">net.Socket &#x7C7B;</a></p>
+<ul>
+<li><a href="#net_new_net_socket_options">new net.Socket([options])</a></li>
+<li><a href="#net_event_close_1">&apos;close&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_event_connect">&apos;connect&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_event_data">&apos;data&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_event_drain">&apos;drain&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_event_end">&apos;end&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_event_error_1">&apos;error&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_event_lookup">&apos;lookup&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_event_ready">&apos;ready&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_event_timeout">&apos;timeout&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#net_socket_address">socket.address()</a></li>
+<li><a href="#net_socket_buffersize">socket.bufferSize</a></li>
+<li><a href="#net_socket_bytesread">socket.bytesRead</a></li>
+<li><a href="#net_socket_byteswritten">socket.bytesWritten</a></li>
+<li>
+<p><a href="#net_socket_connect">socket.connect()</a></p>
+<ul>
+<li><a href="#net_socket_connect_options_connectlistener">socket.connect(options[, connectListener])</a></li>
+<li><a href="#net_socket_connect_path_connectlistener">socket.connect(path[, connectListener])</a></li>
+<li><a href="#net_socket_connect_port_host_connectlistener">socket.connect(port[, host][, connectListener])</a></li>
+</ul>
+</li>
+<li><a href="#net_socket_connecting">socket.connecting</a></li>
+<li><a href="#net_socket_destroy_exception">socket.destroy([exception])</a></li>
+<li><a href="#net_socket_destroyed">socket.destroyed</a></li>
+<li><a href="#net_socket_end_data_encoding_callback">socket.end([data][, encoding][, callback])</a></li>
+<li><a href="#net_socket_localaddress">socket.localAddress</a></li>
+<li><a href="#net_socket_localport">socket.localPort</a></li>
+<li><a href="#net_socket_pause">socket.pause()</a></li>
+<li><a href="#net_socket_ref">socket.ref()</a></li>
+<li><a href="#net_socket_remoteaddress">socket.remoteAddress</a></li>
+<li><a href="#net_socket_remotefamily">socket.remoteFamily</a></li>
+<li><a href="#net_socket_remoteport">socket.remotePort</a></li>
+<li><a href="#net_socket_resume">socket.resume()</a></li>
+<li><a href="#net_socket_setencoding_encoding">socket.setEncoding([encoding])</a></li>
+<li><a href="#net_socket_setkeepalive_enable_initialdelay">socket.setKeepAlive([enable][, initialDelay])</a></li>
+<li><a href="#net_socket_setnodelay_nodelay">socket.setNoDelay([noDelay])</a></li>
+<li><a href="#net_socket_settimeout_timeout_callback">socket.setTimeout(timeout[, callback])</a></li>
+<li><a href="#net_socket_unref">socket.unref()</a></li>
+<li><a href="#net_socket_write_data_encoding_callback">socket.write(data[, encoding][, callback])</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#net_net_connect">net.connect()</a></p>
+<ul>
+<li><a href="#net_net_connect_options_connectlistener">net.connect(options[, connectListener])</a></li>
+<li><a href="#net_net_connect_path_connectlistener">net.connect(path[, connectListener])</a></li>
+<li><a href="#net_net_connect_port_host_connectlistener">net.connect(port[, host][, connectListener])</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#net_net_createconnection">net.createConnection()</a></p>
+<ul>
+<li><a href="#net_net_createconnection_options_connectlistener">net.createConnection(options[, connectListener])</a></li>
+<li><a href="#net_net_createconnection_path_connectlistener">net.createConnection(path[, connectListener])</a></li>
+<li><a href="#net_net_createconnection_port_host_connectlistener">net.createConnection(port[, host][, connectListener])</a></li>
+</ul>
+</li>
+<li><a href="#net_net_createserver_options_connectionlistener">net.createServer([options][, connectionListener])</a></li>
+<li><a href="#net_net_isip_input">net.isIP(input)</a></li>
+<li><a href="#net_net_isipv4_input">net.isIPv4(input)</a></li>
+<li><a href="#net_net_isipv6_input">net.isIPv6(input)</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>net&#xFF08;&#x7F51;&#x7EDC;&#xFF09;<span><a class="mark" href="#net_net" id="net_net" rel="nofollow">#</a></span></h1><p class="tip_wrap"><a href="net-1.html" tppabs="http://nodejs.cn/api/net/net.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<!--introduced_in=v0.10.0-->
+<p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;</div><p></p>
+<p><code>net</code> &#x6A21;&#x5757;&#x7528;&#x4E8E;&#x521B;&#x5EFA;&#x57FA;&#x4E8E;&#x6D41;&#x7684; TCP &#x6216; <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> &#x7684;&#x670D;&#x52A1;&#x5668;&#xFF08;<a href="javascript:if(confirm('http://nodejs.cn/s/e8cikS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/e8cikS'" tppabs="http://nodejs.cn/s/e8cikS" rel="nofollow"><code>net.createServer()</code></a>&#xFF09;&#x4E0E;&#x5BA2;&#x6237;&#x7AEF;&#xFF08;<a href="javascript:if(confirm('http://nodejs.cn/s/RTNxdX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RTNxdX'" tppabs="http://nodejs.cn/s/RTNxdX" rel="nofollow"><code>net.createConnection()</code></a>&#xFF09;&#x3002;</p>
+<p>&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;:</p>
+<pre><code class="language-js">const net = require(&apos;net&apos;);
+</code></pre>
+<h2>IPC &#x652F;&#x6301;<span><a class="mark" href="#net_ipc_support" id="net_ipc_support" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="ipc_support.html" tppabs="http://nodejs.cn/api/net/ipc_support.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>net</code> &#x6A21;&#x5757;&#x5728; Windows &#x4E0A;&#x652F;&#x6301;&#x547D;&#x540D;&#x7BA1;&#x9053; IPC&#xFF0C;&#x5728;&#x5176;&#x4ED6;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E0A;&#x652F;&#x6301; UNIX &#x57DF;&#x5957;&#x63A5;&#x5B57;&#x3002;</p>
+<h3>IPC &#x8FDE;&#x63A5;&#x7684;&#x8BC6;&#x522B;&#x8DEF;&#x5F84;<span><a class="mark" href="#net_identifying_paths_for_ipc_connections" id="net_identifying_paths_for_ipc_connections" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="identifying_paths_for_ipc_connections.html" tppabs="http://nodejs.cn/api/net/identifying_paths_for_ipc_connections.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><a href="javascript:if(confirm('http://nodejs.cn/s/mw8BBV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mw8BBV'" tppabs="http://nodejs.cn/s/mw8BBV" rel="nofollow"><code>net.connect()</code></a>, <a href="javascript:if(confirm('http://nodejs.cn/s/RTNxdX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RTNxdX'" tppabs="http://nodejs.cn/s/RTNxdX" rel="nofollow"><code>net.createConnection()</code></a>, <a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a> &#x548C;
+<a href="javascript:if(confirm('http://nodejs.cn/s/fGCDDg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fGCDDg'" tppabs="http://nodejs.cn/s/fGCDDg" rel="nofollow"><code>socket.connect()</code></a> &#x4F7F;&#x7528;&#x4E00;&#x4E2A; <code>path</code> &#x53C2;&#x6570;&#x6765;&#x8BC6;&#x522B; IPC &#x7AEF;&#x70B9;&#x3002;</p>
+<p>&#x5728; UNIX &#x4E0A;&#xFF0C;&#x672C;&#x5730;&#x57DF;&#x4E5F;&#x79F0;&#x4E3A; UNIX &#x57DF;&#x3002;&#x53C2;&#x6570; <code>path</code> &#x662F;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x8DEF;&#x5F84;&#x540D;&#x3002;&#x5B83;&#x88AB;&#x4ECE; <code>sizeof(sockaddr_un.sun_path) - 1</code> &#x5904;&#x88AB;&#x622A;&#x65AD;&#xFF0C;&#x5176;&#x957F;&#x5EA6;&#x56E0;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E0D;&#x540C;&#x800C;&#x5728; 91 &#x81F3; 107 &#x5B57;&#x8282;&#x4E4B;&#x95F4;&#x53D8;&#x5316;&#x3002;&#x5178;&#x578B;&#x503C;&#x5728; Linux &#x4E0A;&#x4E3A; 107&#xFF0C;&#x5728; macOS &#x4E0A;&#x4E3A; 103&#x3002;&#x8BE5;&#x8DEF;&#x5F84;&#x53D7;&#x5230;&#x4E0E;&#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x76F8;&#x540C;&#x7684;&#x547D;&#x540D;&#x7EA6;&#x5B9A;&#x548C;&#x6743;&#x9650;&#x68C0;&#x67E5;&#x3002;&#x5B83;&#x5C06;&#x5728;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E2D;&#x53EF;&#x89C1;&#xFF0C;&#x5E76;&#x4E14;&#x5C06;&#x6301;&#x7EED;&#x5230;&#x53D6;&#x6D88;&#x94FE;&#x63A5;&#x7684;&#x65F6;&#x5019;&#x3002;</p>
+<p>&#x5728; Windows &#x4E0A;&#xFF0C;&#x672C;&#x5730;&#x57DF;&#x901A;&#x8FC7;&#x547D;&#x540D;&#x7BA1;&#x9053;&#x5B9E;&#x73B0;&#x3002;&#x8DEF;&#x5F84;&#x5FC5;&#x987B;&#x662F;&#x4EE5; <code>\\?\pipe\</code> &#x6216; <code>\\.\pipe\</code> &#x4E3A;&#x5165;&#x53E3;&#x3002;&#x8DEF;&#x5F84;&#x5141;&#x8BB8;&#x4EFB;&#x4F55;&#x5B57;&#x7B26;&#xFF0C;&#x4F46;&#x540E;&#x9762;&#x7684;&#x5B57;&#x7B26;&#x53EF;&#x80FD;&#x4F1A;&#x5BF9;&#x7BA1;&#x9053;&#x540D;&#x79F0;&#x8FDB;&#x884C;&#x4E00;&#x4E9B;&#x5904;&#x7406;&#xFF0C;&#x4F8B;&#x5982;&#x89E3;&#x6790; <code>..</code> &#x5E8F;&#x5217;&#x3002;&#x5C3D;&#x7BA1;&#x5982;&#x6B64;&#xFF0C;&#x7BA1;&#x9053;&#x7A7A;&#x95F4;&#x662F;&#x5E73;&#x9762;&#x7684;&#x3002;&#x7BA1;&#x9053;&#x4E0D;&#x4F1A;&#x6301;&#x7EED;&#xFF0C;&#x5F53;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x5F15;&#x7528;&#x5173;&#x95ED;&#x65F6;&#xFF0C;&#x7BA1;&#x9053;&#x5C31;&#x4F1A;&#x88AB;&#x5220;&#x9664;&#x3002;&#x4E0D;&#x8981;&#x5FD8;&#x4E86; JavaScript &#x5B57;&#x7B26;&#x4E32;&#x8F6C;&#x4E49;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x53CC;&#x53CD;&#x659C;&#x6760;&#x6307;&#x5B9A;&#x8DEF;&#x5F84;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;</p>
+<pre><code class="language-js">net.createServer().listen(
+  path.join(&apos;\\\\?\\pipe&apos;, process.cwd(), &apos;myctl&apos;));
+</code></pre>
+<h2>net.Server &#x7C7B;<span><a class="mark" href="#net_class_net_server" id="net_class_net_server" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="class_net_server.html" tppabs="http://nodejs.cn/api/net/class_net_server.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<p>&#x8FD9;&#x4E2A;&#x7C7B;&#x7528;&#x4E8E;&#x521B;&#x5EFA; TCP &#x6216; <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> server&#x3002;</p>
+<h3>new net.Server([options][, connectionListener])<span><a class="mark" href="#net_new_net_server_options_connectionlistener" id="net_new_net_server_options_connectionlistener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="new_net_server_options_connectionlistener.html" tppabs="http://nodejs.cn/api/net/new_net_server_options_connectionlistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li>&#x8FD4;&#x56DE;: <a href="net.html#net_class_net_server" tppabs="http://nodejs.cn/api/net.html#net_class_net_server" target="_blank" rel="nofollow" class="type">&lt;net.Server&gt;</a></li>
+</ul>
+<p>&#x67E5;&#x770B; <a href="javascript:if(confirm('http://nodejs.cn/s/e8cikS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/e8cikS'" tppabs="http://nodejs.cn/s/e8cikS" rel="nofollow"><code>net.createServer([options][, connectionListener])</code></a>.</p>
+<p><code>net.Server</code> is an <a href="javascript:if(confirm('http://nodejs.cn/s/pGAddE  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/pGAddE'" tppabs="http://nodejs.cn/s/pGAddE" rel="nofollow"><code>EventEmitter</code></a>&#x5B9E;&#x73B0;&#x4E86;&#x4EE5;&#x4E0B;&#x4E8B;&#x4EF6;:</p>
+<h3>&apos;close&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_close" id="net_event_close" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_close-4.html" tppabs="http://nodejs.cn/api/net/event_close.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.5.0</span>
+</div>
+<p>&#x5F53;server&#x5173;&#x95ED;&#x7684;&#x65F6;&#x5019;&#x89E6;&#x53D1;. &#x6CE8;&#x610F;,&#x5982;&#x679C;&#x6709;&#x8FDE;&#x63A5;&#x5B58;&#x5728;, &#x76F4;&#x5230;&#x6240;&#x6709;&#x7684;&#x8FDE;&#x63A5;&#x7ED3;&#x675F;&#x624D;&#x4F1A;&#x89E6;&#x53D1;&#x8FD9;&#x4E2A;&#x4E8B;&#x4EF6;</p>
+<h3>&apos;connection&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_connection" id="net_event_connection" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_connection-1.html" tppabs="http://nodejs.cn/api/net/event_connection.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a>  connection &#x5BF9;&#x8C61;</li>
+</ul>
+<p>&#x5F53;&#x4E00;&#x4E2A;&#x65B0;&#x7684;connection&#x5EFA;&#x7ACB;&#x7684;&#x65F6;&#x5019;&#x89E6;&#x53D1;. <code>socket</code> &#x662F;&#x4E00;&#x4E2A;
+<code>net.Socket</code>&#x7684;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;.</p>
+<h3>&apos;error&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_error" id="net_event_error" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_error-4.html" tppabs="http://nodejs.cn/api/net/event_error.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p>&#x5F53;&#x9519;&#x8BEF;&#x51FA;&#x73B0;&#x7684;&#x65F6;&#x5019;&#x89E6;&#x53D1;. &#x4E0D;&#x540C;&#x4E0E; <a href="javascript:if(confirm('http://nodejs.cn/s/wsJ1o1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wsJ1o1'" tppabs="http://nodejs.cn/s/wsJ1o1" rel="nofollow"><code>net.Socket</code></a>, <a href="javascript:if(confirm('http://nodejs.cn/s/3c6jjk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/3c6jjk'" tppabs="http://nodejs.cn/s/3c6jjk" rel="nofollow"><code>&apos;close&apos;</code></a>
+&#x4E8B;&#x4EF6;&#x4E0D;&#x4F1A;&#x5728;&#x8FD9;&#x4E2A;&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x540E;&#x7EE7;&#x7EED;&#x89E6;&#x53D1; &#x9664;&#x975E;
+<a href="javascript:if(confirm('http://nodejs.cn/s/zZ874N  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zZ874N'" tppabs="http://nodejs.cn/s/zZ874N" rel="nofollow"><code>server.close()</code></a> &#x662F;&#x624B;&#x52A8;&#x8C03;&#x7528;. &#x5728;
+<a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a>&#x4E2D;&#x7684;&#x4F8B;&#x5B50;.</p>
+<h3>&apos;listening&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_listening" id="net_event_listening" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_listening-2.html" tppabs="http://nodejs.cn/api/net/event_listening.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<p>&#x5F53;&#x670D;&#x52A1;&#x88AB;&#x7ED1;&#x5B9A;&#x540E;&#x8C03;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a>.</p>
+<h3>server.address()<span><a class="mark" href="#net_server_address" id="net_server_address" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="server_address.html" tppabs="http://nodejs.cn/api/net/server_address.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<p>&#x5982;&#x679C;&#x5728;IP socket&#x4E0A;&#x76D1;&#x542C;,&#x5219;&#x8FD4;&#x56DE;&#x7ED1;&#x5B9A;&#x7684;ip&#x5730;&#x5740;, &#x5730;&#x5740;&#x65CF;&#x548C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x62A5;&#x544A;&#x7684;&#x670D;&#x52A1;&#x7AEF;&#x53E3;
+&#x5728;&#x627E;&#x5230;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5206;&#x914D;&#x7684;&#x5730;&#x5740;&#x65F6;&#xFF0C;&#x627E;&#x5230;&#x6307;&#x5B9A;&#x7684;&#x7AEF;&#x53E3;&#x662F;&#x6709;&#x7528;&#x7684;.&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6709; <code>port</code>, <code>family</code>, &#x548C;&#xA0;<code>address</code> &#x5C5E;&#x6027;:
+<code>{ port: 12346, family: &apos;IPv4&apos;, address: &apos;127.0.0.1&apos; }</code>&#x7684;&#x5BF9;&#x8C61;</p>
+<p>&#x5BF9;&#x4E8E;&#x5728;&#x7BA1;&#x9053;&#x6216;UNIX&#x57DF;&#x5957;&#x63A5;&#x5B57;&#x4E0A;&#x4FA6;&#x542C;&#x7684;server,&#x8BE5;&#x540D;&#x79F0;&#x5C06;&#x8FD4;&#x56DE;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;</p>
+<p>&#x4F8B;&#x5B50;:</p>
+<pre><code class="language-js">const server = net.createServer((socket) =&gt; {
+  socket.end(&apos;goodbye\n&apos;);
+}).on(&apos;error&apos;, (err) =&gt; {
+  // handle errors here
+  throw err;
+});
+
+// grab an arbitrary unused port.
+server.listen(() =&gt; {
+  console.log(&apos;opened server on&apos;, server.address());
+});
+</code></pre>
+<p>&#x53EA;&#x6709;&#x5230;&#x4E86; <code>&apos;listening&apos;</code> &#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x65F6;&#x5019;.&#x624D;&#x53EF;&#x4EE5;&#x8C03;&#x7528; <code>server.address()</code> </p>
+<h3>server.close([callback])<span><a class="mark" href="#net_server_close_callback" id="net_server_close_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="server_close_callback-2.html" tppabs="http://nodejs.cn/api/net/server_close_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li>&#x8FD4;&#x56DE;: <a href="net.html#net_class_net_server" tppabs="http://nodejs.cn/api/net.html#net_class_net_server" target="_blank" rel="nofollow" class="type">&lt;net.Server&gt;</a></li>
+</ul>
+<p>&#x505C;&#x6B62; server&#x63A5;&#x53D7;&#x5EFA;&#x7ACB;&#x65B0;&#x7684;connections&#x5E76;&#x4FDD;&#x6301;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x7684;connections.&#x6B64;&#x529F;&#x80FD;&#x662F;&#x5F02;&#x6B65;&#x7684;,&#x5F53;&#x6240;&#x6709;&#x7684;connections&#x5173;&#x95ED;&#x540C;&#x65F6;server&#x54CD;&#x5E94; <a href="javascript:if(confirm('http://nodejs.cn/s/3c6jjk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/3c6jjk'" tppabs="http://nodejs.cn/s/3c6jjk" rel="nofollow"><code>&apos;close&apos;</code></a>&#x4E8B;&#x4EF6;&#x7684;&#x65F6;&#x5019;,server&#x5C06;&#x4F1A;&#x6700;&#x7EC8;&#x5173;&#x95ED;.
+&#x4E00;&#x65E6;<code>&apos;close&apos;</code>&#x53D1;&#x751F;&#x5C06;&#x4F1A;&#x8C03;&#x7528;&#x53EF;&#x9009;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;. &#x4E0E;&#x8BE5;&#x4E8B;&#x4EF6;&#x4E0D;&#x540C;, &#x5982;&#x679C;&#x670D;&#x52A1;&#x5668;&#x5728;&#x5173;&#x95ED;&#x65F6;&#x672A;&#x6253;&#x5F00;&#xFF0C;&#x5219;&#x5C06;&#x4F7F;&#x7528;&#x9519;&#x8BEF;&#x4F5C;&#x4E3A;&#x552F;&#x4E00;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x8FD4;&#x56DE; <code>server</code>&#x3002;</p>
+<h3>server.connections<span><a class="mark" href="#net_server_connections" id="net_server_connections" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.2.0</span><span>&#x5E9F;&#x5F03;&#x4E8E;: v0.9.7</span>
+</div>
+<p></p><div class="api_stability api_stability_0"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 0</a> - &#x5E9F;&#x5F03;&#x7684;: &#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/9mG95C  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/9mG95C'" tppabs="http://nodejs.cn/s/9mG95C" rel="nofollow"><code>server.getConnections()</code></a> &#x4EE3;&#x66FF;&#x3002;</div><p></p>
+<p>The number of concurrent connections on the server.</p>
+<p>This becomes <code>null</code> when sending a socket to a child with
+<a href="javascript:if(confirm('http://nodejs.cn/s/VDCJMa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/VDCJMa'" tppabs="http://nodejs.cn/s/VDCJMa" rel="nofollow"><code>child_process.fork()</code></a>. To poll forks and get current number of active
+connections, use asynchronous <a href="javascript:if(confirm('http://nodejs.cn/s/9mG95C  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/9mG95C'" tppabs="http://nodejs.cn/s/9mG95C" rel="nofollow"><code>server.getConnections()</code></a> instead.</p>
+<h3>server.getConnections(callback)<span><a class="mark" href="#net_server_getconnections_callback" id="net_server_getconnections_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="server_getconnections_callback.html" tppabs="http://nodejs.cn/api/net/server_getconnections_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.7</span>
+</div>
+<ul>
+<li>Returns <a href="net.html#net_class_net_server" tppabs="http://nodejs.cn/api/net.html#net_class_net_server" target="_blank" rel="nofollow" class="type">&lt;net.Server&gt;</a></li>
+</ul>
+<p>&#x5F02;&#x6B65;&#x83B7;&#x53D6;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5F53;&#x524D;&#x5E76;&#x53D1;&#x8FDE;&#x63A5;&#x6570;&#x3002;&#x5F53; socket &#x88AB;&#x4F20;&#x9012;&#x7ED9;&#x5B50;&#x8FDB;&#x7A0B;&#x65F6;&#x5DE5;&#x4F5C;&#x3002;</p>
+<p>&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x662F; err &#x548C; count&#x3002;</p>
+<h3>server.listen()<span><a class="mark" href="#net_server_listen" id="net_server_listen" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="server_listen-2.html" tppabs="http://nodejs.cn/api/net/server_listen.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x4E3A; connections &#x542F;&#x52A8;&#x4E00;&#x4E2A; server &#x76D1;&#x542C;. &#x4E00;&#x4E2A; <code>net.Server</code> &#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A; TCP &#x6216;&#x8005;
+&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> server&#xFF0C;&#x8FD9;&#x53D6;&#x51B3;&#x4E8E;&#x5B83;&#x76D1;&#x542C;&#x4EC0;&#x4E48;&#x3002;</p>
+<p>&#x53EF;&#x80FD;&#x7684;&#x53C2;&#x6570;:</p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/mHsAku  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mHsAku'" tppabs="http://nodejs.cn/s/mHsAku" rel="nofollow"><code>server.listen(handle[, backlog][, callback])</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/jxVHHe  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jxVHHe'" tppabs="http://nodejs.cn/s/jxVHHe" rel="nofollow"><code>server.listen(options[, callback])</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/yW8Zc1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/yW8Zc1'" tppabs="http://nodejs.cn/s/yW8Zc1" rel="nofollow"><code>server.listen(path[, backlog][, callback])</code></a>
+for <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> servers</li>
+<li>[<code>server.listen([port][, host][, backlog][, callback])</code>][`server.listen(port, host)`]
+for TCP servers</li>
+</ul>
+<p>&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x662F;&#x5F02;&#x6B65;&#x7684;&#x3002;&#x5F53; server &#x5F00;&#x59CB;&#x76D1;&#x542C;&#xFF0C;<a href="javascript:if(confirm('http://nodejs.cn/s/gimdsR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gimdsR'" tppabs="http://nodejs.cn/s/gimdsR" rel="nofollow"><code>&apos;listening&apos;</code></a> &#x4E8B;&#x4EF6;&#x4F1A;&#x89E6;&#x53D1;&#x3002;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53C2;&#x6570;
+<code>callback</code> &#x5C06;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x4E3A;<a href="javascript:if(confirm('http://nodejs.cn/s/gimdsR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gimdsR'" tppabs="http://nodejs.cn/s/gimdsR" rel="nofollow"><code>&apos;listening&apos;</code></a> &#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x3002;</p>
+<p>&#x6240;&#x6709;&#x7684; <code>listen()</code> &#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x4F20;&#x5165;&#x4E00;&#x4E2A; <code>backlog</code> &#x53C2;&#x6570;&#x6765;&#x6307;&#x5B9A;&#x5F85;&#x8FDE;&#x63A5;&#x961F;&#x5217;&#x7684;&#x6700;&#x5927;&#x957F;&#x5EA6;&#x3002;
+&#x5B9E;&#x9645;&#x957F;&#x5EA6;&#x5C06;&#x901A;&#x8FC7; OS &#x7684; sysctl &#x8BBE;&#x7F6E;&#xFF0C; &#x4F8B;&#x5982; linux &#x91CC;&#x7684; <code>tcp_max_syn_backlog</code> &#x548C; <code>somaxconn</code>&#x3002;
+&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x9ED8;&#x8BA4;&#x503C;&#x662F;511 (&#x4E0D;&#x662F;512&#xFF09;</p>
+<p><em>&#x8BF4;&#x660E;</em>&#xFF1A;</p>
+<ul>
+<li>
+<p>&#x6240;&#x6709;&#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/wsJ1o1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wsJ1o1'" tppabs="http://nodejs.cn/s/wsJ1o1" rel="nofollow"><code>net.Socket</code></a> &#x90FD;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A; <code>SO_REUSEADDR</code> (&#x8BE6;&#x89C1; [<a href="javascript:if(confirm('http://nodejs.cn/s/_man/7/socket.7  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_man/7/socket.7'" tppabs="http://nodejs.cn/s/_man/7/socket.7" rel="nofollow"><code>socket(7)</code></a>][])</p>
+</li>
+<li>
+<p><code>server.listen()</code> &#x65B9;&#x6CD5;&#x53EF;&#x80FD;&#x4F1A;&#x88AB;&#x8C03;&#x7528;&#x591A;&#x6B21;&#x3002;&#x6BCF;&#x4E2A;&#x540E;&#x7EED;&#x7684;&#x8C03;&#x7528;&#x90FD;&#x5C06;&#x4F7F;&#x7528;&#x5176;&#x63D0;&#x4F9B;&#x7684;&#x9009;&#x9879;&#x91CD;&#x65B0;&#x6253;&#x5F00;&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+</li>
+</ul>
+<p>&#x76D1;&#x542C;&#x65F6;&#xFF0C;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x6700;&#x5E38;&#x89C1;&#x7684;&#x9519;&#x8BEF;&#x662F; <code>EADDRINUSE</code>&#x3002;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x53E6;&#x4E00;&#x4E2A; server &#x5DF2;&#x7ECF;&#x76D1;&#x542C;&#x4E86;&#x8BE5;&#x8BF7;&#x6C42;&#x4E2D;&#x7684; <code>port</code> / <code>path</code> / <code>handle</code>&#x3002;
+&#x5904;&#x7406;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x7684;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;&#x662F;&#x5728;&#x4E00;&#x5B9A;&#x65F6;&#x95F4;&#x540E;&#x91CD;&#x8BD5;&#xFF1A;</p>
+<pre><code class="language-js">server.on(&apos;error&apos;, (e) =&gt; {
+  if (e.code === &apos;EADDRINUSE&apos;) {
+    console.log(&apos;Address in use, retrying...&apos;);
+    setTimeout(() =&gt; {
+      server.close();
+      server.listen(PORT, HOST);
+    }, 1000);
+  }
+});
+</code></pre>
+<h4>server.listen(handle[, backlog][, callback])<span><a class="mark" href="#net_server_listen_handle_backlog_callback" id="net_server_listen_handle_backlog_callback" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="server_listen_handle_backlog_callback.html" tppabs="http://nodejs.cn/api/net/server_listen_handle_backlog_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.5.10</span>
+</div>
+<ul>
+<li><code>handle</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+<li><code>backlog</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a> &#x7684;&#x901A;&#x7528;&#x53C2;&#x6570;</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a> &#x7684;&#x901A;&#x7528;&#x53C2;&#x6570;</li>
+<li>Returns: <a href="net.html#net_class_net_server" tppabs="http://nodejs.cn/api/net.html#net_class_net_server" target="_blank" rel="nofollow" class="type">&lt;net.Server&gt;</a></li>
+</ul>
+<p>&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x76D1;&#x542C;&#x5DF2;&#x7ECF;&#x7ED1;&#x5B9A;&#x5230;&#x7AEF;&#x53E3;&#x3001;UNIX &#x57DF;&#x5957;&#x63A5;&#x5B57;&#x6216; Windows &#x547D;&#x540D;&#x7BA1;&#x9053;&#x7684;&#x7ED9;&#x5B9A;&#x53E5;&#x67C4;&#x4E0A;&#x7684;&#x8FDE;&#x63A5;&#x3002;</p>
+<p>&#x53E5;&#x67C4;&#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x662F;&#x670D;&#x52A1;&#x5668;&#x3001;&#x5957;&#x63A5;&#x5B57;&#xFF08;&#x4EFB;&#x4F55;&#x5177;&#x6709;&#x5E95;&#x5C42; <code>_handle</code> &#x6210;&#x5458;&#x7684;&#x4E1C;&#x897F;&#xFF09;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x5177;&#x6709; <code>fd</code> &#x6210;&#x5458;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x8BE5;&#x6210;&#x5458;&#x662F;&#x4E00;&#x4E2A;&#x6709;&#x6548;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3002;</p>
+<p><em>&#x6CE8;&#x610F;</em>&#xFF1A;&#x5728;Windows&#x4E0A;&#x4E0D;&#x652F;&#x6301;&#x5728;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x4E0A;&#x8FDB;&#x884C;&#x76D1;&#x542C;&#x3002;</p>
+<h4>server.listen(options[, callback])<span><a class="mark" href="#net_server_listen_options_callback" id="net_server_listen_options_callback" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="server_listen_options_callback.html" tppabs="http://nodejs.cn/api/net/server_listen_options_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.14</span>
+</div>
+<ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x5FC5;&#x987B;&#x3002;&#x652F;&#x6301;&#x4EE5;&#x4E0B;&#x53C2;&#x6570;&#x5C5E;&#x6027;&#xFF1A;
+&#xA0;* <code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></p>
+<ul>
+<li><code>host</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a>
+&#xA0;<em> <code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; <code>port</code> &#x53C2;&#x6570;&#x5219;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;&#x67E5;&#x770B; <a href="javascript:if(confirm('http://nodejs.cn/s/tNVQV4  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tNVQV4'" tppabs="http://nodejs.cn/s/tNVQV4" rel="nofollow">Identifying paths for IPC connections</a>&#x3002;
+&#xA0;</em> <code>backlog</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a> &#x7684;&#x901A;&#x7528;&#x53C2;&#x6570;&#x3002;
+&#xA0;* <code>exclusive</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x9ED8;&#x8BA4; <code>false</code>&#x3002;</li>
+</ul>
+</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a> &#x7684;&#x901A;&#x7528;&#x53C2;&#x6570;&#x3002;</li>
+<li>Returns: <a href="net.html#net_class_net_server" tppabs="http://nodejs.cn/api/net.html#net_class_net_server" target="_blank" rel="nofollow" class="type">&lt;net.Server&gt;</a></li>
+</ul>
+<p>&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; <code>port</code> &#x53C2;&#x6570;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x7684;&#x884C;&#x4E3A;&#x8DDF; [<code>server.listen([port][, hostname][, backlog][, callback])</code>][`server.listen(port, host)`] &#x4E00;&#x6837;&#x3002;&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; <code>path</code> &#x53C2;&#x6570;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x7684;&#x884C;&#x4E3A;&#x4E0E; <a href="javascript:if(confirm('http://nodejs.cn/s/yW8Zc1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/yW8Zc1'" tppabs="http://nodejs.cn/s/yW8Zc1" rel="nofollow"><code>server.listen(path[, backlog][, callback])</code></a> &#x4E00;&#x81F4;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709; <code>port</code> &#x6216;&#x8005; <code>path</code> &#x53C2;&#x6570;&#xFF0C;&#x5219;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>exclusive</code> &#x662F; <code>false</code>&#xFF08;&#x9ED8;&#x8BA4;&#xFF09;&#xFF0C;&#x5219;&#x96C6;&#x7FA4;&#x7684;&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x5C06;&#x4F7F;&#x7528;&#x76F8;&#x540C;&#x7684;&#x5E95;&#x5C42;&#x53E5;&#x67C4;&#xFF0C;&#x5141;&#x8BB8;&#x5171;&#x4EAB;&#x8FDE;&#x63A5;&#x5904;&#x7406;&#x4EFB;&#x52A1;&#x3002;&#x5982;&#x679C; <code>exclusive</code> &#x662F; <code>true</code>&#xFF0C;&#x5219;&#x53E5;&#x67C4;&#x4E0D;&#x4F1A;&#x88AB;&#x5171;&#x4EAB;&#xFF0C;&#x5982;&#x679C;&#x5C1D;&#x8BD5;&#x7AEF;&#x53E3;&#x5171;&#x4EAB;&#x5C06;&#x5BFC;&#x81F4;&#x9519;&#x8BEF;&#x3002;&#x76D1;&#x542C;&#x72EC;&#x7ACB;&#x7AEF;&#x53E3;&#x7684;&#x4F8B;&#x5B50;&#x5982;&#x4E0B;&#x3002;</p>
+<pre><code class="language-js">server.listen({
+  host: &apos;localhost&apos;,
+  port: 80,
+  exclusive: true
+});
+</code></pre>
+<h4>server.listen(path[, backlog][, callback])<span><a class="mark" href="#net_server_listen_path_backlog_callback" id="net_server_listen_path_backlog_callback" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="server_listen_path_backlog_callback.html" tppabs="http://nodejs.cn/api/net/server_listen_path_backlog_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x670D;&#x52A1;&#x5668;&#x9700;&#x8981;&#x76D1;&#x542C;&#x7684;&#x8DEF;&#x5F84;&#x3002;&#x67E5;&#x770B; <a href="javascript:if(confirm('http://nodejs.cn/s/tNVQV4  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tNVQV4'" tppabs="http://nodejs.cn/s/tNVQV4" rel="nofollow">Identifying paths for IPC connections</a>&#x3002;</li>
+<li><code>backlog</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a> &#x901A;&#x7528;&#x53C2;&#x6570;&#x3002;</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a> &#x901A;&#x7528;&#x53C2;&#x6570;&#x3002;</li>
+<li>Returns: <a href="net.html#net_class_net_server" tppabs="http://nodejs.cn/api/net.html#net_class_net_server" target="_blank" rel="nofollow" class="type">&lt;net.Server&gt;</a></li>
+</ul>
+<p>&#x542F;&#x52A8;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> &#x670D;&#x52A1;&#x5668;&#x76D1;&#x542C;&#x7ED9;&#x5B9A; <code>path</code> &#x7684;&#x8FDE;&#x63A5;&#x3002;</p>
+<h4>server.listen([port[, host[, backlog]]][, callback])<span><a class="mark" href="#net_server_listen_port_host_backlog_callback" id="net_server_listen_port_host_backlog_callback" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="server_listen_port_host_backlog_callback.html" tppabs="http://nodejs.cn/api/net/server_listen_port_host_backlog_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+<li><code>host</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>backlog</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a> &#x51FD;&#x6570;&#x7684;&#x901A;&#x7528;&#x53C2;&#x6570;</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a> &#x51FD;&#x6570;&#x7684;&#x901A;&#x7528;&#x53C2;&#x6570;</li>
+<li>Returns: <a href="net.html#net_class_net_server" tppabs="http://nodejs.cn/api/net.html#net_class_net_server" target="_blank" rel="nofollow" class="type">&lt;net.Server&gt;</a></li>
+</ul>
+<p>&#x542F;&#x52A8;&#x4E00;&#x4E2A;TCP&#x670D;&#x52A1;&#x76D1;&#x542C;&#x8F93;&#x5165;&#x7684;<code>port</code>&#x548C;<code>host</code>&#x3002;</p>
+<p>&#x5982;&#x679C;<code>port</code>&#x7701;&#x7565;&#x6216;&#x662F;0&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x968F;&#x610F;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x5728;<a href="javascript:if(confirm('http://nodejs.cn/s/gimdsR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gimdsR'" tppabs="http://nodejs.cn/s/gimdsR" rel="nofollow"><code>&apos;listening&apos;</code></a>&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x540E;&#x80FD;&#x88AB;<code>server.address().port</code>&#x68C0;&#x7D22;&#x7684;&#x65E0;&#x7528;&#x7AEF;&#x53E3;&#x3002;</p>
+<p>&#x5982;&#x679C;<code>host</code>&#x7701;&#x7565;&#xFF0C;&#x5982;&#x679C;IPv6&#x53EF;&#x7528;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x5C06;&#x4F1A;&#x63A5;&#x6536;&#x57FA;&#x4E8E;<a href="javascript:if(confirm('http://nodejs.cn/s/Qm3wjJ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Qm3wjJ'" tppabs="http://nodejs.cn/s/Qm3wjJ" rel="nofollow">unspecified IPv6 address</a> (<code>::</code>)&#x7684;&#x8FDE;&#x63A5;&#xFF0C;&#x5426;&#x5219;&#x63A5;&#x6536;&#x57FA;&#x4E8E;<a href="javascript:if(confirm('http://nodejs.cn/s/ccQvH8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ccQvH8'" tppabs="http://nodejs.cn/s/ccQvH8" rel="nofollow">unspecified IPv4 address</a> (<code>0.0.0.0</code>)&#x7684;&#x8FDE;&#x63A5;</p>
+<p><em>&#x6CE8;&#x610F;</em>: &#x5728;&#x5927;&#x591A;&#x6570;&#x7684;&#x7CFB;&#x7EDF;, &#x76D1;&#x542C;<a href="javascript:if(confirm('http://nodejs.cn/s/Qm3wjJ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Qm3wjJ'" tppabs="http://nodejs.cn/s/Qm3wjJ" rel="nofollow">unspecified IPv6 address</a> (<code>::</code>)&#x53EF;&#x80FD;&#x5BFC;&#x81F4;<code>net.Server</code>&#x4E5F;&#x76D1;&#x542C;<a href="javascript:if(confirm('http://nodejs.cn/s/ccQvH8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ccQvH8'" tppabs="http://nodejs.cn/s/ccQvH8" rel="nofollow">unspecified IPv4 address</a> (<code>0.0.0.0</code>).</p>
+<h3>server.listening<span><a class="mark" href="#net_server_listening" id="net_server_listening" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="server_listening-1.html" tppabs="http://nodejs.cn/api/net/server_listening.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v5.7.0</span>
+</div>
+<p>&#x4E00;&#x4E2A;&#x5E03;&#x5C14;&#x503C;&#xFF0C; &#x8868;&#x660E; server &#x662F;&#x5426;&#x6B63;&#x5728;&#x76D1;&#x542C;&#x8FDE;&#x63A5;</p>
+<h3>server.maxConnections<span><a class="mark" href="#net_server_maxconnections" id="net_server_maxconnections" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="server_maxconnections.html" tppabs="http://nodejs.cn/api/net/server_maxconnections.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.2.0</span>
+</div>
+<p>&#x8BBE;&#x7F6E;&#x8BE5;&#x5C5E;&#x6027;&#x4F7F;&#x5F97;&#x5F53; server &#x8FDE;&#x63A5;&#x6570;&#x8FC7;&#x591A;&#x65F6;&#x62D2;&#x7EDD;&#x8FDE;&#x63A5;&#x3002;</p>
+<p>&#x4E00;&#x65E6;&#x5C06;&#x4E00;&#x4E2A; socket &#x53D1;&#x9001;&#x7ED9; <a href="javascript:if(confirm('http://nodejs.cn/s/VDCJMa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/VDCJMa'" tppabs="http://nodejs.cn/s/VDCJMa" rel="nofollow"><code>child_process.fork()</code></a> &#x751F;&#x6210;&#x7684;&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x5C31;&#x4E0D;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x8BE5;&#x9009;&#x9879;&#x3002;</p>
+<h3>server.ref()<span><a class="mark" href="#net_server_ref" id="net_server_ref" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="server_ref.html" tppabs="http://nodejs.cn/api/net/server_ref.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.1</span>
+</div>
+<ul>
+<li>Returns: <a href="net.html#net_class_net_server" tppabs="http://nodejs.cn/api/net.html#net_class_net_server" target="_blank" rel="nofollow" class="type">&lt;net.Server&gt;</a></li>
+</ul>
+<p>&#x4E0E; <code>unref</code> &#x76F8;&#x53CD;&#xFF0C;&#x5728;&#x4E00;&#x4E2A;&#x5DF2;&#x7ECF;&#x8C03;&#x7528; <code>unref</code> &#x7684; server &#x4E2D;&#x8C03;&#x7528; <code>ref</code>&#xFF0C;&#x5982;&#x679C; server &#x662F;&#x4EC5;&#x5B58;&#x7684; server&#xFF0C;&#x5219;&#x7A0B;&#x5E8F;&#x4E0D;&#x4F1A;&#x9000;&#x51FA;&#xFF08;&#x9ED8;&#x8BA4;&#xFF09;&#x3002;&#x5BF9;&#x4E00;&#x4E2A;&#x5DF2;&#x7ECF;&#x8C03;&#x7528; <code>ref</code> &#x7684; server &#x518D;&#x6B21;&#x8C03;&#x7528; <code>ref</code> &#x5C06;&#x4E0D;&#x4F1A;&#x518D;&#x6709;&#x6548;&#x679C;&#x3002;</p>
+<h3>server.unref()<span><a class="mark" href="#net_server_unref" id="net_server_unref" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="server_unref.html" tppabs="http://nodejs.cn/api/net/server_unref.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.1</span>
+</div>
+<ul>
+<li>Returns: <a href="net.html#net_class_net_server" tppabs="http://nodejs.cn/api/net.html#net_class_net_server" target="_blank" rel="nofollow" class="type">&lt;net.Server&gt;</a></li>
+</ul>
+<p>&#x5982;&#x679C;&#x8FD9;&#x4E2A;server&#x5728;&#x4E8B;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E2D;&#x662F;&#x552F;&#x4E00;&#x6709;&#x6548;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x5BF9;server&#x8C03;&#x7528;<code>unref</code>&#x5C06;&#x5141;&#x8BB8;&#x7A0B;&#x5E8F;&#x9000;&#x51FA;&#x3002;&#x5982;&#x679C;&#x8FD9;&#x4E2A;server&#x5DF2;&#x7ECF;&#x8C03;&#x7528;&#x8FC7;<code>unref</code>&#x90A3;&#x4E48;&#x518D;&#x6B21;&#x8C03;&#x7528;&#x5C06;&#x4E0D;&#x4F1A;&#x518D;&#x6709;&#x6548;&#x679C;&#x3002;</p>
+<h2>net.Socket &#x7C7B;<span><a class="mark" href="#net_class_net_socket" id="net_class_net_socket" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="class_net_socket.html" tppabs="http://nodejs.cn/api/net/class_net_socket.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.4</span>
+</div>
+<p>&#x8FD9;&#x4E2A;&#x7C7B;&#x662F; TCP &#x6216; UNIX Socket &#x7684;&#x62BD;&#x8C61;&#xFF08;&#x5728;Windows&#x4E0A;&#x4F7F;&#x7528;&#x547D;&#x540D;&#x7BA1;&#x9053;&#xFF0C;&#x800C;UNIX&#x4F7F;&#x7528;&#x57DF;&#x5957;&#x63A5;&#x5B57;&#xFF09;&#x3002;&#x4E00;&#x4E2A;<code>net.Socket</code>&#x4E5F;&#x662F;&#x4E00;&#x4E2A;<a href="javascript:if(confirm('http://nodejs.cn/s/2iRabr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2iRabr'" tppabs="http://nodejs.cn/s/2iRabr" rel="nofollow">duplex stream</a>&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x80FD;&#x88AB;&#x8BFB;&#x6216;&#x5199;&#xFF0C;&#x5E76;&#x4E14;&#x5B83;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;<a href="javascript:if(confirm('http://nodejs.cn/s/pGAddE  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/pGAddE'" tppabs="http://nodejs.cn/s/pGAddE" rel="nofollow"><code>EventEmitter</code></a>&#x3002;</p>
+<p><code>net.Socket</code>&#x53EF;&#x4EE5;&#x88AB;&#x7528;&#x6237;&#x521B;&#x5EFA;&#x5E76;&#x76F4;&#x63A5;&#x4E0E;server&#x901A;&#x4FE1;&#x3002;&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5B83;&#x662F;&#x901A;&#x8FC7;<a href="javascript:if(confirm('http://nodejs.cn/s/RTNxdX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RTNxdX'" tppabs="http://nodejs.cn/s/RTNxdX" rel="nofollow"><code>net.createConnection()</code></a>&#x8FD4;&#x56DE;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5B83;&#x6765;&#x4E0E;server&#x901A;&#x4FE1;&#x3002;</p>
+<p>&#x5F53;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x88AB;&#x63A5;&#x6536;&#x65F6;&#xFF0C;&#x5B83;&#x4E5F;&#x80FD;&#x88AB;Node.js&#x521B;&#x5EFA;&#x5E76;&#x4F20;&#x9012;&#x7ED9;&#x7528;&#x6237;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x5B83;&#x662F;&#x901A;&#x8FC7;&#x76D1;&#x542C;&#x5728;&#x4E00;&#x4E2A;<a href="javascript:if(confirm('http://nodejs.cn/s/gBYjux  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gBYjux'" tppabs="http://nodejs.cn/s/gBYjux" rel="nofollow"><code>net.Server</code></a>&#x4E0A;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/4qU2j9  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/4qU2j9'" tppabs="http://nodejs.cn/s/4qU2j9" rel="nofollow"><code>&apos;connection&apos;</code></a>&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x800C;&#x83B7;&#x5F97;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5B83;&#x6765;&#x4E0E;&#x5BA2;&#x6237;&#x7AEF;&#x901A;&#x4FE1;&#x3002;</p>
+<h3>new net.Socket([options])<span><a class="mark" href="#net_new_net_socket_options" id="net_new_net_socket_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="new_net_socket_options.html" tppabs="http://nodejs.cn/api/net/new_net_socket_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.4</span>
+</div>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A; socket &#x5BF9;&#x8C61;&#x3002;</p>
+<ul>
+<li><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x53EF;&#x7528;&#x9009;&#x9879;&#x6709;&#xFF1A;
+&#xA0;<em> <code>fd</code>: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86;&#x8BE5;&#x53C2;&#x6570;&#xFF0C;&#x5219;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x7ED9;&#x5B9A;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x5305;&#x88C5;&#x4E00;&#x4E2A;&#x5DF2;&#x5B58;&#x5728;&#x7684; socket&#xFF0C;&#x5426;&#x5219;&#x5C06;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684; socket&#x3002;
+&#xA0;</em> <code>allowHalfOpen</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x6307;&#x793A;&#x662F;&#x5426;&#x5141;&#x8BB8;&#x534A;&#x6253;&#x5F00;&#x7684; TCP &#x8FDE;&#x63A5;&#x3002;&#x8BE6;&#x60C5;&#x67E5;&#x770B; <a href="javascript:if(confirm('http://nodejs.cn/s/e8cikS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/e8cikS'" tppabs="http://nodejs.cn/s/e8cikS" rel="nofollow"><code>net.createServer()</code></a> &#x548C; <a href="javascript:if(confirm('http://nodejs.cn/s/Hxzmh3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Hxzmh3'" tppabs="http://nodejs.cn/s/Hxzmh3" rel="nofollow"><code>&apos;end&apos;</code></a> &#x4E8B;&#x4EF6;&#x3002;&#x9ED8;&#x8BA4;&#x662F; <code>false</code>&#x3002;
+&#xA0;<em> <code>readable</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x4F20;&#x9012;&#x4E86; <code>fd</code> &#x65F6;&#x5141;&#x8BB8;&#x8BFB;&#x53D6; socket&#xFF0C;&#x5426;&#x5219;&#x5FFD;&#x7565;&#x3002;&#x9ED8;&#x8BA4; <code>false</code>&#x3002;
+&#xA0;</em> <code>writable</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x4F20;&#x9012;&#x4E86; <code>fd</code> &#x65F6;&#x5141;&#x8BB8;&#x5199;&#x5165; socket&#xFF0C;&#x5426;&#x5219;&#x5FFD;&#x7565;&#x3002;&#x9ED8;&#x8BA4; <code>false</code>&#x3002;</li>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a></li>
+</ul>
+<p>&#x65B0;&#x521B;&#x5EFA;&#x7684; socket &#x53EF;&#x4EE5;&#x662F; TCP socket &#x4E5F;&#x53EF;&#x4EE5;&#x662F; <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> &#x7AEF;&#x70B9;&#x6D41;&#xFF0C;&#x53D6;&#x51B3;&#x4E8E;&#x5B83;&#x8FDE;&#x63A5; <a href="javascript:if(confirm('http://nodejs.cn/s/fGCDDg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fGCDDg'" tppabs="http://nodejs.cn/s/fGCDDg" rel="nofollow"><code>connect()</code></a> &#x5230;&#x4EC0;&#x4E48;&#x3002;</p>
+<h3>&apos;close&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_close_1" id="net_event_close_1" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_close_1-2.html" tppabs="http://nodejs.cn/api/net/event_close_1.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><code>had_error</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C;&#xA0;socket &#x6709;&#x4F20;&#x8F93;&#x9519;&#x8BEF;&#x5C31;&#x4E3A; true&#x3002;</li>
+</ul>
+<p>&#x4E00;&#x65E6; socket &#x5B8C;&#x5168;&#x5173;&#x95ED;&#x5C31;&#x53D1;&#x51FA;&#x8BE5;&#x4E8B;&#x4EF6;&#x3002;&#x53C2;&#x6570; <code>had_error</code> &#x662F; boolean &#x7C7B;&#x578B;&#xFF0C;&#x8868;&#x660E; socket &#x88AB;&#x5173;&#x95ED;&#x662F;&#x5426;&#x53D6;&#x51B3;&#x4E8E;&#x4F20;&#x8F93;&#x9519;&#x8BEF;&#x3002;</p>
+<h3>&apos;connect&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_connect" id="net_event_connect" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_connect-1.html" tppabs="http://nodejs.cn/api/net/event_connect.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<p>&#x5F53;&#x4E00;&#x4E2A; socket &#x8FDE;&#x63A5;&#x6210;&#x529F;&#x5EFA;&#x7ACB;&#x7684;&#x65F6;&#x5019;&#x89E6;&#x53D1;&#x8BE5;&#x4E8B;&#x4EF6;&#x3002;
+&#x67E5;&#x770B; <a href="javascript:if(confirm('http://nodejs.cn/s/RTNxdX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RTNxdX'" tppabs="http://nodejs.cn/s/RTNxdX" rel="nofollow"><code>net.createConnection()</code></a>&#x3002;</p>
+<h3>&apos;data&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_data" id="net_event_data" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_data.html" tppabs="http://nodejs.cn/api/net/event_data.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a></li>
+</ul>
+<p>&#x5F53;&#x63A5;&#x6536;&#x5230;&#x6570;&#x636E;&#x7684;&#x65F6;&#x89E6;&#x53D1;&#x8BE5;&#x4E8B;&#x4EF6;&#x3002;<code>data</code> &#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E2A; <code>Buffer</code> &#x6216; <code>String</code>&#x3002;&#x6570;&#x636E;&#x7F16;&#x7801;&#x7531; <code>socket.setEncoding()</code> &#x8BBE;&#x7F6E;&#x3002;&#xFF08;&#x5728; <a href="javascript:if(confirm('http://nodejs.cn/s/YuDKX1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YuDKX1'" tppabs="http://nodejs.cn/s/YuDKX1" rel="nofollow">Readable Stream</a> &#x7AE0;&#x8282;&#x67E5;&#x770B;&#x66F4;&#x591A;&#x4FE1;&#x606F;&#x3002;&#xFF09;</p>
+<p>&#x6CE8;&#x610F;&#x5F53; <code>Socket</code> &#x53D1;&#x9001; <code>data</code> &#x4E8B;&#x4EF6;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x76D1;&#x542C;&#x8005;<strong>&#x6570;&#x636E;&#x5C06;&#x4F1A;&#x4E22;&#x5931;</strong>&#x3002;</p>
+<h3>&apos;drain&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_drain" id="net_event_drain" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_drain.html" tppabs="http://nodejs.cn/api/net/event_drain.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<p>&#x5F53;&#x5199;&#x5165;&#x7F13;&#x51B2;&#x533A;&#x53D8;&#x4E3A;&#x7A7A;&#x65F6;&#x89E6;&#x53D1;&#x3002;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x505A;&#x4E0A;&#x4F20;&#x8282;&#x6D41;&#x3002;</p>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#xFF1A;<code>socket.write()</code> &#x7684;&#x8FD4;&#x56DE;&#x503C;</p>
+<h3>&apos;end&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_end" id="net_event_end" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_end.html" tppabs="http://nodejs.cn/api/net/event_end.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<p>&#x5F53; socket &#x7684;&#x53E6;&#x4E00;&#x7AEF;&#x53D1;&#x9001;&#x4E00;&#x4E2A; FIN &#x5305;&#x7684;&#x65F6;&#x5019;&#x89E6;&#x53D1;&#xFF0C;&#x4ECE;&#x800C;&#x7ED3;&#x675F; socket &#x7684;&#x53EF;&#x8BFB;&#x7AEF;&#x3002;</p>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF08;<code>allowHalfOpen</code>&#x4E3A;<code>false</code>&#xFF09;&#xFF0C;socket &#x5C06;&#x53D1;&#x9001;&#x4E00;&#x4E2A; FIN &#x6570;&#x636E;&#x5305;&#xFF0C;&#x5E76;&#x4E14;&#x4E00;&#x65E6;&#x5199;&#x51FA;&#x5B83;&#x7684;&#x7B49;&#x5F85;&#x5199;&#x5165;&#x961F;&#x5217;&#x5C31;&#x9500;&#x6BC1;&#x5B83;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x5982;&#x679C; <code>allowHalfOpen</code> &#x4E3A;&#xA0;<code>true</code>&#xFF0C;socket &#x5C31;&#x4E0D;&#x4F1A;&#x81EA;&#x52A8;&#x7ED3;&#x675F; <a href="javascript:if(confirm('http://nodejs.cn/s/RyEJPD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RyEJPD'" tppabs="http://nodejs.cn/s/RyEJPD" rel="nofollow"><code>end()</code></a> &#x5B83;&#x7684;&#x5199;&#x5165;&#x7AEF;&#xFF0C;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x5199;&#x5165;&#x4EFB;&#x610F;&#x6570;&#x91CF;&#x7684;&#x6570;&#x636E;&#x3002;&#x7528;&#x6237;&#x5FC5;&#x987B;&#x8C03;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/RyEJPD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RyEJPD'" tppabs="http://nodejs.cn/s/RyEJPD" rel="nofollow"><code>end()</code></a> &#x663E;&#x793A;&#x5730;&#x7ED3;&#x675F;&#x8FD9;&#x4E2A;&#x8FDE;&#x63A5;&#xFF08;&#x4F8B;&#x5982;&#x53D1;&#x9001;&#x4E00;&#x4E2A; FIN &#x6570;&#x636E;&#x5305;&#x3002;&#xFF09;</p>
+<h3>&apos;error&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_error_1" id="net_event_error_1" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_error_1.html" tppabs="http://nodejs.cn/api/net/event_error_1.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p>&#x5F53;&#x9519;&#x8BEF;&#x53D1;&#x751F;&#x65F6;&#x89E6;&#x53D1;&#x3002;<code>&apos;close&apos;</code> &#x4E8B;&#x4EF6;&#x4E5F;&#x4F1A;&#x7D27;&#x63A5;&#x7740;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;</p>
+<h3>&apos;lookup&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_lookup" id="net_event_lookup" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_lookup.html" tppabs="http://nodejs.cn/api/net/event_lookup.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v5.10.0</td>
+<td><p>The <code>host</code> parameter is supported now.</p></td></tr>
+<tr><td>v0.11.3</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.11.3</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>&#x5728;&#x627E;&#x5230;&#x4E3B;&#x673A;&#x4E4B;&#x540E;&#x521B;&#x5EFA;&#x8FDE;&#x63A5;&#x4E4B;&#x524D;&#x89E6;&#x53D1;&#x3002;&#x4E0D;&#x53EF;&#x7528;&#x4E8E; UNIX socket&#x3002;</p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Null_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Null_type" target="_blank" rel="nofollow" class="type">&lt;null&gt;</a> &#x9519;&#x8BEF;&#x5BF9;&#x8C61;&#x3002;&#x67E5;&#x770B; <a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a>&#x3002;</li>
+<li><code>address</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> IP &#x5730;&#x5740;&#x3002;</li>
+<li><code>family</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Null_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Null_type" target="_blank" rel="nofollow" class="type">&lt;null&gt;</a> &#x5730;&#x5740;&#x7C7B;&#x578B;&#x3002;&#x67E5;&#x770B; <a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a>&#x3002;</li>
+<li><code>host</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x4E3B;&#x673A;&#x3002;</li>
+</ul>
+<h3>&apos;ready&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_ready" id="net_event_ready" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v9.11.0</span>
+</div>
+<p>Emitted when a socket is ready to be used.</p>
+<p>Triggered immediately after <code>&apos;connect&apos;</code>.</p>
+<h3>&apos;timeout&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#net_event_timeout" id="net_event_timeout" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_timeout-1.html" tppabs="http://nodejs.cn/api/net/event_timeout.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<p>&#x5F53; socket &#x8D85;&#x65F6;&#x7684;&#x65F6;&#x5019;&#x89E6;&#x53D1;&#x3002;&#x8BE5;&#x4E8B;&#x4EF6;&#x53EA;&#x662F;&#x7528;&#x6765;&#x901A;&#x77E5; socket &#x5DF2;&#x7ECF;&#x95F2;&#x7F6E;&#x3002;&#x7528;&#x6237;&#x5FC5;&#x987B;&#x624B;&#x52A8;&#x5173;&#x95ED;&#x3002;</p>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#xFF1A;<a href="javascript:if(confirm('http://nodejs.cn/s/XC4Yyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/XC4Yyj'" tppabs="http://nodejs.cn/s/XC4Yyj" rel="nofollow"><code>socket.setTimeout()</code></a></p>
+<h3>socket.address()<span><a class="mark" href="#net_socket_address" id="net_socket_address" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_address-1.html" tppabs="http://nodejs.cn/api/net/socket_address.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<p>&#x8FD4;&#x56DE;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x62A5;&#x544A;&#x7684; socket &#x7684;&#x5730;&#x5740;&#x3001;&#x5730;&#x5740;&#x65CF;&#x548C;&#x7AEF;&#x53E3;&#x3002;&#x8FD4;&#x56DE;&#x7684;&#x5BF9;&#x8C61;&#x6709;&#x4E09;&#x4E2A;&#x5C5E;&#x6027;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;
+<code>{ port: 12346, family: &apos;IPv4&apos;, address: &apos;127.0.0.1&apos; }</code></p>
+<h3>socket.bufferSize<span><a class="mark" href="#net_socket_buffersize" id="net_socket_buffersize" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_buffersize.html" tppabs="http://nodejs.cn/api/net/socket_buffersize.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.8</span>
+</div>
+<p><code>net.Socket</code> &#x5177;&#x6709;&#x8BE5;&#x5C5E;&#x6027;&#xFF0C;<code>socket.write()</code> &#x5DE5;&#x4F5C;&#x65F6;&#x9700;&#x8981;&#x3002;&#x5B83;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x7528;&#x6237;&#x5FEB;&#x901F;&#x542F;&#x52A8;&#x548C;&#x8FD0;&#x884C;&#x3002;&#x8BA1;&#x7B97;&#x673A;&#xFF08;&#x5904;&#x7406;&#x901F;&#x5EA6;&#xFF09;&#x4E0D;&#x80FD;&#x603B;&#x662F;&#x8DDF;&#x4E0A; socket &#x7684;&#x5199;&#x5165;&#x901F;&#x5EA6; - &#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x53EF;&#x80FD;&#x592A;&#x6162;&#x4E86;&#x3002; Node.js &#x5185;&#x90E8;&#x5C06;&#x7EF4;&#x62A4;&#x4E00;&#x4E2A;&#x5199;&#x5165; socket &#x7684;&#x6570;&#x636E;&#x961F;&#x5217;&#xFF0C;&#x5E76;&#x5728;&#x53EF;&#x80FD;&#x7684;&#x65F6;&#x5019;&#x5C06;&#x6570;&#x636E;&#x53D1;&#x9001;&#x51FA;&#x53BB;&#x3002;&#xFF08;&#x5185;&#x90E8;&#x5B9E;&#x73B0;&#x662F;&#x5BF9; socket &#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x8FDB;&#x884C;&#x8F6E;&#x8BE2;&#x5176;&#x662F;&#x5426;&#x662F;&#x53EF;&#x5199;&#x72B6;&#x6001;&#x3002;&#xFF09;</p>
+<p>&#x4F7F;&#x7528;&#x5185;&#x90E8;&#x7F13;&#x51B2;&#x7684;&#x7ED3;&#x679C;&#x662F;&#x53EF;&#x80FD;&#x9020;&#x6210;&#x5185;&#x5B58;&#x7684;&#x589E;&#x957F;&#x3002;&#x6B64;&#x5C5E;&#x6027;&#x663E;&#x793A;&#x5F53;&#x524D;&#x5373;&#x5C06;&#x88AB;&#x5199;&#x5165;&#x7684;&#x7F13;&#x51B2;&#x7684;&#x5B57;&#x7B26;&#x6570;&#x3002;&#xFF08;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x6570;&#x76EE;&#x5927;&#x81F4;&#x7B49;&#x4E8E;&#x5373;&#x5C06;&#x88AB;&#x5199;&#x5165;&#x7684;&#x5B57;&#x8282;&#xFF0C;&#x4F46;&#x7F13;&#x51B2;&#x53EF;&#x80FD;&#x5305;&#x542B;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x800C;&#x5B57;&#x7B26;&#x4E32;&#x662F;&#x60F0;&#x6027;&#x7F16;&#x7801;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x5B9E;&#x9645;&#x7684;&#x5B57;&#x8282;&#x6570;&#x662F;&#x4E0D;&#x77E5;&#x9053;&#x7684;&#x3002;&#xFF09;</p>
+<p>&#x5BF9;&#x5904;&#x7406;&#x5927;&#x91CF;&#x6216;&#x6301;&#x7EED;&#x589E;&#x957F;&#x7684; <code>bufferSize</code> &#x6709;&#x7ECF;&#x9A8C;&#x7684;&#x7528;&#x6237;&#x5E94;&#x8BE5;&#x6CE8;&#x610F;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/hV6oi2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/hV6oi2'" tppabs="http://nodejs.cn/s/hV6oi2" rel="nofollow"><code>socket.pause()</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/EKm2o7  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/EKm2o7'" tppabs="http://nodejs.cn/s/EKm2o7" rel="nofollow"><code>socket.resume()</code></a> &#x5BF9;&#x4ED6;&#x4EEC;&#x7A0B;&#x5E8F;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x6D41;&#x8FDB;&#x884C;&#x8282;&#x6D41;&#x3002;</p>
+<h3>socket.bytesRead<span><a class="mark" href="#net_socket_bytesread" id="net_socket_bytesread" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_bytesread.html" tppabs="http://nodejs.cn/api/net/socket_bytesread.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.5.3</span>
+</div>
+<p>&#x63A5;&#x6536;&#x7684;&#x5B57;&#x8282;&#x6570;&#x91CF;&#x3002;</p>
+<h3>socket.bytesWritten<span><a class="mark" href="#net_socket_byteswritten" id="net_socket_byteswritten" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_byteswritten.html" tppabs="http://nodejs.cn/api/net/socket_byteswritten.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.5.3</span>
+</div>
+<p>&#x53D1;&#x9001;&#x7684;&#x5B57;&#x8282;&#x6570;&#x91CF;&#x3002;</p>
+<h3>socket.connect()<span><a class="mark" href="#net_socket_connect" id="net_socket_connect" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_connect.html" tppabs="http://nodejs.cn/api/net/socket_connect.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x5728;&#x7ED9;&#x5B9A;&#x7684;&#x5957;&#x63A5;&#x5B57;&#x4E0A;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x3002;</p>
+<p>&#x53EF;&#x80FD;&#x7684;&#x7B7E;&#x540D;&#xFF1A;</p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/787XLt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/787XLt'" tppabs="http://nodejs.cn/s/787XLt" rel="nofollow">socket.connect(options[, connectListener])</a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/Ym5CUG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Ym5CUG'" tppabs="http://nodejs.cn/s/Ym5CUG" rel="nofollow">socket.connect(path[, connectListener])</a> &#x7528;&#x4E8E; <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> &#x8FDE;&#x63A5;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/KgYe2b  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/KgYe2b'" tppabs="http://nodejs.cn/s/KgYe2b" rel="nofollow">socket.connect(port[, host][, connectListener])</a> &#x7528;&#x4E8E; TCP &#x3002;</li>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> socket &#x81EA;&#x8EAB;&#x3002;</li>
+</ul>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x662F;&#x5F02;&#x6B65;&#x7684;&#x3002;&#x5F53;&#x8FDE;&#x63A5;&#x5EFA;&#x7ACB;&#x4E86;&#x7684;&#x65F6;&#x5019;&#xFF0C;<a href="javascript:if(confirm('http://nodejs.cn/s/BwGGNR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BwGGNR'" tppabs="http://nodejs.cn/s/BwGGNR" rel="nofollow"><code>&apos;connect&apos;</code></a> &#x4E8B;&#x4EF6;&#x5C06;&#x4F1A;&#x88AB;&#x89E6;&#x53D1;&#x3002;&#x5982;&#x679C;&#x8FDE;&#x63A5;&#x8FC7;&#x7A0B;&#x4E2D;&#x6709;&#x95EE;&#x9898;&#xFF0C;<a href="javascript:if(confirm('http://nodejs.cn/s/v5sbt8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/v5sbt8'" tppabs="http://nodejs.cn/s/v5sbt8" rel="nofollow"><code>&apos;error&apos;</code></a> &#x4E8B;&#x4EF6;&#x5C06;&#x4F1A;&#x4EE3;&#x66FF; <a href="javascript:if(confirm('http://nodejs.cn/s/BwGGNR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BwGGNR'" tppabs="http://nodejs.cn/s/BwGGNR" rel="nofollow"><code>&apos;connect&apos;</code></a> &#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#xFF0C;&#x5E76;&#x5C06;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x4F20;&#x9012;&#x7ED9; <a href="javascript:if(confirm('http://nodejs.cn/s/v5sbt8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/v5sbt8'" tppabs="http://nodejs.cn/s/v5sbt8" rel="nofollow"><code>&apos;error&apos;</code></a> &#x76D1;&#x542C;&#x5668;&#x3002;
+&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53C2;&#x6570; <code>connectListener</code>&#xFF0C;&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86;&#xFF0C;&#x5C06;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x4E3A; <a href="javascript:if(confirm('http://nodejs.cn/s/BwGGNR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BwGGNR'" tppabs="http://nodejs.cn/s/BwGGNR" rel="nofollow"><code>&apos;connect&apos;</code></a> &#x4E8B;&#x4EF6;&#x7684;&#x3002;</p>
+<h4>socket.connect(options[, connectListener])<span><a class="mark" href="#net_socket_connect_options_connectlistener" id="net_socket_connect_options_connectlistener" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="socket_connect_options_connectlistener.html" tppabs="http://nodejs.cn/api/net/socket_connect_options_connectlistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.0.0</td>
+<td><p>The <code>hints</code> option defaults to <code>0</code> in all cases now. Previously, in the absence of the <code>family</code> option it would default to <code>dns.ADDRCONFIG | dns.V4MAPPED</code>.</p></td></tr>
+<tr><td>v5.11.0</td>
+<td><p>The <code>hints</code> option is supported now.</p></td></tr>
+<tr><td>v0.1.90</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+<li><code>connectListener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/fGCDDg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fGCDDg'" tppabs="http://nodejs.cn/s/fGCDDg" rel="nofollow"><code>socket.connect()</code></a> &#x7684;&#x901A;&#x7528;&#x53C2;&#x6570;&#x3002;&#x5C06;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x4E3A; <a href="javascript:if(confirm('http://nodejs.cn/s/BwGGNR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BwGGNR'" tppabs="http://nodejs.cn/s/BwGGNR" rel="nofollow"><code>&apos;connect&apos;</code></a> &#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x3002;</li>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> Socket &#x81EA;&#x8EAB;&#x3002;</li>
+</ul>
+<p>&#x5728;&#x7ED9;&#x5B9A;&#x7684; socket &#x4E0A;&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x3002;&#x901A;&#x5E38;&#x8BE5;&#x65B9;&#x6CD5;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x7684;&#xFF0C;&#x5E94;&#x8BE5;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/RTNxdX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RTNxdX'" tppabs="http://nodejs.cn/s/RTNxdX" rel="nofollow"><code>net.createConnection()</code></a> &#x6765;&#x521B;&#x5EFA;&#x548C;&#x6253;&#x5F00; socket&#x3002;&#x4E00;&#x822C;&#x53EA;&#x5728;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x7684; Socket &#x7684;&#x65F6;&#x5019;&#x4F7F;&#x7528;&#x8BE5;&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E; TCP &#x8FDE;&#x63A5;&#x53EF;&#x80FD;&#x7684; <code>options</code> &#x6709;&#xFF1A;</p>
+<ul>
+<li><code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5FC5;&#x987B;&#x3002;Socket &#x8FDE;&#x63A5;&#x7684;&#x7AEF;&#x53E3;&#x3002;</li>
+<li><code>host</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Socket &#x8FDE;&#x63A5;&#x7684;&#x4E3B;&#x673A;&#x3002;&#x9ED8;&#x8BA4;&#x662F; <code>&apos;localhost&apos;</code>.</li>
+<li><code>localAddress</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Socket &#x8FDE;&#x63A5;&#x7684;&#x672C;&#x5730;&#x5730;&#x5740;&#x3002;</li>
+<li><code>localPort</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Socket &#x8FDE;&#x63A5;&#x7684;&#x672C;&#x5730;&#x7AEF;&#x53E3;&#x3002;</li>
+<li><code>family</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> IP&#x6808;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;4&#x6216;6&#x3002;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;4&#x3002;</li>
+<li><code>hints</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x53EF;&#x9009;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/WpjMXq  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/WpjMXq'" tppabs="http://nodejs.cn/s/WpjMXq" rel="nofollow"><code>dns.lookup()</code> hints</a>.</li>
+<li><code>lookup</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x81EA;&#x5B9A;&#x4E49;&#x7684; lookup &#x65B9;&#x6CD5;&#x3002;&#x9ED8;&#x8BA4;&#x662F; <a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a>.</li>
+</ul>
+<p>&#x5BF9;&#x4E8E; <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> &#x8FDE;&#x63A5;&#x53EF;&#x80FD;&#x7684; <code>options</code> &#x6709;&#xFF1A;</p>
+<ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5FC5;&#x987B;&#x3002;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x7684;&#x8DEF;&#x5F84;&#x3002;&#x67E5;&#x770B; <a href="javascript:if(confirm('http://nodejs.cn/s/tNVQV4  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tNVQV4'" tppabs="http://nodejs.cn/s/tNVQV4" rel="nofollow">Identifying paths for IPC connections</a>&#x3002;&#x5982;&#x679C;&#x63D0;&#x4F9B;&#x4E86;&#xFF0C;&#x5219;&#x4EE5;&#x4E0A;&#x7684; TCP &#x9009;&#x9879;&#x90FD;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;</li>
+</ul>
+<p>&#x8FD4;&#x56DE; <code>socket</code>.</p>
+<h4>socket.connect(path[, connectListener])<span><a class="mark" href="#net_socket_connect_path_connectlistener" id="net_socket_connect_path_connectlistener" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="socket_connect_path_connectlistener.html" tppabs="http://nodejs.cn/api/net/socket_connect_path_connectlistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x7684;&#x8DEF;&#x5F84;. &#x67E5;&#x770B; <a href="javascript:if(confirm('http://nodejs.cn/s/tNVQV4  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tNVQV4'" tppabs="http://nodejs.cn/s/tNVQV4" rel="nofollow">Identifying paths for IPC connections</a>&#x3002;</li>
+<li><code>connectListener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/fGCDDg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fGCDDg'" tppabs="http://nodejs.cn/s/fGCDDg" rel="nofollow"><code>socket.connect()</code></a> &#x65B9;&#x6CD5;&#x7684;&#x901A;&#x7528;&#x53C2;&#x6570;&#x3002;&#x5C06;&#x88AB;&#x6DFB;&#x52A0;&#x4E3A; <a href="javascript:if(confirm('http://nodejs.cn/s/BwGGNR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BwGGNR'" tppabs="http://nodejs.cn/s/BwGGNR" rel="nofollow"><code>&apos;connect&apos;</code></a> &#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x3002;</li>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> Socket &#x81EA;&#x8EAB;&#x3002;</li>
+</ul>
+<p>&#x5728;&#x7ED9;&#x5B9A;&#x7684; socket &#x4E0A;&#x521D;&#x59CB;&#x5316; <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> &#x3002;</p>
+<p>&#x76F8;&#x5F53;&#x4F7F;&#x7528; <code>{ path: path }</code> &#x4F5C;&#x4E3A; <code>options</code> &#x8C03;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/787XLt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/787XLt'" tppabs="http://nodejs.cn/s/787XLt" rel="nofollow"><code>socket.connect(options[, connectListener])</code></a> &#x65B9;&#x6CD5;&#x7684;&#x522B;&#x540D;&#x3002;</p>
+<p>&#x8FD4;&#x56DE; <code>socket</code>&#x3002;</p>
+<h4>socket.connect(port[, host][, connectListener])<span><a class="mark" href="#net_socket_connect_port_host_connectlistener" id="net_socket_connect_port_host_connectlistener" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="socket_connect_port_host_connectlistener.html" tppabs="http://nodejs.cn/api/net/socket_connect_port_host_connectlistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x7684;&#x7AEF;&#x53E3;&#x3002;</li>
+<li><code>host</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x7684;&#x4E3B;&#x673A;&#x3002;</li>
+<li><code>connectListener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/fGCDDg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fGCDDg'" tppabs="http://nodejs.cn/s/fGCDDg" rel="nofollow"><code>socket.connect()</code></a> &#x65B9;&#x6CD5;&#x7684;&#x901A;&#x7528;&#x53C2;&#x6570;&#x3002;&#x5C06;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x4E3A; <a href="javascript:if(confirm('http://nodejs.cn/s/BwGGNR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BwGGNR'" tppabs="http://nodejs.cn/s/BwGGNR" rel="nofollow"><code>&apos;connect&apos;</code></a> &#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x3002;</li>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> Socket &#x672C;&#x8EAB;&#x3002;</li>
+</ul>
+<p>&#x5728;&#x7ED9;&#x5B9A;&#x7684; socket &#x4E0A;&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A; TCP &#x8FDE;&#x63A5;&#x3002;</p>
+<p>&#x4F7F;&#x7528; <code>{port: port, host: host}</code> &#x4F5C;&#x4E3A;&#xA0;<code>options</code> &#x8C03;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/787XLt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/787XLt'" tppabs="http://nodejs.cn/s/787XLt" rel="nofollow"><code>socket.connect(options[, connectListener])</code></a> &#x65B9;&#x6CD5;&#x7684;&#x522B;&#x540D;&#x3002;</p>
+<p>&#x8FD4;&#x56DE; <code>socket</code>&#x3002;</p>
+<h3>socket.connecting<span><a class="mark" href="#net_socket_connecting" id="net_socket_connecting" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_connecting.html" tppabs="http://nodejs.cn/api/net/socket_connecting.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.1.0</span>
+</div>
+<p>&#x5982;&#x679C;&#x4E3A; <code>true</code> &#x5219;<a href="javascript:if(confirm('http://nodejs.cn/s/787XLt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/787XLt'" tppabs="http://nodejs.cn/s/787XLt" rel="nofollow"><code>socket.connect(options[, connectListener])</code></a> &#x88AB;&#x8C03;&#x7528;&#x4F46;&#x8FD8;&#x672A;&#x7ED3;&#x675F;&#x3002;&#x5F53;&#x53D1;&#x9001; <code>connect</code> &#x4E8B;&#x4EF6;&#x6216;&#x8C03;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/787XLt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/787XLt'" tppabs="http://nodejs.cn/s/787XLt" rel="nofollow"><code>socket.connect(options[, connectListener])</code></a> &#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684;&#x65F6;&#x5019;&#x4F1A;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A; <code>false</code>&#x3002;</p>
+<h3>socket.destroy([exception])<span><a class="mark" href="#net_socket_destroy_exception" id="net_socket_destroy_exception" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_destroy_exception.html" tppabs="http://nodejs.cn/api/net/socket_destroy_exception.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a></li>
+</ul>
+<p>&#x786E;&#x4FDD;&#x5728;&#x8BE5; socket &#x4E0A;&#x4E0D;&#x518D;&#x6709; I/O &#x6D3B;&#x52A8;&#x3002;&#x4EC5;&#x5728;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x7684;&#x65F6;&#x5019;&#x624D;&#x9700;&#x8981;&#xFF08;&#x5982;&#x89E3;&#x6790;&#x9519;&#x8BEF;&#x7B49;&#xFF09;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x5236;&#x5B9A;&#x4E86; <code>exception</code>&#xFF0C;&#x5219;&#x5C06;&#x4F1A;&#x89E6;&#x53D1;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/v5sbt8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/v5sbt8'" tppabs="http://nodejs.cn/s/v5sbt8" rel="nofollow"><code>&apos;error&apos;</code></a> &#x4E8B;&#x4EF6;&#xFF0C;&#x4EFB;&#x4F55;&#x76D1;&#x542C;&#x5668;&#x90FD;&#x5C06;&#x63A5;&#x6536;&#x5230; <code>exception</code> &#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x3002;</p>
+<h3>socket.destroyed<span><a class="mark" href="#net_socket_destroyed" id="net_socket_destroyed" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_destroyed.html" tppabs="http://nodejs.cn/api/net/socket_destroyed.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x4E00;&#x4E2A;&#x5E03;&#x5C14;&#x503C;&#xFF0C;&#x7528;&#x6765;&#x6307;&#x793A;&#x8FDE;&#x63A5;&#x662F;&#x5426;&#x5DF2;&#x7ECF;&#x88AB;&#x9500;&#x6BC1;&#x3002;&#x4E00;&#x65E6;&#x8FDE;&#x63A5;&#x88AB;&#x9500;&#x6BC1;&#x5C31;&#x4E0D;&#x80FD;&#x518D;&#x4F7F;&#x7528;&#x5B83;&#x4F20;&#x8F93;&#x4EFB;&#x4F55;&#x6570;&#x636E;&#x3002;</p>
+<h3>socket.end([data][, encoding][, callback])<span><a class="mark" href="#net_socket_end_data_encoding_callback" id="net_socket_end_data_encoding_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_end_data_encoding_callback.html" tppabs="http://nodejs.cn/api/net/socket_end_data_encoding_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><code>data</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Uint8Array  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Uint8Array'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Uint8Array" target="_blank" rel="nofollow" class="type">&lt;Uint8Array&gt;</a></li>
+<li><code>encoding</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x4EC5;&#x5F53; <code>data</code> &#x662F;&#x5B57;&#x7B26;&#x4E32;&#x65F6;&#x6709;&#x6548;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>&apos;utf8&apos;</code>&#x3002;</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x5F53; socket &#x5B8C;&#x6210;&#x65F6;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> socket &#x672C;&#x8EAB;&#x3002;</li>
+</ul>
+<p>&#x534A;&#x5173;&#x95ED; socket&#x3002;
+&#x4F8B;&#x5982;&#x53D1;&#x9001;&#x4E00;&#x4E2A; FIN &#x5305;&#x3002;
+&#x670D;&#x52A1;&#x7AEF;&#x4ECD;&#x53EF;&#x4EE5;&#x53D1;&#x9001;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; <code>data</code>&#xFF0C;&#x5219;&#x76F8;&#x5F53;&#x4E8E;&#x8C03;&#x7528; <code>socket.write(data, encoding)</code>&#xA0;&#x4E4B;&#x540E;&#x518D;&#x8C03;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/RyEJPD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RyEJPD'" tppabs="http://nodejs.cn/s/RyEJPD" rel="nofollow"><code>socket.end()</code></a>&#x3002;</p>
+<h3>socket.localAddress<span><a class="mark" href="#net_socket_localaddress" id="net_socket_localaddress" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_localaddress.html" tppabs="http://nodejs.cn/api/net/socket_localaddress.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.6</span>
+</div>
+<p>&#x8FDC;&#x7A0B;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x7684;&#x672C;&#x5730; IP &#x5730;&#x5740;&#x5B57;&#x7B26;&#x4E32;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x7AEF;&#x6B63;&#x5728;&#x8FDE;&#x63A5;&#x5230; <code>&apos;0.0.0.0&apos;</code>&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x5230;&#x7684;&#x662F; <code>&apos;192.168.1.1&apos;</code>&#xFF0C;&#x5219; <code>socket.localAddress</code> &#x7684;&#x503C;&#x662F; <code>&apos;192.168.1.1&apos;</code>&#x3002;</p>
+<h3>socket.localPort<span><a class="mark" href="#net_socket_localport" id="net_socket_localport" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_localport.html" tppabs="http://nodejs.cn/api/net/socket_localport.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.6</span>
+</div>
+<p>&#x7528;&#x6570;&#x5B57;&#x8868;&#x793A;&#x7684;&#x672C;&#x5730;&#x7AEF;&#x53E3;&#x3002;&#x4F8B;&#x5982; <code>80</code> &#x6216;&#xA0;<code>21</code>&#x3002;</p>
+<h3>socket.pause()<span><a class="mark" href="#net_socket_pause" id="net_socket_pause" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_pause.html" tppabs="http://nodejs.cn/api/net/socket_pause.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> Socket &#x672C;&#x8EAB;&#x3002;</li>
+</ul>
+<p>&#x6682;&#x505C;&#x8BFB;&#x5199;&#x6570;&#x636E;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;<a href="javascript:if(confirm('http://nodejs.cn/s/xrSvx3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xrSvx3'" tppabs="http://nodejs.cn/s/xrSvx3" rel="nofollow"><code>&apos;data&apos;</code></a> &#x5C06;&#x4E0D;&#x4F1A;&#x518D;&#x88AB;&#x89E6;&#x53D1;&#x3002;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x4E0A;&#x4F20;&#x8282;&#x6D41;&#x3002;</p>
+<h3>socket.ref()<span><a class="mark" href="#net_socket_ref" id="net_socket_ref" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_ref-1.html" tppabs="http://nodejs.cn/api/net/socket_ref.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.1</span>
+</div>
+<ul>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> Socket &#x672C;&#x8EAB;</li>
+</ul>
+<p>&#x4E0E; unref &#x76F8;&#x53CD;&#xFF0C;&#x5728;&#x4E00;&#x4E2A;&#x5DF2;&#x7ECF;&#x8C03;&#x7528; unref &#x7684; socket &#x4E2D;&#x8C03;&#x7528; ref&#xFF0C;&#x5982;&#x679C; socket &#x662F;&#x4EC5;&#x5B58;&#x7684; socket&#xFF0C;&#x5219;&#x7A0B;&#x5E8F;&#x4E0D;&#x4F1A;&#x9000;&#x51FA;&#xFF08;&#x9ED8;&#x8BA4;&#xFF09;&#x3002;&#x5BF9;&#x4E00;&#x4E2A;&#x5DF2;&#x7ECF;&#x8C03;&#x7528; ref &#x7684; socket &#x518D;&#x6B21;&#x8C03;&#x7528; ref &#x5C06;&#x4E0D;&#x4F1A;&#x518D;&#x6709;&#x6548;&#x679C;&#x3002;</p>
+<h3>socket.remoteAddress<span><a class="mark" href="#net_socket_remoteaddress" id="net_socket_remoteaddress" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_remoteaddress.html" tppabs="http://nodejs.cn/api/net/socket_remoteaddress.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.5.10</span>
+</div>
+<p>&#x7528;&#x5B57;&#x7B26;&#x4E32;&#x8868;&#x793A;&#x7684;&#x8FDC;&#x7A0B; IP &#x5730;&#x5740;&#x3002;&#x4F8B;&#x5982; <code>&apos;74.125.127.100&apos;</code> &#x6216;&#xA0;<code>&apos;2001:4860:a005::68&apos;</code>&#x3002;&#x5982;&#x679C; socket &#x88AB;&#x9500;&#x6BC1;&#x4E86;&#xFF08;&#x5982;&#x5BA2;&#x6237;&#x7AEF;&#x5DF2;&#x7ECF;&#x5931;&#x53BB;&#x8FDE;&#x63A5;&#xFF09;&#x5219;&#x5176;&#x503C;&#x4E3A; <code>undefined</code>&#x3002;</p>
+<h3>socket.remoteFamily<span><a class="mark" href="#net_socket_remotefamily" id="net_socket_remotefamily" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_remotefamily.html" tppabs="http://nodejs.cn/api/net/socket_remotefamily.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.14</span>
+</div>
+<p>&#x7528;&#x5B57;&#x7B26;&#x4E32;&#x8868;&#x793A;&#x7684;&#x8FDC;&#x7A0B; IP &#x534F;&#x8BAE;&#x65CF;&#x3002;<code>&apos;IPv4&apos;</code> &#x6216;&#xA0;<code>&apos;IPv6&apos;</code>&#x3002;</p>
+<h3>socket.remotePort<span><a class="mark" href="#net_socket_remoteport" id="net_socket_remoteport" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_remoteport.html" tppabs="http://nodejs.cn/api/net/socket_remoteport.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.5.10</span>
+</div>
+<p>&#x7528;&#x6570;&#x5B57;&#x8868;&#x793A;&#x7684;&#x8FDC;&#x7A0B;&#x7AEF;&#x53E3;&#x3002;&#x4F8B;&#x5982; <code>80</code> &#x6216;&#xA0;<code>21</code>&#x3002;</p>
+<h3>socket.resume()<span><a class="mark" href="#net_socket_resume" id="net_socket_resume" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_resume.html" tppabs="http://nodejs.cn/api/net/socket_resume.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> Socket &#x672C;&#x8EAB;</li>
+</ul>
+<p>&#x5728;&#x8C03;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/hV6oi2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/hV6oi2'" tppabs="http://nodejs.cn/s/hV6oi2" rel="nofollow"><code>socket.pause()</code></a> &#x4E4B;&#x540E;&#x6062;&#x590D;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x3002;</p>
+<h3>socket.setEncoding([encoding])<span><a class="mark" href="#net_socket_setencoding_encoding" id="net_socket_setencoding_encoding" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_setencoding_encoding.html" tppabs="http://nodejs.cn/api/net/socket_setencoding_encoding.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> Socket &#x672C;&#x8EAB;</li>
+</ul>
+<p>&#x8BBE;&#x7F6E;&#x4F5C;&#x4E3A;&#x53EF;&#x8BFB;&#x6D41;&#xFF08;<a href="javascript:if(confirm('http://nodejs.cn/s/YuDKX1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YuDKX1'" tppabs="http://nodejs.cn/s/YuDKX1" rel="nofollow">Readable Stream</a>&#xFF09;&#x7684;&#x7F16;&#x7801;&#x3002;&#x5728; [<code>stream.setEncoding()</code>][] &#x67E5;&#x770B;&#x66F4;&#x591A;&#x8BE6;&#x60C5;&#x3002;</p>
+<h3>socket.setKeepAlive([enable][, initialDelay])<span><a class="mark" href="#net_socket_setkeepalive_enable_initialdelay" id="net_socket_setkeepalive_enable_initialdelay" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_setkeepalive_enable_initialdelay.html" tppabs="http://nodejs.cn/api/net/socket_setkeepalive_enable_initialdelay.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.92</span>
+</div>
+<ul>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> Socket &#x672C;&#x8EAB;&#x3002;</li>
+</ul>
+<p>&#x542F;&#x7528;/&#x7981;&#x7528;&#x957F;&#x8FDE;&#x63A5;&#x529F;&#x80FD;&#xFF0C; &#x5E76;&#x4E14;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x957F;&#x8FDE;&#x63A5;&#x63A2;&#x9488;&#x88AB;&#x53D1;&#x9001;&#x5230;&#x4E00;&#x4E2A;&#x7A7A;&#x95F2;&#x7684; socket &#x4E4B;&#x524D;&#x53EF;&#x9009;&#x5219;&#x914D;&#x7F6E;&#x521D;&#x59CB;&#x5EF6;&#x8FDF;&#x3002;<code>enable</code> &#x9ED8;&#x8BA4;&#x4E3A; <code>false</code>&#x3002;</p>
+<p><code>initialDelay</code>&#xFF08;&#x6BEB;&#x79D2;&#xFF09;&#x7528;&#x6765;&#x8BBE;&#x7F6E;&#x63A5;&#x6536;&#x5230;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5305;&#x548C;&#x53D1;&#x9001;&#x7B2C;&#x4E00;&#x4E2A;&#x957F;&#x8FDE;&#x63A5;&#x63A2;&#x9488;&#x4E4B;&#x95F4;&#x7684;&#x5EF6;&#x8FDF;&#x3002;&#x5C06; initialDelay &#x8BBE;&#x7F6E;&#x4E3A; 0&#xFF0C;&#x5219;&#x4F1A;&#x4FDD;&#x6301;&#x9ED8;&#x8BA4;&#x503C;&#xFF08;&#x6216;&#x4E4B;&#x524D;&#x8BBE;&#x7F6E;&#x7684;&#x503C;&#xFF09;&#x4E0D;&#x53D8;&#x3002;&#x9ED8;&#x8BA4;&#x662F; <code>0</code>&#x3002;</p>
+<h3>socket.setNoDelay([noDelay])<span><a class="mark" href="#net_socket_setnodelay_nodelay" id="net_socket_setnodelay_nodelay" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_setnodelay_nodelay.html" tppabs="http://nodejs.cn/api/net/socket_setnodelay_nodelay.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> Socket &#x672C;&#x8EAB;&#x3002;</li>
+</ul>
+<p>&#x7981;&#x6B62; Nagle &#x3002;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B; TCP &#x8FDE;&#x63A5;&#x4F7F;&#x7528; Nagle &#x7B97;&#x6CD5;&#xFF0C;&#x5728;&#x53D1;&#x9001;&#x4E4B;&#x524D;&#x7F13;&#x51B2;&#x6570;&#x636E;&#x3002;&#x5C06; <code>noDelay</code> &#x8BBE;&#x7F6E;&#x4E3A; <code>true</code> &#x5C06;&#x4F1A;&#x5728;&#x6BCF;&#x6B21; <code>socket.write()</code> &#x88AB;&#x8C03;&#x7528;&#x7684;&#x65F6;&#x5019;&#x7ACB;&#x5373;&#x53D1;&#x9001;&#x6570;&#x636E;&#x3002;<code>noDelay</code>&#x9ED8;&#x8BA4;&#x662F; <code>true</code>&#x3002;</p>
+<h3>socket.setTimeout(timeout[, callback])<span><a class="mark" href="#net_socket_settimeout_timeout_callback" id="net_socket_settimeout_timeout_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_settimeout_timeout_callback.html" tppabs="http://nodejs.cn/api/net/socket_settimeout_timeout_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> Socket &#x672C;&#x8EAB;&#x3002;</li>
+</ul>
+<p>&#x5F53; socket &#x5728; <code>timeout</code> &#x6BEB;&#x79D2;&#x4E0D;&#x6D3B;&#x52A8;&#x4E4B;&#x540E;&#x5C06;&#x5176;&#x8BBE;&#x7F6E;&#x4E3A;&#x8D85;&#x65F6;&#x72B6;&#x6001;&#x3002;&#x9ED8;&#x8BA4; <code>net.Socket</code> &#x6CA1;&#x6709;&#x8D85;&#x65F6;&#x3002;</p>
+<p>&#x5F53;&#x4E00;&#x4E2A;&#x95F2;&#x7F6E;&#x7684;&#x8D85;&#x65F6;&#x88AB;&#x89E6;&#x53D1;&#xFF0C;socket &#x5C06;&#x4F1A;&#x6536;&#x5230;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/XQG4dx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/XQG4dx'" tppabs="http://nodejs.cn/s/XQG4dx" rel="nofollow"><code>&apos;timeout&apos;</code></a> &#x4E8B;&#x4EF6;&#xFF0C;&#x4F46;&#x8FDE;&#x63A5;&#x4E0D;&#x4F1A;&#x88AB;&#x65AD;&#x5F00;&#x3002;&#x7528;&#x6237;&#x5FC5;&#x987B;&#x624B;&#x52A8;&#x8C03;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/RyEJPD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RyEJPD'" tppabs="http://nodejs.cn/s/RyEJPD" rel="nofollow"><code>socket.end()</code></a> &#x6216; <a href="javascript:if(confirm('http://nodejs.cn/s/yKvnfJ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/yKvnfJ'" tppabs="http://nodejs.cn/s/yKvnfJ" rel="nofollow"><code>socket.destroy()</code></a> &#x6765;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x3002;</p>
+<pre><code class="language-js">socket.setTimeout(3000);
+socket.on(&apos;timeout&apos;, () =&gt; {
+  console.log(&apos;socket timeout&apos;);
+  socket.end();
+});
+</code></pre>
+<p>&#x5982;&#x679C;&#xA0;<code>timeout</code> &#x662F; 0&#xFF0C;&#x5219;&#x5B58;&#x5728;&#x7684;&#x95F2;&#x7F6E;&#x8D85;&#x65F6;&#x5C06;&#x4F1A;&#x88AB;&#x7981;&#x6B62;&#x3002;</p>
+<p>&#x53EF;&#x9009;&#x7684; <code>callback</code> &#x53C2;&#x6570;&#x5C06;&#x4F1A;&#x88AB;&#x5F53;&#x4F5C;&#x4E00;&#x4E2A;&#x65F6;&#x95F4;&#x76D1;&#x542C;&#x5668;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <a href="javascript:if(confirm('http://nodejs.cn/s/XQG4dx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/XQG4dx'" tppabs="http://nodejs.cn/s/XQG4dx" rel="nofollow"><code>&apos;timeout&apos;</code></a> &#x4E8B;&#x4EF6;&#x3002;</p>
+<h3>socket.unref()<span><a class="mark" href="#net_socket_unref" id="net_socket_unref" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_unref-1.html" tppabs="http://nodejs.cn/api/net/socket_unref.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.1</span>
+</div>
+<ul>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> Socket &#x672C;&#x8EAB;&#x3002;</li>
+</ul>
+<p>&#x5982;&#x679C;&#x6D3B;&#x8DC3;&#x7684; socket &#x662F;&#x4E8B;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E2D;&#x4EC5;&#x5B58;&#x7684; socket&#xFF0C;&#x5219;&#x8C03;&#x7528; <code>unref</code> &#x5C06;&#x4F1A;&#x5141;&#x8BB8;&#x7A0B;&#x5E8F;&#x9000;&#x51FA;&#x3002;&#x5BF9;&#x4E00;&#x4E2A;&#x5DF2;&#x7ECF;&#x8C03;&#x7528;&#x4E86; <code>unref</code> &#x7684; socket &#x518D;&#x8C03;&#x7528; <code>unref</code> &#x65E0;&#x6548;&#x3002;</p>
+<h3>socket.write(data[, encoding][, callback])<span><a class="mark" href="#net_socket_write_data_encoding_callback" id="net_socket_write_data_encoding_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_write_data_encoding_callback.html" tppabs="http://nodejs.cn/api/net/socket_write_data_encoding_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<p>&#x5728; socket &#x4E0A;&#x53D1;&#x9001;&#x6570;&#x636E;&#x3002;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x5236;&#x5B9A;&#x4E86;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x7F16;&#x7801; - &#x9ED8;&#x8BA4;&#x662F; UTF8 &#x7F16;&#x7801;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x5168;&#x90E8;&#x6570;&#x636E;&#x90FD;&#x6210;&#x529F;&#x5237;&#x65B0;&#x5230;&#x5185;&#x6838;&#x7684;&#x7F13;&#x51B2;&#x5219;&#x8FD4;&#x56DE; <code>true</code>&#x3002;&#x5982;&#x679C;&#x5168;&#x90E8;&#x6216;&#x90E8;&#x5206;&#x6570;&#x636E;&#x5728;&#x7528;&#x6237;&#x5185;&#x4E2D;&#x6392;&#x961F;&#xFF0C;&#x5219;&#x8FD4;&#x56DE; <code>false</code>&#x3002;&#x5F53;&#x7F13;&#x51B2;&#x518D;&#x6B21;&#x7A7A;&#x95F2;&#x7684;&#x65F6;&#x5019;&#x5C06;&#x89E6;&#x53D1; <a href="javascript:if(confirm('http://nodejs.cn/s/GyDS4X  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/GyDS4X'" tppabs="http://nodejs.cn/s/GyDS4X" rel="nofollow"><code>&apos;drain&apos;</code></a> &#x4E8B;&#x4EF6;&#x3002;</p>
+<p>&#x5F53;&#x6570;&#x636E;&#x6700;&#x7EC8;&#x90FD;&#x88AB;&#x5199;&#x51FA;&#x4E4B;&#x540E;&#xFF0C;&#x53EF;&#x9009;&#x7684; <code>callback</code> &#x53C2;&#x6570;&#x5C06;&#x4F1A;&#x88AB;&#x6267;&#x884C; - &#x53EF;&#x80FD;&#x4E0D;&#x4F1A;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x3002;</p>
+<h2>net.connect()<span><a class="mark" href="#net_net_connect" id="net_net_connect" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="net_connect.html" tppabs="http://nodejs.cn/api/net/net_connect.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><a href="javascript:if(confirm('http://nodejs.cn/s/RTNxdX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RTNxdX'" tppabs="http://nodejs.cn/s/RTNxdX" rel="nofollow"><code>net.createConnection()</code></a> &#x7684;&#x522B;&#x540D;&#x3002;</p>
+<p>&#x53EF;&#x80FD;&#x7684;&#x7B7E;&#x540D;&#xFF1A;</p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/Y4mUrp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Y4mUrp'" tppabs="http://nodejs.cn/s/Y4mUrp" rel="nofollow"><code>net.connect(options[, connectListener])</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/JUMoiT  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JUMoiT'" tppabs="http://nodejs.cn/s/JUMoiT" rel="nofollow"><code>net.connect(path[, connectListener])</code></a> &#x7528;&#x4E8E; <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> &#x8FDE;&#x63A5;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/noApgU  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/noApgU'" tppabs="http://nodejs.cn/s/noApgU" rel="nofollow"><code>net.connect(port[, host][, connectListener])</code></a> &#x7528;&#x4E8E; TCP &#x8FDE;&#x63A5;&#x3002;</li>
+</ul>
+<h3>net.connect(options[, connectListener])<span><a class="mark" href="#net_net_connect_options_connectlistener" id="net_net_connect_options_connectlistener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="net_connect_options_connectlistener.html" tppabs="http://nodejs.cn/api/net/net_connect_options_connectlistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.0</span>
+</div>
+<p><a href="javascript:if(confirm('http://nodejs.cn/s/xu7F69  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xu7F69'" tppabs="http://nodejs.cn/s/xu7F69" rel="nofollow"><code>net.createConnection(options[, connectListener])</code></a> &#x7684;&#x522B;&#x540D;&#x3002;</p>
+<h3>net.connect(path[, connectListener])<span><a class="mark" href="#net_net_connect_path_connectlistener" id="net_net_connect_path_connectlistener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="net_connect_path_connectlistener.html" tppabs="http://nodejs.cn/api/net/net_connect_path_connectlistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<p><a href="javascript:if(confirm('http://nodejs.cn/s/hfYxQJ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/hfYxQJ'" tppabs="http://nodejs.cn/s/hfYxQJ" rel="nofollow"><code>net.createConnection(path[, connectListener])</code></a> &#x7684;&#x522B;&#x540D;&#x3002;</p>
+<h3>net.connect(port[, host][, connectListener])<span><a class="mark" href="#net_net_connect_port_host_connectlistener" id="net_net_connect_port_host_connectlistener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="net_connect_port_host_connectlistener.html" tppabs="http://nodejs.cn/api/net/net_connect_port_host_connectlistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<p><a href="javascript:if(confirm('http://nodejs.cn/s/QanPxS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/QanPxS'" tppabs="http://nodejs.cn/s/QanPxS" rel="nofollow"><code>net.createConnection(port[, host][, connectListener])</code></a> &#x7684;&#x522B;&#x540D;&#x3002;</p>
+<h2>net.createConnection()<span><a class="mark" href="#net_net_createconnection" id="net_net_createconnection" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="net_createconnection.html" tppabs="http://nodejs.cn/api/net/net_createconnection.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x521B;&#x5EFA; <a href="javascript:if(confirm('http://nodejs.cn/s/wsJ1o1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wsJ1o1'" tppabs="http://nodejs.cn/s/wsJ1o1" rel="nofollow"><code>net.Socket</code></a> &#x7684;&#x5DE5;&#x5382;&#x51FD;&#x6570;&#xFF0C;&#x7ACB;&#x5373;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/fGCDDg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fGCDDg'" tppabs="http://nodejs.cn/s/fGCDDg" rel="nofollow"><code>socket.connect()</code></a> &#x521D;&#x59CB;&#x5316;&#x94FE;&#x63A5;&#xFF0C;&#x7136;&#x540E;&#x8FD4;&#x56DE;&#x542F;&#x52A8;&#x8FDE;&#x63A5;&#x7684; <code>net.Socket</code>&#x3002;</p>
+<p>&#x5F53;&#x8FDE;&#x63A5;&#x5EFA;&#x7ACB;&#x4E4B;&#x540E;&#xFF0C;&#x5728;&#x8FD4;&#x56DE;&#x7684; socket &#x4E0A;&#x5C06;&#x89E6;&#x53D1;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/BwGGNR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BwGGNR'" tppabs="http://nodejs.cn/s/BwGGNR" rel="nofollow"><code>&apos;connect&apos;</code></a> &#x4E8B;&#x4EF6;&#x3002;&#x82E5;&#x5236;&#x5B9A;&#x4E86;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53C2;&#x6570; <code>connectListener</code>&#xFF0C;&#x5219;&#x5B83;&#x5C06;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <a href="javascript:if(confirm('http://nodejs.cn/s/BwGGNR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BwGGNR'" tppabs="http://nodejs.cn/s/BwGGNR" rel="nofollow"><code>&apos;connect&apos;</code></a> &#x4E8B;&#x4EF6;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x76D1;&#x542C;&#x5668;&#x3002;</p>
+<p>&#x53EF;&#x80FD;&#x7684;&#x7B7E;&#x540D;&#x6709;&#xFF1A;</p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/xu7F69  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xu7F69'" tppabs="http://nodejs.cn/s/xu7F69" rel="nofollow"><code>net.createConnection(options[, connectListener])</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/hfYxQJ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/hfYxQJ'" tppabs="http://nodejs.cn/s/hfYxQJ" rel="nofollow"><code>net.createConnection(path[, connectListener])</code></a> &#x7528;&#x4E8E; <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> &#x8FDE;&#x63A5;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/QanPxS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/QanPxS'" tppabs="http://nodejs.cn/s/QanPxS" rel="nofollow"><code>net.createConnection(port[, host][, connectListener])</code></a> &#x7528;&#x4E8E; TCP &#x8FDE;&#x63A5;&#x3002;</li>
+</ul>
+<p><em>&#x6CE8;&#x610F;</em>: The <a href="javascript:if(confirm('http://nodejs.cn/s/mw8BBV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mw8BBV'" tppabs="http://nodejs.cn/s/mw8BBV" rel="nofollow"><code>net.connect()</code></a> &#x51FD;&#x6570;&#x4E5F;&#x662F;&#x8BE5;&#x51FD;&#x6570;&#x7684;&#x522B;&#x540D;&#x3002;</p>
+<h3>net.createConnection(options[, connectListener])<span><a class="mark" href="#net_net_createconnection_options_connectlistener" id="net_net_createconnection_options_connectlistener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="net_createconnection_options_connectlistener.html" tppabs="http://nodejs.cn/api/net/net_createconnection_options_connectlistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x5FC5;&#x987B;&#x3002;&#x8C03;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/t2zSKD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/t2zSKD'" tppabs="http://nodejs.cn/s/t2zSKD" rel="nofollow"><code>new net.Socket([options])</code></a> &#x548C; <a href="javascript:if(confirm('http://nodejs.cn/s/787XLt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/787XLt'" tppabs="http://nodejs.cn/s/787XLt" rel="nofollow"><code>socket.connect(options[, connectListener])</code></a> &#x65B9;&#x6CD5;&#x90FD;&#x4F1A;&#x4F20;&#x5165;&#x3002;</li>
+<li><code>connectListener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/RTNxdX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RTNxdX'" tppabs="http://nodejs.cn/s/RTNxdX" rel="nofollow"><code>net.createConnection()</code></a> &#x65B9;&#x6CD5;&#x7684;&#x901A;&#x7528;&#x53C2;&#x6570;&#x3002;&#x5982;&#x679C;&#x5236;&#x5B9A;&#x4E86;&#xFF0C;&#x5C06;&#x88AB;&#x6DFB;&#x52A0;&#x4E3A;&#x8FD4;&#x56DE; socket &#x4E0A;&#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/BwGGNR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BwGGNR'" tppabs="http://nodejs.cn/s/BwGGNR" rel="nofollow"><code>&apos;connect&apos;</code></a> &#x4E8B;&#x4EF6;&#x4E0A;&#x7684;&#x76D1;&#x542C;&#x5668;&#x3002;</li>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> &#x65B0;&#x521B;&#x5EFA;&#x7684; socket&#xFF0C;&#x7528;&#x4E8E;&#x5F00;&#x59CB;&#x8FDE;&#x63A5;&#x3002;</li>
+</ul>
+<p>&#x53EF;&#x9009;&#x7684;&#x9009;&#x9879;&#xFF0C;&#x67E5;&#x770B; <a href="javascript:if(confirm('http://nodejs.cn/s/t2zSKD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/t2zSKD'" tppabs="http://nodejs.cn/s/t2zSKD" rel="nofollow"><code>new net.Socket([options])</code></a> &#x548C; <a href="javascript:if(confirm('http://nodejs.cn/s/787XLt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/787XLt'" tppabs="http://nodejs.cn/s/787XLt" rel="nofollow"><code>socket.connect(options[, connectListener])</code></a>&#x3002;</p>
+<p>&#x9644;&#x52A0;&#x7684;&#x9009;&#x9879;&#xFF1A;</p>
+<ul>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5982;&#x679C;&#x8BBE;&#x7F6E;&#xFF0C;&#x5C06;&#x4F1A;&#x7528;&#x6765;&#x5728; socket&#xA0;&#x521B;&#x5EFA;&#x4E4B;&#x540E;&#x8FDE;&#x63A5;&#x5F00;&#x59CB;&#x4E4B;&#x524D;&#x8C03;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/XC4Yyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/XC4Yyj'" tppabs="http://nodejs.cn/s/XC4Yyj" rel="nofollow"><code>socket.setTimeout(timeout)</code></a>&#x3002;</li>
+</ul>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5728; <a href="javascript:if(confirm('http://nodejs.cn/s/e8cikS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/e8cikS'" tppabs="http://nodejs.cn/s/e8cikS" rel="nofollow"><code>net.createServer()</code></a> &#x7AE0;&#x8282;&#x63CF;&#x8FF0;&#x7684; server &#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code class="language-js">const net = require(&apos;net&apos;);
+const client = net.createConnection({ port: 8124 }, () =&gt; {
+  //&apos;connect&apos; listener
+  console.log(&apos;connected to server!&apos;);
+  client.write(&apos;world!\r\n&apos;);
+});
+client.on(&apos;data&apos;, (data) =&gt; {
+  console.log(data.toString());
+  client.end();
+});
+client.on(&apos;end&apos;, () =&gt; {
+  console.log(&apos;disconnected from server&apos;);
+});
+</code></pre>
+<p>&#x5982;&#x679C;&#x8981;&#x8FDE;&#x63A5;&#x5230; <code>/tmp/echo.sock</code>&#xFF0C;&#x7B2C;&#x4E8C;&#x884C;&#x53EA;&#x9700;&#x8981;&#x6539;&#x4E3A;&#xFF1A;</p>
+<pre><code class="language-js">const client = net.createConnection({ path: &apos;/tmp/echo.sock&apos; });
+</code></pre>
+<h3>net.createConnection(path[, connectListener])<span><a class="mark" href="#net_net_createconnection_path_connectlistener" id="net_net_createconnection_path_connectlistener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="net_createconnection_path_connectlistener.html" tppabs="http://nodejs.cn/api/net/net_createconnection_path_connectlistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Socket &#x5E94;&#x8BE5;&#x88AB;&#x8FDE;&#x63A5;&#x5230;&#x7684;&#x8DEF;&#x5F84;&#x3002;&#x5C06;&#x4F1A;&#x88AB;&#x4F20;&#x5165;&#x5230; <a href="javascript:if(confirm('http://nodejs.cn/s/Ym5CUG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Ym5CUG'" tppabs="http://nodejs.cn/s/Ym5CUG" rel="nofollow"><code>socket.connect(path[, connectListener])</code></a>&#x3002;&#x67E5;&#x770B; <a href="javascript:if(confirm('http://nodejs.cn/s/tNVQV4  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tNVQV4'" tppabs="http://nodejs.cn/s/tNVQV4" rel="nofollow">Identifying paths for IPC connections</a>&#x3002;</li>
+<li><code>connectListener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/RTNxdX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RTNxdX'" tppabs="http://nodejs.cn/s/RTNxdX" rel="nofollow"><code>net.createConnection()</code></a> &#x65B9;&#x6CD5;&#x7684;&#x901A;&#x7528;&#x53C2;&#x6570;&#xFF0C;&#x5728;&#x521D;&#x59CB;&#x5316;&#x7684; socket &#x4E0A;&#x7684; <code>&apos;connect&apos;</code> &#x4E8B;&#x4EF6;&#x7684; &quot;once&quot; &#x76D1;&#x542C;&#x5668;&#x3002;&#x5C06;&#x4F1A;&#x88AB;&#x4F20;&#x5165;&#x5230; <a href="javascript:if(confirm('http://nodejs.cn/s/Ym5CUG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Ym5CUG'" tppabs="http://nodejs.cn/s/Ym5CUG" rel="nofollow"><code>socket.connect(path[, connectListener])</code></a>&#x3002;</li>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> &#x65B0;&#x521B;&#x5EFA;&#x7684; socket&#xFF0C;&#x7528;&#x6765;&#x5F00;&#x59CB;&#x8FDE;&#x63A5;&#x3002;</li>
+</ul>
+<p>&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> &#x8FDE;&#x63A5;&#x3002;</p>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x4F7F;&#x7528;&#x6240;&#x6709;&#x9ED8;&#x8BA4;&#x9009;&#x9879;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/wsJ1o1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wsJ1o1'" tppabs="http://nodejs.cn/s/wsJ1o1" rel="nofollow"><code>net.Socket</code></a>&#xFF0C;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/Ym5CUG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Ym5CUG'" tppabs="http://nodejs.cn/s/Ym5CUG" rel="nofollow"><code>socket.connect(path[, connectListener])</code></a> &#x7ACB;&#x5373;&#x521D;&#x59CB;&#x5316;&#x8FDE;&#x63A5;&#xFF0C;&#x7136;&#x540E;&#x8FD4;&#x56DE;&#x521D;&#x59CB;&#x5316;&#x8FDE;&#x63A5;&#x7684; <code>net.Socket</code>&#x3002;</p>
+<h3>net.createConnection(port[, host][, connectListener])<span><a class="mark" href="#net_net_createconnection_port_host_connectlistener" id="net_net_createconnection_port_host_connectlistener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="net_createconnection_port_host_connectlistener.html" tppabs="http://nodejs.cn/api/net/net_createconnection_port_host_connectlistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5957;&#x63A5;&#x5B57;&#x5E94;&#x8BE5;&#x8FDE;&#x63A5;&#x7684;&#x7AEF;&#x53E3;&#x53F7;. &#x4F1A;
+&#xA0;&#x4F20;&#x7ED9;<a href="javascript:if(confirm('http://nodejs.cn/s/KgYe2b  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/KgYe2b'" tppabs="http://nodejs.cn/s/KgYe2b" rel="nofollow"><code>socket.connect(port[, host][, connectListener])</code></a>.
+</li>
+<li><code>host</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5957;&#x63A5;&#x5B57;&#x5E94;&#x8BE5;&#x8FDE;&#x63A5;&#x7684;&#x4E3B;&#x673A;&#x540D;. &#x4F1A;
+ &#x4F20;&#x7ED9;<a href="javascript:if(confirm('http://nodejs.cn/s/KgYe2b  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/KgYe2b'" tppabs="http://nodejs.cn/s/KgYe2b" rel="nofollow"><code>socket.connect(port[, host][, connectListener])</code></a>.
+&#xA0; <strong>&#x9ED8;&#x8BA4;:</strong> <code>&apos;localhost&apos;</code></li>
+<li><code>connectListener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> 
+&#xA0;<a href="javascript:if(confirm('http://nodejs.cn/s/RTNxdX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RTNxdX'" tppabs="http://nodejs.cn/s/RTNxdX" rel="nofollow"><code>net.createConnection()</code></a> &#x7684;&#x5E38;&#x89C1;&#x53C2;&#x6570;, &#x5728;&#x521D;&#x59CB;&#x5316;&#x5957;&#x63A5;&#x5B57;&#x65F6;
+&#xA0;&#x5BF9;<code>&apos;connect&apos;</code> &#x4E8B;&#x4EF6;&#x7684;&quot;&#x4E00;&#x6B21;&#x6027;&quot;&#x76D1;&#x542C;&#x5668;&#xFF0C; &#x4F1A;
+&#xA0;&#x4F20;&#x7ED9;<a href="javascript:if(confirm('http://nodejs.cn/s/KgYe2b  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/KgYe2b'" tppabs="http://nodejs.cn/s/KgYe2b" rel="nofollow"><code>socket.connect(path[, connectListener])</code></a>.</li>
+<li>&#x8FD4;&#x56DE;&#x503C;: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> &#x7528;&#x4E8E;&#x5F00;&#x542F;&#x8FDE;&#x63A5;&#x7684;&#x65B0;&#x521B;&#x5EFA;&#x7684;&#x5957;&#x63A5;&#x5B57;.</li>
+</ul>
+<p>&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A;TCP&#x8FDE;&#x63A5;</p>
+<p>&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x7528;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/wsJ1o1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wsJ1o1'" tppabs="http://nodejs.cn/s/wsJ1o1" rel="nofollow"><code>net.Socket</code></a>&#xFF0C;&#x7136;&#x540E;<a href="javascript:if(confirm('http://nodejs.cn/s/KgYe2b  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/KgYe2b'" tppabs="http://nodejs.cn/s/KgYe2b" rel="nofollow"><code>socket.connect(port[, host][, connectListener])</code></a>&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x5F00;&#x542F;&#x8FDE;&#x63A5;&#x7684;&#x90A3;&#x4E2A; <code>net.Socket</code>&#x3002;</p>
+<h2>net.createServer([options][, connectionListener])<span><a class="mark" href="#net_net_createserver_options_connectionlistener" id="net_net_createserver_options_connectionlistener" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="net_createserver_options_connectionlistener.html" tppabs="http://nodejs.cn/api/net/net_createserver_options_connectionlistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.5.0</span>
+</div>
+<p>Creates a new TCP or <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> server.
+&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;TCP&#x6216;<a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a>&#x670D;&#x52A1;&#x3002;</p>
+<ul>
+<li><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a>
+&#xA0;<em> <code>allowHalfOpen</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x8868;&#x793A;&#x662F;&#x5426;&#x5141;&#x8BB8;&#x4E00;&#x4E2A;&#x534A;&#x5F00;&#x7684;TCP&#x8FDE;&#x63A5;&#x3002;
+ <strong>&#x9ED8;&#x8BA4;&#x503C;:</strong> <code>false</code>
+&#xA0;</em> <code>pauseOnConnect</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x4E00;&#x65E6;&#x6765;&#x4E86;&#x8FDE;&#x63A5;&#xFF0C;&#x662F;&#x5426;&#x6682;&#x505C;&#x5957;&#x63A5;&#x5B57;&#x3002;
+ <strong>&#x9ED8;&#x8BA4;&#x503C;:</strong> <code>false</code></li>
+<li><code>connectionListener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x4E3A;<a href="javascript:if(confirm('http://nodejs.cn/s/4qU2j9  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/4qU2j9'" tppabs="http://nodejs.cn/s/4qU2j9" rel="nofollow"><code>&apos;connection&apos;</code></a> &#x4E8B;&#x4EF6;&#x81EA;&#x52A8;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x76D1;&#x542C;&#x5668;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="net.html#net_class_net_server" tppabs="http://nodejs.cn/api/net.html#net_class_net_server" target="_blank" rel="nofollow" class="type">&lt;net.Server&gt;</a></li>
+</ul>
+<p>&#x5982;&#x679C; <code>allowHalfOpen</code> &#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;<code>true</code>, &#x90A3;&#x4E48;&#x5F53;<a href="javascript:if(confirm('http://nodejs.cn/s/RyEJPD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RyEJPD'" tppabs="http://nodejs.cn/s/RyEJPD" rel="nofollow"><code>socket.end()</code></a> &#x88AB;&#x663E;&#x5F0F;&#x8C03;&#x7528;&#x65F6;,
+&#x5982;&#x679C;&#x5BF9;&#x8FB9;&#x5957;&#x63A5;&#x5B57;&#x53D1;&#x9001;&#x4E86;&#x4E00;&#x4E2A;FIN&#x5305;&#xFF0C;&#x670D;&#x52A1;&#x53EA;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;FIN&#x6570;&#x636E;&#x5305;&#xFF0C;
+&#x8FD9;&#x4F1A;&#x6301;&#x7EED;&#x5230;&#x540E;&#x6765;&#x8FDE;&#x63A5;&#x5904;&#x5728;&#x534A;&#x95ED;&#x72B6;&#x6001; (&#x4E0D;&#x53EF;&#x8BFB;&#x4F46;&#x662F;&#x53EF;&#x5199;)&#x3002;
+&#x8BF7;&#x67E5;&#x770B;<a href="javascript:if(confirm('http://nodejs.cn/s/Hxzmh3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Hxzmh3'" tppabs="http://nodejs.cn/s/Hxzmh3" rel="nofollow"><code>&apos;end&apos;</code></a> &#x4E8B;&#x4EF6;&#x548C; <a href="javascript:if(confirm('http://nodejs.cn/s/tLsNn9  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tLsNn9'" tppabs="http://nodejs.cn/s/tLsNn9" rel="nofollow">RFC 1122</a> (4.2.2.13&#x8282;) &#x83B7;&#x53D6;&#x66F4;&#x591A;&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>pauseOnConnect</code> &#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;&#xA0;<code>true</code>, &#x90A3;&#x4E48;&#x4E0E;&#x8FDE;&#x63A5;&#x76F8;&#x5173;&#x7684;&#x5957;&#x63A5;&#x5B57;&#x90FD;&#x4F1A;&#x6682;&#x505C;&#xFF0C;&#x4E5F;&#x4E0D;&#x4F1A;&#x4ECE;&#x5957;&#x63A5;&#x5B57;&#x53E5;&#x67C4;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x3002;
+&#x8FD9;&#x6837;&#x5C31;&#x5141;&#x8BB8;&#x8FDE;&#x63A5;&#x5728;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x4F20;&#x9012;&#xFF0C;&#x907F;&#x514D;&#x6570;&#x636E;&#x88AB;&#x6700;&#x521D;&#x7684;&#x8FDB;&#x7A0B;&#x8BFB;&#x53D6;&#x3002;
+&#x5982;&#x679C;&#x60F3;&#x4ECE;&#x4E00;&#x4E2A;&#x6682;&#x505C;&#x7684;&#x5957;&#x63A5;&#x5B57;&#x5F00;&#x59CB;&#x8BFB;&#x6570;&#x636E;&#xFF0C;&#x8BF7;&#x8C03;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/EKm2o7  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/EKm2o7'" tppabs="http://nodejs.cn/s/EKm2o7" rel="nofollow"><code>socket.resume()</code></a></p>
+<p>&#x670D;&#x52A1;&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;TCP&#x670D;&#x52A1;&#x6216;&#x8005;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/rAdYjf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rAdYjf'" tppabs="http://nodejs.cn/s/rAdYjf" rel="nofollow">IPC</a> &#x670D;&#x52A1;,
+&#x8FD9;&#x53D6;&#x51B3;&#x4E8E;<a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>listen()</code></a> &#x76D1;&#x542C;&#x4EC0;&#x4E48;</p>
+<p>&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;TCP&#x56DE;&#x58F0;&#x670D;&#x52A1;&#x5668;&#x5728;8124&#x7AEF;&#x53E3;&#x4E0A;&#x76D1;&#x542C;&#x8FDE;&#x63A5;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">const net = require(&apos;net&apos;);
+const server = net.createServer((c) =&gt; {
+  // &apos;connection&apos; listener
+  console.log(&apos;client connected&apos;);
+  c.on(&apos;end&apos;, () =&gt; {
+    console.log(&apos;client disconnected&apos;);
+  });
+  c.write(&apos;hello\r\n&apos;);
+  c.pipe(c);
+});
+server.on(&apos;error&apos;, (err) =&gt; {
+  throw err;
+});
+server.listen(8124, () =&gt; {
+  console.log(&apos;server bound&apos;);
+});
+</code></pre>
+<p>&#x7528; <code>telnet</code>&#x6D4B;&#x8BD5;:</p>
+<pre><code class="language-console">$ telnet localhost 8124
+</code></pre>
+<p>&#x60F3;&#x76D1;&#x542C; <code>/tmp/echo.sock</code> &#x53EA;&#x9700;&#x6539;&#x6700;&#x540E;&#x4E09;&#x884C;&#x4E3A;&#xFF1A;</p>
+<pre><code class="language-js">server.listen(&apos;/tmp/echo.sock&apos;, () =&gt; {
+  console.log(&apos;server bound&apos;);
+});
+</code></pre>
+<p>&#x7528; <code>nc</code> &#x8FDE;&#x4E00;&#x4E2A; UNIX &#x57DF;&#x5957;&#x63A5;&#x5B57;&#x670D;&#x52A1;&#x5668;:</p>
+<pre><code class="language-console">$ nc -U /tmp/echo.sock
+</code></pre>
+<h2>net.isIP(input)<span><a class="mark" href="#net_net_isip_input" id="net_net_isip_input" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="net_isip_input.html" tppabs="http://nodejs.cn/api/net/net_isip_input.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.0</span>
+</div>
+<p>&#x6D4B;&#x8BD5; input &#x662F;&#x5426;&#x662F; IP &#x5730;&#x5740;&#x3002;&#x65E0;&#x6548;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x5219;&#x8FD4;&#x56DE; 0&#xFF0C;IPv4 &#x5730;&#x5740;&#x5219;&#x8FD4;&#x56DE; 4&#xFF0C;IPv6&#x7684;&#x5730;&#x5740;&#x5219;&#x8FD4;&#x56DE; 6&#x3002;</p>
+<h2>net.isIPv4(input)<span><a class="mark" href="#net_net_isipv4_input" id="net_net_isipv4_input" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="net_isipv4_input.html" tppabs="http://nodejs.cn/api/net/net_isipv4_input.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.0</span>
+</div>
+<p>&#x5982;&#x679C; input &#x662F; IPv4 &#x5730;&#x5740;&#x5219;&#x8FD4;&#x56DE; true&#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE; false&#x3002;</p>
+<h2>net.isIPv6(input)<span><a class="mark" href="#net_net_isipv6_input" id="net_net_isipv6_input" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="net_isipv6_input.html" tppabs="http://nodejs.cn/api/net/net_isipv6_input.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.0</span>
+</div>
+<p>&#x5982;&#x679C; input &#x662F; IPv6 &#x5730;&#x5740;&#x5219;&#x8FD4;&#x56DE; true&#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE; false&#x3002;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712032113"><\/script>');
+  </script>
+
+</body></html>

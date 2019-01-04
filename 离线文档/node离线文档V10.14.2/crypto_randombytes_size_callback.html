@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>crypto.randomBytes(size[, callback]) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/crypto/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712016114" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-crypto">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>crypto.randomBytes(size[, callback])</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="crypto.html#crypto_crypto_randombytes_size_callback" tppabs="http://nodejs.cn/api/crypto.html#crypto_crypto_randombytes_size_callback" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.5.8</span>
+</div><ul>
+<li><code>size</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>buf</code> <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a></li>
+</ul>
+</li>
+</ul><p>&#x751F;&#x6210;&#x52A0;&#x5BC6;&#x5F3A;&#x4F2A;&#x968F;&#x673A;&#x6570;&#x636E;. <code>size</code>&#x53C2;&#x6570;&#x662F;&#x6307;&#x793A;&#x8981;&#x751F;&#x6210;&#x7684;&#x5B57;&#x8282;&#x6570;&#x7684;&#x6570;&#x503C;&#x3002;</p><p>&#x5982;&#x679C;&#x63D0;&#x4F9B; <code>callback</code>&#x56DE;&#x8C03;&#x51FD;&#x6570; ,&#x8FD9;&#x4E9B;&#x5B57;&#x8282;&#x662F;&#x5F02;&#x6B65;&#x751F;&#x6210;&#x7684;&#x5E76;&#x4E14;&#x4F7F;&#x7528;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x8C03;&#x7528;<code>callback</code>&#x51FD;&#x6570;&#xFF1A;<code>err</code>&#x548C;<code>buf</code>&#x3002;
+&#x5982;&#x679C;&#x53D1;&#x751F;&#x9519;&#x8BEF;, <code>err</code>&#x662F;&#x4E00;&#x4E2A;Error&#x5BF9;&#x8C61;&#xFF1B; &#x5426;&#x5219;&#x4E3A;null&#x3002;<code>buf</code>&#x53C2;&#x6570;&#x662F;&#x5305;&#x542B;&#x751F;&#x6210;&#x5B57;&#x8282;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/FP4oTy  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FP4oTy'" tppabs="http://nodejs.cn/s/FP4oTy" rel="nofollow"><code>Buffer</code></a>&#x3002;</p><pre><code class="language-js">// Asynchronous
+const crypto = require(&apos;crypto&apos;);
+crypto.randomBytes(256, (err, buf) =&gt; {
+  if (err) throw err;
+  console.log(`${buf.length} bytes of random data: ${buf.toString(&apos;hex&apos;)}`);
+});
+</code></pre><p>&#x5982;&#x679C;&#x672A;&#x63D0;&#x4F9B; <code>callback</code>&#x56DE;&#x8C03;&#x51FD;&#x6570;, &#x5219;&#x540C;&#x6B65;&#x5730;&#x751F;&#x6210;&#x968F;&#x673A;&#x5B57;&#x8282;&#x5E76;&#x8FD4;&#x56DE;&#x4E3A;<a href="javascript:if(confirm('http://nodejs.cn/s/FP4oTy  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FP4oTy'" tppabs="http://nodejs.cn/s/FP4oTy" rel="nofollow"><code>Buffer</code></a>&#x3002;&#x5982;&#x679C;&#x751F;&#x6210;&#x5B57;&#x8282;&#x9047;&#x5230;&#x95EE;&#x9898;&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x3002;</p><pre><code class="language-js">// Synchronous
+const buf = crypto.randomBytes(256);
+console.log(
+  `${buf.length} bytes of random data: ${buf.toString(&apos;hex&apos;)}`);
+</code></pre><p><code>crypto.randomBytes()</code>&#x65B9;&#x6CD5;&#x5C06;&#x5728;&#x83B7;&#x5F97;&#x8DB3;&#x591F;&#x7684;&#x71B5;&#x4E4B;&#x540E;&#x5B8C;&#x6210;&#x3002;&#x8FD9;&#x901A;&#x5E38;&#x4E0D;&#x4F1A;&#x8D85;&#x8FC7;&#x51E0;&#x6BEB;&#x79D2;&#x3002;&#x53EA;&#x6709;&#x5728;&#x521A;&#x5F00;&#x673A;&#x65F6;&#x624D;&#x53EF;&#x80FD;&#x4F1A;&#x963B;&#x585E;&#x66F4;&#x4E45;&#xFF0C;&#x56E0;&#x4E3A;&#x6B64;&#x65F6;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#x7684;&#x71B5;&#x4E0D;&#x591A;&#x3002;</p><p>&#x6CE8;&#x610F;&#x8FD9;&#x4E2A;API&#x4F7F;&#x7528;libuv&#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x67D0;&#x4E9B;&#x65F6;&#x5019;&#x53EF;&#x80FD;&#x4F1A;&#x4EA7;&#x751F;&#x610F;&#x5916;&#x7684;&#x6027;&#x80FD;&#x95EE;&#x9898;&#xFF0C;&#x67E5;&#x770B;<a href="javascript:if(confirm('http://nodejs.cn/s/6DjmgS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/6DjmgS'" tppabs="http://nodejs.cn/s/6DjmgS" rel="nofollow"><code>UV_THREADPOOL_SIZE</code></a>&#x7684;&#x6587;&#x6863;&#x4EE5;&#x4E86;&#x89E3;&#x66F4;&#x591A;&#x4FE1;&#x606F;&#x3002;</p><p><em>Note</em>: The asynchronous version of <code>crypto.randomBytes()</code> is carried out
+in a single threadpool request. To minimize threadpool task length variation,
+partition large <code>randomBytes</code> requests when doing so as part of fulfilling a
+client request.</p></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>Passing <code>null</code> as the <code>callback</code> argument now throws <code>ERR_INVALID_CALLBACK</code>.</p></td></tr>
+<tr><td>v0.5.8</td>
+<td><p><span>Added in: v0.5.8</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>size</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>buf</code> <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a></li>
+</ul>
+</li>
+<li>Returns: <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> if the <code>callback</code> function is not provided.</li>
+</ul><p>Generates cryptographically strong pseudo-random data. The <code>size</code> argument
+is a number indicating the number of bytes to generate.</p><p>If a <code>callback</code> function is provided, the bytes are generated asynchronously
+and the <code>callback</code> function is invoked with two arguments: <code>err</code> and <code>buf</code>.
+If an error occurs, <code>err</code> will be an <code>Error</code> object; otherwise it is <code>null</code>. The
+<code>buf</code> argument is a <a href="javascript:if(confirm('http://nodejs.cn/s/FP4oTy  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FP4oTy'" tppabs="http://nodejs.cn/s/FP4oTy" rel="nofollow"><code>Buffer</code></a> containing the generated bytes.</p><pre><code class="language-js">// Asynchronous
+const crypto = require(&apos;crypto&apos;);
+crypto.randomBytes(256, (err, buf) =&gt; {
+  if (err) throw err;
+  console.log(`${buf.length} bytes of random data: ${buf.toString(&apos;hex&apos;)}`);
+});
+</code></pre><p>If the <code>callback</code> function is not provided, the random bytes are generated
+synchronously and returned as a <a href="javascript:if(confirm('http://nodejs.cn/s/FP4oTy  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FP4oTy'" tppabs="http://nodejs.cn/s/FP4oTy" rel="nofollow"><code>Buffer</code></a>. An error will be thrown if
+there is a problem generating the bytes.</p><pre><code class="language-js">// Synchronous
+const buf = crypto.randomBytes(256);
+console.log(
+  `${buf.length} bytes of random data: ${buf.toString(&apos;hex&apos;)}`);
+</code></pre><p>The <code>crypto.randomBytes()</code> method will not complete until there is
+sufficient entropy available.
+This should normally never take longer than a few milliseconds. The only time
+when generating the random bytes may conceivably block for a longer period of
+time is right after boot, when the whole system is still low on entropy.</p><p>Note that this API uses libuv&apos;s threadpool, which can have surprising and
+negative performance implications for some applications, see the
+<a href="javascript:if(confirm('http://nodejs.cn/s/6DjmgS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/6DjmgS'" tppabs="http://nodejs.cn/s/6DjmgS" rel="nofollow"><code>UV_THREADPOOL_SIZE</code></a> documentation for more information.</p><p>The asynchronous version of <code>crypto.randomBytes()</code> is carried out in a single
+threadpool request. To minimize threadpool task length variation, partition
+large <code>randomBytes</code> requests when doing so as part of fulfilling a client
+request.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712016114"><\/script>');
+  </script>
+</body>
+</html>

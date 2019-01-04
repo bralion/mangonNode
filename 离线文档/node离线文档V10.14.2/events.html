@@ -1,0 +1,613 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>events | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712021601" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-events">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events active" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="events" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><span class="stability_2"><a href="#events_events">events&#xFF08;&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;&#xFF09;</a></span></p>
+<ul>
+<li><a href="#events_passing_arguments_and_this_to_listeners">&#x4F20;&#x53C2;&#x6570;&#x4E0E; `this` &#x5230;&#x76D1;&#x542C;&#x5668;</a></li>
+<li><a href="#events_asynchronous_vs_synchronous">&#x5F02;&#x6B65; VS &#x540C;&#x6B65;</a></li>
+<li><a href="#events_handling_events_only_once">&#x4E8B;&#x4EF6;&#x53EA;&#x5904;&#x7406;&#x4E00;&#x6B21;</a></li>
+<li><a href="#events_error_events">`error` &#x4E8B;&#x4EF6;</a></li>
+<li>
+<p><a href="#events_class_eventemitter">EventEmitter &#x7C7B;</a></p>
+<ul>
+<li><a href="#events_event_newlistener">&apos;newListener&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#events_event_removelistener">&apos;removeListener&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><span class="stability_0"><a href="#events_eventemitter_listenercount_emitter_eventname">EventEmitter.listenerCount(emitter, eventName)</a></span></li>
+<li><a href="#events_eventemitter_defaultmaxlisteners">EventEmitter.defaultMaxListeners</a></li>
+<li><a href="#events_emitter_addlistener_eventname_listener">emitter.addListener(eventName, listener)</a></li>
+<li><a href="#events_emitter_emit_eventname_args">emitter.emit(eventName[, ...args])</a></li>
+<li><a href="#events_emitter_eventnames">emitter.eventNames()</a></li>
+<li><a href="#events_emitter_getmaxlisteners">emitter.getMaxListeners()</a></li>
+<li><a href="#events_emitter_listenercount_eventname">emitter.listenerCount(eventName)</a></li>
+<li><a href="#events_emitter_listeners_eventname">emitter.listeners(eventName)</a></li>
+<li><a href="#events_emitter_off_eventname_listener">emitter.off(eventName, listener)</a></li>
+<li><a href="#events_emitter_on_eventname_listener">emitter.on(eventName, listener)</a></li>
+<li><a href="#events_emitter_once_eventname_listener">emitter.once(eventName, listener)</a></li>
+<li><a href="#events_emitter_prependlistener_eventname_listener">emitter.prependListener(eventName, listener)</a></li>
+<li><a href="#events_emitter_prependoncelistener_eventname_listener">emitter.prependOnceListener(eventName, listener)</a></li>
+<li><a href="#events_emitter_removealllisteners_eventname">emitter.removeAllListeners([eventName])</a></li>
+<li><a href="#events_emitter_removelistener_eventname_listener">emitter.removeListener(eventName, listener)</a></li>
+<li><a href="#events_emitter_setmaxlisteners_n">emitter.setMaxListeners(n)</a></li>
+<li><a href="#events_emitter_rawlisteners_eventname">emitter.rawListeners(eventName)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>events&#xFF08;&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;&#xFF09;<span><a class="mark" href="#events_events" id="events_events" rel="nofollow">#</a></span></h1><p class="tip_wrap"><a href="events-1.html" tppabs="http://nodejs.cn/api/events/events.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<!--introduced_in=v0.10.0-->
+<p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p>
+<!--type=module-->
+<p>&#x5927;&#x591A;&#x6570; Node.js &#x6838;&#x5FC3; API &#x6784;&#x5EFA;&#x4E8E;&#x60EF;&#x7528;&#x7684;&#x5F02;&#x6B65;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x67B6;&#x6784;&#xFF0C;&#x5176;&#x4E2D;&#x67D0;&#x4E9B;&#x7C7B;&#x578B;&#x7684;&#x5BF9;&#x8C61;&#xFF08;&#x53C8;&#x79F0;&#x89E6;&#x53D1;&#x5668;&#xFF0C;Emitter&#xFF09;&#x4F1A;&#x89E6;&#x53D1;&#x547D;&#x540D;&#x4E8B;&#x4EF6;&#x6765;&#x8C03;&#x7528;&#x51FD;&#x6570;&#xFF08;&#x53C8;&#x79F0;&#x76D1;&#x542C;&#x5668;&#xFF0C;Listener&#xFF09;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;<a href="javascript:if(confirm('http://nodejs.cn/s/gBYjux  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gBYjux'" tppabs="http://nodejs.cn/s/gBYjux" rel="nofollow"><code>net.Server</code></a> &#x4F1A;&#x5728;&#x6BCF;&#x6B21;&#x6709;&#x65B0;&#x8FDE;&#x63A5;&#x65F6;&#x89E6;&#x53D1;&#x4E8B;&#x4EF6;&#xFF0C;<a href="javascript:if(confirm('http://nodejs.cn/s/C3Eioq  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/C3Eioq'" tppabs="http://nodejs.cn/s/C3Eioq" rel="nofollow"><code>fs.ReadStream</code></a> &#x4F1A;&#x5728;&#x6253;&#x5F00;&#x6587;&#x4EF6;&#x65F6;&#x89E6;&#x53D1;&#x4E8B;&#x4EF6;&#xFF0C;<a href="javascript:if(confirm('http://nodejs.cn/s/kUvpNm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/kUvpNm'" tppabs="http://nodejs.cn/s/kUvpNm" rel="nofollow">stream</a>&#x4F1A;&#x5728;&#x6570;&#x636E;&#x53EF;&#x8BFB;&#x65F6;&#x89E6;&#x53D1;&#x4E8B;&#x4EF6;&#x3002;</p>
+<p>&#x6240;&#x6709;&#x80FD;&#x89E6;&#x53D1;&#x4E8B;&#x4EF6;&#x7684;&#x5BF9;&#x8C61;&#x90FD;&#x662F; <code>EventEmitter</code> &#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#x3002;
+&#x8FD9;&#x4E9B;&#x5BF9;&#x8C61;&#x6709;&#x4E00;&#x4E2A; <code>eventEmitter.on()</code> &#x51FD;&#x6570;&#xFF0C;&#x7528;&#x4E8E;&#x5C06;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x51FD;&#x6570;&#x7ED1;&#x5B9A;&#x5230;&#x547D;&#x540D;&#x4E8B;&#x4EF6;&#x4E0A;&#x3002;
+&#x4E8B;&#x4EF6;&#x7684;&#x547D;&#x540D;&#x901A;&#x5E38;&#x662F;&#x9A7C;&#x5CF0;&#x5F0F;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x3002;</p>
+<p>&#x5F53; <code>EventEmitter</code> &#x5BF9;&#x8C61;&#x89E6;&#x53D1;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;&#x65F6;&#xFF0C;&#x6240;&#x6709;&#x7ED1;&#x5B9A;&#x5728;&#x8BE5;&#x4E8B;&#x4EF6;&#x4E0A;&#x7684;&#x51FD;&#x6570;&#x90FD;&#x4F1A;&#x88AB;&#x540C;&#x6B65;&#x5730;&#x8C03;&#x7528;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF0C;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; <code>EventEmitter</code> &#x5B9E;&#x4F8B;&#xFF0C;&#x7ED1;&#x5B9A;&#x4E86;&#x4E00;&#x4E2A;&#x76D1;&#x542C;&#x5668;&#x3002;
+<code>eventEmitter.on()</code> &#x7528;&#x4E8E;&#x6CE8;&#x518C;&#x76D1;&#x542C;&#x5668;&#xFF0C;<code>eventEmitter.emit()</code> &#x7528;&#x4E8E;&#x89E6;&#x53D1;&#x4E8B;&#x4EF6;&#x3002;</p>
+<pre><code class="language-js">const EventEmitter = require(&apos;events&apos;);
+
+class MyEmitter extends EventEmitter {}
+
+const myEmitter = new MyEmitter();
+myEmitter.on(&apos;event&apos;, () =&gt; {
+  console.log(&apos;&#x89E6;&#x53D1;&#x4E8B;&#x4EF6;&apos;);
+});
+myEmitter.emit(&apos;event&apos;);
+</code></pre>
+<h2>&#x4F20;&#x53C2;&#x6570;&#x4E0E; `this` &#x5230;&#x76D1;&#x542C;&#x5668;<span><a class="mark" href="#events_passing_arguments_and_this_to_listeners" id="events_passing_arguments_and_this_to_listeners" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="passing_arguments_and_this_to_listeners.html" tppabs="http://nodejs.cn/api/events/passing_arguments_and_this_to_listeners.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>eventEmitter.emit()</code> &#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x4F20;&#x4EFB;&#x610F;&#x6570;&#x91CF;&#x7684;&#x53C2;&#x6570;&#x5230;&#x76D1;&#x542C;&#x5668;&#x51FD;&#x6570;&#x3002;
+&#x5F53;&#x76D1;&#x542C;&#x5668;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;<code>this</code> &#x5173;&#x952E;&#x8BCD;&#x4F1A;&#x88AB;&#x6307;&#x5411;&#x76D1;&#x542C;&#x5668;&#x6240;&#x7ED1;&#x5B9A;&#x7684; <code>EventEmitter</code> &#x5B9E;&#x4F8B;&#x3002;</p>
+<pre><code class="language-js">const myEmitter = new MyEmitter();
+myEmitter.on(&apos;event&apos;, function(a, b) {
+  console.log(a, b, this, this === myEmitter);
+  // &#x6253;&#x5370;:
+  //   a b MyEmitter {
+  //     domain: null,
+  //     _events: { event: [Function] },
+  //     _eventsCount: 1,
+  //     _maxListeners: undefined } true
+});
+myEmitter.emit(&apos;event&apos;, &apos;a&apos;, &apos;b&apos;);
+</code></pre>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; ES6 &#x7684;&#x7BAD;&#x5934;&#x51FD;&#x6570;&#x4F5C;&#x4E3A;&#x76D1;&#x542C;&#x5668;&#x3002;&#x4F46; <code>this</code> &#x5173;&#x952E;&#x8BCD;&#x4E0D;&#x4F1A;&#x6307;&#x5411; <code>EventEmitter</code> &#x5B9E;&#x4F8B;&#xFF1A;</p>
+<pre><code class="language-js">const myEmitter = new MyEmitter();
+myEmitter.on(&apos;event&apos;, (a, b) =&gt; {
+  console.log(a, b, this);
+  // &#x6253;&#x5370;: a b {}
+});
+myEmitter.emit(&apos;event&apos;, &apos;a&apos;, &apos;b&apos;);
+</code></pre>
+<h2>&#x5F02;&#x6B65; VS &#x540C;&#x6B65;<span><a class="mark" href="#events_asynchronous_vs_synchronous" id="events_asynchronous_vs_synchronous" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="asynchronous_vs_synchronous.html" tppabs="http://nodejs.cn/api/events/asynchronous_vs_synchronous.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>EventEmitter</code> &#x4F1A;&#x6309;&#x7167;&#x76D1;&#x542C;&#x5668;&#x6CE8;&#x518C;&#x7684;&#x987A;&#x5E8F;&#x540C;&#x6B65;&#x5730;&#x8C03;&#x7528;&#x6240;&#x6709;&#x76D1;&#x542C;&#x5668;&#x3002;
+&#x6240;&#x4EE5;&#x5FC5;&#x987B;&#x786E;&#x4FDD;&#x4E8B;&#x4EF6;&#x7684;&#x6392;&#x5E8F;&#x6B63;&#x786E;&#xFF0C;&#x4E14;&#x907F;&#x514D;&#x7ADE;&#x6001;&#x6761;&#x4EF6;&#x3002;
+&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>setImmediate()</code> &#x6216; <code>process.nextTick()</code> &#x5207;&#x6362;&#x5230;&#x5F02;&#x6B65;&#x6A21;&#x5F0F;&#xFF1A;</p>
+<pre><code class="language-js">const myEmitter = new MyEmitter();
+myEmitter.on(&apos;event&apos;, (a, b) =&gt; {
+  setImmediate(() =&gt; {
+    console.log(&apos;&#x5F02;&#x6B65;&#x8FDB;&#x884C;&apos;);
+  });
+});
+myEmitter.emit(&apos;event&apos;, &apos;a&apos;, &apos;b&apos;);
+</code></pre>
+<h2>&#x4E8B;&#x4EF6;&#x53EA;&#x5904;&#x7406;&#x4E00;&#x6B21;<span><a class="mark" href="#events_handling_events_only_once" id="events_handling_events_only_once" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="handling_events_only_once.html" tppabs="http://nodejs.cn/api/events/handling_events_only_once.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x5F53;&#x4F7F;&#x7528; <code>eventEmitter.on()</code> &#x6CE8;&#x518C;&#x76D1;&#x542C;&#x5668;&#x65F6;&#xFF0C;&#x76D1;&#x542C;&#x5668;&#x4F1A;&#x5728;&#x6BCF;&#x6B21;&#x89E6;&#x53D1;&#x547D;&#x540D;&#x4E8B;&#x4EF6;&#x65F6;&#x88AB;&#x8C03;&#x7528;&#x3002;</p>
+<pre><code class="language-js">const myEmitter = new MyEmitter();
+let m = 0;
+myEmitter.on(&apos;event&apos;, () =&gt; {
+  console.log(++m);
+});
+myEmitter.emit(&apos;event&apos;);
+// &#x6253;&#x5370;: 1
+myEmitter.emit(&apos;event&apos;);
+// &#x6253;&#x5370;: 2
+</code></pre>
+<p>&#x4F7F;&#x7528; <code>eventEmitter.once()</code> &#x53EF;&#x4EE5;&#x6CE8;&#x518C;&#x6700;&#x591A;&#x53EF;&#x8C03;&#x7528;&#x4E00;&#x6B21;&#x7684;&#x76D1;&#x542C;&#x5668;&#x3002;
+&#x5F53;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x65F6;&#xFF0C;&#x76D1;&#x542C;&#x5668;&#x4F1A;&#x88AB;&#x6CE8;&#x9500;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x8C03;&#x7528;&#x3002;</p>
+<pre><code class="language-js">const myEmitter = new MyEmitter();
+let m = 0;
+myEmitter.once(&apos;event&apos;, () =&gt; {
+  console.log(++m);
+});
+myEmitter.emit(&apos;event&apos;);
+// &#x6253;&#x5370;: 1
+myEmitter.emit(&apos;event&apos;);
+// &#x4E0D;&#x89E6;&#x53D1;
+</code></pre>
+<h2>`error` &#x4E8B;&#x4EF6;<span><a class="mark" href="#events_error_events" id="events_error_events" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="error_events.html" tppabs="http://nodejs.cn/api/events/error_events.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x5F53; <code>EventEmitter</code> &#x5B9E;&#x4F8B;&#x51FA;&#x9519;&#x65F6;&#xFF0C;&#x5E94;&#x8BE5;&#x89E6;&#x53D1; <code>&apos;error&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x4E3A; <code>&apos;error&apos;</code> &#x4E8B;&#x4EF6;&#x6CE8;&#x518C;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x5219;&#x5F53; <code>&apos;error&apos;</code> &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x65F6;&#xFF0C;&#x4F1A;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x3001;&#x6253;&#x5370;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x3001;&#x5E76;&#x9000;&#x51FA; Node.js &#x8FDB;&#x7A0B;&#x3002;</p>
+<pre><code class="language-js">const myEmitter = new MyEmitter();
+myEmitter.emit(&apos;error&apos;, new Error(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;));
+// &#x629B;&#x51FA;&#x9519;&#x8BEF;
+</code></pre>
+<p>&#x4F5C;&#x4E3A;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;&#xFF0C;&#x5E94;&#x8BE5;&#x59CB;&#x7EC8;&#x4E3A; <code>&apos;error&apos;</code> &#x4E8B;&#x4EF6;&#x6CE8;&#x518C;&#x76D1;&#x542C;&#x5668;&#x3002;</p>
+<pre><code class="language-js">const myEmitter = new MyEmitter();
+myEmitter.on(&apos;error&apos;, (err) =&gt; {
+  console.error(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;);
+});
+myEmitter.emit(&apos;error&apos;, new Error(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;));
+// &#x6253;&#x5370;: &#x9519;&#x8BEF;&#x4FE1;&#x606F;
+</code></pre>
+<h2>EventEmitter &#x7C7B;<span><a class="mark" href="#events_class_eventemitter" id="events_class_eventemitter" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="class_eventemitter.html" tppabs="http://nodejs.cn/api/events/class_eventemitter.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.26</span>
+</div>
+<p><code>EventEmitter</code> &#x7C7B;&#x7531; <code>events</code> &#x6A21;&#x5757;&#x5B9A;&#x4E49;&#xFF1A;</p>
+<pre><code class="language-js">const EventEmitter = require(&apos;events&apos;);
+</code></pre>
+<p>&#x5F53;&#x65B0;&#x589E;&#x76D1;&#x542C;&#x5668;&#x65F6;&#xFF0C;&#x4F1A;&#x89E6;&#x53D1; <code>&apos;newListener&apos;</code> &#x4E8B;&#x4EF6;&#xFF1B;&#x5F53;&#x79FB;&#x9664;&#x5DF2;&#x5B58;&#x5728;&#x7684;&#x76D1;&#x542C;&#x5668;&#x65F6;&#xFF0C;&#x5219;&#x89E6;&#x53D1; <code>&apos;removeListener&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p>
+<h3>&apos;newListener&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#events_event_newlistener" id="events_event_newlistener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_newlistener.html" tppabs="http://nodejs.cn/api/events/event_newlistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.26</span>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a> &#x4E8B;&#x4EF6;&#x7684;&#x540D;&#x79F0;&#x3002;</li>
+<li><code>listener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x4E8B;&#x4EF6;&#x7684;&#x53E5;&#x67C4;&#x51FD;&#x6570;&#x3002;</li>
+</ul>
+<p><code>EventEmitter</code> &#x5B9E;&#x4F8B;&#x5728;&#x65B0;&#x7684;&#x76D1;&#x542C;&#x5668;&#x88AB;&#x6DFB;&#x52A0;&#x5230;&#x5176;&#x5185;&#x90E8;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x4E4B;&#x524D;&#xFF0C;&#x4F1A;&#x89E6;&#x53D1;&#x81EA;&#x8EAB;&#x7684; <code>&apos;newListener&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p>
+<p>&#x5728;&#x6DFB;&#x52A0;&#x76D1;&#x542C;&#x5668;&#x4E4B;&#x524D;&#x89E6;&#x53D1; <code>&apos;newListener&apos;</code> &#x4E8B;&#x4EF6;&#x6709;&#x4E00;&#x4E2A;&#x526F;&#x4F5C;&#x7528;&#xFF1A;
+&#x5982;&#x679C;&#x5728;&#x56DE;&#x8C03;&#x4E2D;&#x6CE8;&#x518C;&#x540C;&#x540D;&#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x5219;&#x8BE5;&#x76D1;&#x542C;&#x5668;&#x4F1A;&#x88AB;&#x63D2;&#x5165;&#x5230;&#x6B63;&#x88AB;&#x6DFB;&#x52A0;&#x7684;&#x76D1;&#x542C;&#x5668;&#x524D;&#x9762;&#x3002;</p>
+<pre><code class="language-js">const myEmitter = new MyEmitter();
+// &#x53EA;&#x5904;&#x7406;&#x4E00;&#x6B21;&#xFF0C;&#x907F;&#x514D;&#x65E0;&#x9650;&#x5FAA;&#x73AF;&#x3002;
+myEmitter.once(&apos;newListener&apos;, (event, listener) =&gt; {
+  if (event === &apos;event&apos;) {
+    // &#x5728;&#x524D;&#x9762;&#x63D2;&#x5165;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x76D1;&#x542C;&#x5668;&#x3002;
+    myEmitter.on(&apos;event&apos;, () =&gt; {
+      console.log(&apos;B&apos;);
+    });
+  }
+});
+myEmitter.on(&apos;event&apos;, () =&gt; {
+  console.log(&apos;A&apos;);
+});
+myEmitter.emit(&apos;event&apos;);
+// &#x6253;&#x5370;:
+//   B
+//   A
+</code></pre>
+<h3>&apos;removeListener&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#events_event_removelistener" id="events_event_removelistener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_removelistener.html" tppabs="http://nodejs.cn/api/events/event_removelistener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.1.0, v4.7.0</td>
+<td><p>For listeners attached using <code>.once()</code>, the <code>listener</code> argument now yields the original listener function.</p></td></tr>
+<tr><td>v0.9.3</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.9.3</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a> &#x4E8B;&#x4EF6;&#x7684;&#x540D;&#x79F0;&#x3002;</li>
+<li><code>listener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x4E8B;&#x4EF6;&#x7684;&#x53E5;&#x67C4;&#x51FD;&#x6570;&#x3002;</li>
+</ul>
+<p><code>&apos;removeListener&apos;</code> &#x4E8B;&#x4EF6;&#x5728; <code>listener</code> &#x88AB;&#x79FB;&#x9664;&#x540E;&#x89E6;&#x53D1;&#x3002;</p>
+<h3>EventEmitter.listenerCount(emitter, eventName)<span><a class="mark" href="#events_eventemitter_listenercount_emitter_eventname" id="events_eventemitter_listenercount_emitter_eventname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.12</span><span>&#x5E9F;&#x5F03;&#x4E8E;: v4.0.0</span>
+</div>
+<ul>
+<li><code>emitter</code> <a href="events.html#events_class_eventemitter" tppabs="http://nodejs.cn/api/events.html#events_class_eventemitter" target="_blank" rel="nofollow" class="type">&lt;EventEmitter&gt;</a> The emitter to query</li>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a> The event name</li>
+</ul>
+<p></p><div class="api_stability api_stability_0"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 0</a> - &#x5E9F;&#x5F03;&#x7684;: &#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/Xa1Jfm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Xa1Jfm'" tppabs="http://nodejs.cn/s/Xa1Jfm" rel="nofollow"><code>emitter.listenerCount()</code></a> &#x4EE3;&#x66FF;&#x3002;</div><p></p>
+<p>A class method that returns the number of listeners for the given <code>eventName</code>
+registered on the given <code>emitter</code>.</p>
+<pre><code class="language-js">const myEmitter = new MyEmitter();
+myEmitter.on(&apos;event&apos;, () =&gt; {});
+myEmitter.on(&apos;event&apos;, () =&gt; {});
+console.log(EventEmitter.listenerCount(myEmitter, &apos;event&apos;));
+// Prints: 2
+</code></pre>
+<h3>EventEmitter.defaultMaxListeners<span><a class="mark" href="#events_eventemitter_defaultmaxlisteners" id="events_eventemitter_defaultmaxlisteners" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="eventemitter_defaultmaxlisteners.html" tppabs="http://nodejs.cn/api/events/eventemitter_defaultmaxlisteners.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.2</span>
+</div>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x6BCF;&#x4E2A;&#x4E8B;&#x4EF6;&#x53EF;&#x4EE5;&#x6CE8;&#x518C;&#x6700;&#x591A; <code>10</code> &#x4E2A;&#x76D1;&#x542C;&#x5668;&#x3002;
+&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/VPJci1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/VPJci1'" tppabs="http://nodejs.cn/s/VPJci1" rel="nofollow"><code>emitter.setMaxListeners(n)</code></a> &#x65B9;&#x6CD5;&#x6539;&#x53D8;&#x5355;&#x4E2A; <code>EventEmitter</code> &#x5B9E;&#x4F8B;&#x7684;&#x9650;&#x5236;&#x3002;
+&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>EventEmitter.defaultMaxListeners</code> &#x5C5E;&#x6027;&#x6539;&#x53D8;&#x6240;&#x6709; <code>EventEmitter</code> &#x5B9E;&#x4F8B;&#x7684;&#x9ED8;&#x8BA4;&#x503C;&#x3002;</p>
+<p>&#x8BBE;&#x7F6E; <code>EventEmitter.defaultMaxListeners</code> &#x8981;&#x8C28;&#x614E;&#xFF0C;&#x56E0;&#x4E3A;&#x4F1A;&#x5F71;&#x54CD;&#x6240;&#x6709; <code>EventEmitter</code> &#x5B9E;&#x4F8B;&#xFF0C;&#x5305;&#x62EC;&#x4E4B;&#x524D;&#x521B;&#x5EFA;&#x7684;&#x3002;
+&#x56E0;&#x800C;&#xFF0C;&#x4F18;&#x5148;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/VPJci1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/VPJci1'" tppabs="http://nodejs.cn/s/VPJci1" rel="nofollow"><code>emitter.setMaxListeners(n)</code></a> &#x800C;&#x4E0D;&#x662F; <code>EventEmitter.defaultMaxListeners</code>&#x3002;</p>
+<p>&#x9650;&#x5236;&#x4E0D;&#x662F;&#x786C;&#x6027;&#x7684;&#x3002;
+<code>EventEmitter</code> &#x5B9E;&#x4F8B;&#x53EF;&#x4EE5;&#x6DFB;&#x52A0;&#x8D85;&#x8FC7;&#x9650;&#x5236;&#x7684;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x4F46;&#x4F1A;&#x5411; <code>stderr</code> &#x8F93;&#x51FA;&#x8DDF;&#x8E2A;&#x8B66;&#x544A;&#xFF0C;&#x8868;&#x660E;&#x68C0;&#x6D4B;&#x5230;&#x53EF;&#x80FD;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3002;
+&#x5BF9;&#x4E8E;&#x5355;&#x4E2A; <code>EventEmitter</code> &#x5B9E;&#x4F8B;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>emitter.getMaxListeners()</code> &#x548C; <code>emitter.setMaxListeners()</code> &#x6682;&#x65F6;&#x5730;&#x6D88;&#x9664;&#x8B66;&#x544A;&#xFF1A;</p>
+<pre><code class="language-js">emitter.setMaxListeners(emitter.getMaxListeners() + 1);
+emitter.once(&apos;event&apos;, () =&gt; {
+  // &#x505A;&#x4E9B;&#x64CD;&#x4F5C;
+  emitter.setMaxListeners(Math.max(emitter.getMaxListeners() - 1, 0));
+});
+</code></pre>
+<h3>emitter.addListener(eventName, listener)<span><a class="mark" href="#events_emitter_addlistener_eventname_listener" id="events_emitter_addlistener_eventname_listener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_addlistener_eventname_listener.html" tppabs="http://nodejs.cn/api/events/emitter_addlistener_eventname_listener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.26</span>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a></li>
+<li><code>listener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+</ul>
+<p><code>emitter.on(eventName, listener)</code> &#x7684;&#x522B;&#x540D;&#x3002;</p>
+<h3>emitter.emit(eventName[, ...args])<span><a class="mark" href="#events_emitter_emit_eventname_args" id="events_emitter_emit_eventname_args" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_emit_eventname_args.html" tppabs="http://nodejs.cn/api/events/emitter_emit_eventname_args.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.26</span>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a></li>
+</ul>
+<ul>
+<li><code>...args</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+</ul>
+<ul>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a></li>
+</ul>
+<p>&#x6309;&#x7167;&#x76D1;&#x542C;&#x5668;&#x6CE8;&#x518C;&#x7684;&#x987A;&#x5E8F;&#xFF0C;&#x540C;&#x6B65;&#x5730;&#x8C03;&#x7528;&#x6BCF;&#x4E2A;&#x6CE8;&#x518C;&#x5230;&#x540D;&#x4E3A; <code>eventName</code> &#x7684;&#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x5E76;&#x4F20;&#x5165;&#x63D0;&#x4F9B;&#x7684;&#x53C2;&#x6570;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4E8B;&#x4EF6;&#x6709;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x5219;&#x8FD4;&#x56DE; <code>true</code>&#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE; <code>false</code>&#x3002;</p>
+<h3>emitter.eventNames()<span><a class="mark" href="#events_emitter_eventnames" id="events_emitter_eventnames" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_eventnames.html" tppabs="http://nodejs.cn/api/events/emitter_eventnames.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.0.0</span>
+</div>
+<ul>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Array  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Array'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Array" target="_blank" rel="nofollow" class="type">&lt;Array&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x5DF2;&#x6CE8;&#x518C;&#x76D1;&#x542C;&#x5668;&#x7684;&#x4E8B;&#x4EF6;&#x540D;&#x6570;&#x7EC4;&#x3002;
+&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x503C;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#x6216; `Symbol&#x3002;</p>
+<pre><code class="language-js">const EventEmitter = require(&apos;events&apos;);
+const myEE = new EventEmitter();
+myEE.on(&apos;foo&apos;, () =&gt; {});
+myEE.on(&apos;bar&apos;, () =&gt; {});
+
+const sym = Symbol(&apos;symbol&apos;);
+myEE.on(sym, () =&gt; {});
+
+console.log(myEE.eventNames());
+// &#x6253;&#x5370;: [ &apos;foo&apos;, &apos;bar&apos;, Symbol(symbol) ]
+</code></pre>
+<h3>emitter.getMaxListeners()<span><a class="mark" href="#events_emitter_getmaxlisteners" id="events_emitter_getmaxlisteners" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_getmaxlisteners.html" tppabs="http://nodejs.cn/api/events/emitter_getmaxlisteners.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v1.0.0</span>
+</div>
+<ul>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE; <code>EventEmitter</code> &#x5F53;&#x524D;&#x7684;&#x76D1;&#x542C;&#x5668;&#x6700;&#x5927;&#x9650;&#x5236;&#x6570;&#x7684;&#x503C;&#xFF0C;&#x8BE5;&#x503C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/VPJci1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/VPJci1'" tppabs="http://nodejs.cn/s/VPJci1" rel="nofollow"><code>emitter.setMaxListeners(n)</code></a> &#x8BBE;&#x7F6E;&#x6216;&#x9ED8;&#x8BA4;&#x4E3A; <a href="javascript:if(confirm('http://nodejs.cn/s/LwxMek  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LwxMek'" tppabs="http://nodejs.cn/s/LwxMek" rel="nofollow"><code>EventEmitter.defaultMaxListeners</code></a>&#x3002;</p>
+<h3>emitter.listenerCount(eventName)<span><a class="mark" href="#events_emitter_listenercount_eventname" id="events_emitter_listenercount_eventname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_listenercount_eventname.html" tppabs="http://nodejs.cn/api/events/emitter_listenercount_eventname.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v3.2.0</span>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a> &#x6B63;&#x5728;&#x76D1;&#x542C;&#x7684;&#x4E8B;&#x4EF6;&#x540D;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x6B63;&#x5728;&#x76D1;&#x542C;&#x7684;&#x540D;&#x4E3A; <code>eventName</code> &#x7684;&#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x7684;&#x6570;&#x91CF;&#x3002;</p>
+<h3>emitter.listeners(eventName)<span><a class="mark" href="#events_emitter_listeners_eventname" id="events_emitter_listeners_eventname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_listeners_eventname.html" tppabs="http://nodejs.cn/api/events/emitter_listeners_eventname.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v7.0.0</td>
+<td><p>For listeners attached using <code>.once()</code> this returns the original listeners instead of wrapper functions now.</p></td></tr>
+<tr><td>v0.1.26</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.26</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function[]&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x540D;&#x4E3A; <code>eventName</code> &#x7684;&#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x7684;&#x526F;&#x672C;&#x3002;</p>
+<pre><code class="language-js">server.on(&apos;connection&apos;, (stream) =&gt; {
+  console.log(&apos;someone connected!&apos;);
+});
+console.log(util.inspect(server.listeners(&apos;connection&apos;)));
+// &#x6253;&#x5370;: [ [Function] ]
+</code></pre>
+<h3>emitter.off(eventName, listener)<span><a class="mark" href="#events_emitter_off_eventname_listener" id="events_emitter_off_eventname_listener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_off_eventname_listener.html" tppabs="http://nodejs.cn/api/events/emitter_off_eventname_listener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.0.0</span>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a></li>
+<li><code>listener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="events.html#events_class_eventemitter" tppabs="http://nodejs.cn/api/events.html#events_class_eventemitter" target="_blank" rel="nofollow" class="type">&lt;EventEmitter&gt;</a></li>
+</ul>
+<p><a href="javascript:if(confirm('http://nodejs.cn/s/wRaKrC  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wRaKrC'" tppabs="http://nodejs.cn/s/wRaKrC" rel="nofollow"><code>emitter.removeListener()</code></a> &#x7684;&#x522B;&#x540D;&#x3002;</p>
+<h3>emitter.on(eventName, listener)<span><a class="mark" href="#events_emitter_on_eventname_listener" id="events_emitter_on_eventname_listener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_on_eventname_listener.html" tppabs="http://nodejs.cn/api/events/emitter_on_eventname_listener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.101</span>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a> &#x4E8B;&#x4EF6;&#x540D;&#x79F0;&#x3002;</li>
+<li><code>listener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="events.html#events_class_eventemitter" tppabs="http://nodejs.cn/api/events.html#events_class_eventemitter" target="_blank" rel="nofollow" class="type">&lt;EventEmitter&gt;</a></li>
+</ul>
+<p>&#x6DFB;&#x52A0; <code>listener</code> &#x51FD;&#x6570;&#x5230;&#x540D;&#x4E3A; <code>eventName</code> &#x7684;&#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x7684;&#x672B;&#x5C3E;&#x3002;
+&#x4E0D;&#x4F1A;&#x68C0;&#x67E5; <code>listener</code> &#x662F;&#x5426;&#x5DF2;&#x88AB;&#x6DFB;&#x52A0;&#x3002;
+&#x591A;&#x6B21;&#x8C03;&#x7528;&#x5E76;&#x4F20;&#x5165;&#x76F8;&#x540C;&#x7684; <code>eventName</code> &#x4E0E; <code>listener</code> &#x4F1A;&#x5BFC;&#x81F4; <code>listener</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x591A;&#x6B21;&#x3002;</p>
+<pre><code class="language-js">server.on(&apos;connection&apos;, (stream) =&gt; {
+  console.log(&apos;&#x5DF2;&#x8FDE;&#x63A5;&apos;);
+});
+</code></pre>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x5668;&#x4F1A;&#x6309;&#x7167;&#x6DFB;&#x52A0;&#x7684;&#x987A;&#x5E8F;&#x4F9D;&#x6B21;&#x8C03;&#x7528;&#x3002;
+<code>emitter.prependListener()</code> &#x65B9;&#x6CD5;&#x53EF;&#x7528;&#x4E8E;&#x5C06;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x5668;&#x6DFB;&#x52A0;&#x5230;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x7684;&#x5F00;&#x5934;&#x3002;</p>
+<pre><code class="language-js">const myEE = new EventEmitter();
+myEE.on(&apos;foo&apos;, () =&gt; console.log(&apos;a&apos;));
+myEE.prependListener(&apos;foo&apos;, () =&gt; console.log(&apos;b&apos;));
+myEE.emit(&apos;foo&apos;);
+// &#x6253;&#x5370;:
+//   b
+//   a
+</code></pre>
+<h3>emitter.once(eventName, listener)<span><a class="mark" href="#events_emitter_once_eventname_listener" id="events_emitter_once_eventname_listener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_once_eventname_listener.html" tppabs="http://nodejs.cn/api/events/emitter_once_eventname_listener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.0</span>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a> &#x4E8B;&#x4EF6;&#x540D;&#x79F0;&#x3002;</li>
+<li><code>listener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="events.html#events_class_eventemitter" tppabs="http://nodejs.cn/api/events.html#events_class_eventemitter" target="_blank" rel="nofollow" class="type">&lt;EventEmitter&gt;</a></li>
+</ul>
+<p>&#x6DFB;&#x52A0;&#x5355;&#x6B21;&#x76D1;&#x542C;&#x5668; <code>listener</code> &#x5230;&#x540D;&#x4E3A; <code>eventName</code> &#x7684;&#x4E8B;&#x4EF6;&#x3002;
+&#x5F53; <code>eventName</code> &#x4E8B;&#x4EF6;&#x4E0B;&#x6B21;&#x89E6;&#x53D1;&#x65F6;&#xFF0C;&#x76D1;&#x542C;&#x5668;&#x4F1A;&#x5148;&#x88AB;&#x79FB;&#x9664;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x8C03;&#x7528;&#x3002;</p>
+<pre><code class="language-js">server.once(&apos;connection&apos;, (stream) =&gt; {
+  console.log(&apos;&#x7B2C;&#x4E00;&#x6B21;&#x8C03;&#x7528;&apos;);
+});
+</code></pre>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x5668;&#x4F1A;&#x6309;&#x7167;&#x6DFB;&#x52A0;&#x7684;&#x987A;&#x5E8F;&#x4F9D;&#x6B21;&#x8C03;&#x7528;&#x3002;
+<code>emitter.prependOnceListener()</code> &#x65B9;&#x6CD5;&#x53EF;&#x7528;&#x4E8E;&#x5C06;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x5668;&#x6DFB;&#x52A0;&#x5230;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x7684;&#x5F00;&#x5934;&#x3002;</p>
+<pre><code class="language-js">const myEE = new EventEmitter();
+myEE.once(&apos;foo&apos;, () =&gt; console.log(&apos;a&apos;));
+myEE.prependOnceListener(&apos;foo&apos;, () =&gt; console.log(&apos;b&apos;));
+myEE.emit(&apos;foo&apos;);
+// &#x6253;&#x5370;:
+//   b
+//   a
+</code></pre>
+<h3>emitter.prependListener(eventName, listener)<span><a class="mark" href="#events_emitter_prependlistener_eventname_listener" id="events_emitter_prependlistener_eventname_listener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_prependlistener_eventname_listener.html" tppabs="http://nodejs.cn/api/events/emitter_prependlistener_eventname_listener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.0.0</span>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a> &#x4E8B;&#x4EF6;&#x540D;&#x79F0;&#x3002;</li>
+<li><code>listener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="events.html#events_class_eventemitter" tppabs="http://nodejs.cn/api/events.html#events_class_eventemitter" target="_blank" rel="nofollow" class="type">&lt;EventEmitter&gt;</a></li>
+</ul>
+<p>&#x6DFB;&#x52A0; <code>listener</code> &#x51FD;&#x6570;&#x5230;&#x540D;&#x4E3A; <code>eventName</code> &#x7684;&#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x7684;&#x5F00;&#x5934;&#x3002;
+&#x4E0D;&#x4F1A;&#x68C0;&#x67E5; <code>listener</code> &#x662F;&#x5426;&#x5DF2;&#x88AB;&#x6DFB;&#x52A0;&#x3002;
+&#x591A;&#x6B21;&#x8C03;&#x7528;&#x5E76;&#x4F20;&#x5165;&#x76F8;&#x540C;&#x7684; <code>eventName</code> &#x548C; <code>listener</code> &#x4F1A;&#x5BFC;&#x81F4; <code>listener</code> &#x88AB;&#x6DFB;&#x52A0;&#x591A;&#x6B21;&#x3002;</p>
+<pre><code class="language-js">server.prependListener(&apos;connection&apos;, (stream) =&gt; {
+  console.log(&apos;&#x5DF2;&#x8FDE;&#x63A5;&apos;);
+});
+</code></pre>
+<h3>emitter.prependOnceListener(eventName, listener)<span><a class="mark" href="#events_emitter_prependoncelistener_eventname_listener" id="events_emitter_prependoncelistener_eventname_listener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_prependoncelistener_eventname_listener.html" tppabs="http://nodejs.cn/api/events/emitter_prependoncelistener_eventname_listener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.0.0</span>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a> &#x4E8B;&#x4EF6;&#x540D;&#x79F0;&#x3002;</li>
+<li><code>listener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="events.html#events_class_eventemitter" tppabs="http://nodejs.cn/api/events.html#events_class_eventemitter" target="_blank" rel="nofollow" class="type">&lt;EventEmitter&gt;</a></li>
+</ul>
+<p>&#x6DFB;&#x52A0;&#x5355;&#x6B21;&#x76D1;&#x542C;&#x5668; <code>listener</code> &#x5230;&#x540D;&#x4E3A; <code>eventName</code> &#x7684;&#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x7684;&#x5F00;&#x5934;&#x3002;
+&#x5F53; <code>eventName</code> &#x4E8B;&#x4EF6;&#x4E0B;&#x6B21;&#x89E6;&#x53D1;&#x65F6;&#xFF0C;&#x76D1;&#x542C;&#x5668;&#x4F1A;&#x5148;&#x88AB;&#x79FB;&#x9664;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x8C03;&#x7528;&#x3002;</p>
+<pre><code class="language-js">server.prependOnceListener(&apos;connection&apos;, (stream) =&gt; {
+  console.log(&apos;&#x7B2C;&#x4E00;&#x6B21;&#x8C03;&#x7528;&apos;);
+});
+</code></pre>
+<h3>emitter.removeAllListeners([eventName])<span><a class="mark" href="#events_emitter_removealllisteners_eventname" id="events_emitter_removealllisteners_eventname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_removealllisteners_eventname.html" tppabs="http://nodejs.cn/api/events/emitter_removealllisteners_eventname.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.26</span>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="events.html#events_class_eventemitter" tppabs="http://nodejs.cn/api/events.html#events_class_eventemitter" target="_blank" rel="nofollow" class="type">&lt;EventEmitter&gt;</a></li>
+</ul>
+<p>&#x79FB;&#x9664;&#x5168;&#x90E8;&#x76D1;&#x542C;&#x5668;&#x6216;&#x6307;&#x5B9A;&#x7684; <code>eventName</code> &#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x3002;</p>
+<h3>emitter.removeListener(eventName, listener)<span><a class="mark" href="#events_emitter_removelistener_eventname_listener" id="events_emitter_removelistener_eventname_listener" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_removelistener_eventname_listener.html" tppabs="http://nodejs.cn/api/events/emitter_removelistener_eventname_listener.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.26</span>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a> &#x4E8B;&#x4EF6;&#x540D;&#x79F0;&#x3002;</li>
+<li><code>listener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x76D1;&#x542C;&#x5668;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="events.html#events_class_eventemitter" tppabs="http://nodejs.cn/api/events.html#events_class_eventemitter" target="_blank" rel="nofollow" class="type">&lt;EventEmitter&gt;</a></li>
+</ul>
+<p>&#x4ECE;&#x540D;&#x4E3A; <code>eventName</code> &#x7684;&#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x4E2D;&#x79FB;&#x9664;&#x6307;&#x5B9A;&#x7684; <code>listener</code>&#x3002;</p>
+<pre><code class="language-js">const callback = (stream) =&gt; {
+  console.log(&apos;&#x5DF2;&#x8FDE;&#x63A5;&apos;);
+};
+server.on(&apos;connection&apos;, callback);
+// ...
+server.removeListener(&apos;connection&apos;, callback);
+</code></pre>
+<p><code>removeListener()</code> &#x6700;&#x591A;&#x53EA;&#x4F1A;&#x4ECE;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x4E2D;&#x79FB;&#x9664;&#x4E00;&#x4E2A;&#x76D1;&#x542C;&#x5668;&#x3002;
+&#x5982;&#x679C;&#x76D1;&#x542C;&#x5668;&#x88AB;&#x591A;&#x6B21;&#x6DFB;&#x52A0;&#x5230;&#x6307;&#x5B9A; <code>eventName</code> &#x7684;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x4E2D;&#xFF0C;&#x5219;&#x5FC5;&#x987B;&#x591A;&#x6B21;&#x8C03;&#x7528; <code>removeListener()</code> &#x624D;&#x80FD;&#x79FB;&#x9664;&#x6240;&#x6709;&#x5B9E;&#x4F8B;&#x3002;</p>
+<p>&#x4E00;&#x65E6;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#xFF0C;&#x6240;&#x6709;&#x7ED1;&#x5B9A;&#x5230;&#x8BE5;&#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x90FD;&#x4F1A;&#x6309;&#x987A;&#x5E8F;&#x4F9D;&#x6B21;&#x8C03;&#x7528;&#x3002;
+&#x8FD9;&#x610F;&#x5473;&#x7740;&#xFF0C;&#x5728;&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x4E4B;&#x540E;&#x3001;&#x4E14;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x76D1;&#x542C;&#x5668;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x4E4B;&#x524D;&#xFF0C;<code>removeListener()</code> &#x6216; <code>removeAllListeners()</code> &#x4E0D;&#x4F1A;&#x4ECE; <code>emit()</code> &#x4E2D;&#x79FB;&#x9664;&#x5B83;&#x4EEC;&#x3002;</p>
+<pre><code class="language-js">const myEmitter = new MyEmitter();
+
+const callbackA = () =&gt; {
+  console.log(&apos;A&apos;);
+  myEmitter.removeListener(&apos;event&apos;, callbackB);
+};
+
+const callbackB = () =&gt; {
+  console.log(&apos;B&apos;);
+};
+
+myEmitter.on(&apos;event&apos;, callbackA);
+
+myEmitter.on(&apos;event&apos;, callbackB);
+
+// callbackA &#x79FB;&#x9664;&#x4E86;&#x76D1;&#x542C;&#x5668; callbackB&#xFF0C;&#x4F46;&#x5B83;&#x4F9D;&#x7136;&#x4F1A;&#x88AB;&#x8C03;&#x7528;&#x3002;
+// &#x89E6;&#x53D1;&#x65F6;&#x5185;&#x90E8;&#x7684;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x4E3A; [callbackA, callbackB]
+myEmitter.emit(&apos;event&apos;);
+// &#x6253;&#x5370;:
+//   A
+//   B
+
+// callbackB &#x73B0;&#x5DF2;&#x88AB;&#x79FB;&#x9664;&#x3002;
+// &#x5185;&#x90E8;&#x7684;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x4E3A; [callbackA]
+myEmitter.emit(&apos;event&apos;);
+// &#x6253;&#x5370;:
+//   A
+</code></pre>
+<h3>emitter.setMaxListeners(n)<span><a class="mark" href="#events_emitter_setmaxlisteners_n" id="events_emitter_setmaxlisteners_n" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_setmaxlisteners_n.html" tppabs="http://nodejs.cn/api/events/emitter_setmaxlisteners_n.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.5</span>
+</div>
+<ul>
+<li><code>n</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="events.html#events_class_eventemitter" tppabs="http://nodejs.cn/api/events.html#events_class_eventemitter" target="_blank" rel="nofollow" class="type">&lt;EventEmitter&gt;</a></li>
+</ul>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5982;&#x679C;&#x4E3A;&#x7279;&#x5B9A;&#x4E8B;&#x4EF6;&#x6DFB;&#x52A0;&#x4E86;&#x8D85;&#x8FC7; <code>10</code> &#x4E2A;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x5219; <code>EventEmitter</code> &#x4F1A;&#x6253;&#x5370;&#x4E00;&#x4E2A;&#x8B66;&#x544A;&#x3002;
+&#x8FD9;&#x6709;&#x52A9;&#x4E8E;&#x53D1;&#x73B0;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x3002;
+&#x4F46;&#x662F;&#xFF0C;&#x5E76;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x7684;&#x4E8B;&#x4EF6;&#x90FD;&#x8981;&#x9650;&#x5236; <code>10</code> &#x4E2A;&#x76D1;&#x542C;&#x5668;&#x3002;
+<code>emitter.setMaxListeners()</code> &#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x4E3A;&#x6307;&#x5B9A;&#x7684; <code>EventEmitter</code> &#x5B9E;&#x4F8B;&#x4FEE;&#x6539;&#x9650;&#x5236;&#x3002;
+&#x503C;&#x8BBE;&#x4E3A; <code>Infinity</code>&#xFF08;&#x6216; <code>0</code>&#xFF09;&#x8868;&#x793A;&#x4E0D;&#x9650;&#x5236;&#x76D1;&#x542C;&#x5668;&#x7684;&#x6570;&#x91CF;&#x3002;</p>
+<h3>emitter.rawListeners(eventName)<span><a class="mark" href="#events_emitter_rawlisteners_eventname" id="events_emitter_rawlisteners_eventname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="emitter_rawlisteners_eventname.html" tppabs="http://nodejs.cn/api/events/emitter_rawlisteners_eventname.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v9.4.0</span>
+</div>
+<ul>
+<li><code>eventName</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Symbol_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Symbol_type" target="_blank" rel="nofollow" class="type">&lt;symbol&gt;</a> &#x4E8B;&#x4EF6;&#x540D;&#x79F0;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function[]&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE; <code>eventName</code> &#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x6570;&#x7EC4;&#x7684;&#x62F7;&#x8D1D;&#xFF0C;&#x5305;&#x62EC;&#x5C01;&#x88C5;&#x7684;&#x76D1;&#x542C;&#x5668;&#xFF08;&#x4F8B;&#x5982;&#x7531; <code>.once()</code> &#x521B;&#x5EFA;&#x7684;&#xFF09;&#x3002;</p>
+<pre><code class="language-js">const emitter = new EventEmitter();
+emitter.once(&apos;log&apos;, () =&gt; console.log(&apos;&#x53EA;&#x8BB0;&#x5F55;&#x4E00;&#x6B21;&apos;));
+
+// &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E2A;&#x5C01;&#x88C5;&#x4E86; `listener` &#x65B9;&#x6CD5;&#x7684;&#x76D1;&#x542C;&#x5668;&#x3002;
+const listeners = emitter.rawListeners(&apos;log&apos;);
+const logFnWrapper = listeners[0];
+
+// &#x6253;&#x5370; &#x201C;&#x53EA;&#x8BB0;&#x5F55;&#x4E00;&#x6B21;&#x201D;&#xFF0C;&#x4F46;&#x4E0D;&#x4F1A;&#x89E3;&#x7ED1; `once` &#x4E8B;&#x4EF6;&#x3002;
+logFnWrapper.listener();
+
+// &#x6253;&#x5370; &#x201C;&#x53EA;&#x8BB0;&#x5F55;&#x4E00;&#x6B21;&#x201D;&#xFF0C;&#x4E14;&#x79FB;&#x9664;&#x76D1;&#x542C;&#x5668;&#x3002;
+logFnWrapper();
+
+emitter.on(&apos;log&apos;, () =&gt; console.log(&apos;&#x6301;&#x7EED;&#x5730;&#x8BB0;&#x5F55;&apos;));
+// &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x53EA;&#x5305;&#x542B; `.on()` &#x7ED1;&#x5B9A;&#x7684;&#x76D1;&#x542C;&#x5668;&#x3002;
+const newListeners = emitter.rawListeners(&apos;log&apos;);
+
+// &#x6253;&#x5370;&#x4E24;&#x6B21; &#x201C;&#x6301;&#x7EED;&#x5730;&#x8BB0;&#x5F55;&#x201D;&#x3002;
+newListeners[0]();
+emitter.emit(&apos;log&apos;);
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712021601"><\/script>');
+  </script>
+
+</body></html>

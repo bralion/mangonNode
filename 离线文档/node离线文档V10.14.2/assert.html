@@ -1,0 +1,1174 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>assert | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712010340" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-assert">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert active" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="assert" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><span class="stability_2"><a href="#assert_assert">assert&#xFF08;&#x65AD;&#x8A00;&#xFF09;</a></span></p>
+<ul>
+<li>
+<p><a href="#assert_class_assert_assertionerror">assert.AssertionError &#x7C7B;</a></p>
+<ul>
+<li><a href="#assert_new_assert_assertionerror_options">new assert.AssertionError(options)</a></li>
+</ul>
+</li>
+<li><a href="#assert_strict_mode">&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#xFF08;strict mode&#xFF09;</a></li>
+<li><a href="#assert_legacy_mode">&#x9057;&#x7559;&#x6A21;&#x5F0F;&#xFF08;legacy mode&#xFF09;</a></li>
+<li><a href="#assert_assert_value_message">assert(value[, message])</a></li>
+<li><a href="#assert_assert_deepequal_actual_expected_message">assert.deepEqual(actual, expected[, message])</a></li>
+<li>
+<p><a href="#assert_assert_deepstrictequal_actual_expected_message">assert.deepStrictEqual(actual, expected[, message])</a></p>
+<ul>
+<li><a href="#assert_comparison_details">&#x6BD4;&#x8F83;&#x8FD0;&#x7B97;&#x7684;&#x8BE6;&#x7EC6;&#x8BF4;&#x660E;</a></li>
+</ul>
+</li>
+<li><a href="#assert_assert_doesnotreject_asyncfn_error_message">assert.doesNotReject(asyncFn[, error][, message])</a></li>
+<li><a href="#assert_assert_doesnotthrow_fn_error_message">assert.doesNotThrow(fn[, error][, message])</a></li>
+<li><a href="#assert_assert_equal_actual_expected_message">assert.equal(actual, expected[, message])</a></li>
+<li><a href="#assert_assert_fail_message">assert.fail([message])</a></li>
+<li><span class="stability_0"><a href="#assert_assert_fail_actual_expected_message_operator_stackstartfn">assert.fail(actual, expected[, message[, operator[, stackStartFn]]])</a></span></li>
+<li><a href="#assert_assert_iferror_value">assert.ifError(value)</a></li>
+<li><a href="#assert_assert_notdeepequal_actual_expected_message">assert.notDeepEqual(actual, expected[, message])</a></li>
+<li><a href="#assert_assert_notdeepstrictequal_actual_expected_message">assert.notDeepStrictEqual(actual, expected[, message])</a></li>
+<li><a href="#assert_assert_notequal_actual_expected_message">assert.notEqual(actual, expected[, message])</a></li>
+<li><a href="#assert_assert_notstrictequal_actual_expected_message">assert.notStrictEqual(actual, expected[, message])</a></li>
+<li><a href="#assert_assert_ok_value_message">assert.ok(value[, message])</a></li>
+<li><a href="#assert_assert_rejects_asyncfn_error_message">assert.rejects(asyncFn[, error][, message])</a></li>
+<li><a href="#assert_assert_strictequal_actual_expected_message">assert.strictEqual(actual, expected[, message])</a></li>
+<li><a href="#assert_assert_throws_fn_error_message">assert.throws(fn[, error][, message])</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>assert&#xFF08;&#x65AD;&#x8A00;&#xFF09;<span><a class="mark" href="#assert_assert" id="assert_assert" rel="nofollow">#</a></span></h1><p class="tip_wrap"><a href="assert-1.html" tppabs="http://nodejs.cn/api/assert/assert.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<!--introduced_in=v0.1.21-->
+<p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p>
+<p><code>assert</code> &#x6A21;&#x5757;&#x63D0;&#x4F9B;&#x4E86;&#x65AD;&#x8A00;&#x6D4B;&#x8BD5;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x7528;&#x4E8E;&#x6D4B;&#x8BD5;&#x4E0D;&#x53D8;&#x5F0F;&#x3002;</p>
+<p>&#x5B58;&#x5728;&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#xFF08;strict mode&#xFF09;&#x4E0E;&#x9057;&#x7559;&#x6A21;&#x5F0F;&#xFF08;legacy mode&#xFF09;&#xFF0C;&#x5EFA;&#x8BAE;&#x53EA;&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/v8AhVr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/v8AhVr'" tppabs="http://nodejs.cn/s/v8AhVr" rel="nofollow">&#x4E25;&#x683C;&#x6A21;&#x5F0F;</a>&#x3002;</p>
+<p>&#x67E5;&#x770B; <a href="javascript:if(confirm('http://nodejs.cn/s/FB6EHp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FB6EHp'" tppabs="http://nodejs.cn/s/FB6EHp" rel="nofollow">MDN&#x7684;&#x7B49;&#x5F0F;&#x6BD4;&#x8F83;&#x6307;&#x5357;</a>&#xFF0C;&#x4E86;&#x89E3;&#x66F4;&#x591A;&#x5173;&#x4E8E;&#x7B49;&#x5F0F;&#x6BD4;&#x8F83;&#x7684;&#x4FE1;&#x606F;&#x3002;</p>
+<h2>assert.AssertionError &#x7C7B;<span><a class="mark" href="#assert_class_assert_assertionerror" id="assert_class_assert_assertionerror" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="class_assert_assertionerror.html" tppabs="http://nodejs.cn/api/assert/class_assert_assertionerror.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>Error</code> &#x7684;&#x5B50;&#x7C7B;&#xFF0C;&#x8868;&#x660E;&#x65AD;&#x8A00;&#x7684;&#x5931;&#x8D25;&#x3002;
+<code>assert</code> &#x6A21;&#x5757;&#x629B;&#x51FA;&#x7684;&#x9519;&#x8BEF;&#x90FD;&#x662F; <code>AssertionError</code> &#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#x3002;</p>
+<h3>new assert.AssertionError(options)<span><a class="mark" href="#assert_new_assert_assertionerror_options" id="assert_new_assert_assertionerror_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="new_assert_assertionerror_options.html" tppabs="http://nodejs.cn/api/assert/new_assert_assertionerror_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.21</span>
+</div>
+<ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5982;&#x679C;&#x6307;&#x5B9A;&#xFF0C;&#x5219;&#x4F5C;&#x4E3A;&#x9519;&#x8BEF;&#x7684;&#x4FE1;&#x606F;&#x3002;</li>
+<li><code>actual</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a> &#x6307;&#x5B9A;&#x9519;&#x8BEF;&#x5B9E;&#x4F8B;&#x7684; <code>actual</code> &#x5C5E;&#x6027;&#x3002;</li>
+<li><code>expected</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a> &#x6307;&#x5B9A;&#x9519;&#x8BEF;&#x5B9E;&#x4F8B;&#x7684; <code>expected</code> &#x5C5E;&#x6027;&#x3002;</li>
+<li><code>operator</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x6307;&#x5B9A;&#x9519;&#x8BEF;&#x5B9E;&#x4F8B;&#x7684; <code>operator</code> &#x5C5E;&#x6027;&#x3002;&#x8868;&#x660E;&#x4F7F;&#x7528;&#x7684;&#x5BF9;&#x6BD4;&#x64CD;&#x4F5C;&#xFF08;&#x6216;&#x89E6;&#x53D1;&#x9519;&#x8BEF;&#x7684;&#x65AD;&#x8A00;&#x65B9;&#x6CD5;&#xFF09;&#x3002;</li>
+<li><code>stackStartFn</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x5982;&#x679C;&#x6307;&#x5B9A;&#xFF0C;&#x5219;&#x7531;&#x63D0;&#x4F9B;&#x7684;&#x51FD;&#x6570;&#x751F;&#x6210;&#x5806;&#x6808;&#x8E2A;&#x8FF9;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p><code>Error</code> &#x7684;&#x5B50;&#x7C7B;&#xFF0C;&#x8868;&#x660E;&#x65AD;&#x8A00;&#x7684;&#x5931;&#x8D25;&#x3002;</p>
+<p>&#x6240;&#x6709;&#x5B9E;&#x4F8B;&#x90FD;&#x5305;&#x542B;&#x5185;&#x7F6E;&#x7684; <code>Error</code> &#x5C5E;&#x6027;&#xFF08;<code>message</code> &#x548C; <code>name</code>&#xFF09;&#x4EE5;&#x53CA;&#xFF1A;</p>
+<ul>
+<li><code>actual</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a> &#x5B9E;&#x9645;&#x503C;&#x3002;</li>
+<li><code>expected</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a> &#x671F;&#x671B;&#x503C;&#x3002;</li>
+<li><code>generatedMessage</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x662F;&#x5426;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x4FE1;&#x606F;&#x3002;</li>
+<li><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x603B;&#x662F;&#x4E3A; <code>ERR_ASSERTION</code>&#xFF0C;&#x8868;&#x660E;&#x662F;&#x65AD;&#x8A00;&#x9519;&#x8BEF;&#x3002;</li>
+<li><code>operator</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x8FD0;&#x7B97;&#x7B26;&#x3002;</li>
+</ul>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;);
+
+// &#x521B;&#x5EFA;&#x4E00;&#x4E2A; AssertionError&#xFF0C;&#x7528;&#x4E8E;&#x5BF9;&#x6BD4;&#x9519;&#x8BEF;&#xFF1A;
+const { message } = new assert.AssertionError({
+  actual: 1,
+  expected: 2,
+  operator: &apos;strictEqual&apos;
+});
+
+// &#x6821;&#x9A8C;&#x9519;&#x8BEF;&#xFF1A;
+try {
+  assert.strictEqual(1, 2);
+} catch (err) {
+  assert(err instanceof assert.AssertionError);
+  assert.strictEqual(err.message, message);
+  assert.strictEqual(err.name, &apos;AssertionError [ERR_ASSERTION]&apos;);
+  assert.strictEqual(err.actual, 1);
+  assert.strictEqual(err.expected, 2);
+  assert.strictEqual(err.code, &apos;ERR_ASSERTION&apos;);
+  assert.strictEqual(err.operator, &apos;strictEqual&apos;);
+  assert.strictEqual(err.generatedMessage, true);
+}
+</code></pre>
+<h2>&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#xFF08;strict mode&#xFF09;<span><a class="mark" href="#assert_strict_mode" id="assert_strict_mode" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="strict_mode.html" tppabs="http://nodejs.cn/api/assert/strict_mode.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.9.0</td>
+<td><p>Added error diffs to the strict mode</p></td></tr>
+<tr><td>v9.9.0</td>
+<td><p>Added strict mode to the assert module.</p></td></tr>
+<tr><td>v9.9.0</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v9.9.0</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>&#x5F53;&#x4F7F;&#x7528;&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#x65F6;&#xFF0C;<code>assert</code> &#x65B9;&#x6CD5;&#x4F1A;&#x4F7F;&#x7528;&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#x7684;&#x7B49;&#x5F0F;&#x3002;
+&#x4F8B;&#x5982; <a href="javascript:if(confirm('http://nodejs.cn/s/T9fJbF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/T9fJbF'" tppabs="http://nodejs.cn/s/T9fJbF" rel="nofollow"><code>assert.deepEqual()</code></a> &#x4F1A;&#x7B49;&#x540C;&#x4E8E; <a href="javascript:if(confirm('http://nodejs.cn/s/PPMrJo  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PPMrJo'" tppabs="http://nodejs.cn/s/PPMrJo" rel="nofollow"><code>assert.deepStrictEqual()</code></a>&#x3002;</p>
+<p>&#x9664;&#x6B64;&#x4EE5;&#x5916;&#xFF0C;&#x9519;&#x8BEF;&#x7684;&#x4FE1;&#x606F;&#x4F1A;&#x751F;&#x6210;&#x5DEE;&#x5F02;&#x5BF9;&#x6BD4;&#xFF0C;&#x800C;&#x4E0D;&#x53EA;&#x662F;&#x5C55;&#x793A;&#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;).strict;
+</code></pre>
+<p>&#x4F8B;&#x5B50;&#xFF0C;&#x9519;&#x8BEF;&#x7684;&#x5DEE;&#x5F02;&#x5BF9;&#x6BD4;&#xFF1A;</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;).strict;
+
+assert.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, &apos;3&apos;]], 4, 5]);
+// AssertionError: Input A expected to strictly deep-equal input B:
+// + expected - actual ... Lines skipped
+//
+//   [
+//     [
+// ...
+//       2,
+// -     3
+// +     &apos;3&apos;
+//     ],
+// ...
+//     5
+//   ]
+</code></pre>
+<p>&#x4F7F;&#x7528; <code>NODE_DISABLE_COLORS</code> &#x73AF;&#x5883;&#x53D8;&#x91CF;&#x53EF;&#x4EE5;&#x7981;&#x7528;&#x989C;&#x8272;&#x3002;
+&#x4F46;&#x8FD9;&#x4E5F;&#x4F1A;&#x7981;&#x7528; REPL &#x4E2D;&#x7684;&#x5176;&#x4ED6;&#x989C;&#x8272;&#x3002;</p>
+<h2>&#x9057;&#x7559;&#x6A21;&#x5F0F;&#xFF08;legacy mode&#xFF09;<span><a class="mark" href="#assert_legacy_mode" id="assert_legacy_mode" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p></p><div class="api_stability api_stability_0"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 0</a> - &#x5E9F;&#x5F03;&#x7684;: &#x4F7F;&#x7528;&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#x4EE3;&#x66FF;&#x3002;</div><p></p>
+<p>When accessing <code>assert</code> directly instead of using the <code>strict</code> property, the
+<a href="javascript:if(confirm('http://nodejs.cn/s/tiZhGn  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tiZhGn'" tppabs="http://nodejs.cn/s/tiZhGn" rel="nofollow">Abstract Equality Comparison</a> will be used for any function without &quot;strict&quot;
+in its name, such as <a href="javascript:if(confirm('http://nodejs.cn/s/T9fJbF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/T9fJbF'" tppabs="http://nodejs.cn/s/T9fJbF" rel="nofollow"><code>assert.deepEqual()</code></a>.</p>
+<p>It can be accessed using:</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;);
+</code></pre>
+<p>It is recommended to use the <a href="javascript:if(confirm('http://nodejs.cn/s/v8AhVr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/v8AhVr'" tppabs="http://nodejs.cn/s/v8AhVr" rel="nofollow"><code>strict mode</code></a> instead as the
+<a href="javascript:if(confirm('http://nodejs.cn/s/tiZhGn  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tiZhGn'" tppabs="http://nodejs.cn/s/tiZhGn" rel="nofollow">Abstract Equality Comparison</a> can often have surprising results. This is
+especially true for <a href="javascript:if(confirm('http://nodejs.cn/s/T9fJbF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/T9fJbF'" tppabs="http://nodejs.cn/s/T9fJbF" rel="nofollow"><code>assert.deepEqual()</code></a>, where the comparison rules are
+lax:</p>
+<pre><code class="language-js">// WARNING: This does not throw an AssertionError!
+assert.deepEqual(/a/gi, new Date());
+</code></pre>
+<h2>assert(value[, message])<span><a class="mark" href="#assert_assert_value_message" id="assert_assert_value_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="assert_value_message.html" tppabs="http://nodejs.cn/api/assert/assert_value_message.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.5.9</span>
+</div>
+<ul>
+<li><code>value</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a> &#x8981;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x4E3A;&#x771F;&#x7684;&#x503C;&#x3002;</li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p><a href="javascript:if(confirm('http://nodejs.cn/s/xzCLSQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xzCLSQ'" tppabs="http://nodejs.cn/s/xzCLSQ" rel="nofollow"><code>assert.ok()</code></a> &#x7684;&#x522B;&#x540D;&#x3002;</p>
+<h2>assert.deepEqual(actual, expected[, message])<span><a class="mark" href="#assert_assert_deepequal_actual_expected_message" id="assert_assert_deepequal_actual_expected_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>The <code>Error</code> names and messages are now properly compared</p></td></tr>
+<tr><td>v8.0.0</td>
+<td><p>The <code>Set</code> and <code>Map</code> content is also compared</p></td></tr>
+<tr><td>v6.4.0, v4.7.1</td>
+<td><p>Typed array slices are handled correctly now.</p></td></tr>
+<tr><td>v6.1.0, v4.5.0</td>
+<td><p>Objects with circular references can be used as inputs now.</p></td></tr>
+<tr><td>v5.10.1, v4.4.3</td>
+<td><p>Handle non-<code>Uint8Array</code> typed arrays correctly.</p></td></tr>
+<tr><td>v0.1.21</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.21</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>actual</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>expected</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p><strong>Strict mode</strong></p>
+<p>An alias of <a href="javascript:if(confirm('http://nodejs.cn/s/PPMrJo  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PPMrJo'" tppabs="http://nodejs.cn/s/PPMrJo" rel="nofollow"><code>assert.deepStrictEqual()</code></a>.</p>
+<p><strong>Legacy mode</strong></p>
+<p></p><div class="api_stability api_stability_0"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 0</a> - &#x5E9F;&#x5F03;&#x7684;: &#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/PPMrJo  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PPMrJo'" tppabs="http://nodejs.cn/s/PPMrJo" rel="nofollow"><code>assert.deepStrictEqual()</code></a> &#x4EE3;&#x66FF;&#x3002;</div><p></p>
+<p>Tests for deep equality between the <code>actual</code> and <code>expected</code> parameters.
+Primitive values are compared with the <a href="javascript:if(confirm('http://nodejs.cn/s/tiZhGn  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tiZhGn'" tppabs="http://nodejs.cn/s/tiZhGn" rel="nofollow">Abstract Equality Comparison</a>
+( <code>==</code> ).</p>
+<p>Only <a href="javascript:if(confirm('http://nodejs.cn/s/hTNJUJ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/hTNJUJ'" tppabs="http://nodejs.cn/s/hTNJUJ" rel="nofollow">enumerable &quot;own&quot; properties</a> are considered. The
+<a href="javascript:if(confirm('http://nodejs.cn/s/T9fJbF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/T9fJbF'" tppabs="http://nodejs.cn/s/T9fJbF" rel="nofollow"><code>assert.deepEqual()</code></a> implementation does not test the
+<a href="javascript:if(confirm('http://nodejs.cn/s/yzA3TL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/yzA3TL'" tppabs="http://nodejs.cn/s/yzA3TL" rel="nofollow"><code>[[Prototype]]</code></a> of objects or enumerable own <a href="javascript:if(confirm('http://nodejs.cn/s/SyrFMg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SyrFMg'" tppabs="http://nodejs.cn/s/SyrFMg" rel="nofollow"><code>Symbol</code></a>
+properties. For such checks, consider using <a href="javascript:if(confirm('http://nodejs.cn/s/PPMrJo  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PPMrJo'" tppabs="http://nodejs.cn/s/PPMrJo" rel="nofollow"><code>assert.deepStrictEqual()</code></a>
+instead. <a href="javascript:if(confirm('http://nodejs.cn/s/T9fJbF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/T9fJbF'" tppabs="http://nodejs.cn/s/T9fJbF" rel="nofollow"><code>assert.deepEqual()</code></a> can have potentially surprising results. The
+following example does not throw an <code>AssertionError</code> because the properties on
+the <a href="javascript:if(confirm('http://nodejs.cn/s/tbQJCP  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tbQJCP'" tppabs="http://nodejs.cn/s/tbQJCP" rel="nofollow"><code>RegExp</code></a> object are not enumerable:</p>
+<pre><code class="language-js">// WARNING: This does not throw an AssertionError!
+assert.deepEqual(/a/gi, new Date());
+</code></pre>
+<p>An exception is made for <a href="javascript:if(confirm('http://nodejs.cn/s/EnuJtG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/EnuJtG'" tppabs="http://nodejs.cn/s/EnuJtG" rel="nofollow"><code>Map</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/yej4PC  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/yej4PC'" tppabs="http://nodejs.cn/s/yej4PC" rel="nofollow"><code>Set</code></a>. <code>Map</code>s and <code>Set</code>s have their
+contained items compared too, as expected.</p>
+<p>&quot;Deep&quot; equality means that the enumerable &quot;own&quot; properties of child objects
+are evaluated also:</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;);
+
+const obj1 = {
+  a: {
+    b: 1
+  }
+};
+const obj2 = {
+  a: {
+    b: 2
+  }
+};
+const obj3 = {
+  a: {
+    b: 1
+  }
+};
+const obj4 = Object.create(obj1);
+
+assert.deepEqual(obj1, obj1);
+// OK
+
+// Values of b are different:
+assert.deepEqual(obj1, obj2);
+// AssertionError: { a: { b: 1 } } deepEqual { a: { b: 2 } }
+
+assert.deepEqual(obj1, obj3);
+// OK
+
+// Prototypes are ignored:
+assert.deepEqual(obj1, obj4);
+// AssertionError: { a: { b: 1 } } deepEqual {}
+</code></pre>
+<p>If the values are not equal, an <code>AssertionError</code> is thrown with a <code>message</code>
+property set equal to the value of the <code>message</code> parameter. If the <code>message</code>
+parameter is undefined, a default error message is assigned. If the <code>message</code>
+parameter is an instance of an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> then it will be thrown instead of the
+<code>AssertionError</code>.</p>
+<h2>assert.deepStrictEqual(actual, expected[, message])<span><a class="mark" href="#assert_assert_deepstrictequal_actual_expected_message" id="assert_assert_deepstrictequal_actual_expected_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="assert_deepstrictequal_actual_expected_message.html" tppabs="http://nodejs.cn/api/assert/assert_deepstrictequal_actual_expected_message.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>Enumerable symbol properties are now compared.</p></td></tr>
+<tr><td>v9.0.0</td>
+<td><p>The <code>NaN</code> is now compared using the <a href="javascript:if(confirm('https://tc39.github.io/ecma262/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://tc39.github.io/ecma262/#sec-samevaluezero'" tppabs="https://tc39.github.io/ecma262/#sec-samevaluezero" rel="nofollow">SameValueZero</a> comparison.</p></td></tr>
+<tr><td>v8.5.0</td>
+<td><p>The <code>Error</code> names and messages are now properly compared</p></td></tr>
+<tr><td>v8.0.0</td>
+<td><p>The <code>Set</code> and <code>Map</code> content is also compared</p></td></tr>
+<tr><td>v6.4.0, v4.7.1</td>
+<td><p>Typed array slices are handled correctly now.</p></td></tr>
+<tr><td>v6.1.0</td>
+<td><p>Objects with circular references can be used as inputs now.</p></td></tr>
+<tr><td>v5.10.1, v4.4.3</td>
+<td><p>Handle non-<code>Uint8Array</code> typed arrays correctly.</p></td></tr>
+<tr><td>v1.2.0</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v1.2.0</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>actual</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>expected</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p>&#x6D4B;&#x8BD5; <code>actual</code> &#x53C2;&#x6570;&#x4E0E; <code>expected</code> &#x53C2;&#x6570;&#x662F;&#x5426;&#x6DF1;&#x5EA6;&#x76F8;&#x7B49;&#x3002;
+&#x6DF1;&#x5EA6;&#x76F8;&#x7B49;&#x610F;&#x5473;&#x7740;&#x5B50;&#x5BF9;&#x8C61;&#x4E2D;&#x53EF;&#x679A;&#x4E3E;&#x7684;&#x81EA;&#x8EAB;&#x5C5E;&#x6027;&#x4E5F;&#x4F1A;&#x6309;&#x4EE5;&#x4E0B;&#x89C4;&#x5219;&#x9012;&#x5F52;&#x5730;&#x6BD4;&#x8F83;&#x3002;</p>
+<h3>&#x6BD4;&#x8F83;&#x8FD0;&#x7B97;&#x7684;&#x8BE6;&#x7EC6;&#x8BF4;&#x660E;<span><a class="mark" href="#assert_comparison_details" id="assert_comparison_details" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="comparison_details.html" tppabs="http://nodejs.cn/api/assert/comparison_details.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li>&#x539F;&#x59CB;&#x503C;&#x8FD0;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/25ULs2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/25ULs2'" tppabs="http://nodejs.cn/s/25ULs2" rel="nofollow">SameValue&#x6BD4;&#x8F83;&#x6CD5;</a>&#x8FDB;&#x884C;&#x6BD4;&#x8F83;&#xFF0C;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/fQqJVi  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fQqJVi'" tppabs="http://nodejs.cn/s/fQqJVi" rel="nofollow"><code>Object.is()</code></a> &#x51FD;&#x6570;&#x3002;</li>
+<li>&#x5BF9;&#x8C61;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/NVhBn1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/NVhBn1'" tppabs="http://nodejs.cn/s/NVhBn1" rel="nofollow">&#x7C7B;&#x578B;&#x6807;&#x7B7E;</a>&#x5E94;&#x8BE5;&#x76F8;&#x540C;&#x3002;</li>
+<li>&#x5BF9;&#x8C61;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/yzA3TL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/yzA3TL'" tppabs="http://nodejs.cn/s/yzA3TL" rel="nofollow">&#x539F;&#x578B;</a>&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/jFa5Tv  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jFa5Tv'" tppabs="http://nodejs.cn/s/jFa5Tv" rel="nofollow">&#x5168;&#x7B49;&#x8FD0;&#x7B97;&#x7B26;</a>&#x6BD4;&#x8F83;&#x3002;</li>
+<li>&#x53EA;&#x6BD4;&#x8F83;<a href="javascript:if(confirm('http://nodejs.cn/s/hTNJUJ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/hTNJUJ'" tppabs="http://nodejs.cn/s/hTNJUJ" rel="nofollow">&#x53EF;&#x679A;&#x4E3E;&#x7684;&#x81EA;&#x8EAB;&#x5C5E;&#x6027;</a>&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> &#x7684;&#x540D;&#x79F0;&#x4E0E;&#x4FE1;&#x606F;&#x4E5F;&#x4F1A;&#x6BD4;&#x8F83;&#xFF0C;&#x5373;&#x4F7F;&#x4E0D;&#x662F;&#x53EF;&#x679A;&#x4E3E;&#x7684;&#x5C5E;&#x6027;&#x3002;</li>
+<li>&#x53EF;&#x679A;&#x4E3E;&#x7684;&#x81EA;&#x8EAB; <a href="javascript:if(confirm('http://nodejs.cn/s/SyrFMg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SyrFMg'" tppabs="http://nodejs.cn/s/SyrFMg" rel="nofollow"><code>Symbol</code></a> &#x5C5E;&#x6027;&#x4E5F;&#x4F1A;&#x6BD4;&#x8F83;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/hem2hq  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/hem2hq'" tppabs="http://nodejs.cn/s/hem2hq" rel="nofollow">&#x5BF9;&#x8C61;&#x5C01;&#x88C5;&#x5668;</a>&#x4F1A;&#x540C;&#x65F6;&#x6BD4;&#x8F83;&#x5BF9;&#x8C61;&#x4E0E;&#x89E3;&#x5C01;&#x88C5;&#x540E;&#x7684;&#x503C;&#x3002;</li>
+<li><code>Object</code> &#x5C5E;&#x6027;&#x7684;&#x6BD4;&#x8F83;&#x662F;&#x65E0;&#x5E8F;&#x7684;&#x3002;</li>
+<li><code>Map</code> &#x952E;&#x540D;&#x4E0E; <code>Set</code> &#x5B50;&#x9879;&#x7684;&#x6BD4;&#x8F83;&#x662F;&#x65E0;&#x5E8F;&#x7684;&#x3002;</li>
+<li>&#x5F53;&#x4E24;&#x8FB9;&#x7684;&#x503C;&#x4E0D;&#x76F8;&#x540C;&#x6216;&#x9047;&#x5230;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x65F6;&#xFF0C;&#x9012;&#x5F52;&#x4F1A;&#x505C;&#x6B62;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/JkfoVY  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JkfoVY'" tppabs="http://nodejs.cn/s/JkfoVY" rel="nofollow"><code>WeakMap</code></a> &#x4E0E; <a href="javascript:if(confirm('http://nodejs.cn/s/gsMyy2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gsMyy2'" tppabs="http://nodejs.cn/s/gsMyy2" rel="nofollow"><code>WeakSet</code></a> &#x7684;&#x6BD4;&#x8F83;&#x4E0D;&#x4F9D;&#x8D56;&#x4E8E;&#x5B83;&#x4EEC;&#x7684;&#x503C;&#x3002;</li>
+</ul>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;).strict;
+
+// &#x5931;&#x8D25;&#xFF0C;&#x56E0;&#x4E3A; 1 !== &apos;1&apos;&#x3002;
+assert.deepStrictEqual({ a: 1 }, { a: &apos;1&apos; });
+// AssertionError: Input A expected to strictly deep-equal input B:
+// + expected - actual
+//   {
+// -   a: 1
+// +   a: &apos;1&apos;
+//   }
+
+// &#x4EE5;&#x4E0B;&#x5BF9;&#x8C61;&#x6CA1;&#x6709;&#x81EA;&#x8EAB;&#x5C5E;&#x6027;&#x3002;
+const date = new Date();
+const object = {};
+const fakeDate = {};
+Object.setPrototypeOf(fakeDate, Date.prototype);
+
+// &#x539F;&#x578B;&#x4E0D;&#x540C;&#xFF1A;
+assert.deepStrictEqual(object, fakeDate);
+// AssertionError: Input A expected to strictly deep-equal input B:
+// + expected - actual
+// - {}
+// + Date {}
+
+// &#x7C7B;&#x578B;&#x6807;&#x7B7E;&#x4E0D;&#x540C;&#xFF1A;
+assert.deepStrictEqual(date, fakeDate);
+// AssertionError: Input A expected to strictly deep-equal input B:
+// + expected - actual
+// - 2018-04-26T00:49:08.604Z
+// + Date {}
+
+assert.deepStrictEqual(NaN, NaN);
+// &#x901A;&#x8FC7;&#xFF0C;&#x56E0;&#x4E3A;&#x4F7F;&#x7528;&#x7684;&#x662F; SameValue &#x6BD4;&#x8F83;&#x6CD5;&#x3002;
+
+// &#x89E3;&#x5C01;&#x88C5;&#x540E;&#x7684;&#x6570;&#x503C;&#x4E0D;&#x540C;&#xFF1A;
+assert.deepStrictEqual(new Number(1), new Number(2));
+// AssertionError: Input A expected to strictly deep-equal input B:
+// + expected - actual
+// - [Number: 1]
+// + [Number: 2]
+
+assert.deepStrictEqual(new String(&apos;foo&apos;), Object(&apos;foo&apos;));
+// &#x901A;&#x8FC7;&#xFF0C;&#x56E0;&#x4E3A;&#x5BF9;&#x8C61;&#x4E0E;&#x89E3;&#x5C01;&#x88C5;&#x540E;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x90FD;&#x5B8C;&#x5168;&#x76F8;&#x540C;&#x3002;
+
+assert.deepStrictEqual(-0, -0);
+// &#x901A;&#x8FC7;&#x3002;
+
+// SameValue &#x6BD4;&#x8F83;&#x6CD5;&#x4E2D; 0 &#x4E0E; -0 &#x4E0D;&#x540C;&#xFF1A;
+assert.deepStrictEqual(0, -0);
+// AssertionError: Input A expected to strictly deep-equal input B:
+// + expected - actual
+// - 0
+// + -0
+
+const symbol1 = Symbol();
+const symbol2 = Symbol();
+assert.deepStrictEqual({ [symbol1]: 1 }, { [symbol1]: 1 });
+// &#x901A;&#x8FC7;&#xFF0C;&#x56E0;&#x4E3A;&#x4E24;&#x8FB9;&#x5BF9;&#x8C61;&#x7684; symbol &#x76F8;&#x540C;&#x3002;
+assert.deepStrictEqual({ [symbol1]: 1 }, { [symbol2]: 1 });
+// AssertionError [ERR_ASSERTION]: Input objects not identical:
+// {
+//   [Symbol()]: 1
+// }
+
+const weakMap1 = new WeakMap();
+const weakMap2 = new WeakMap([[{}, {}]]);
+const weakMap3 = new WeakMap();
+weakMap3.unequal = true;
+
+assert.deepStrictEqual(weakMap1, weakMap2);
+// &#x901A;&#x8FC7;&#x3002;
+
+// &#x5931;&#x8D25;&#xFF0C;&#x56E0;&#x4E3A; weakMap3 &#x6709;&#x4E00;&#x4E2A; weakMap1 &#x6CA1;&#x6709;&#x7684;&#x5C5E;&#x6027;&#xFF1A;
+assert.deepStrictEqual(weakMap1, weakMap3);
+// AssertionError: Input A expected to strictly deep-equal input B:
+// + expected - actual
+//   WeakMap {
+// -   [items unknown]
+// +   [items unknown],
+// +   unequal: true
+//   }
+</code></pre>
+<p>&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x503C;&#x4E0D;&#x76F8;&#x7B49;&#xFF0C;&#x5219;&#x629B;&#x51FA; <code>AssertionError</code>&#x3002;</p>
+<h2>assert.doesNotReject(asyncFn[, error][, message])<span><a class="mark" href="#assert_assert_doesnotreject_asyncfn_error_message" id="assert_assert_doesnotreject_asyncfn_error_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="assert_doesnotreject_asyncfn_error_message.html" tppabs="http://nodejs.cn/api/assert/assert_doesnotreject_asyncfn_error_message.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.0.0</span>
+</div>
+<ul>
+<li><code>asyncFn</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise" target="_blank" rel="nofollow" class="type">&lt;Promise&gt;</a></li>
+<li><code>error</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/RegExp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/RegExp'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/RegExp" target="_blank" rel="nofollow" class="type">&lt;RegExp&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x7B49;&#x5F85; <code>asyncFn</code> &#x7684; Promise&#xFF0C;&#x5982;&#x679C; <code>asyncFn</code> &#x662F;&#x51FD;&#x6570;&#xFF0C;&#x5219;&#x7ACB;&#x5373;&#x8C03;&#x7528;&#x5E76;&#x7B49;&#x5F85;&#x8FD4;&#x56DE;&#x7684; Promise &#x5B8C;&#x6210;&#xFF0C;&#x7136;&#x540E;&#x68C0;&#x67E5; Promise &#x662F;&#x5426;&#x88AB; reject&#x3002;</p>
+<p>&#x5982;&#x679C; <code>asyncFn</code> &#x662F;&#x51FD;&#x6570;&#x4E14;&#x540C;&#x6B65;&#x5730;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#xFF0C;&#x5219; <code>assert.doesNotReject()</code> &#x4F1A;&#x8FD4;&#x56DE;&#x88AB; reject &#x7684; <code>Promise</code> &#x5E76;&#x5E26;&#x4E0A;&#x9519;&#x8BEF;&#x5BF9;&#x8C61;&#x3002;
+&#x5982;&#x679C; <code>asyncFn</code> &#x51FD;&#x6570;&#x6CA1;&#x6709;&#x8FD4;&#x56DE; Promise&#xFF0C;&#x5219; <code>assert.doesNotReject()</code> &#x4F1A;&#x8FD4;&#x56DE;&#x88AB; reject &#x7684; <code>Promise</code> &#x5E76;&#x5E26;&#x4E0A; <a href="javascript:if(confirm('http://nodejs.cn/s/zKCD5R  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zKCD5R'" tppabs="http://nodejs.cn/s/zKCD5R" rel="nofollow"><code>ERR_INVALID_RETURN_VALUE</code></a> &#x9519;&#x8BEF;&#x3002;
+&#x4EE5;&#x4E0A;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#x90FD;&#x4F1A;&#x8DF3;&#x8FC7;&#x9519;&#x8BEF;&#x5904;&#x7406;&#x51FD;&#x6570;&#x3002;</p>
+<p><code>assert.doesNotReject()</code> &#x5E76;&#x4E0D;&#x5E38;&#x7528;&#xFF0C;&#x56E0;&#x4E3A;&#x5F88;&#x5C11;&#x9700;&#x8981;&#x6355;&#x83B7;&#x4E00;&#x4E2A;&#x88AB; reject &#x7684; Promise &#x7136;&#x540E;&#x518D;&#x6B21; reject&#x3002;</p>
+<p><code>error</code> &#x53EF;&#x4EE5;&#x662F; <a href="javascript:if(confirm('http://nodejs.cn/s/5wDLcp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5wDLcp'" tppabs="http://nodejs.cn/s/5wDLcp" rel="nofollow"><code>Class</code></a>&#x3001;<a href="javascript:if(confirm('http://nodejs.cn/s/tbQJCP  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tbQJCP'" tppabs="http://nodejs.cn/s/tbQJCP" rel="nofollow"><code>RegExp</code></a> &#x6216;&#x6821;&#x9A8C;&#x51FD;&#x6570;&#x3002;
+&#x8BE6;&#x89C1; <a href="javascript:if(confirm('http://nodejs.cn/s/sGRMSp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/sGRMSp'" tppabs="http://nodejs.cn/s/sGRMSp" rel="nofollow"><code>assert.throws()</code></a>&#x3002;</p>
+<p>&#x4E0E; <a href="javascript:if(confirm('http://nodejs.cn/s/mm4aoA  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mm4aoA'" tppabs="http://nodejs.cn/s/mm4aoA" rel="nofollow"><code>assert.doesNotThrow()</code></a> &#x7684;&#x533A;&#x522B;&#x5728;&#x4E8E;&#x9700;&#x8981;&#x5F02;&#x6B65;&#x5730;&#x7B49;&#x5F85;&#x5B8C;&#x6210;&#x3002;</p>
+<pre><code class="language-js">(async () =&gt; {
+  await assert.doesNotReject(
+    async () =&gt; {
+      throw new TypeError(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;);
+    },
+    SyntaxError
+  );
+})();
+</code></pre>
+<pre><code class="language-js">assert.doesNotReject(Promise.reject(new TypeError(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;)))
+  .then(() =&gt; {
+    // ...
+  });
+</code></pre>
+<h2>assert.doesNotThrow(fn[, error][, message])<span><a class="mark" href="#assert_assert_doesnotthrow_fn_error_message" id="assert_assert_doesnotthrow_fn_error_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="assert_doesnotthrow_fn_error_message.html" tppabs="http://nodejs.cn/api/assert/assert_doesnotthrow_fn_error_message.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v5.11.0, v4.4.5</td>
+<td><p>The <code>message</code> parameter is respected now.</p></td></tr>
+<tr><td>v4.2.0</td>
+<td><p>The <code>error</code> parameter can now be an arrow function.</p></td></tr>
+<tr><td>v0.1.21</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.21</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>fn</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+<li><code>error</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/RegExp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/RegExp'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/RegExp" target="_blank" rel="nofollow" class="type">&lt;RegExp&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x65AD;&#x8A00; <code>fn</code> &#x51FD;&#x6570;&#x4E0D;&#x4F1A;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x3002;</p>
+<p><code>assert.doesNotThrow()</code> &#x5E76;&#x4E0D;&#x5E38;&#x7528;&#xFF0C;&#x56E0;&#x4E3A;&#x5F88;&#x5C11;&#x9700;&#x8981;&#x6355;&#x83B7;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x7136;&#x540E;&#x518D;&#x6B21;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x3002;</p>
+<p>&#x5F53; <code>assert.doesNotThrow()</code> &#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x4F1A;&#x7ACB;&#x5373;&#x8C03;&#x7528; <code>fn</code> &#x51FD;&#x6570;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#xFF0C;&#x4E14;&#x9519;&#x8BEF;&#x4E0E; <code>error</code> &#x53C2;&#x6570;&#x6307;&#x5B9A;&#x7684;&#x7C7B;&#x578B;&#x76F8;&#x540C;&#xFF0C;&#x5219;&#x629B;&#x51FA; <code>AssertionError</code>&#x3002;
+&#x5982;&#x679C;&#x9519;&#x8BEF;&#x7C7B;&#x578B;&#x4E0D;&#x540C;&#xFF0C;&#x6216; <code>error</code> &#x53C2;&#x6570;&#x4E3A; <code>undefined</code>&#xFF0C;&#x5219;&#x9519;&#x8BEF;&#x4F1A;&#x5192;&#x6CE1;&#x7ED9;&#x8C03;&#x7528;&#x8005;&#x3002;</p>
+<p><code>error</code> &#x53EF;&#x4EE5;&#x662F; <a href="javascript:if(confirm('http://nodejs.cn/s/5wDLcp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5wDLcp'" tppabs="http://nodejs.cn/s/5wDLcp" rel="nofollow"><code>Class</code></a>&#x3001;<a href="javascript:if(confirm('http://nodejs.cn/s/tbQJCP  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tbQJCP'" tppabs="http://nodejs.cn/s/tbQJCP" rel="nofollow"><code>RegExp</code></a> &#x6216;&#x6821;&#x9A8C;&#x51FD;&#x6570;&#x3002;
+&#x8BE6;&#x89C1; <a href="javascript:if(confirm('http://nodejs.cn/s/sGRMSp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/sGRMSp'" tppabs="http://nodejs.cn/s/sGRMSp" rel="nofollow"><code>assert.throws()</code></a>&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x4F8B;&#x5B50;&#x4F1A;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/Z7Lqyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Z7Lqyj'" tppabs="http://nodejs.cn/s/Z7Lqyj" rel="nofollow"><code>TypeError</code></a>&#xFF0C;&#x56E0;&#x4E3A;&#x65AD;&#x8A00;&#x6CA1;&#x6709;&#x5339;&#x914D;&#x9519;&#x8BEF;&#x7684;&#x7C7B;&#x578B;&#xFF1A;</p>
+<!-- eslint-disable no-restricted-syntax -->
+<pre><code class="language-js">assert.doesNotThrow(
+  () =&gt; {
+    throw new TypeError(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;);
+  },
+  SyntaxError
+);
+</code></pre>
+<p>&#x4EE5;&#x4E0B;&#x4F8B;&#x5B50;&#x4F1A;&#x629B;&#x51FA; <code>AssertionError</code>&#xFF0C;&#x5E76;&#x5E26;&#x4E0A; &apos;Got unwanted exception...&apos; &#x4FE1;&#x606F;&#xFF1A;</p>
+<!-- eslint-disable no-restricted-syntax -->
+<pre><code class="language-js">assert.doesNotThrow(
+  () =&gt; {
+    throw new TypeError(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;);
+  },
+  TypeError
+);
+</code></pre>
+<p>&#x5982;&#x679C;&#x629B;&#x51FA; <code>AssertionError</code> &#x4E14;&#x4E3A; <code>message</code> &#x53C2;&#x6570;&#x4F20;&#x4E86;&#x503C;&#xFF0C;&#x5219; <code>message</code> &#x7684;&#x503C;&#x4F1A;&#x9644;&#x52A0;&#x5230; <code>AssertionError</code> &#x6D88;&#x606F;&#xFF1A;</p>
+<!-- eslint-disable no-restricted-syntax -->
+<pre><code class="language-js">assert.doesNotThrow(
+  () =&gt; {
+    throw new TypeError(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;);
+  },
+  /&#x9519;&#x8BEF;&#x4FE1;&#x606F;/,
+  &apos;&#x51FA;&#x9519;&#x5566;&apos;
+);
+// &#x629B;&#x51FA;: AssertionError: Got unwanted exception: &#x51FA;&#x9519;&#x5566;
+</code></pre>
+<h2>assert.equal(actual, expected[, message])<span><a class="mark" href="#assert_assert_equal_actual_expected_message" id="assert_assert_equal_actual_expected_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.21</span>
+</div>
+<ul>
+<li><code>actual</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>expected</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p><strong>Strict mode</strong></p>
+<p>An alias of <a href="javascript:if(confirm('http://nodejs.cn/s/bjx9Nb  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/bjx9Nb'" tppabs="http://nodejs.cn/s/bjx9Nb" rel="nofollow"><code>assert.strictEqual()</code></a>.</p>
+<p><strong>Legacy mode</strong></p>
+<p></p><div class="api_stability api_stability_0"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 0</a> - &#x5E9F;&#x5F03;&#x7684;: &#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/bjx9Nb  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/bjx9Nb'" tppabs="http://nodejs.cn/s/bjx9Nb" rel="nofollow"><code>assert.strictEqual()</code></a> &#x4EE3;&#x66FF;&#x3002;</div><p></p>
+<p>Tests shallow, coercive equality between the <code>actual</code> and <code>expected</code> parameters
+using the <a href="javascript:if(confirm('http://nodejs.cn/s/tiZhGn  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tiZhGn'" tppabs="http://nodejs.cn/s/tiZhGn" rel="nofollow">Abstract Equality Comparison</a> ( <code>==</code> ).</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;);
+
+assert.equal(1, 1);
+// OK, 1 == 1
+assert.equal(1, &apos;1&apos;);
+// OK, 1 == &apos;1&apos;
+
+assert.equal(1, 2);
+// AssertionError: 1 == 2
+assert.equal({ a: { b: 1 } }, { a: { b: 1 } });
+// AssertionError: { a: { b: 1 } } == { a: { b: 1 } }
+</code></pre>
+<p>If the values are not equal, an <code>AssertionError</code> is thrown with a <code>message</code>
+property set equal to the value of the <code>message</code> parameter. If the <code>message</code>
+parameter is undefined, a default error message is assigned. If the <code>message</code>
+parameter is an instance of an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> then it will be thrown instead of the
+<code>AssertionError</code>.</p>
+<h2>assert.fail([message])<span><a class="mark" href="#assert_assert_fail_message" id="assert_assert_fail_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="assert_fail_message.html" tppabs="http://nodejs.cn/api/assert/assert_fail_message.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.21</span>
+</div>
+<ul>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a> &#x9ED8;&#x8BA4;&#x4E3A; <code>&apos;Failed&apos;</code>&#x3002;</li>
+</ul>
+<p>&#x629B;&#x51FA; <code>AssertionError</code>&#xFF0C;&#x5E76;&#x5E26;&#x4E0A;&#x63D0;&#x4F9B;&#x7684;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x6216;&#x9ED8;&#x8BA4;&#x7684;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x3002;
+&#x5982;&#x679C; <code>message</code> &#x53C2;&#x6570;&#x662F; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> &#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x5219;&#x4F1A;&#x629B;&#x51FA;&#x5B83;&#x800C;&#x4E0D;&#x662F; <code>AssertionError</code>&#x3002;</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;).strict;
+
+assert.fail();
+// &#x629B;&#x51FA; AssertionError [ERR_ASSERTION]: Failed
+
+assert.fail(&apos;&#x5931;&#x8D25;&apos;);
+// &#x629B;&#x51FA; AssertionError [ERR_ASSERTION]: &#x5931;&#x8D25;
+
+assert.fail(new TypeError(&apos;&#x5931;&#x8D25;&apos;));
+// &#x629B;&#x51FA; TypeError: &#x5931;&#x8D25;
+</code></pre>
+<h2>assert.fail(actual, expected[, message[, operator[, stackStartFn]]])<span><a class="mark" href="#assert_assert_fail_actual_expected_message_operator_stackstartfn" id="assert_assert_fail_actual_expected_message_operator_stackstartfn" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Calling <code>assert.fail()</code> with more than one argument is deprecated and emits a warning.</p></td></tr>
+<tr><td>v0.1.21</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.21</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>actual</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>expected</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>operator</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> <strong>Default:</strong> <code>&apos;!=&apos;</code></li>
+<li><code>stackStartFn</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> <strong>Default:</strong> <code>assert.fail</code></li>
+</ul>
+<p></p><div class="api_stability api_stability_0"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 0</a> - &#x5E9F;&#x5F03;&#x7684;: &#x4F7F;&#x7528; <code>assert.fail([message])</code> or other assert
+functions &#x4EE3;&#x66FF;&#x3002;</div><p></p>
+<p>If <code>message</code> is falsy, the error message is set as the values of <code>actual</code> and
+<code>expected</code> separated by the provided <code>operator</code>. If just the two <code>actual</code> and
+<code>expected</code> arguments are provided, <code>operator</code> will default to <code>&apos;!=&apos;</code>. If
+<code>message</code> is provided as third argument it will be used as the error message and
+the other arguments will be stored as properties on the thrown object. If
+<code>stackStartFn</code> is provided, all stack frames above that function will be
+removed from stacktrace (see <a href="javascript:if(confirm('http://nodejs.cn/s/9NszDq  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/9NszDq'" tppabs="http://nodejs.cn/s/9NszDq" rel="nofollow"><code>Error.captureStackTrace</code></a>). If no arguments are
+given, the default message <code>Failed</code> will be used.</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;).strict;
+
+assert.fail(&apos;a&apos;, &apos;b&apos;);
+// AssertionError [ERR_ASSERTION]: &apos;a&apos; != &apos;b&apos;
+
+assert.fail(1, 2, undefined, &apos;&gt;&apos;);
+// AssertionError [ERR_ASSERTION]: 1 &gt; 2
+
+assert.fail(1, 2, &apos;fail&apos;);
+// AssertionError [ERR_ASSERTION]: fail
+
+assert.fail(1, 2, &apos;whoops&apos;, &apos;&gt;&apos;);
+// AssertionError [ERR_ASSERTION]: whoops
+
+assert.fail(1, 2, new TypeError(&apos;need array&apos;));
+// TypeError: need array
+</code></pre>
+<p>In the last three cases <code>actual</code>, <code>expected</code>, and <code>operator</code> have no
+influence on the error message.</p>
+<p>Example use of <code>stackStartFn</code> for truncating the exception&apos;s stacktrace:</p>
+<pre><code class="language-js">function suppressFrame() {
+  assert.fail(&apos;a&apos;, &apos;b&apos;, undefined, &apos;!==&apos;, suppressFrame);
+}
+suppressFrame();
+// AssertionError [ERR_ASSERTION]: &apos;a&apos; !== &apos;b&apos;
+//     at repl:1:1
+//     at ContextifyScript.Script.runInThisContext (vm.js:44:33)
+//     ...
+</code></pre>
+<h2>assert.ifError(value)<span><a class="mark" href="#assert_assert_iferror_value" id="assert_assert_iferror_value" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="assert_iferror_value.html" tppabs="http://nodejs.cn/api/assert/assert_iferror_value.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Instead of throwing the original error it is now wrapped into an <code>AssertionError</code> that contains the full stack trace.</p></td></tr>
+<tr><td>v10.0.0</td>
+<td><p>Value may now only be <code>undefined</code> or <code>null</code>. Before all falsy values were handled the same as <code>null</code> and did not throw.</p></td></tr>
+<tr><td>v0.1.97</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.97</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>value</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+</ul>
+<p>&#x5982;&#x679C; <code>value</code> &#x4E0D;&#x4E3A; <code>undefined</code> &#x6216; <code>null</code>&#xFF0C;&#x5219;&#x629B;&#x51FA; <code>value</code>&#x3002;
+&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x6D4B;&#x8BD5;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684; <code>error</code> &#x53C2;&#x6570;&#x3002;
+&#x5806;&#x6808;&#x8E2A;&#x8FF9;&#x4F1A;&#x5305;&#x542B;&#x4F20;&#x5165; <code>ifError()</code> &#x7684;&#x9519;&#x8BEF;&#x7684;&#x6240;&#x6709;&#x5E27;&#xFF0C;&#x5305;&#x62EC;&#x6F5C;&#x5728;&#x7684; <code>ifError()</code> &#x81EA;&#x8EAB;&#x65B0;&#x589E;&#x7684;&#x5E27;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;).strict;
+
+assert.ifError(null);
+// &#x901A;&#x8FC7;&#x3002;
+assert.ifError(0);
+// &#x629B;&#x51FA; AssertionError [ERR_ASSERTION]: ifError got unwanted exception: 0
+assert.ifError(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;);
+// &#x629B;&#x51FA; AssertionError [ERR_ASSERTION]: ifError got unwanted exception: &apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;
+assert.ifError(new Error());
+// &#x629B;&#x51FA; AssertionError [ERR_ASSERTION]: ifError got unwanted exception: Error
+
+// &#x6DFB;&#x52A0;&#x4E00;&#x4E9B;&#x9519;&#x8BEF;&#x5E27;&#x3002;
+let err;
+(function errorFrame() {
+  err = new Error(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;);
+})();
+
+(function ifErrorFrame() {
+  assert.ifError(err);
+})();
+// AssertionError [ERR_ASSERTION]: ifError got unwanted exception: &#x9519;&#x8BEF;&#x4FE1;&#x606F;
+//     at ifErrorFrame
+//     at errorFrame
+</code></pre>
+<h2>assert.notDeepEqual(actual, expected[, message])<span><a class="mark" href="#assert_assert_notdeepequal_actual_expected_message" id="assert_assert_notdeepequal_actual_expected_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>The <code>Error</code> names and messages are now properly compared</p></td></tr>
+<tr><td>v8.0.0</td>
+<td><p>The <code>Set</code> and <code>Map</code> content is also compared</p></td></tr>
+<tr><td>v6.4.0, v4.7.1</td>
+<td><p>Typed array slices are handled correctly now.</p></td></tr>
+<tr><td>v6.1.0, v4.5.0</td>
+<td><p>Objects with circular references can be used as inputs now.</p></td></tr>
+<tr><td>v5.10.1, v4.4.3</td>
+<td><p>Handle non-<code>Uint8Array</code> typed arrays correctly.</p></td></tr>
+<tr><td>v0.1.21</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.21</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>actual</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>expected</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p><strong>Strict mode</strong></p>
+<p>An alias of <a href="javascript:if(confirm('http://nodejs.cn/s/BmhNtR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BmhNtR'" tppabs="http://nodejs.cn/s/BmhNtR" rel="nofollow"><code>assert.notDeepStrictEqual()</code></a>.</p>
+<p><strong>Legacy mode</strong></p>
+<p></p><div class="api_stability api_stability_0"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 0</a> - &#x5E9F;&#x5F03;&#x7684;: &#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/BmhNtR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BmhNtR'" tppabs="http://nodejs.cn/s/BmhNtR" rel="nofollow"><code>assert.notDeepStrictEqual()</code></a> &#x4EE3;&#x66FF;&#x3002;</div><p></p>
+<p>Tests for any deep inequality. Opposite of <a href="javascript:if(confirm('http://nodejs.cn/s/T9fJbF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/T9fJbF'" tppabs="http://nodejs.cn/s/T9fJbF" rel="nofollow"><code>assert.deepEqual()</code></a>.</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;);
+
+const obj1 = {
+  a: {
+    b: 1
+  }
+};
+const obj2 = {
+  a: {
+    b: 2
+  }
+};
+const obj3 = {
+  a: {
+    b: 1
+  }
+};
+const obj4 = Object.create(obj1);
+
+assert.notDeepEqual(obj1, obj1);
+// AssertionError: { a: { b: 1 } } notDeepEqual { a: { b: 1 } }
+
+assert.notDeepEqual(obj1, obj2);
+// OK
+
+assert.notDeepEqual(obj1, obj3);
+// AssertionError: { a: { b: 1 } } notDeepEqual { a: { b: 1 } }
+
+assert.notDeepEqual(obj1, obj4);
+// OK
+</code></pre>
+<p>If the values are deeply equal, an <code>AssertionError</code> is thrown with a <code>message</code>
+property set equal to the value of the <code>message</code> parameter. If the <code>message</code>
+parameter is undefined, a default error message is assigned. If the <code>message</code>
+parameter is an instance of an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> then it will be thrown instead of the
+<code>AssertionError</code>.</p>
+<h2>assert.notDeepStrictEqual(actual, expected[, message])<span><a class="mark" href="#assert_assert_notdeepstrictequal_actual_expected_message" id="assert_assert_notdeepstrictequal_actual_expected_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="assert_notdeepstrictequal_actual_expected_message.html" tppabs="http://nodejs.cn/api/assert/assert_notdeepstrictequal_actual_expected_message.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>The <code>-0</code> and <code>+0</code> are not considered equal anymore.</p></td></tr>
+<tr><td>v9.0.0</td>
+<td><p>The <code>NaN</code> is now compared using the <a href="javascript:if(confirm('https://tc39.github.io/ecma262/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://tc39.github.io/ecma262/#sec-samevaluezero'" tppabs="https://tc39.github.io/ecma262/#sec-samevaluezero" rel="nofollow">SameValueZero</a> comparison.</p></td></tr>
+<tr><td>v9.0.0</td>
+<td><p>The <code>Error</code> names and messages are now properly compared</p></td></tr>
+<tr><td>v8.0.0</td>
+<td><p>The <code>Set</code> and <code>Map</code> content is also compared</p></td></tr>
+<tr><td>v6.4.0, v4.7.1</td>
+<td><p>Typed array slices are handled correctly now.</p></td></tr>
+<tr><td>v6.1.0</td>
+<td><p>Objects with circular references can be used as inputs now.</p></td></tr>
+<tr><td>v5.10.1, v4.4.3</td>
+<td><p>Handle non-<code>Uint8Array</code> typed arrays correctly.</p></td></tr>
+<tr><td>v1.2.0</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v1.2.0</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>actual</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>expected</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p>&#x6D4B;&#x8BD5; <code>actual</code> &#x53C2;&#x6570;&#x4E0E; <code>expected</code> &#x53C2;&#x6570;&#x662F;&#x5426;&#x4E0D;&#x6DF1;&#x5EA6;&#x5168;&#x7B49;&#x3002;
+&#x4E0E; <a href="javascript:if(confirm('http://nodejs.cn/s/PPMrJo  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PPMrJo'" tppabs="http://nodejs.cn/s/PPMrJo" rel="nofollow"><code>assert.deepStrictEqual()</code></a> &#x76F8;&#x53CD;&#x3002;</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;).strict;
+
+assert.notDeepStrictEqual({ a: 1 }, { a: &apos;1&apos; });
+// &#x6D4B;&#x8BD5;&#x901A;&#x8FC7;&#x3002;
+</code></pre>
+<p>&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x503C;&#x6DF1;&#x5EA6;&#x5168;&#x7B49;&#xFF0C;&#x5219;&#x629B;&#x51FA; <code>AssertionError</code>&#x3002;</p>
+<h2>assert.notEqual(actual, expected[, message])<span><a class="mark" href="#assert_assert_notequal_actual_expected_message" id="assert_assert_notequal_actual_expected_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.21</span>
+</div>
+<ul>
+<li><code>actual</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>expected</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p><strong>Strict mode</strong></p>
+<p>An alias of <a href="javascript:if(confirm('http://nodejs.cn/s/2jHY9S  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2jHY9S'" tppabs="http://nodejs.cn/s/2jHY9S" rel="nofollow"><code>assert.notStrictEqual()</code></a>.</p>
+<p><strong>Legacy mode</strong></p>
+<p></p><div class="api_stability api_stability_0"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 0</a> - &#x5E9F;&#x5F03;&#x7684;: &#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/2jHY9S  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2jHY9S'" tppabs="http://nodejs.cn/s/2jHY9S" rel="nofollow"><code>assert.notStrictEqual()</code></a> &#x4EE3;&#x66FF;&#x3002;</div><p></p>
+<p>Tests shallow, coercive inequality with the <a href="javascript:if(confirm('http://nodejs.cn/s/tiZhGn  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tiZhGn'" tppabs="http://nodejs.cn/s/tiZhGn" rel="nofollow">Abstract Equality Comparison</a>
+( <code>!=</code> ).</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;);
+
+assert.notEqual(1, 2);
+// OK
+
+assert.notEqual(1, 1);
+// AssertionError: 1 != 1
+
+assert.notEqual(1, &apos;1&apos;);
+// AssertionError: 1 != &apos;1&apos;
+</code></pre>
+<p>If the values are equal, an <code>AssertionError</code> is thrown with a <code>message</code> property
+set equal to the value of the <code>message</code> parameter. If the <code>message</code> parameter is
+undefined, a default error message is assigned. If the <code>message</code> parameter is an
+instance of an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> then it will be thrown instead of the
+<code>AssertionError</code>.</p>
+<h2>assert.notStrictEqual(actual, expected[, message])<span><a class="mark" href="#assert_assert_notstrictequal_actual_expected_message" id="assert_assert_notstrictequal_actual_expected_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="assert_notstrictequal_actual_expected_message.html" tppabs="http://nodejs.cn/api/assert/assert_notstrictequal_actual_expected_message.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Used comparison changed from Strict Equality to <code>Object.is()</code></p></td></tr>
+<tr><td>v0.1.21</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.21</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>actual</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>expected</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p>&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/25ULs2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/25ULs2'" tppabs="http://nodejs.cn/s/25ULs2" rel="nofollow">SameValue&#x6BD4;&#x8F83;&#x6CD5;</a>&#x6D4B;&#x8BD5; <code>actual</code> &#x53C2;&#x6570;&#x4E0E; <code>expected</code> &#x53C2;&#x6570;&#x662F;&#x5426;&#x4E0D;&#x5168;&#x7B49;&#x3002;</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;).strict;
+
+assert.notStrictEqual(1, 2);
+// &#x6D4B;&#x8BD5;&#x901A;&#x8FC7;&#x3002;
+
+assert.notStrictEqual(1, 1);
+// &#x629B;&#x51FA; AssertionError [ERR_ASSERTION]: Identical input passed to notStrictEqual: 1
+
+assert.notStrictEqual(1, &apos;1&apos;);
+// &#x6D4B;&#x8BD5;&#x901A;&#x8FC7;&#x3002;
+</code></pre>
+<p>&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x503C;&#x5168;&#x7B49;&#xFF0C;&#x5219;&#x629B;&#x51FA; <code>AssertionError</code>&#x3002;</p>
+<h2>assert.ok(value[, message])<span><a class="mark" href="#assert_assert_ok_value_message" id="assert_assert_ok_value_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="assert_ok_value_message.html" tppabs="http://nodejs.cn/api/assert/assert_ok_value_message.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>The <code>assert.ok()</code> (no arguments) will now use a predefined error message.</p></td></tr>
+<tr><td>v0.1.21</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.21</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>value</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p>&#x6D4B;&#x8BD5; <code>value</code> &#x662F;&#x5426;&#x4E3A;&#x771F;&#x503C;&#x3002;
+&#x76F8;&#x5F53;&#x4E8E; <code>assert.equal(!!value, true, message)</code>&#x3002;</p>
+<p>&#x5982;&#x679C; <code>value</code> &#x4E0D;&#x4E3A;&#x771F;&#x503C;&#xFF0C;&#x5219;&#x629B;&#x51FA; <code>AssertionError</code>&#x3002;</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;).strict;
+
+assert.ok(true);
+// &#x6D4B;&#x8BD5;&#x901A;&#x8FC7;&#x3002;
+assert.ok(1);
+// &#x6D4B;&#x8BD5;&#x901A;&#x8FC7;&#x3002;
+
+assert.ok();
+// &#x629B;&#x51FA; AssertionError: No value argument passed to `assert.ok()`
+
+assert.ok(false, &apos;&#x4E0D;&#x662F;&#x771F;&#x503C;&apos;);
+// &#x629B;&#x51FA; AssertionError: &#x4E0D;&#x662F;&#x771F;&#x503C;
+
+// &#x5728; repl &#x4E2D;&#xFF1A;
+assert.ok(typeof 123 === &apos;string&apos;);
+// &#x629B;&#x51FA; AssertionError: false == true
+
+// &#x5728;&#x6587;&#x4EF6;&#x4E2D;&#xFF08;&#x4F8B;&#x5982; test.js&#xFF09;&#xFF1A;
+assert.ok(typeof 123 === &apos;string&apos;);
+// &#x629B;&#x51FA; AssertionError: The expression evaluated to a falsy value:
+//
+//   assert.ok(typeof 123 === &apos;string&apos;)
+assert.ok(false);
+// &#x629B;&#x51FA; AssertionError: The expression evaluated to a falsy value:
+//
+//   assert.ok(false)
+
+assert.ok(0);
+// &#x629B;&#x51FA; AssertionError: The expression evaluated to a falsy value:
+//
+//   assert.ok(0)
+
+// &#x7B49;&#x540C;&#x4E8E; `assert()`&#xFF1A;
+assert(0);
+// &#x629B;&#x51FA; AssertionError: The expression evaluated to a falsy value:
+//
+//   assert(0)
+</code></pre>
+<h2>assert.rejects(asyncFn[, error][, message])<span><a class="mark" href="#assert_assert_rejects_asyncfn_error_message" id="assert_assert_rejects_asyncfn_error_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="assert_rejects_asyncfn_error_message.html" tppabs="http://nodejs.cn/api/assert/assert_rejects_asyncfn_error_message.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.0.0</span>
+</div>
+<ul>
+<li><code>asyncFn</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise" target="_blank" rel="nofollow" class="type">&lt;Promise&gt;</a></li>
+<li><code>error</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/RegExp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/RegExp'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/RegExp" target="_blank" rel="nofollow" class="type">&lt;RegExp&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x7B49;&#x5F85; <code>asyncFn</code> &#x7684; Promise&#xFF0C;&#x5982;&#x679C; <code>asyncFn</code> &#x662F;&#x51FD;&#x6570;&#xFF0C;&#x5219;&#x7ACB;&#x5373;&#x8C03;&#x7528;&#x5E76;&#x7B49;&#x5F85;&#x8FD4;&#x56DE;&#x7684; Promise &#x5B8C;&#x6210;&#xFF0C;&#x7136;&#x540E;&#x68C0;&#x67E5; Promise &#x662F;&#x5426;&#x88AB; reject&#x3002;</p>
+<p>&#x5982;&#x679C; <code>asyncFn</code> &#x662F;&#x51FD;&#x6570;&#x4E14;&#x540C;&#x6B65;&#x5730;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#xFF0C;&#x5219; <code>assert.rejects()</code> &#x4F1A;&#x8FD4;&#x56DE;&#x88AB; reject &#x7684; <code>Promise</code> &#x5E76;&#x5E26;&#x4E0A;&#x9519;&#x8BEF;&#x5BF9;&#x8C61;&#x3002;
+&#x5982;&#x679C; <code>asyncFn</code> &#x51FD;&#x6570;&#x6CA1;&#x6709;&#x8FD4;&#x56DE; Promise&#xFF0C;&#x5219; <code>assert.rejects()</code> &#x4F1A;&#x8FD4;&#x56DE;&#x88AB; reject &#x7684; <code>Promise</code> &#x5E76;&#x5E26;&#x4E0A; <a href="javascript:if(confirm('http://nodejs.cn/s/zKCD5R  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zKCD5R'" tppabs="http://nodejs.cn/s/zKCD5R" rel="nofollow"><code>ERR_INVALID_RETURN_VALUE</code></a> &#x9519;&#x8BEF;&#x3002;
+&#x4EE5;&#x4E0A;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#x90FD;&#x4F1A;&#x8DF3;&#x8FC7;&#x9519;&#x8BEF;&#x5904;&#x7406;&#x51FD;&#x6570;&#x3002;</p>
+<p>&#x4E0E; <a href="javascript:if(confirm('http://nodejs.cn/s/sGRMSp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/sGRMSp'" tppabs="http://nodejs.cn/s/sGRMSp" rel="nofollow"><code>assert.throws()</code></a> &#x7684;&#x533A;&#x522B;&#x5728;&#x4E8E;&#x9700;&#x8981;&#x5F02;&#x6B65;&#x5730;&#x7B49;&#x5F85;&#x5B8C;&#x6210;&#x3002;</p>
+<p><code>error</code> &#x53EF;&#x4EE5;&#x662F; <a href="javascript:if(confirm('http://nodejs.cn/s/5wDLcp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5wDLcp'" tppabs="http://nodejs.cn/s/5wDLcp" rel="nofollow"><code>Class</code></a>&#x3001;<a href="javascript:if(confirm('http://nodejs.cn/s/tbQJCP  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tbQJCP'" tppabs="http://nodejs.cn/s/tbQJCP" rel="nofollow"><code>RegExp</code></a>&#x3001;&#x6821;&#x9A8C;&#x51FD;&#x6570;&#x3001;&#x6BCF;&#x4E2A;&#x5C5E;&#x6027;&#x90FD;&#x4F1A;&#x88AB;&#x6D4B;&#x8BD5;&#x7684;&#x5BF9;&#x8C61;&#x3001;&#x6216;&#x6BCF;&#x4E2A;&#x5C5E;&#x6027;&#xFF08;&#x5305;&#x62EC;&#x4E0D;&#x53EF;&#x679A;&#x4E3E;&#x7684; <code>message</code> &#x548C; <code>name</code> &#x5C5E;&#x6027;&#xFF09;&#x90FD;&#x4F1A;&#x88AB;&#x6D4B;&#x8BD5;&#x7684;&#x9519;&#x8BEF;&#x5B9E;&#x4F8B;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; <code>message</code>&#xFF0C;&#x5219;&#x5F53; <code>asyncFn</code> &#x6CA1;&#x88AB; reject &#x65F6;&#xFF0C;<code>message</code> &#x53C2;&#x6570;&#x4F1A;&#x4F5C;&#x4E3A; <code>AssertionError</code> &#x7684;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x3002;</p>
+<pre><code class="language-js">(async () =&gt; {
+  await assert.rejects(
+    async () =&gt; {
+      throw new TypeError(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;);
+    },
+    {
+      name: &apos;TypeError&apos;,
+      message: &apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;
+    }
+  );
+})();
+</code></pre>
+<pre><code class="language-js">assert.rejects(
+  Promise.reject(new Error(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;)),
+  Error
+).then(() =&gt; {
+  // ...
+});
+</code></pre>
+<p><code>error</code> &#x4E0D;&#x80FD;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x3002;
+&#x5982;&#x679C;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x89C6;&#x4E3A;&#x4E0D;&#x4F20;&#x5165; <code>error</code>&#xFF0C;&#x4E14;&#x5B57;&#x7B26;&#x4E32;&#x4F1A;&#x7528;&#x4E8E; <code>message</code>&#x3002;
+&#x8FD9;&#x53EF;&#x80FD;&#x4F1A;&#x9020;&#x6210;&#x8BEF;&#x89E3;&#x3002;
+&#x5982;&#x679C;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x5B57;&#x7B26;&#x4E32;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x8BF7;&#x4ED4;&#x7EC6;&#x9605;&#x8BFB; <a href="javascript:if(confirm('http://nodejs.cn/s/sGRMSp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/sGRMSp'" tppabs="http://nodejs.cn/s/sGRMSp" rel="nofollow"><code>assert.throws()</code></a> &#x4E2D;&#x7684;&#x4F8B;&#x5B50;&#x3002;</p>
+<h2>assert.strictEqual(actual, expected[, message])<span><a class="mark" href="#assert_assert_strictequal_actual_expected_message" id="assert_assert_strictequal_actual_expected_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="assert_strictequal_actual_expected_message.html" tppabs="http://nodejs.cn/api/assert/assert_strictequal_actual_expected_message.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Used comparison changed from Strict Equality to <code>Object.is()</code></p></td></tr>
+<tr><td>v0.1.21</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.21</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>actual</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>expected</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p>&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/25ULs2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/25ULs2'" tppabs="http://nodejs.cn/s/25ULs2" rel="nofollow">SameValue&#x6BD4;&#x8F83;&#x6CD5;</a>&#x6D4B;&#x8BD5; <code>actual</code> &#x4E0E; <code>expected</code> &#x662F;&#x5426;&#x5168;&#x7B49;&#x3002;</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;).strict;
+
+assert.strictEqual(1, 2);
+// &#x629B;&#x51FA; AssertionError [ERR_ASSERTION]: Input A expected to strictly equal input B:
+// + expected - actual
+// - 1
+// + 2
+
+assert.strictEqual(1, 1);
+// &#x6D4B;&#x8BD5;&#x901A;&#x8FC7;&#x3002;
+
+assert.strictEqual(1, &apos;1&apos;);
+// &#x629B;&#x51FA; AssertionError [ERR_ASSERTION]: Input A expected to strictly equal input B:
+// + expected - actual
+// - 1
+// + &apos;1&apos;
+</code></pre>
+<p>&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x503C;&#x4E0D;&#x5168;&#x7B49;&#xFF0C;&#x5219;&#x629B;&#x51FA; <code>AssertionError</code>&#x3002;</p>
+<h2>assert.throws(fn[, error][, message])<span><a class="mark" href="#assert_assert_throws_fn_error_message" id="assert_assert_throws_fn_error_message" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="assert_throws_fn_error_message.html" tppabs="http://nodejs.cn/api/assert/assert_throws_fn_error_message.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.2.0</td>
+<td><p>The <code>error</code> parameter can be an object containing regular expressions now.</p></td></tr>
+<tr><td>v9.9.0</td>
+<td><p>The <code>error</code> parameter can now be an object as well.</p></td></tr>
+<tr><td>v4.2.0</td>
+<td><p>The <code>error</code> parameter can now be an arrow function.</p></td></tr>
+<tr><td>v0.1.21</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.21</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>fn</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+<li><code>error</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/RegExp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/RegExp'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/RegExp" target="_blank" rel="nofollow" class="type">&lt;RegExp&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>message</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p>&#x65AD;&#x8A00; <code>fn</code> &#x51FD;&#x6570;&#x4F1A;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x3002;</p>
+<p><code>error</code> &#x53EF;&#x4EE5;&#x662F; <a href="javascript:if(confirm('http://nodejs.cn/s/5wDLcp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5wDLcp'" tppabs="http://nodejs.cn/s/5wDLcp" rel="nofollow"><code>Class</code></a>&#x3001;<a href="javascript:if(confirm('http://nodejs.cn/s/tbQJCP  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tbQJCP'" tppabs="http://nodejs.cn/s/tbQJCP" rel="nofollow"><code>RegExp</code></a>&#x3001;&#x6821;&#x9A8C;&#x51FD;&#x6570;&#x3001;&#x6BCF;&#x4E2A;&#x5C5E;&#x6027;&#x90FD;&#x4F1A;&#x88AB;&#x6D4B;&#x8BD5;&#x662F;&#x5426;&#x6DF1;&#x5EA6;&#x5168;&#x7B49;&#x7684;&#x6821;&#x9A8C;&#x5BF9;&#x8C61;&#x3001;&#x6216;&#x6BCF;&#x4E2A;&#x5C5E;&#x6027;&#xFF08;&#x5305;&#x62EC;&#x4E0D;&#x53EF;&#x679A;&#x4E3E;&#x7684; <code>message</code> &#x548C; <code>name</code> &#x5C5E;&#x6027;&#xFF09;&#x90FD;&#x4F1A;&#x88AB;&#x6D4B;&#x8BD5;&#x662F;&#x5426;&#x6DF1;&#x5EA6;&#x5168;&#x7B49;&#x7684;&#x9519;&#x8BEF;&#x5B9E;&#x4F8B;&#x3002;
+&#x5F53;&#x4F7F;&#x7528;&#x5BF9;&#x8C61;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x6765;&#x6821;&#x9A8C;&#x5B57;&#x7B26;&#x4E32;&#x5C5E;&#x6027;&#x3002;
+&#x8BE6;&#x89C1;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; <code>message</code> &#x53C2;&#x6570;&#xFF0C;&#x5219;&#x5F53; <code>fn</code> &#x51FD;&#x6570;&#x4E0D;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x65F6;&#xFF0C;<code>message</code> &#x53C2;&#x6570;&#x4F1A;&#x4F5C;&#x4E3A; <code>AssertionError</code> &#x7684;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF0C;<code>error</code> &#x53C2;&#x6570;&#x4E3A;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x6821;&#x9A8C;&#x5BF9;&#x8C61;&#x6216;&#x9519;&#x8BEF;&#x5B9E;&#x4F8B;&#xFF1A;</p>
+<pre><code class="language-js">const err = new TypeError(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;);
+err.code = 404;
+err.foo = &apos;bar&apos;;
+err.info = {
+  nested: true,
+  baz: &apos;text&apos;
+};
+err.reg = /abc/i;
+
+assert.throws(
+  () =&gt; {
+    throw err;
+  },
+  {
+    name: &apos;TypeError&apos;,
+    message: &apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;
+    info: {
+      nested: true,
+      baz: &apos;text&apos;
+    }
+    // &#x53EA;&#x6709;&#x6821;&#x9A8C;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x4F1A;&#x88AB;&#x6D4B;&#x8BD5;&#x3002;
+    // &#x4F7F;&#x7528;&#x5D4C;&#x5957;&#x7684;&#x5BF9;&#x8C61;&#x5FC5;&#x987B;&#x63D0;&#x4F9B;&#x5168;&#x90E8;&#x5C5E;&#x6027;&#xFF0C;&#x5426;&#x5219;&#x6821;&#x9A8C;&#x4F1A;&#x5931;&#x8D25;&#x3002; 
+  }
+);
+
+// &#x4F7F;&#x7528;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x6765;&#x6821;&#x9A8C;&#x9519;&#x8BEF;&#x5C5E;&#x6027;&#xFF1A;
+assert.throws(
+  () =&gt; {
+    throw err;
+  },
+  {
+    // `name` &#x548C; `message` &#x5C5E;&#x6027;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5BF9;&#x5B83;&#x4EEC;&#x4F7F;&#x7528;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x8FDB;&#x884C;&#x5339;&#x914D;&#x3002;
+    // &#x5982;&#x679C;&#x6821;&#x9A8C;&#x5931;&#x8D25;&#xFF0C;&#x5219;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x3002;
+    name: /^TypeError$/,
+    message: /&#x9519;&#x8BEF;&#x4FE1;&#x606F;/,
+    foo: &apos;bar&apos;,
+    info: {
+      nested: true,
+      // &#x5D4C;&#x5957;&#x7684;&#x5C5E;&#x6027;&#x4E0D;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#xFF01;
+      baz: &apos;text&apos;
+    },
+    // `reg` &#x5C5E;&#x6027;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E2A;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x53EA;&#x6709;&#x6821;&#x9A8C;&#x5BF9;&#x8C61;&#x4E5F;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x5B8C;&#x5168;&#x76F8;&#x540C;&#x7684;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x65F6;&#xFF0C;&#x6821;&#x9A8C;&#x624D;&#x4F1A;&#x901A;&#x8FC7;&#x3002;
+    reg: /abc/i
+  }
+);
+
+// &#x5931;&#x8D25;&#xFF0C;&#x56E0;&#x4E3A; `message` &#x5C5E;&#x6027;&#x4E0E; `name` &#x5C5E;&#x6027;&#x4E0D;&#x540C;&#xFF1A;
+assert.throws(
+  () =&gt; {
+    const otherErr = new Error(&apos;&#x672A;&#x627E;&#x5230;&apos;);
+    otherErr.code = 404;
+    throw otherErr;
+  },
+  err // &#x4F1A;&#x6D4B;&#x8BD5; `message`&#x3001;`name` &#x548C; `code`&#x3002;
+);
+</code></pre>
+<p>&#x4F8B;&#x5B50;&#xFF0C;<code>error</code> &#x53C2;&#x6570;&#x4E3A;&#x6784;&#x9020;&#x51FD;&#x6570;&#xFF1A;</p>
+<pre><code class="language-js">assert.throws(
+  () =&gt; {
+    throw new Error(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;);
+  },
+  Error
+);
+</code></pre>
+<p>&#x4F8B;&#x5B50;&#xFF0C;<code>error</code> &#x53C2;&#x6570;&#x4E3A; <a href="javascript:if(confirm('http://nodejs.cn/s/tbQJCP  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tbQJCP'" tppabs="http://nodejs.cn/s/tbQJCP" rel="nofollow"><code>RegExp</code></a>&#xFF1A;</p>
+<p>&#x4F7F;&#x7528;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x8FD0;&#x884C;&#x9519;&#x8BEF;&#x5BF9;&#x8C61;&#x7684; <code>.toString</code>&#xFF0C; &#x4E14;&#x5305;&#x62EC;&#x9519;&#x8BEF;&#x7684;&#x540D;&#x79F0;&#x3002;</p>
+<pre><code class="language-js">assert.throws(
+  () =&gt; {
+    throw new Error(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;);
+  },
+  /^Error: &#x9519;&#x8BEF;&#x4FE1;&#x606F;$/
+);
+</code></pre>
+<p>&#x4F8B;&#x5B50;&#xFF0C;<code>error</code> &#x53C2;&#x6570;&#x4E3A;&#x81EA;&#x5B9A;&#x4E49;&#x51FD;&#x6570;&#xFF1A;</p>
+<pre><code class="language-js">assert.throws(
+  () =&gt; {
+    throw new Error(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;);
+  },
+  function(err) {
+    if ((err instanceof Error) &amp;&amp; /&#x9519;&#x8BEF;/.test(err)) {
+      return true;
+    }
+  },
+  &apos;&#x4E0D;&#x662F;&#x671F;&#x671B;&#x7684;&#x9519;&#x8BEF;&apos;
+);
+</code></pre>
+<p><code>error</code> &#x4E0D;&#x80FD;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x3002;
+&#x5982;&#x679C;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x89C6;&#x4E3A;&#x4E0D;&#x4F20;&#x5165; <code>error</code>&#xFF0C;&#x4E14;&#x5B57;&#x7B26;&#x4E32;&#x4F1A;&#x7528;&#x4E8E; <code>message</code>&#x3002;
+&#x8FD9;&#x53EF;&#x80FD;&#x4F1A;&#x9020;&#x6210;&#x8BEF;&#x89E3;&#x3002;
+&#x4F7F;&#x7528;&#x4E0E;&#x629B;&#x51FA;&#x7684;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x76F8;&#x540C;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4; <code>ERR_AMBIGUOUS_ARGUMENT</code> &#x9519;&#x8BEF;&#x3002;
+&#x5982;&#x679C;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x5B57;&#x7B26;&#x4E32;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x8BF7;&#x4ED4;&#x7EC6;&#x9605;&#x8BFB;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x3002;</p>
+<!-- eslint-disable no-restricted-syntax -->
+<pre><code class="language-js">function throwingFirst() {
+  throw new Error(&apos;&#x9519;&#x8BEF;&#x4E00;&apos;);
+}
+function throwingSecond() {
+  throw new Error(&apos;&#x9519;&#x8BEF;&#x4E8C;&apos;);
+}
+function notThrowing() {}
+
+// &#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x4E14;&#x8F93;&#x5165;&#x51FD;&#x6570;&#x629B;&#x51FA;&#x4E86;&#x9519;&#x8BEF;&#x3002;
+// &#x7B2C;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#x4E0D;&#x4F1A;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x6CA1;&#x6709;&#x5339;&#x914D;&#x5230;&#x8F93;&#x5165;&#x51FD;&#x6570;&#x629B;&#x51FA;&#x7684;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#xFF01;
+assert.throws(throwingFirst, &apos;&#x9519;&#x8BEF;&#x4E8C;&apos;);
+// &#x7B2C;&#x4E8C;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x4F20;&#x5165;&#x7684;&#x4FE1;&#x606F;&#x63A5;&#x8FD1;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#xFF0C;
+// &#x4E14;&#x6CA1;&#x6709;&#x8868;&#x8FF0;&#x6E05;&#x695A;&#x7528;&#x6237;&#x662F;&#x5426;&#x6709;&#x610F;&#x5339;&#x914D;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#xFF0C;
+// &#x6240;&#x4EE5; Node.js &#x4F1A;&#x629B;&#x51FA; `ERR_AMBIGUOUS_ARGUMENT` &#x9519;&#x8BEF;&#x3002;
+assert.throws(throwingSecond, &apos;&#x9519;&#x8BEF;&#x4E8C;&apos;);
+// &#x629B;&#x51FA;&#x9519;&#x8BEF;&#xFF1A;
+// TypeError [ERR_AMBIGUOUS_ARGUMENT]
+
+// &#x5F53;&#x51FD;&#x6570;&#x6CA1;&#x6709;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x65F6;&#xFF0C;&#x5B57;&#x7B26;&#x4E32;&#x53EF;&#x7528;&#x4E8E;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#xFF1A;
+assert.throws(notThrowing, &apos;&#x9519;&#x8BEF;&#x4E8C;&apos;);
+// &#x629B;&#x51FA; AssertionError [ERR_ASSERTION]: Missing expected exception: &#x9519;&#x8BEF;&#x4E8C;
+
+// &#x5982;&#x679C;&#x60F3;&#x8981;&#x5339;&#x914D;&#x5230;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#xFF0C;&#x53EF;&#x4EE5;&#x5982;&#x4E0B;&#xFF1A;
+assert.throws(throwingSecond, /&#x9519;&#x8BEF;&#x4E8C;$/);
+// &#x6CA1;&#x6709;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#xFF0C;&#x56E0;&#x4E3A;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x5339;&#x914D;&#x3002;
+assert.throws(throwingFirst, /&#x9519;&#x8BEF;&#x4E8C;$/);
+// &#x629B;&#x51FA;&#x9519;&#x8BEF;&#xFF1A;
+// Error: &#x9519;&#x8BEF;&#x4E00;
+//     at throwingFirst (repl:2:9)
+</code></pre>
+<p>&#x9274;&#x4E8E;&#x4F1A;&#x6DF7;&#x6DC6;&#x8BED;&#x53E5;&#xFF0C;&#x5EFA;&#x8BAE;&#x4E0D;&#x8981;&#x4F7F;&#x7528;&#x5B57;&#x7B26;&#x4E32;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x3002;
+&#x8FD9;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;&#x4E0D;&#x6613;&#x5B9A;&#x4F4D;&#x7684;&#x9519;&#x8BEF;&#x3002;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712010340"><\/script>');
+  </script>
+
+</body></html>

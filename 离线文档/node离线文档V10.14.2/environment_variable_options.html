@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>环境变量选项 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/repl/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712036215" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-repl">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>环境变量选项</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="repl.html#repl_environment_variable_options" tppabs="http://nodejs.cn/api/repl.html#repl_environment_variable_options" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p>&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF0C;&#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49; Node.js REPL &#x7684;&#x5404;&#x79CD;&#x884C;&#x4E3A;&#xFF1A;</p><ul>
+<li><code>NODE_REPL_HISTORY</code> - &#x5F53;&#x7ED9;&#x5B9A;&#x4E86;&#x4E00;&#x4E2A;&#x6709;&#x6548;&#x7684;&#x8DEF;&#x5F84;&#xFF0C;&#x5219; REPL &#x7684;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x5C06;&#x88AB;&#x4FDD;&#x5B58;&#x5230;&#x6307;&#x5B9A;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x7528;&#x6237;&#x76EE;&#x5F55;&#x4E0B;&#x7684; <code>.node_repl_history</code> &#x6587;&#x4EF6;&#x3002;
+&#x8BBE;&#x4E3A; <code>&quot;&quot;</code> &#x5C06;&#x7981;&#x7528; REPL &#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x3002;
+&#x503C;&#x4E24;&#x5934;&#x7684;&#x7A7A;&#x683C;&#x952E;&#x4F1A;&#x88AB;&#x53BB;&#x6389;&#x3002;</li>
+<li><code>NODE_REPL_HISTORY_SIZE</code> - &#x9ED8;&#x8BA4;&#x4E3A; <code>1000</code>&#x3002;&#x63A7;&#x5236;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x7684;&#x6700;&#x5927;&#x884C;&#x6570;&#x3002;&#x5FC5;&#x987B;&#x662F;&#x6B63;&#x6570;&#x3002;</li>
+<li><code>NODE_REPL_MODE</code> - &#x53EF;&#x4EE5;&#x662F; <code>sloppy</code>&#x3001;<code>strict</code> &#x6216; <code>magic</code>&#x3002;
+&#xA0;&#x9ED8;&#x8BA4;&#x662F;<code>sloppy</code>, &#x5728;<code>sloppy</code>&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x5141;&#x8BB8;&#x4EE3;&#x7801;&#x5728;&#x975E;&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#x4E0B;&#x8FD0;&#x884C;. <code>magic</code>&#x6A21;&#x5F0F;&#x5DF2;&#x7ECF;&#x88AB;&#x5F03;&#x7528;&#xFF0C;&#x4E14;&#x88AB;&#x89C6;&#x4E3A;<code>sloppy</code>&#x6A21;&#x5F0F;&#x8FD0;&#x884C;.</li>
+</ul></div>
+          <div id="content_right"><p>Various behaviors of the Node.js REPL can be customized using the following
+environment variables:</p><ul>
+<li><code>NODE_REPL_HISTORY</code> - When a valid path is given, persistent REPL history
+will be saved to the specified file rather than <code>.node_repl_history</code> in the
+user&apos;s home directory. Setting this value to <code>&apos;&apos;</code> will disable persistent
+REPL history. Whitespace will be trimmed from the value.</li>
+<li><code>NODE_REPL_HISTORY_SIZE</code> - Controls how many lines of history will be
+persisted if history is available. Must be a positive number.
+<strong>Default:</strong> <code>1000</code>.</li>
+<li><code>NODE_REPL_MODE</code> - May be either <code>&apos;sloppy&apos;</code> or <code>&apos;strict&apos;</code>. <strong>Default:</strong>
+<code>&apos;sloppy&apos;</code>, which will allow non-strict mode code to be run.</li>
+</ul></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712036215"><\/script>');
+  </script>
+</body>
+</html>

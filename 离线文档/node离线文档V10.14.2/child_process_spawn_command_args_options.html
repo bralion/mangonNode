@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>child_process.spawn(command[, args][, options]) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/child_process/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712012918" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-child_process">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>child_process.spawn(command[, args][, options])</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="child_process.html#child_process_child_process_spawn_command_args_options" tppabs="http://nodejs.cn/api/child_process.html#child_process_child_process_spawn_command_args_options" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.8.0</td>
+<td><p>The <code>windowsHide</code> option is supported now.</p></td></tr>
+<tr><td>v6.4.0</td>
+<td><p>The <code>argv0</code> option is supported now.</p></td></tr>
+<tr><td>v5.7.0</td>
+<td><p>The <code>shell</code> option is supported now.</p></td></tr>
+<tr><td>v0.1.90</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>command</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x8FD0;&#x884C;&#x7684;&#x547D;&#x4EE4;&#x3002;</li>
+<li><code>args</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a> &#x53C2;&#x6570;&#x5217;&#x8868;&#x3002;</li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>cwd</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x3002;</li>
+<li><code>env</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x73AF;&#x5883;&#x53D8;&#x91CF;&#x952E;&#x503C;&#x5BF9;&#x3002;</li>
+<li><code>argv0</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x53D1;&#x9001;&#x7ED9;&#x5B50;&#x8FDB;&#x7A0B;&#x7684; <code>argv[0]</code> &#x7684;&#x503C;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#xFF0C;&#x5219;&#x8BBE;&#x4E3A; <code>command</code> &#x7684;&#x503C;&#x3002;</li>
+<li><code>stdio</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Array  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Array'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Array" target="_blank" rel="nofollow" class="type">&lt;Array&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5B50;&#x8FDB;&#x7A0B;&#x7684; stdio &#x914D;&#x7F6E;&#x3002;&#x53C2;&#x89C1; <a href="javascript:if(confirm('http://nodejs.cn/s/ixmPX9  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ixmPX9'" tppabs="http://nodejs.cn/s/ixmPX9" rel="nofollow"><code>options.stdio</code></a>&#x3002;</li>
+<li><code>detached</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5B50;&#x8FDB;&#x7A0B;&#x662F;&#x5426;&#x72EC;&#x7ACB;&#x4E8E;&#x7236;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#x3002;&#x53C2;&#x89C1; <a href="javascript:if(confirm('http://nodejs.cn/s/Zz33Wb  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Zz33Wb'" tppabs="http://nodejs.cn/s/Zz33Wb" rel="nofollow"><code>options.detached</code></a>&#x3002;</li>
+<li><code>uid</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x8FDB;&#x7A0B;&#x7684;&#x7528;&#x6237;&#x6807;&#x8BC6;&#x3002;&#x53C2;&#x89C1; <a href="javascript:if(confirm('http://nodejs.cn/s/_man/2/setuid.2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_man/2/setuid.2'" tppabs="http://nodejs.cn/s/_man/2/setuid.2" rel="nofollow"><code>setuid(2)</code></a>&#x3002;</li>
+<li><code>gid</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x8FDB;&#x7A0B;&#x7684;&#x7FA4;&#x7EC4;&#x6807;&#x8BC6;&#x3002;&#x53C2;&#x89C1; <a href="javascript:if(confirm('http://nodejs.cn/s/_man/2/setgid.2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_man/2/setgid.2'" tppabs="http://nodejs.cn/s/_man/2/setgid.2" rel="nofollow"><code>setgid(2)</code></a>&#x3002;</li>
+<li><code>shell</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5982;&#x679C;&#x8BBE;&#x4E3A; <code>true</code>&#xFF0C;&#x5219;&#x5728; shell &#x4E2D;&#x8FD0;&#x884C; <code>command</code>&#x3002;
+&#x5728; UNIX &#x4E0A;&#x4F7F;&#x7528; <code>&apos;/bin/sh&apos;</code>&#xFF0C;&#x5728; Windows &#x4E0A;&#x4F7F;&#x7528; <code>process.env.ComSpec</code>&#x3002;
+&#x4F20;&#x5165;&#x5B57;&#x7B26;&#x4E32;&#x5219;&#x6307;&#x5B9A;&#x5176;&#x4ED6; <code>shell</code>&#x3002;
+&#x53C2;&#x89C1; <a href="javascript:if(confirm('http://nodejs.cn/s/y7VTNz  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/y7VTNz'" tppabs="http://nodejs.cn/s/y7VTNz" rel="nofollow">Shell&#x7684;&#x8981;&#x6C42;</a>&#x4E0E; <a href="javascript:if(confirm('http://nodejs.cn/s/5L5sS6  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5L5sS6'" tppabs="http://nodejs.cn/s/5L5sS6" rel="nofollow">Windows&#x9ED8;&#x8BA4;&#x7684;Shell</a>&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>false</code>&#xFF08;&#x6CA1;&#x6709; shell&#xFF09;&#x3002;</li>
+<li><code>windowsVerbatimArguments</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5728; Windows &#x4E0A;&#x662F;&#x5426;&#x4E3A;&#x53C2;&#x6570;&#x52A0;&#x5F15;&#x53F7;&#x6216;&#x8F6C;&#x4E49;&#x3002;&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; <code>shell</code>&#xFF0C;&#x5219;&#x81EA;&#x52A8;&#x8BBE;&#x4E3A; <code>true</code>&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>false</code>&#x3002;</li>
+<li><code>windowsHide</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x662F;&#x5426;&#x9690;&#x85CF;&#x5B50;&#x8FDB;&#x7A0B;&#x7684;&#x63A7;&#x5236;&#x53F0;&#x7A97;&#x53E3;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>false</code>&#x3002;</li>
+</ul>
+</li>
+<li>&#x8FD4;&#x56DE;: <a href="child_process.html#child_process_class_childprocess" tppabs="http://nodejs.cn/api/child_process.html#child_process_class_childprocess" target="_blank" rel="nofollow" class="type">&lt;ChildProcess&gt;</a></li>
+</ul><p>&#x4F7F;&#x7528; <code>command</code> &#x548C; <code>args</code> &#x884D;&#x751F;&#x8FDB;&#x7A0B;&#x3002;</p><p><code>options</code> &#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x989D;&#x5916;&#x7684;&#x9009;&#x9879;&#xFF0C;&#x9ED8;&#x8BA4;&#x5982;&#x4E0B;&#xFF1A;</p><pre><code class="language-js">const defaults = {
+  cwd: undefined,
+  env: process.env
+};
+</code></pre><p><code>cwd</code> &#x6307;&#x5B9A;&#x884D;&#x751F;&#x7684;&#x8FDB;&#x7A0B;&#x7684;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x3002;
+&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#xFF0C;&#x5219;&#x9ED8;&#x8BA4;&#x4E3A;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x3002;</p><p><code>env</code> &#x6307;&#x5B9A;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A; <a href="javascript:if(confirm('http://nodejs.cn/s/vFJ6HL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vFJ6HL'" tppabs="http://nodejs.cn/s/vFJ6HL" rel="nofollow"><code>process.env</code></a>&#x3002;</p><p><code>env</code> &#x4E2D;&#x503C;&#x4E3A; <code>undefined</code> &#x7684;&#x5C5E;&#x6027;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;</p><p>&#x4F8B;&#x5B50;&#xFF0C;&#x8FD0;&#x884C; <code>ls -lh /usr</code>&#xFF0C;&#x5E76;&#x6355;&#x83B7; <code>stdout</code>&#x3001;<code>stderr</code>&#x3001;&#x4EE5;&#x53CA;&#x9000;&#x51FA;&#x7801;&#xFF1A;</p><pre><code class="language-js">const { spawn } = require(&apos;child_process&apos;);
+const ls = spawn(&apos;ls&apos;, [&apos;-lh&apos;, &apos;/usr&apos;]);
+
+ls.stdout.on(&apos;data&apos;, (data) =&gt; {
+  console.log(`stdout: ${data}`);
+});
+
+ls.stderr.on(&apos;data&apos;, (data) =&gt; {
+  console.log(`stderr: ${data}`);
+});
+
+ls.on(&apos;close&apos;, (code) =&gt; {
+  console.log(`&#x5B50;&#x8FDB;&#x7A0B;&#x9000;&#x51FA;&#x7801;&#xFF1A;${code}`);
+});
+</code></pre><p>&#x4F8B;&#x5B50;&#xFF0C;&#x8FD0;&#x884C; <code>ps ax | grep ssh</code>&#xFF1A;</p><pre><code class="language-js">const { spawn } = require(&apos;child_process&apos;);
+const ps = spawn(&apos;ps&apos;, [&apos;ax&apos;]);
+const grep = spawn(&apos;grep&apos;, [&apos;ssh&apos;]);
+
+ps.stdout.on(&apos;data&apos;, (data) =&gt; {
+  grep.stdin.write(data);
+});
+
+ps.stderr.on(&apos;data&apos;, (data) =&gt; {
+  console.log(`ps stderr: ${data}`);
+});
+
+ps.on(&apos;close&apos;, (code) =&gt; {
+  if (code !== 0) {
+    console.log(`ps &#x8FDB;&#x7A0B;&#x9000;&#x51FA;&#x7801;&#xFF1A;${code}`);
+  }
+  grep.stdin.end();
+});
+
+grep.stdout.on(&apos;data&apos;, (data) =&gt; {
+  console.log(data.toString());
+});
+
+grep.stderr.on(&apos;data&apos;, (data) =&gt; {
+  console.log(`grep stderr: ${data}`);
+});
+
+grep.on(&apos;close&apos;, (code) =&gt; {
+  if (code !== 0) {
+    console.log(`grep &#x8FDB;&#x7A0B;&#x9000;&#x51FA;&#x7801;&#xFF1A;${code}`);
+  }
+});
+</code></pre><p>&#x4F8B;&#x5B50;&#xFF0C;&#x68C0;&#x6D4B;&#x5931;&#x8D25;&#x7684; <code>spawn</code>&#xFF1A;</p><pre><code class="language-js">const { spawn } = require(&apos;child_process&apos;);
+const subprocess = spawn(&apos;bad_command&apos;);
+
+subprocess.on(&apos;error&apos;, (err) =&gt; {
+  console.log(&apos;&#x542F;&#x52A8;&#x5B50;&#x8FDB;&#x7A0B;&#x5931;&#x8D25;&apos;);
+});
+</code></pre><p>&#x5728; macOS &#x548C; Linux &#x4E0A;&#x4F1A;&#x4F7F;&#x7528; <code>argv[0]</code> &#x7684;&#x503C;&#x4F5C;&#x4E3A;&#x8FDB;&#x7A0B;&#x7684;&#x6807;&#x9898;&#xFF0C;&#x800C;&#x5728; Windows &#x548C; SunOS &#x4E0A;&#x5219;&#x4F7F;&#x7528; <code>command</code> &#x4F5C;&#x4E3A;&#x6807;&#x9898;&#x3002;</p><p>Node.js &#x4E00;&#x822C;&#x4F1A;&#x5728;&#x542F;&#x52A8;&#x65F6;&#x7528; <code>process.execPath</code> &#x91CD;&#x5199; <code>argv[0]</code>&#xFF0C;&#x6240;&#x4EE5;&#x5B50;&#x8FDB;&#x7A0B;&#x7684; <code>process.argv[0]</code> &#x4E0D;&#x4F1A;&#x5339;&#x914D;&#x4ECE;&#x7236;&#x8FDB;&#x7A0B;&#x4F20;&#x7ED9; <code>spawn</code> &#x7684; <code>argv0</code>&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>process.argv0</code> &#x83B7;&#x53D6;&#x3002;</p></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v8.8.0</td>
+<td><p>The <code>windowsHide</code> option is supported now.</p></td></tr>
+<tr><td>v6.4.0</td>
+<td><p>The <code>argv0</code> option is supported now.</p></td></tr>
+<tr><td>v5.7.0</td>
+<td><p>The <code>shell</code> option is supported now.</p></td></tr>
+<tr><td>v0.1.90</td>
+<td><p><span>Added in: v0.1.90</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>command</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> The command to run.</li>
+<li><code>args</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a> List of string arguments.</li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>cwd</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Current working directory of the child process.</li>
+<li><code>env</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> Environment key-value pairs.</li>
+<li><code>argv0</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Explicitly set the value of <code>argv[0]</code> sent to the child
+process. This will be set to <code>command</code> if not specified.</li>
+<li><code>stdio</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Array  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Array'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Array" target="_blank" rel="nofollow" class="type">&lt;Array&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Child&apos;s stdio configuration (see
+<a href="javascript:if(confirm('http://nodejs.cn/s/ixmPX9  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ixmPX9'" tppabs="http://nodejs.cn/s/ixmPX9" rel="nofollow"><code>options.stdio</code></a>).</li>
+<li><code>detached</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> Prepare child to run independently of its parent
+process. Specific behavior depends on the platform, see
+<a href="javascript:if(confirm('http://nodejs.cn/s/Zz33Wb  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Zz33Wb'" tppabs="http://nodejs.cn/s/Zz33Wb" rel="nofollow"><code>options.detached</code></a>).</li>
+<li><code>uid</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Sets the user identity of the process (see <a href="javascript:if(confirm('http://nodejs.cn/s/_man/2/setuid.2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_man/2/setuid.2'" tppabs="http://nodejs.cn/s/_man/2/setuid.2" rel="nofollow"><code>setuid(2)</code></a>).</li>
+<li><code>gid</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Sets the group identity of the process (see <a href="javascript:if(confirm('http://nodejs.cn/s/_man/2/setgid.2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_man/2/setgid.2'" tppabs="http://nodejs.cn/s/_man/2/setgid.2" rel="nofollow"><code>setgid(2)</code></a>).</li>
+<li><code>shell</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> If <code>true</code>, runs <code>command</code> inside of a shell. Uses
+<code>&apos;/bin/sh&apos;</code> on UNIX, and <code>process.env.ComSpec</code> on Windows. A different
+shell can be specified as a string. See <a href="javascript:if(confirm('http://nodejs.cn/s/y7VTNz  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/y7VTNz'" tppabs="http://nodejs.cn/s/y7VTNz" rel="nofollow">Shell Requirements</a> and
+<a href="javascript:if(confirm('http://nodejs.cn/s/5L5sS6  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5L5sS6'" tppabs="http://nodejs.cn/s/5L5sS6" rel="nofollow">Default Windows Shell</a>. <strong>Default:</strong> <code>false</code> (no shell).</li>
+<li><code>windowsVerbatimArguments</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> No quoting or escaping of arguments is
+done on Windows. Ignored on Unix. This is set to <code>true</code> automatically
+when <code>shell</code> is specified. <strong>Default:</strong> <code>false</code>.</li>
+<li><code>windowsHide</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> Hide the subprocess console window that would
+normally be created on Windows systems. <strong>Default:</strong> <code>false</code>.</li>
+</ul>
+</li>
+<li>Returns: <a href="child_process.html#child_process_class_childprocess" tppabs="http://nodejs.cn/api/child_process.html#child_process_class_childprocess" target="_blank" rel="nofollow" class="type">&lt;ChildProcess&gt;</a></li>
+</ul><p>The <code>child_process.spawn()</code> method spawns a new process using the given
+<code>command</code>, with command line arguments in <code>args</code>. If omitted, <code>args</code> defaults
+to an empty array.</p><p><strong>If the <code>shell</code> option is enabled, do not pass unsanitized user input to this
+function. Any input containing shell metacharacters may be used to trigger
+arbitrary command execution.</strong></p><p>A third argument may be used to specify additional options, with these defaults:</p><pre><code class="language-js">const defaults = {
+  cwd: undefined,
+  env: process.env
+};
+</code></pre><p>Use <code>cwd</code> to specify the working directory from which the process is spawned.
+If not given, the default is to inherit the current working directory.</p><p>Use <code>env</code> to specify environment variables that will be visible to the new
+process, the default is <a href="javascript:if(confirm('http://nodejs.cn/s/vFJ6HL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vFJ6HL'" tppabs="http://nodejs.cn/s/vFJ6HL" rel="nofollow"><code>process.env</code></a>.</p><p><code>undefined</code> values in <code>env</code> will be ignored.</p><p>Example of running <code>ls -lh /usr</code>, capturing <code>stdout</code>, <code>stderr</code>, and the
+exit code:</p><pre><code class="language-js">const { spawn } = require(&apos;child_process&apos;);
+const ls = spawn(&apos;ls&apos;, [&apos;-lh&apos;, &apos;/usr&apos;]);
+
+ls.stdout.on(&apos;data&apos;, (data) =&gt; {
+  console.log(`stdout: ${data}`);
+});
+
+ls.stderr.on(&apos;data&apos;, (data) =&gt; {
+  console.log(`stderr: ${data}`);
+});
+
+ls.on(&apos;close&apos;, (code) =&gt; {
+  console.log(`child process exited with code ${code}`);
+});
+</code></pre><p>Example: A very elaborate way to run <code>ps ax | grep ssh</code></p><pre><code class="language-js">const { spawn } = require(&apos;child_process&apos;);
+const ps = spawn(&apos;ps&apos;, [&apos;ax&apos;]);
+const grep = spawn(&apos;grep&apos;, [&apos;ssh&apos;]);
+
+ps.stdout.on(&apos;data&apos;, (data) =&gt; {
+  grep.stdin.write(data);
+});
+
+ps.stderr.on(&apos;data&apos;, (data) =&gt; {
+  console.log(`ps stderr: ${data}`);
+});
+
+ps.on(&apos;close&apos;, (code) =&gt; {
+  if (code !== 0) {
+    console.log(`ps process exited with code ${code}`);
+  }
+  grep.stdin.end();
+});
+
+grep.stdout.on(&apos;data&apos;, (data) =&gt; {
+  console.log(data.toString());
+});
+
+grep.stderr.on(&apos;data&apos;, (data) =&gt; {
+  console.log(`grep stderr: ${data}`);
+});
+
+grep.on(&apos;close&apos;, (code) =&gt; {
+  if (code !== 0) {
+    console.log(`grep process exited with code ${code}`);
+  }
+});
+</code></pre><p>Example of checking for failed <code>spawn</code>:</p><pre><code class="language-js">const { spawn } = require(&apos;child_process&apos;);
+const subprocess = spawn(&apos;bad_command&apos;);
+
+subprocess.on(&apos;error&apos;, (err) =&gt; {
+  console.log(&apos;Failed to start subprocess.&apos;);
+});
+</code></pre><p>Certain platforms (macOS, Linux) will use the value of <code>argv[0]</code> for the process
+title while others (Windows, SunOS) will use <code>command</code>.</p><p>Node.js currently overwrites <code>argv[0]</code> with <code>process.execPath</code> on startup, so
+<code>process.argv[0]</code> in a Node.js child process will not match the <code>argv0</code>
+parameter passed to <code>spawn</code> from the parent, retrieve it with the
+<code>process.argv0</code> property instead.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712012918"><\/script>');
+  </script>
+</body>
+</html>

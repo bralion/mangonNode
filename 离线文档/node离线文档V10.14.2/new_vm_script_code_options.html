@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>new vm.Script(code, options) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/vm/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712042301" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-vm">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>new vm.Script(code, options)</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="vm.html#vm_new_vm_script_code_options" tppabs="http://nodejs.cn/api/vm.html#vm_new_vm_script_code_options" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v5.7.0</td>
+<td><p>&#x65B0;&#x589E;&#x5BF9;<code>cachedData</code>&#x548C;<code>produceCachedData</code>&#x9009;&#x9879;&#x7684;&#x652F;&#x6301;</p></td></tr>
+<tr><td>v0.3.1</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.3.1</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x9700;&#x8981;&#x88AB;&#x89E3;&#x6790;&#x7684;JavaScript&#x4EE3;&#x7801;</li>
+<li>
+<p><code>options</code></p>
+<ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5B9A;&#x4E49;&#x4F9B;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x540D;</li>
+<li><code>lineOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x884C;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>columnOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x5217;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>displayErrors</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x503C;&#x4E3A;&#x771F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5047;&#x5982;&#x5728;&#x89E3;&#x6790;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x751F;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#xFF0C;&#x5F15;&#x8D77;&#x9519;&#x8BEF;&#x7684;&#x884C;&#x5C06;&#x4F1A;&#x88AB;&#x52A0;&#x5165;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;
+&#xA0;<em> <code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x5728;&#x88AB;&#x7EC8;&#x6B62;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x6B64;code&#x88AB;&#x5141;&#x8BB8;&#x6267;&#x884C;&#x7684;&#x6700;&#x5927;&#x6BEB;&#x79D2;&#x6570;&#x3002;&#x5047;&#x5982;&#x6267;&#x884C;&#x88AB;&#x7EC8;&#x6B62;&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;[Error][]&#x3002;
+&#xA0;</em> <code>cachedData</code> <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> &#x4E3A;&#x6E90;&#x7801;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x7684;&#x5B58;&#x6709;v8&#x4EE3;&#x7801;&#x7F13;&#x5B58;&#x6570;&#x636E;&#x7684;Buffer&#x3002;&#x4E00;&#x65E6;&#x63D0;&#x4F9B;&#x4E86;&#x6B64;Buffer&#xFF0C;&#x53D6;&#x51B3;&#x4E8E;v8&#x5F15;&#x64CE;&#x5BF9;Buffer&#x4E2D;&#x6570;&#x636E;&#x7684;&#x63A5;&#x53D7;&#x72B6;&#x51B5;&#xFF0C;cachedDataRejected&#x503C;&#x5C06;&#x4F1A;&#x88AB;&#x8BBE;&#x4E3A;&#x8981;&#x4E48;
+&#xA0; &#xA0;&#x771F;&#x8981;&#x4E48;&#x4E3A;&#x5047;&#x3002;
+&#xA0;* <code>produceCachedData</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x503C;&#x4E3A;&#x771F;&#x4E14;cachedData&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x65F6;&#x5019;&#xFF0C;v8&#x5C06;&#x4F1A;&#x8BD5;&#x56FE;&#x4E3A;code&#x751F;&#x6210;&#x4EE3;&#x7801;&#x7F13;&#x5B58;&#x6570;&#x636E;&#x3002;&#x4E00;&#x65E6;&#x6210;&#x529F;&#xFF0C;&#x4E00;&#x4E2A;&#x6709;V8&#x4EE3;&#x7801;&#x7F13;&#x5B58;&#x6570;&#x636E;&#x7684;Buffer&#x5C06;&#x4F1A;&#x88AB;&#x751F;&#x6210;&#x548C;&#x50A8;&#x5B58;&#x5728;vm.Script&#x8FD4;&#x56DE;&#x7684;&#x5B9E;&#x4F8B;&#x7684;cachedData&#x5C5E;&#x6027;&#x91CC;&#x3002;
+   &#x53D6;&#x51B3;&#x4E8E;&#x4EE3;&#x7801;&#x7F13;&#x5B58;&#x6570;&#x636E;&#x662F;&#x5426;&#x88AB;&#x6210;&#x529F;&#x751F;&#x6210;&#xFF0C;cachedDataProduced&#x7684;&#x503C;&#x4F1A;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;true&#x6216;&#x8005;false&#x3002;</li>
+</ul>
+</li>
+</ul><p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;vm.Script&#x5BF9;&#x8C61;&#x53EA;&#x7F16;&#x8BD1;&#x4EE3;&#x7801;&#x4F46;&#x4E0D;&#x4F1A;&#x6267;&#x884C;&#x5B83;&#x3002;&#x7F16;&#x8BD1;&#x8FC7;&#x7684;vm.Script&#x6B64;&#x540E;&#x53EF;&#x4EE5;&#x88AB;&#x591A;&#x6B21;&#x6267;&#x884C;&#x3002;code&#x662F;&#x4E0D;&#x7ED1;&#x5B9A;&#x4E8E;&#x4EFB;&#x4F55;&#x5168;&#x5C40;&#x5BF9;&#x8C61;&#x7684;&#xFF0C;&#x76F8;&#x53CD;&#xFF0C;&#x5B83;&#x4EC5;&#x4EC5;&#x7ED1;&#x5B9A;&#x4E8E;&#x6BCF;&#x6B21;&#x6267;&#x884C;&#x5B83;&#x7684;&#x5BF9;&#x8C61;&#x3002;</p></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v10.6.0</td>
+<td><p>The <code>produceCachedData</code> is deprecated in favour of <code>script.createCachedData()</code></p></td></tr>
+<tr><td>v5.7.0</td>
+<td><p>The <code>cachedData</code> and <code>produceCachedData</code> options are supported now.</p></td></tr>
+<tr><td>v0.3.1</td>
+<td><p><span>Added in: v0.3.1</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> The JavaScript code to compile.</li>
+<li>
+<p><code>options</code></p>
+<ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Specifies the filename used in stack traces produced
+by this script.</li>
+<li><code>lineOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Specifies the line number offset that is displayed
+in stack traces produced by this script.</li>
+<li><code>columnOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Specifies the column number offset that is displayed
+in stack traces produced by this script.</li>
+<li><code>cachedData</code> <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> Provides an optional <code>Buffer</code> with V8&apos;s code cache
+data for the supplied source. When supplied, the <code>cachedDataRejected</code> value
+will be set to either <code>true</code> or <code>false</code> depending on acceptance of the data
+by V8.</li>
+<li><code>produceCachedData</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> When <code>true</code> and no <code>cachedData</code> is present, V8
+will attempt to produce code cache data for <code>code</code>. Upon success, a
+<code>Buffer</code> with V8&apos;s code cache data will be produced and stored in the
+<code>cachedData</code> property of the returned <code>vm.Script</code> instance.
+The <code>cachedDataProduced</code> value will be set to either <code>true</code> or <code>false</code>
+depending on whether code cache data is produced successfully.
+This option is deprecated in favor of <code>script.createCachedData()</code>.</li>
+</ul>
+</li>
+</ul><p>Creating a new <code>vm.Script</code> object compiles <code>code</code> but does not run it. The
+compiled <code>vm.Script</code> can be run later multiple times. The <code>code</code> is not bound to
+any global object; rather, it is bound before each run, just for that run.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712042301"><\/script>');
+  </script>
+</body>
+</html>

@@ -1,0 +1,783 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>async_hooks | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712010903" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-async_hooks">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks active" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="async_hooks" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><span class="stability_1"><a href="#async_hooks_async_hooks">async_hooks&#xFF08;&#x5F02;&#x6B65;&#x94A9;&#x5B50;&#xFF09;</a></span></p>
+<ul>
+<li><a href="#async_hooks_terminology">&#x672F;&#x8BED;</a></li>
+<li>
+<p><a href="#async_hooks_public_api">&#x516C;&#x5171;&#x63A5;&#x53E3;</a></p>
+<ul>
+<li>
+<p><a href="#async_hooks_overview">&#x6982;&#x8FF0;</a></p>
+<ul>
+<li>
+<p><a href="#async_hooks_async_hooks_createhook_callbacks">async_hooks.createHook(callbacks)</a></p>
+<ul>
+<li><a href="#async_hooks_error_handling">&#x5F02;&#x5E38;&#x5904;&#x7406;</a></li>
+<li><a href="#async_hooks_printing_in_asynchooks_callbacks">&#x5728;&#x5F02;&#x6B65;&#x94A9;&#x5B50;&#x56DE;&#x8C03;&#x4E2D;&#x6253;&#x5370;&#x65E5;&#x5FD7;</a></li>
+</ul>
+</li>
+<li><a href="#async_hooks_asynchook_enable">asyncHook.enable()</a></li>
+<li><a href="#async_hooks_asynchook_disable">asyncHook.disable()</a></li>
+<li>
+<p><a href="#async_hooks_hook_callbacks">&#x94A9;&#x5B50;&#x56DE;&#x8C03;</a></p>
+<ul>
+<li>
+<p><a href="#async_hooks_init_asyncid_type_triggerasyncid_resource">init(asyncId, type, triggerAsyncId, resource)</a></p>
+<ul>
+<li><a href="#async_hooks_type"><code>type</code></a></li>
+<li><a href="#async_hooks_triggerasyncid"><code>triggerAsyncId</code></a></li>
+<li><a href="#async_hooks_resource"><code>resource</code></a></li>
+<li><a href="#async_hooks_asynchronous_context_example">&#x5F02;&#x6B65;&#x4E0A;&#x4E0B;&#x6587;&#x7684;&#x793A;&#x4F8B;</a></li>
+</ul>
+</li>
+<li><a href="#async_hooks_before_asyncid">before(asyncId)</a></li>
+<li><a href="#async_hooks_after_asyncid">after(asyncId)</a></li>
+<li><a href="#async_hooks_destroy_asyncid">destroy(asyncId)</a></li>
+<li><a href="#async_hooks_promiseresolve_asyncid">promiseResolve(asyncId)</a></li>
+</ul>
+</li>
+<li><a href="#async_hooks_async_hooks_executionasyncid">async_hooks.executionAsyncId()</a></li>
+<li><a href="#async_hooks_async_hooks_triggerasyncid">async_hooks.triggerAsyncId()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#async_hooks_promise_execution_tracking">Promise &#x6267;&#x884C;&#x8DDF;&#x8E2A;</a></li>
+<li>
+<p><a href="#async_hooks_javascript_embedder_api">JavaScript &#x5D4C;&#x5165;&#x7684;&#x63A5;&#x53E3;</a></p>
+<ul>
+<li>
+<p><a href="#async_hooks_class_asyncresource">AsyncResource &#x7C7B;</a></p>
+<ul>
+<li><a href="#async_hooks_new_asyncresource_type_options">new AsyncResource(type[, options])</a></li>
+<li><a href="#async_hooks_asyncresource_runinasyncscope_fn_thisarg_args">asyncResource.runInAsyncScope(fn[, thisArg, ...args])</a></li>
+<li><span class="stability_0"><a href="#async_hooks_asyncresource_emitbefore">asyncResource.emitBefore()</a></span></li>
+<li><span class="stability_0"><a href="#async_hooks_asyncresource_emitafter">asyncResource.emitAfter()</a></span></li>
+<li><a href="#async_hooks_asyncresource_emitdestroy">asyncResource.emitDestroy()</a></li>
+<li><a href="#async_hooks_asyncresource_asyncid">asyncResource.asyncId()</a></li>
+<li><a href="#async_hooks_asyncresource_triggerasyncid">asyncResource.triggerAsyncId()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>async_hooks&#xFF08;&#x5F02;&#x6B65;&#x94A9;&#x5B50;&#xFF09;<span><a class="mark" href="#async_hooks_async_hooks" id="async_hooks_async_hooks" rel="nofollow">#</a></span></h1><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<!--introduced_in=v8.1.0-->
+<p></p><div class="api_stability api_stability_1"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 1</a> - &#x8BD5;&#x9A8C;&#x7684;</div><p></p>
+<p>The <code>async_hooks</code> module provides an API to register callbacks tracking the
+lifetime of asynchronous resources created inside a Node.js application.
+It can be accessed using:</p>
+<pre><code class="language-js">const async_hooks = require(&apos;async_hooks&apos;);
+</code></pre>
+<h2>&#x672F;&#x8BED;<span><a class="mark" href="#async_hooks_terminology" id="async_hooks_terminology" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>An asynchronous resource represents an object with an associated callback.
+This callback may be called multiple times, for example, the <code>&apos;connection&apos;</code>
+event in <code>net.createServer()</code>, or just a single time like in <code>fs.open()</code>.
+A resource can also be closed before the callback is called. <code>AsyncHook</code> does
+not explicitly distinguish between these different cases but will represent them
+as the abstract concept that is a resource.</p>
+<p>If <a href="javascript:if(confirm('http://nodejs.cn/s/S15DqM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/S15DqM'" tppabs="http://nodejs.cn/s/S15DqM" rel="nofollow"><code>Worker</code></a>s are used, each thread has an independent <code>async_hooks</code>
+interface, and each thread will use a new set of async IDs.</p>
+<h2>&#x516C;&#x5171;&#x63A5;&#x53E3;<span><a class="mark" href="#async_hooks_public_api" id="async_hooks_public_api" rel="nofollow">#</a></span></h2>
+<h3>&#x6982;&#x8FF0;<span><a class="mark" href="#async_hooks_overview" id="async_hooks_overview" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>Following is a simple overview of the public API.</p>
+<pre><code class="language-js">const async_hooks = require(&apos;async_hooks&apos;);
+
+// Return the ID of the current execution context.
+const eid = async_hooks.executionAsyncId();
+
+// Return the ID of the handle responsible for triggering the callback of the
+// current execution scope to call.
+const tid = async_hooks.triggerAsyncId();
+
+// Create a new AsyncHook instance. All of these callbacks are optional.
+const asyncHook =
+    async_hooks.createHook({ init, before, after, destroy, promiseResolve });
+
+// Allow callbacks of this AsyncHook instance to call. This is not an implicit
+// action after running the constructor, and must be explicitly run to begin
+// executing callbacks.
+asyncHook.enable();
+
+// Disable listening for new asynchronous events.
+asyncHook.disable();
+
+//
+// The following are the callbacks that can be passed to createHook().
+//
+
+// init is called during object construction. The resource may not have
+// completed construction when this callback runs, therefore all fields of the
+// resource referenced by &quot;asyncId&quot; may not have been populated.
+function init(asyncId, type, triggerAsyncId, resource) { }
+
+// before is called just before the resource&apos;s callback is called. It can be
+// called 0-N times for handles (e.g. TCPWrap), and will be called exactly 1
+// time for requests (e.g. FSReqWrap).
+function before(asyncId) { }
+
+// after is called just after the resource&apos;s callback has finished.
+function after(asyncId) { }
+
+// destroy is called when an AsyncWrap instance is destroyed.
+function destroy(asyncId) { }
+
+// promiseResolve is called only for promise resources, when the
+// `resolve` function passed to the `Promise` constructor is invoked
+// (either directly or through other means of resolving a promise).
+function promiseResolve(asyncId) { }
+</code></pre>
+<h4>async_hooks.createHook(callbacks)<span><a class="mark" href="#async_hooks_async_hooks_createhook_callbacks" id="async_hooks_async_hooks_createhook_callbacks" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.1.0</span>
+</div>
+<ul>
+<li>
+<p><code>callbacks</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> The <a href="javascript:if(confirm('http://nodejs.cn/s/ECdCE3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ECdCE3'" tppabs="http://nodejs.cn/s/ECdCE3" rel="nofollow">Hook Callbacks</a> to register</p>
+<ul>
+<li><code>init</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> The <a href="javascript:if(confirm('http://nodejs.cn/s/n714wm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/n714wm'" tppabs="http://nodejs.cn/s/n714wm" rel="nofollow"><code>init</code> callback</a>.</li>
+<li><code>before</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> The <a href="javascript:if(confirm('http://nodejs.cn/s/y6FHCE  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/y6FHCE'" tppabs="http://nodejs.cn/s/y6FHCE" rel="nofollow"><code>before</code> callback</a>.</li>
+<li><code>after</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> The <a href="javascript:if(confirm('http://nodejs.cn/s/LYZxZX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LYZxZX'" tppabs="http://nodejs.cn/s/LYZxZX" rel="nofollow"><code>after</code> callback</a>.</li>
+<li><code>destroy</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> The <a href="javascript:if(confirm('http://nodejs.cn/s/JgWxbb  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JgWxbb'" tppabs="http://nodejs.cn/s/JgWxbb" rel="nofollow"><code>destroy</code> callback</a>.</li>
+</ul>
+</li>
+<li>Returns: <a href="async_hooks.html#async_hooks_async_hooks_createhook_callbacks" tppabs="http://nodejs.cn/api/async_hooks.html#async_hooks_async_hooks_createhook_callbacks" target="_blank" rel="nofollow" class="type">&lt;AsyncHook&gt;</a> Instance used for disabling and enabling hooks</li>
+</ul>
+<p>Registers functions to be called for different lifetime events of each async
+operation.</p>
+<p>The callbacks <code>init()</code>/<code>before()</code>/<code>after()</code>/<code>destroy()</code> are called for the
+respective asynchronous event during a resource&apos;s lifetime.</p>
+<p>All callbacks are optional. For example, if only resource cleanup needs to
+be tracked, then only the <code>destroy</code> callback needs to be passed. The
+specifics of all functions that can be passed to <code>callbacks</code> is in the
+<a href="javascript:if(confirm('http://nodejs.cn/s/ECdCE3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ECdCE3'" tppabs="http://nodejs.cn/s/ECdCE3" rel="nofollow">Hook Callbacks</a> section.</p>
+<pre><code class="language-js">const async_hooks = require(&apos;async_hooks&apos;);
+
+const asyncHook = async_hooks.createHook({
+  init(asyncId, type, triggerAsyncId, resource) { },
+  destroy(asyncId) { }
+});
+</code></pre>
+<p>Note that the callbacks will be inherited via the prototype chain:</p>
+<pre><code class="language-js">class MyAsyncCallbacks {
+  init(asyncId, type, triggerAsyncId, resource) { }
+  destroy(asyncId) {}
+}
+
+class MyAddedCallbacks extends MyAsyncCallbacks {
+  before(asyncId) { }
+  after(asyncId) { }
+}
+
+const asyncHook = async_hooks.createHook(new MyAddedCallbacks());
+</code></pre>
+<h5>&#x5F02;&#x5E38;&#x5904;&#x7406;<span><a class="mark" href="#async_hooks_error_handling" id="async_hooks_error_handling" rel="nofollow">#</a></span></h5><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>If any <code>AsyncHook</code> callbacks throw, the application will print the stack trace
+and exit. The exit path does follow that of an uncaught exception, but
+all <code>&apos;uncaughtException&apos;</code> listeners are removed, thus forcing the process to
+exit. The <code>&apos;exit&apos;</code> callbacks will still be called unless the application is run
+with <code>--abort-on-uncaught-exception</code>, in which case a stack trace will be
+printed and the application exits, leaving a core file.</p>
+<p>The reason for this error handling behavior is that these callbacks are running
+at potentially volatile points in an object&apos;s lifetime, for example during
+class construction and destruction. Because of this, it is deemed necessary to
+bring down the process quickly in order to prevent an unintentional abort in the
+future. This is subject to change in the future if a comprehensive analysis is
+performed to ensure an exception can follow the normal control flow without
+unintentional side effects.</p>
+<h5>&#x5728;&#x5F02;&#x6B65;&#x94A9;&#x5B50;&#x56DE;&#x8C03;&#x4E2D;&#x6253;&#x5370;&#x65E5;&#x5FD7;<span><a class="mark" href="#async_hooks_printing_in_asynchooks_callbacks" id="async_hooks_printing_in_asynchooks_callbacks" rel="nofollow">#</a></span></h5><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>Because printing to the console is an asynchronous operation, <code>console.log()</code>
+will cause the AsyncHooks callbacks to be called. Using <code>console.log()</code> or
+similar asynchronous operations inside an AsyncHooks callback function will thus
+cause an infinite recursion. An easy solution to this when debugging is to use a
+synchronous logging operation such as <code>fs.writeSync(process.stdout.fd, msg)</code>.
+This will print to stdout and will not invoke AsyncHooks recursively because it
+is synchronous.</p>
+<pre><code class="language-js">const fs = require(&apos;fs&apos;);
+const util = require(&apos;util&apos;);
+
+function debug(...args) {
+  // use a function like this one when debugging inside an AsyncHooks callback
+  fs.writeSync(process.stdout.fd, `${util.format(...args)}\n`);
+}
+</code></pre>
+<p>If an asynchronous operation is needed for logging, it is possible to keep
+track of what caused the asynchronous operation using the information
+provided by AsyncHooks itself. The logging should then be skipped when
+it was the logging itself that caused AsyncHooks callback to call. By
+doing this the otherwise infinite recursion is broken.</p>
+<h4>asyncHook.enable()<span><a class="mark" href="#async_hooks_asynchook_enable" id="async_hooks_asynchook_enable" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li>Returns: <a href="async_hooks.html#async_hooks_async_hooks_createhook_callbacks" tppabs="http://nodejs.cn/api/async_hooks.html#async_hooks_async_hooks_createhook_callbacks" target="_blank" rel="nofollow" class="type">&lt;AsyncHook&gt;</a> A reference to <code>asyncHook</code>.</li>
+</ul>
+<p>Enable the callbacks for a given <code>AsyncHook</code> instance. If no callbacks are
+provided enabling is a noop.</p>
+<p>The <code>AsyncHook</code> instance is disabled by default. If the <code>AsyncHook</code> instance
+should be enabled immediately after creation, the following pattern can be used.</p>
+<pre><code class="language-js">const async_hooks = require(&apos;async_hooks&apos;);
+
+const hook = async_hooks.createHook(callbacks).enable();
+</code></pre>
+<h4>asyncHook.disable()<span><a class="mark" href="#async_hooks_asynchook_disable" id="async_hooks_asynchook_disable" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li>Returns: <a href="async_hooks.html#async_hooks_async_hooks_createhook_callbacks" tppabs="http://nodejs.cn/api/async_hooks.html#async_hooks_async_hooks_createhook_callbacks" target="_blank" rel="nofollow" class="type">&lt;AsyncHook&gt;</a> A reference to <code>asyncHook</code>.</li>
+</ul>
+<p>Disable the callbacks for a given <code>AsyncHook</code> instance from the global pool of
+<code>AsyncHook</code> callbacks to be executed. Once a hook has been disabled it will not
+be called again until enabled.</p>
+<p>For API consistency <code>disable()</code> also returns the <code>AsyncHook</code> instance.</p>
+<h4>&#x94A9;&#x5B50;&#x56DE;&#x8C03;<span><a class="mark" href="#async_hooks_hook_callbacks" id="async_hooks_hook_callbacks" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>Key events in the lifetime of asynchronous events have been categorized into
+four areas: instantiation, before/after the callback is called, and when the
+instance is destroyed.</p>
+<h5>init(asyncId, type, triggerAsyncId, resource)<span><a class="mark" href="#async_hooks_init_asyncid_type_triggerasyncid_resource" id="async_hooks_init_asyncid_type_triggerasyncid_resource" rel="nofollow">#</a></span></h5><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><code>asyncId</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> A unique ID for the async resource.</li>
+<li><code>type</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> The type of the async resource.</li>
+<li><code>triggerAsyncId</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> The unique ID of the async resource in whose
+execution context this async resource was created.</li>
+<li><code>resource</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> Reference to the resource representing the async
+operation, needs to be released during <em>destroy</em>.</li>
+</ul>
+<p>Called when a class is constructed that has the <em>possibility</em> to emit an
+asynchronous event. This <em>does not</em> mean the instance must call
+<code>before</code>/<code>after</code> before <code>destroy</code> is called, only that the possibility
+exists.</p>
+<p>This behavior can be observed by doing something like opening a resource then
+closing it before the resource can be used. The following snippet demonstrates
+this.</p>
+<pre><code class="language-js">require(&apos;net&apos;).createServer().listen(function() { this.close(); });
+// OR
+clearTimeout(setTimeout(() =&gt; {}, 10));
+</code></pre>
+<p>Every new resource is assigned an ID that is unique within the scope of the
+current Node.js instance.</p>
+<h6><code>type</code><span><a class="mark" href="#async_hooks_type" id="async_hooks_type" rel="nofollow">#</a></span></h6>
+<p>The <code>type</code> is a string identifying the type of resource that caused
+<code>init</code> to be called. Generally, it will correspond to the name of the
+resource&apos;s constructor.</p>
+<pre><code class="language-text">FSEVENTWRAP, FSREQWRAP, GETADDRINFOREQWRAP, GETNAMEINFOREQWRAP, HTTPPARSER,
+JSSTREAM, PIPECONNECTWRAP, PIPEWRAP, PROCESSWRAP, QUERYWRAP, SHUTDOWNWRAP,
+SIGNALWRAP, STATWATCHER, TCPCONNECTWRAP, TCPSERVER, TCPWRAP, TIMERWRAP, TTYWRAP,
+UDPSENDWRAP, UDPWRAP, WRITEWRAP, ZLIB, SSLCONNECTION, PBKDF2REQUEST,
+RANDOMBYTESREQUEST, TLSWRAP, Timeout, Immediate, TickObject
+</code></pre>
+<p>There is also the <code>PROMISE</code> resource type, which is used to track <code>Promise</code>
+instances and asynchronous work scheduled by them.</p>
+<p>Users are able to define their own <code>type</code> when using the public embedder API.</p>
+<p>It is possible to have type name collisions. Embedders are encouraged to use
+unique prefixes, such as the npm package name, to prevent collisions when
+listening to the hooks.</p>
+<h6><code>triggerAsyncId</code><span><a class="mark" href="#async_hooks_triggerasyncid" id="async_hooks_triggerasyncid" rel="nofollow">#</a></span></h6>
+<p><code>triggerAsyncId</code> is the <code>asyncId</code> of the resource that caused (or &quot;triggered&quot;)
+the new resource to initialize and that caused <code>init</code> to call. This is different
+from <code>async_hooks.executionAsyncId()</code> that only shows <em>when</em> a resource was
+created, while <code>triggerAsyncId</code> shows <em>why</em> a resource was created.</p>
+<p>The following is a simple demonstration of <code>triggerAsyncId</code>:</p>
+<pre><code class="language-js">async_hooks.createHook({
+  init(asyncId, type, triggerAsyncId) {
+    const eid = async_hooks.executionAsyncId();
+    fs.writeSync(
+      1, `${type}(${asyncId}): trigger: ${triggerAsyncId} execution: ${eid}\n`);
+  }
+}).enable();
+
+require(&apos;net&apos;).createServer((conn) =&gt; {}).listen(8080);
+</code></pre>
+<p>Output when hitting the server with <code>nc localhost 8080</code>:</p>
+<pre><code class="language-console">TCPSERVERWRAP(2): trigger: 1 execution: 1
+TCPWRAP(4): trigger: 2 execution: 0
+</code></pre>
+<p>The <code>TCPSERVERWRAP</code> is the server which receives the connections.</p>
+<p>The <code>TCPWRAP</code> is the new connection from the client. When a new
+connection is made, the <code>TCPWrap</code> instance is immediately constructed. This
+happens outside of any JavaScript stack. (An <code>executionAsyncId()</code> of <code>0</code> means
+that it is being executed from C++ with no JavaScript stack above it.) With only
+that information, it would be impossible to link resources together in
+terms of what caused them to be created, so <code>triggerAsyncId</code> is given the task
+of propagating what resource is responsible for the new resource&apos;s existence.</p>
+<h6><code>resource</code><span><a class="mark" href="#async_hooks_resource" id="async_hooks_resource" rel="nofollow">#</a></span></h6>
+<p><code>resource</code> is an object that represents the actual async resource that has
+been initialized. This can contain useful information that can vary based on
+the value of <code>type</code>. For instance, for the <code>GETADDRINFOREQWRAP</code> resource type,
+<code>resource</code> provides the hostname used when looking up the IP address for the
+hostname in <code>net.Server.listen()</code>. The API for accessing this information is
+currently not considered public, but using the Embedder API, users can provide
+and document their own resource objects. For example, such a resource object
+could contain the SQL query being executed.</p>
+<p>In the case of Promises, the <code>resource</code> object will have <code>promise</code> property
+that refers to the <code>Promise</code> that is being initialized, and an
+<code>isChainedPromise</code> property, set to <code>true</code> if the promise has a parent promise,
+and <code>false</code> otherwise. For example, in the case of <code>b = a.then(handler)</code>, <code>a</code> is
+considered a parent <code>Promise</code> of <code>b</code>. Here, <code>b</code> is considered a chained promise.</p>
+<p>In some cases the resource object is reused for performance reasons, it is
+thus not safe to use it as a key in a <code>WeakMap</code> or add properties to it.</p>
+<h6>&#x5F02;&#x6B65;&#x4E0A;&#x4E0B;&#x6587;&#x7684;&#x793A;&#x4F8B;<span><a class="mark" href="#async_hooks_asynchronous_context_example" id="async_hooks_asynchronous_context_example" rel="nofollow">#</a></span></h6>
+<p>The following is an example with additional information about the calls to
+<code>init</code> between the <code>before</code> and <code>after</code> calls, specifically what the
+callback to <code>listen()</code> will look like. The output formatting is slightly more
+elaborate to make calling context easier to see.</p>
+<pre><code class="language-js">let indent = 0;
+async_hooks.createHook({
+  init(asyncId, type, triggerAsyncId) {
+    const eid = async_hooks.executionAsyncId();
+    const indentStr = &apos; &apos;.repeat(indent);
+    fs.writeSync(
+      1,
+      `${indentStr}${type}(${asyncId}):` +
+      ` trigger: ${triggerAsyncId} execution: ${eid}\n`);
+  },
+  before(asyncId) {
+    const indentStr = &apos; &apos;.repeat(indent);
+    fs.writeSync(process.stdout.fd, `${indentStr}before:  ${asyncId}\n`);
+    indent += 2;
+  },
+  after(asyncId) {
+    indent -= 2;
+    const indentStr = &apos; &apos;.repeat(indent);
+    fs.writeSync(process.stdout.fd, `${indentStr}after:   ${asyncId}\n`);
+  },
+  destroy(asyncId) {
+    const indentStr = &apos; &apos;.repeat(indent);
+    fs.writeSync(process.stdout.fd, `${indentStr}destroy: ${asyncId}\n`);
+  },
+}).enable();
+
+require(&apos;net&apos;).createServer(() =&gt; {}).listen(8080, () =&gt; {
+  // Let&apos;s wait 10ms before logging the server started.
+  setTimeout(() =&gt; {
+    console.log(&apos;&gt;&gt;&gt;&apos;, async_hooks.executionAsyncId());
+  }, 10);
+});
+</code></pre>
+<p>Output from only starting the server:</p>
+<pre><code class="language-console">TCPSERVERWRAP(2): trigger: 1 execution: 1
+TickObject(3): trigger: 2 execution: 1
+before:  3
+  Timeout(4): trigger: 3 execution: 3
+  TIMERWRAP(5): trigger: 3 execution: 3
+after:   3
+destroy: 3
+before:  5
+  before:  4
+    TTYWRAP(6): trigger: 4 execution: 4
+    SIGNALWRAP(7): trigger: 4 execution: 4
+    TTYWRAP(8): trigger: 4 execution: 4
+&gt;&gt;&gt; 4
+    TickObject(9): trigger: 4 execution: 4
+  after:   4
+after:   5
+before:  9
+after:   9
+destroy: 4
+destroy: 9
+destroy: 5
+</code></pre>
+<p>As illustrated in the example, <code>executionAsyncId()</code> and <code>execution</code> each specify
+the value of the current execution context; which is delineated by calls to
+<code>before</code> and <code>after</code>.</p>
+<p>Only using <code>execution</code> to graph resource allocation results in the following:</p>
+<pre><code class="language-console">TTYWRAP(6) -&gt; Timeout(4) -&gt; TIMERWRAP(5) -&gt; TickObject(3) -&gt; root(1)
+</code></pre>
+<p>The <code>TCPSERVERWRAP</code> is not part of this graph, even though it was the reason for
+<code>console.log()</code> being called. This is because binding to a port without a
+hostname is a <em>synchronous</em> operation, but to maintain a completely asynchronous
+API the user&apos;s callback is placed in a <code>process.nextTick()</code>.</p>
+<p>The graph only shows <em>when</em> a resource was created, not <em>why</em>, so to track
+the <em>why</em> use <code>triggerAsyncId</code>.</p>
+<h5>before(asyncId)<span><a class="mark" href="#async_hooks_before_asyncid" id="async_hooks_before_asyncid" rel="nofollow">#</a></span></h5><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><code>asyncId</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>When an asynchronous operation is initiated (such as a TCP server receiving a
+new connection) or completes (such as writing data to disk) a callback is
+called to notify the user. The <code>before</code> callback is called just before said
+callback is executed. <code>asyncId</code> is the unique identifier assigned to the
+resource about to execute the callback.</p>
+<p>The <code>before</code> callback will be called 0 to N times. The <code>before</code> callback
+will typically be called 0 times if the asynchronous operation was cancelled
+or, for example, if no connections are received by a TCP server. Persistent
+asynchronous resources like a TCP server will typically call the <code>before</code>
+callback multiple times, while other operations like <code>fs.open()</code> will call
+it only once.</p>
+<h5>after(asyncId)<span><a class="mark" href="#async_hooks_after_asyncid" id="async_hooks_after_asyncid" rel="nofollow">#</a></span></h5><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><code>asyncId</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>Called immediately after the callback specified in <code>before</code> is completed.</p>
+<p>If an uncaught exception occurs during execution of the callback, then <code>after</code>
+will run <em>after</em> the <code>&apos;uncaughtException&apos;</code> event is emitted or a <code>domain</code>&apos;s
+handler runs.</p>
+<h5>destroy(asyncId)<span><a class="mark" href="#async_hooks_destroy_asyncid" id="async_hooks_destroy_asyncid" rel="nofollow">#</a></span></h5><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><code>asyncId</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>Called after the resource corresponding to <code>asyncId</code> is destroyed. It is also
+called asynchronously from the embedder API <code>emitDestroy()</code>.</p>
+<p>Some resources depend on garbage collection for cleanup, so if a reference is
+made to the <code>resource</code> object passed to <code>init</code> it is possible that <code>destroy</code>
+will never be called, causing a memory leak in the application. If the resource
+does not depend on garbage collection, then this will not be an issue.</p>
+<h5>promiseResolve(asyncId)<span><a class="mark" href="#async_hooks_promiseresolve_asyncid" id="async_hooks_promiseresolve_asyncid" rel="nofollow">#</a></span></h5><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><code>asyncId</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>Called when the <code>resolve</code> function passed to the <code>Promise</code> constructor is
+invoked (either directly or through other means of resolving a promise).</p>
+<p>Note that <code>resolve()</code> does not do any observable synchronous work.</p>
+<p>The <code>Promise</code> is not necessarily fulfilled or rejected at this point if the
+<code>Promise</code> was resolved by assuming the state of another <code>Promise</code>.</p>
+<pre><code class="language-js">new Promise((resolve) =&gt; resolve(true)).then((a) =&gt; {});
+</code></pre>
+<p>calls the following callbacks:</p>
+<pre><code class="language-text">init for PROMISE with id 5, trigger id: 1
+  promise resolve 5      # corresponds to resolve(true)
+init for PROMISE with id 6, trigger id: 5  # the Promise returned by then()
+  before 6               # the then() callback is entered
+  promise resolve 6      # the then() callback resolves the promise by returning
+  after 6
+</code></pre>
+<h4>async_hooks.executionAsyncId()<span><a class="mark" href="#async_hooks_async_hooks_executionasyncid" id="async_hooks_async_hooks_executionasyncid" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.2.0</td>
+<td><p>Renamed from <code>currentId</code></p></td></tr>
+<tr><td>v8.1.0</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v8.1.0</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> The <code>asyncId</code> of the current execution context. Useful to
+track when something calls.</li>
+</ul>
+<pre><code class="language-js">const async_hooks = require(&apos;async_hooks&apos;);
+
+console.log(async_hooks.executionAsyncId());  // 1 - bootstrap
+fs.open(path, &apos;r&apos;, (err, fd) =&gt; {
+  console.log(async_hooks.executionAsyncId());  // 6 - open()
+});
+</code></pre>
+<p>The ID returned from <code>executionAsyncId()</code> is related to execution timing, not
+causality (which is covered by <code>triggerAsyncId()</code>):</p>
+<pre><code class="language-js">const server = net.createServer(function onConnection(conn) {
+  // Returns the ID of the server, not of the new connection, because the
+  // onConnection callback runs in the execution scope of the server&apos;s
+  // MakeCallback().
+  async_hooks.executionAsyncId();
+
+}).listen(port, function onListening() {
+  // Returns the ID of a TickObject (i.e. process.nextTick()) because all
+  // callbacks passed to .listen() are wrapped in a nextTick().
+  async_hooks.executionAsyncId();
+});
+</code></pre>
+<p>Note that promise contexts may not get precise <code>executionAsyncIds</code> by default.
+See the section on <a href="javascript:if(confirm('http://nodejs.cn/s/Qkgj1Z  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Qkgj1Z'" tppabs="http://nodejs.cn/s/Qkgj1Z" rel="nofollow">promise execution tracking</a>.</p>
+<h4>async_hooks.triggerAsyncId()<span><a class="mark" href="#async_hooks_async_hooks_triggerasyncid" id="async_hooks_async_hooks_triggerasyncid" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> The ID of the resource responsible for calling the callback
+that is currently being executed.</li>
+</ul>
+<pre><code class="language-js">const server = net.createServer((conn) =&gt; {
+  // The resource that caused (or triggered) this callback to be called
+  // was that of the new connection. Thus the return value of triggerAsyncId()
+  // is the asyncId of &quot;conn&quot;.
+  async_hooks.triggerAsyncId();
+
+}).listen(port, () =&gt; {
+  // Even though all callbacks passed to .listen() are wrapped in a nextTick()
+  // the callback itself exists because the call to the server&apos;s .listen()
+  // was made. So the return value would be the ID of the server.
+  async_hooks.triggerAsyncId();
+});
+</code></pre>
+<p>Note that promise contexts may not get valid <code>triggerAsyncId</code>s by default. See
+the section on <a href="javascript:if(confirm('http://nodejs.cn/s/Qkgj1Z  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Qkgj1Z'" tppabs="http://nodejs.cn/s/Qkgj1Z" rel="nofollow">promise execution tracking</a>.</p>
+<h2>Promise &#x6267;&#x884C;&#x8DDF;&#x8E2A;<span><a class="mark" href="#async_hooks_promise_execution_tracking" id="async_hooks_promise_execution_tracking" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>By default, promise executions are not assigned <code>asyncId</code>s due to the relatively
+expensive nature of the <a href="javascript:if(confirm('http://nodejs.cn/s/YyWiBo  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YyWiBo'" tppabs="http://nodejs.cn/s/YyWiBo" rel="nofollow">promise introspection API</a> provided by
+V8. This means that programs using promises or <code>async</code>/<code>await</code> will not get
+correct execution and trigger ids for promise callback contexts by default.</p>
+<pre><code class="language-js">const ah = require(&apos;async_hooks&apos;);
+Promise.resolve(1729).then(() =&gt; {
+  console.log(`eid ${ah.executionAsyncId()} tid ${ah.triggerAsyncId()}`);
+});
+// produces:
+// eid 1 tid 0
+</code></pre>
+<p>Observe that the <code>then()</code> callback claims to have executed in the context of the
+outer scope even though there was an asynchronous hop involved. Also note that
+the <code>triggerAsyncId</code> value is <code>0</code>, which means that we are missing context about
+the resource that caused (triggered) the <code>then()</code> callback to be executed.</p>
+<p>Installing async hooks via <code>async_hooks.createHook</code> enables promise execution
+tracking:</p>
+<pre><code class="language-js">const ah = require(&apos;async_hooks&apos;);
+ah.createHook({ init() {} }).enable(); // forces PromiseHooks to be enabled.
+Promise.resolve(1729).then(() =&gt; {
+  console.log(`eid ${ah.executionAsyncId()} tid ${ah.triggerAsyncId()}`);
+});
+// produces:
+// eid 7 tid 6
+</code></pre>
+<p>In this example, adding any actual hook function enabled the tracking of
+promises. There are two promises in the example above; the promise created by
+<code>Promise.resolve()</code> and the promise returned by the call to <code>then()</code>. In the
+example above, the first promise got the <code>asyncId</code> <code>6</code> and the latter got
+<code>asyncId</code> <code>7</code>. During the execution of the <code>then()</code> callback, we are executing
+in the context of promise with <code>asyncId</code> <code>7</code>. This promise was triggered by
+async resource <code>6</code>.</p>
+<p>Another subtlety with promises is that <code>before</code> and <code>after</code> callbacks are run
+only on chained promises. That means promises not created by <code>then()</code>/<code>catch()</code>
+will not have the <code>before</code> and <code>after</code> callbacks fired on them. For more details
+see the details of the V8 <a href="javascript:if(confirm('http://nodejs.cn/s/YyWiBo  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YyWiBo'" tppabs="http://nodejs.cn/s/YyWiBo" rel="nofollow">PromiseHooks</a> API.</p>
+<h2>JavaScript &#x5D4C;&#x5165;&#x7684;&#x63A5;&#x53E3;<span><a class="mark" href="#async_hooks_javascript_embedder_api" id="async_hooks_javascript_embedder_api" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>Library developers that handle their own asynchronous resources performing tasks
+like I/O, connection pooling, or managing callback queues may use the
+<code>AsyncWrap</code> JavaScript API so that all the appropriate callbacks are called.</p>
+<h3>AsyncResource &#x7C7B;<span><a class="mark" href="#async_hooks_class_asyncresource" id="async_hooks_class_asyncresource" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>The class <code>AsyncResource</code> is designed to be extended by the embedder&apos;s async
+resources. Using this, users can easily trigger the lifetime events of their
+own resources.</p>
+<p>The <code>init</code> hook will trigger when an <code>AsyncResource</code> is instantiated.</p>
+<p>The following is an overview of the <code>AsyncResource</code> API.</p>
+<pre><code class="language-js">const { AsyncResource, executionAsyncId } = require(&apos;async_hooks&apos;);
+
+// AsyncResource() is meant to be extended. Instantiating a
+// new AsyncResource() also triggers init. If triggerAsyncId is omitted then
+// async_hook.executionAsyncId() is used.
+const asyncResource = new AsyncResource(
+  type, { triggerAsyncId: executionAsyncId(), requireManualDestroy: false }
+);
+
+// Run a function in the execution context of the resource. This will
+// * establish the context of the resource
+// * trigger the AsyncHooks before callbacks
+// * call the provided function `fn` with the supplied arguments
+// * trigger the AsyncHooks after callbacks
+// * restore the original execution context
+asyncResource.runInAsyncScope(fn, thisArg, ...args);
+
+// Call AsyncHooks destroy callbacks.
+asyncResource.emitDestroy();
+
+// Return the unique ID assigned to the AsyncResource instance.
+asyncResource.asyncId();
+
+// Return the trigger ID for the AsyncResource instance.
+asyncResource.triggerAsyncId();
+</code></pre>
+<h4>new AsyncResource(type[, options])<span><a class="mark" href="#async_hooks_new_asyncresource_type_options" id="async_hooks_new_asyncresource_type_options" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><code>type</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> The type of async event.</li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>triggerAsyncId</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> The ID of the execution context that created this
+async event. <strong>Default:</strong> <code>executionAsyncId()</code>.</li>
+<li><code>requireManualDestroy</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> Disables automatic <code>emitDestroy</code> when the
+object is garbage collected. This usually does not need to be set (even if
+<code>emitDestroy</code> is called manually), unless the resource&apos;s <code>asyncId</code> is
+retrieved and the sensitive API&apos;s <code>emitDestroy</code> is called with it.
+<strong>Default:</strong> <code>false</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Example usage:</p>
+<pre><code class="language-js">class DBQuery extends AsyncResource {
+  constructor(db) {
+    super(&apos;DBQuery&apos;);
+    this.db = db;
+  }
+
+  getInfo(query, callback) {
+    this.db.get(query, (err, data) =&gt; {
+      this.runInAsyncScope(callback, null, err, data);
+    });
+  }
+
+  close() {
+    this.db = null;
+    this.emitDestroy();
+  }
+}
+</code></pre>
+<h4>asyncResource.runInAsyncScope(fn[, thisArg, ...args])<span><a class="mark" href="#async_hooks_asyncresource_runinasyncscope_fn_thisarg_args" id="async_hooks_asyncresource_runinasyncscope_fn_thisarg_args" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v9.6.0</span>
+</div>
+<ul>
+<li><code>fn</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> The function to call in the execution context of this async
+resource.</li>
+<li><code>thisArg</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a> The receiver to be used for the function call.</li>
+<li><code>...args</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a> Optional arguments to pass to the function.</li>
+</ul>
+<p>Call the provided function with the provided arguments in the execution context
+of the async resource. This will establish the context, trigger the AsyncHooks
+before callbacks, call the function, trigger the AsyncHooks after callbacks, and
+then restore the original execution context.</p>
+<h4>asyncResource.emitBefore()<span><a class="mark" href="#async_hooks_asyncresource_emitbefore" id="async_hooks_asyncresource_emitbefore" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x5E9F;&#x5F03;&#x4E8E;: v9.6.0</span>
+</div>
+<p></p><div class="api_stability api_stability_0"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 0</a> - &#x5E9F;&#x5F03;&#x7684;: &#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/veEqQh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/veEqQh'" tppabs="http://nodejs.cn/s/veEqQh" rel="nofollow"><code>asyncResource.runInAsyncScope()</code></a> &#x4EE3;&#x66FF;&#x3002;</div><p></p>
+<p>Call all <code>before</code> callbacks to notify that a new asynchronous execution context
+is being entered. If nested calls to <code>emitBefore()</code> are made, the stack of
+<code>asyncId</code>s will be tracked and properly unwound.</p>
+<p><code>before</code> and <code>after</code> calls must be unwound in the same order that they
+are called. Otherwise, an unrecoverable exception will occur and the process
+will abort. For this reason, the <code>emitBefore</code> and <code>emitAfter</code> APIs are
+considered deprecated. Please use <code>runInAsyncScope</code>, as it provides a much safer
+alternative.</p>
+<h4>asyncResource.emitAfter()<span><a class="mark" href="#async_hooks_asyncresource_emitafter" id="async_hooks_asyncresource_emitafter" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x5E9F;&#x5F03;&#x4E8E;: v9.6.0</span>
+</div>
+<p></p><div class="api_stability api_stability_0"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 0</a> - &#x5E9F;&#x5F03;&#x7684;: &#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/veEqQh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/veEqQh'" tppabs="http://nodejs.cn/s/veEqQh" rel="nofollow"><code>asyncResource.runInAsyncScope()</code></a> &#x4EE3;&#x66FF;&#x3002;</div><p></p>
+<p>Call all <code>after</code> callbacks. If nested calls to <code>emitBefore()</code> were made, then
+make sure the stack is unwound properly. Otherwise an error will be thrown.</p>
+<p>If the user&apos;s callback throws an exception, <code>emitAfter()</code> will automatically be
+called for all <code>asyncId</code>s on the stack if the error is handled by a domain or
+<code>&apos;uncaughtException&apos;</code> handler.</p>
+<p><code>before</code> and <code>after</code> calls must be unwound in the same order that they
+are called. Otherwise, an unrecoverable exception will occur and the process
+will abort. For this reason, the <code>emitBefore</code> and <code>emitAfter</code> APIs are
+considered deprecated. Please use <code>runInAsyncScope</code>, as it provides a much safer
+alternative.</p>
+<h4>asyncResource.emitDestroy()<span><a class="mark" href="#async_hooks_asyncresource_emitdestroy" id="async_hooks_asyncresource_emitdestroy" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li>Returns: <a href="async_hooks.html#async_hooks_class_asyncresource" tppabs="http://nodejs.cn/api/async_hooks.html#async_hooks_class_asyncresource" target="_blank" rel="nofollow" class="type">&lt;AsyncResource&gt;</a> A reference to <code>asyncResource</code>.</li>
+</ul>
+<p>Call all <code>destroy</code> hooks. This should only ever be called once. An error will
+be thrown if it is called more than once. This <strong>must</strong> be manually called. If
+the resource is left to be collected by the GC then the <code>destroy</code> hooks will
+never be called.</p>
+<h4>asyncResource.asyncId()<span><a class="mark" href="#async_hooks_asyncresource_asyncid" id="async_hooks_asyncresource_asyncid" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> The unique <code>asyncId</code> assigned to the resource.</li>
+</ul>
+<h4>asyncResource.triggerAsyncId()<span><a class="mark" href="#async_hooks_asyncresource_triggerasyncid" id="async_hooks_asyncresource_triggerasyncid" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> The same <code>triggerAsyncId</code> that is passed to the
+<code>AsyncResource</code> constructor.</li>
+</ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712010903"><\/script>');
+  </script>
+
+</body></html>

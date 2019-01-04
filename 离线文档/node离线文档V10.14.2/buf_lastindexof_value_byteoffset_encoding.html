@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>buf.lastIndexOf(value[, byteOffset][, encoding]) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/buffer/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712012124" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-buffer">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>buf.lastIndexOf(value[, byteOffset][, encoding])</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="buffer.html#buffer_buf_lastindexof_value_byteoffset_encoding" tppabs="http://nodejs.cn/api/buffer.html#buffer_buf_lastindexof_value_byteoffset_encoding" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>The <code>value</code> can now be a <code>Uint8Array</code>.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v6.0.0</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>value</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Uint8Array  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Uint8Array'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Uint8Array" target="_blank" rel="nofollow" class="type">&lt;Uint8Array&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> &#x8981;&#x67E5;&#x627E;&#x7684;&#x503C;&#x3002;</li>
+<li><code>byteOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> <code>buf</code> &#x4E2D;&#x5F00;&#x59CB;&#x67E5;&#x627E;&#x7684;&#x504F;&#x79FB;&#x91CF;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <a href="javascript:if(confirm('http://nodejs.cn/s/hn6FjL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/hn6FjL'" tppabs="http://nodejs.cn/s/hn6FjL" rel="nofollow"><code>buf.length</code></a><code>- 1</code>&#x3002;</li>
+<li><code>encoding</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5982;&#x679C; <code>value</code> &#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x6307;&#x5B9A; <code>value</code> &#x7684;&#x5B57;&#x7B26;&#x7F16;&#x7801;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>&apos;utf8&apos;</code>&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> <code>buf</code> &#x4E2D;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x51FA;&#x73B0; <code>value</code> &#x7684;&#x7D22;&#x5F15;&#xFF0C;&#x5982;&#x679C; <code>buf</code> &#x6CA1;&#x5305;&#x542B; <code>value</code> &#x5219;&#x8FD4;&#x56DE; <code>-1</code>&#x3002;</li>
+</ul><p>&#x4E0E; <a href="javascript:if(confirm('http://nodejs.cn/s/eFR2KV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/eFR2KV'" tppabs="http://nodejs.cn/s/eFR2KV" rel="nofollow"><code>buf.indexOf()</code></a> &#x7684;&#x533A;&#x522B;&#x662F;&#xFF0C;&#x67E5;&#x627E;&#x7684;&#x662F; &apos;value&apos; &#x6700;&#x540E;&#x4E00;&#x6B21;&#x51FA;&#x73B0;&#x7684;&#x7D22;&#x5F15;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x9996;&#x6B21;&#x51FA;&#x73B0;&#x3002;</p><pre><code class="language-js">const buf = Buffer.from(&apos;this buffer is a buffer&apos;);
+
+console.log(buf.lastIndexOf(&apos;this&apos;));
+// &#x8F93;&#x51FA;: 0
+console.log(buf.lastIndexOf(&apos;buffer&apos;));
+// &#x8F93;&#x51FA;: 17
+console.log(buf.lastIndexOf(Buffer.from(&apos;buffer&apos;)));
+// &#x8F93;&#x51FA;: 17
+console.log(buf.lastIndexOf(97));
+// &#x8F93;&#x51FA;: 15&#xFF08;97 &#x662F; &apos;a&apos; &#x7684;&#x5341;&#x8FDB;&#x5236; ASCII &#x503C;&#xFF09;
+console.log(buf.lastIndexOf(Buffer.from(&apos;yolo&apos;)));
+// &#x8F93;&#x51FA;: -1
+console.log(buf.lastIndexOf(&apos;buffer&apos;, 5));
+// &#x8F93;&#x51FA;: 5
+console.log(buf.lastIndexOf(&apos;buffer&apos;, 4));
+// &#x8F93;&#x51FA;: -1
+
+const utf16Buffer = Buffer.from(&apos;\u039a\u0391\u03a3\u03a3\u0395&apos;, &apos;utf16le&apos;);
+
+console.log(utf16Buffer.lastIndexOf(&apos;\u03a3&apos;, undefined, &apos;utf16le&apos;));
+// &#x8F93;&#x51FA;: 6
+console.log(utf16Buffer.lastIndexOf(&apos;\u03a3&apos;, -5, &apos;utf16le&apos;));
+// &#x8F93;&#x51FA;: 4
+</code></pre><p>&#x5982;&#x679C; <code>value</code> &#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C; &#x6570;&#x5B57;&#xFF0C; &#x6216;&#x8005; <code>Buffer</code>&#xFF0C; &#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;
+<code>TypeError</code> &#x5F02;&#x5E38;&#xFF0C; &#x5982;&#x679C; <code>value</code> &#x662F;&#x4E00;&#x4E2A;&#x6570;&#x5B57;&#xFF0C; &#x5B83;&#x5C06;&#x4F1A;&#x88AB;&#x5F3A;&#x5236;&#x8F6C;&#x6362;&#x6210;&#x4E00;&#x4E2A;&#x6709;&#x6548;&#x7684; byte &#x503C;&#xFF0C;
+&#x5982;&#x679C; <code>value</code> &#x662F;&#x4E00;&#x4E2A;&#x6570;&#x503C;&#xFF0C;&#x5219;&#x4F1A;&#x88AB;&#x8F6C;&#x6362;&#x6210;&#x4ECB;&#x4E8E; 0 &#x5230; 255 &#x4E4B;&#x95F4;&#x7684;&#x6574;&#x6570;&#x503C;&#x3002;</p><p>&#x5982;&#x679C; <code>byteOffset</code> &#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x503C;&#xFF0C;&#x5219;&#x4F1A;&#x88AB;&#x8F6C;&#x6362;&#x6210;&#x6570;&#x503C;&#x3002;
+&#x5982;&#x679C;&#x8F6C;&#x6362;&#x540E;&#x7684;&#x503C;&#x4E3A; <code>NaN</code>&#xFF0C;&#x6BD4;&#x5982; <code>{}</code> &#x6216; <code>undefined</code>&#xFF0C;&#x5219;&#x4F1A;&#x67E5;&#x627E;&#x6574;&#x4E2A; buffer&#x3002;
+&#x8FD9;&#x4E0E; <a href="javascript:if(confirm('http://nodejs.cn/s/2oXRjB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2oXRjB'" tppabs="http://nodejs.cn/s/2oXRjB" rel="nofollow"><code>String#lastIndexOf()</code></a> &#x662F;&#x4E00;&#x81F4;&#x7684;&#x3002;</p><pre><code class="language-js">const b = Buffer.from(&apos;abcdef&apos;);
+
+// &#x4F20;&#x5165;&#x4E00;&#x4E2A;&#x975E;&#x6CD5;&#x7684;&#x6570;&#x503C;&#x3002;
+// &#x8F93;&#x51FA;&#xFF1A;2&#xFF08;&#x76F8;&#x5F53;&#x4E8E;&#x67E5;&#x627E; 99 &#x6216; &apos;c&apos;&#xFF09;
+console.log(b.lastIndexOf(99.9));
+console.log(b.lastIndexOf(256 + 99));
+
+// &#x4F20;&#x5165;&#x88AB;&#x8F6C;&#x6362;&#x6210; NaN &#x7684; byteOffset&#x3002;
+// &#x8F93;&#x51FA;&#xFF1A;1&#xFF08;&#x67E5;&#x627E;&#x6574;&#x4E2A; buffer&#xFF09;
+console.log(b.lastIndexOf(&apos;b&apos;, undefined));
+console.log(b.lastIndexOf(&apos;b&apos;, {}));
+
+// &#x4F20;&#x5165;&#x88AB;&#x8F6C;&#x6362;&#x6210; 0 &#x7684; byteOffset&#x3002;
+// &#x8F93;&#x51FA;&#xFF1A;-1&#xFF08;&#x76F8;&#x5F53;&#x4E8E;&#x4F20;&#x5165; 0&#xFF09;
+console.log(b.lastIndexOf(&apos;b&apos;, null));
+console.log(b.lastIndexOf(&apos;b&apos;, []));
+</code></pre><p>&#x5982;&#x679C; <code>value</code> &#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#x6216;&#x7A7A; <code>Buffer</code>&#xFF0C;&#x5219;&#x8FD4;&#x56DE; <code>byteOffset</code>&#x3002;</p></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>The <code>value</code> can now be a <code>Uint8Array</code>.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p><span>Added in: v6.0.0</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>value</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Uint8Array  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Uint8Array'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Uint8Array" target="_blank" rel="nofollow" class="type">&lt;Uint8Array&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> What to search for.</li>
+<li><code>byteOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> Where to begin searching in <code>buf</code>.
+<strong>Default:</strong> <a href="javascript:if(confirm('http://nodejs.cn/s/hn6FjL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/hn6FjL'" tppabs="http://nodejs.cn/s/hn6FjL" rel="nofollow"><code>buf.length</code></a><code>- 1</code>.</li>
+<li><code>encoding</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> If <code>value</code> is a string, this is the encoding used to
+determine the binary representation of the string that will be searched for in
+<code>buf</code>. <strong>Default:</strong> <code>&apos;utf8&apos;</code>.</li>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> The index of the last occurrence of <code>value</code> in <code>buf</code>, or
+<code>-1</code> if <code>buf</code> does not contain <code>value</code>.</li>
+</ul><p>Identical to <a href="javascript:if(confirm('http://nodejs.cn/s/eFR2KV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/eFR2KV'" tppabs="http://nodejs.cn/s/eFR2KV" rel="nofollow"><code>buf.indexOf()</code></a>, except the last occurrence of <code>value</code> is found
+rather than the first occurrence.</p><pre><code class="language-js">const buf = Buffer.from(&apos;this buffer is a buffer&apos;);
+
+console.log(buf.lastIndexOf(&apos;this&apos;));
+// Prints: 0
+console.log(buf.lastIndexOf(&apos;buffer&apos;));
+// Prints: 17
+console.log(buf.lastIndexOf(Buffer.from(&apos;buffer&apos;)));
+// Prints: 17
+console.log(buf.lastIndexOf(97));
+// Prints: 15 (97 is the decimal ASCII value for &apos;a&apos;)
+console.log(buf.lastIndexOf(Buffer.from(&apos;yolo&apos;)));
+// Prints: -1
+console.log(buf.lastIndexOf(&apos;buffer&apos;, 5));
+// Prints: 5
+console.log(buf.lastIndexOf(&apos;buffer&apos;, 4));
+// Prints: -1
+
+const utf16Buffer = Buffer.from(&apos;\u039a\u0391\u03a3\u03a3\u0395&apos;, &apos;utf16le&apos;);
+
+console.log(utf16Buffer.lastIndexOf(&apos;\u03a3&apos;, undefined, &apos;utf16le&apos;));
+// Prints: 6
+console.log(utf16Buffer.lastIndexOf(&apos;\u03a3&apos;, -5, &apos;utf16le&apos;));
+// Prints: 4
+</code></pre><p>If <code>value</code> is not a string, number, or <code>Buffer</code>, this method will throw a
+<code>TypeError</code>. If <code>value</code> is a number, it will be coerced to a valid byte value,
+an integer between 0 and 255.</p><p>If <code>byteOffset</code> is not a number, it will be coerced to a number. Any arguments
+that coerce to <code>NaN</code>, like <code>{}</code> or <code>undefined</code>, will search the whole buffer.
+This behavior matches <a href="javascript:if(confirm('http://nodejs.cn/s/2oXRjB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2oXRjB'" tppabs="http://nodejs.cn/s/2oXRjB" rel="nofollow"><code>String#lastIndexOf()</code></a>.</p><pre><code class="language-js">const b = Buffer.from(&apos;abcdef&apos;);
+
+// Passing a value that&apos;s a number, but not a valid byte
+// Prints: 2, equivalent to searching for 99 or &apos;c&apos;
+console.log(b.lastIndexOf(99.9));
+console.log(b.lastIndexOf(256 + 99));
+
+// Passing a byteOffset that coerces to NaN
+// Prints: 1, searching the whole buffer
+console.log(b.lastIndexOf(&apos;b&apos;, undefined));
+console.log(b.lastIndexOf(&apos;b&apos;, {}));
+
+// Passing a byteOffset that coerces to 0
+// Prints: -1, equivalent to passing 0
+console.log(b.lastIndexOf(&apos;b&apos;, null));
+console.log(b.lastIndexOf(&apos;b&apos;, []));
+</code></pre><p>If <code>value</code> is an empty string or empty <code>Buffer</code>, <code>byteOffset</code> will be returned.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712012124"><\/script>');
+  </script>
+</body>
+</html>

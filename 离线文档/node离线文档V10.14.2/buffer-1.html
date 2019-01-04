@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Buffer（缓冲器） | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/buffer/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712011991" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-buffer">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>Buffer（缓冲器）</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="buffer.html#buffer_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_buffer" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p><p>&#x5728;&#x5F15;&#x5165; <a href="javascript:if(confirm('http://nodejs.cn/s/oh3CkV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/oh3CkV'" tppabs="http://nodejs.cn/s/oh3CkV" rel="nofollow"><code>TypedArray</code></a> &#x4E4B;&#x524D;&#xFF0C;JavaScript &#x6CA1;&#x6709;&#x8BFB;&#x53D6;&#x6216;&#x64CD;&#x4F5C;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x636E;&#x6D41;&#x7684;&#x673A;&#x5236;&#x3002;
+<code>Buffer</code> &#x7C7B;&#x7528;&#x4E8E;&#x5728; TCP &#x6D41;&#x6216;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x64CD;&#x4F5C;&#x7B49;&#x573A;&#x666F;&#x4E2D;&#x5904;&#x7406;&#x5B57;&#x8282;&#x6D41;&#x3002;</p><p>&#x73B0;&#x5728;&#x6709;&#x4E86; <code>TypedArray</code>&#xFF0C;<code>Buffer</code> &#x7C7B;&#x4EE5;&#x4E00;&#x79CD;&#x66F4;&#x4F18;&#x5316;&#x3001;&#x66F4;&#x9002;&#x5408; Node.js &#x7684;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;&#x4E86; <a href="javascript:if(confirm('http://nodejs.cn/s/ZbDkpm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ZbDkpm'" tppabs="http://nodejs.cn/s/ZbDkpm" rel="nofollow"><code>Uint8Array</code></a>&#x3002;</p><p><code>Buffer</code> &#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#x7C7B;&#x4F3C;&#x4E8E;&#x6574;&#x6570;&#x6570;&#x7EC4;&#xFF0C;&#x4F46; <code>Buffer</code> &#x7684;&#x5927;&#x5C0F;&#x662F;&#x56FA;&#x5B9A;&#x7684;&#x3001;&#x4E14;&#x5728; V8 &#x5806;&#x5916;&#x5206;&#x914D;&#x7269;&#x7406;&#x5185;&#x5B58;&#x3002;
+<code>Buffer</code> &#x7684;&#x5927;&#x5C0F;&#x5728;&#x521B;&#x5EFA;&#x65F6;&#x786E;&#x5B9A;&#xFF0C;&#x4E14;&#x65E0;&#x6CD5;&#x6539;&#x53D8;&#x3002;</p><p><code>Buffer</code> &#x7C7B;&#x662F;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x4F7F;&#x7528;&#x65F6;&#x65E0;&#x9700; <code>require(&apos;buffer&apos;).Buffer</code>&#x3002;</p><pre><code class="language-js">// &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x957F;&#x5EA6;&#x4E3A; 10&#x3001;&#x4E14;&#x7528; 0 &#x586B;&#x5145;&#x7684; Buffer&#x3002;
+const buf1 = Buffer.alloc(10);
+
+// &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x957F;&#x5EA6;&#x4E3A; 10&#x3001;&#x4E14;&#x7528; 0x1 &#x586B;&#x5145;&#x7684; Buffer&#x3002; 
+const buf2 = Buffer.alloc(10, 1);
+
+// &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x957F;&#x5EA6;&#x4E3A; 10&#x3001;&#x4E14;&#x672A;&#x521D;&#x59CB;&#x5316;&#x7684; Buffer&#x3002;
+// &#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x6BD4;&#x8C03;&#x7528; Buffer.alloc() &#x66F4;&#x5FEB;&#xFF0C;&#x4F46;&#x8FD4;&#x56DE;&#x7684; Buffer &#x5B9E;&#x4F8B;&#x53EF;&#x80FD;&#x5305;&#x542B;&#x65E7;&#x6570;&#x636E;&#xFF0C;&#x56E0;&#x6B64;&#x9700;&#x8981;&#x4F7F;&#x7528; fill() &#x6216; write() &#x91CD;&#x5199;&#x3002;
+const buf3 = Buffer.allocUnsafe(10);
+
+// &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5305;&#x542B; [0x1, 0x2, 0x3] &#x7684; Buffer&#x3002;
+const buf4 = Buffer.from([1, 2, 3]);
+
+// &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5305;&#x542B; UTF-8 &#x5B57;&#x8282; [0x74, 0xc3, 0xa9, 0x73, 0x74] &#x7684; Buffer&#x3002;
+const buf5 = Buffer.from(&apos;t&#xE9;st&apos;);
+
+// &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5305;&#x542B; Latin-1 &#x5B57;&#x8282; [0x74, 0xe9, 0x73, 0x74] &#x7684; Buffer&#x3002;
+const buf6 = Buffer.from(&apos;t&#xE9;st&apos;, &apos;latin1&apos;);
+</code></pre></div>
+          <div id="content_right"><p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">Stability: 2</a> - Stable</div><p></p><p>Prior to the introduction of <a href="javascript:if(confirm('http://nodejs.cn/s/oh3CkV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/oh3CkV'" tppabs="http://nodejs.cn/s/oh3CkV" rel="nofollow"><code>TypedArray</code></a>, the JavaScript language had no
+mechanism for reading or manipulating streams of binary data. The <code>Buffer</code> class
+was introduced as part of the Node.js API to enable interaction with octet
+streams in TCP streams, file system operations, and other contexts.</p><p>With <a href="javascript:if(confirm('http://nodejs.cn/s/oh3CkV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/oh3CkV'" tppabs="http://nodejs.cn/s/oh3CkV" rel="nofollow"><code>TypedArray</code></a> now available, the <code>Buffer</code> class implements the
+<a href="javascript:if(confirm('http://nodejs.cn/s/ZbDkpm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ZbDkpm'" tppabs="http://nodejs.cn/s/ZbDkpm" rel="nofollow"><code>Uint8Array</code></a> API in a manner that is more optimized and suitable for Node.js.</p><p>Instances of the <code>Buffer</code> class are similar to arrays of integers but
+correspond to fixed-sized, raw memory allocations outside the V8 heap.
+The size of the <code>Buffer</code> is established when it is created and cannot be
+changed.</p><p>The <code>Buffer</code> class is within the global scope, making it unlikely that one
+would need to ever use <code>require(&apos;buffer&apos;).Buffer</code>.</p><pre><code class="language-js">// Creates a zero-filled Buffer of length 10.
+const buf1 = Buffer.alloc(10);
+
+// Creates a Buffer of length 10, filled with 0x1.
+const buf2 = Buffer.alloc(10, 1);
+
+// Creates an uninitialized buffer of length 10.
+// This is faster than calling Buffer.alloc() but the returned
+// Buffer instance might contain old data that needs to be
+// overwritten using either fill() or write().
+const buf3 = Buffer.allocUnsafe(10);
+
+// Creates a Buffer containing [0x1, 0x2, 0x3].
+const buf4 = Buffer.from([1, 2, 3]);
+
+// Creates a Buffer containing UTF-8 bytes [0x74, 0xc3, 0xa9, 0x73, 0x74].
+const buf5 = Buffer.from(&apos;t&#xE9;st&apos;);
+
+// Creates a Buffer containing Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
+const buf6 = Buffer.from(&apos;t&#xE9;st&apos;, &apos;latin1&apos;);
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712011991"><\/script>');
+  </script>
+</body>
+</html>

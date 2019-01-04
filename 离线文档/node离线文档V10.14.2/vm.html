@@ -1,0 +1,935 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>vm | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712042210" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-vm">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm active" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="vm" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><a href="#vm_vm_executing_javascript">vm&#xFF08;&#x865A;&#x62DF;&#x673A;&#xFF09;</a></p>
+<ul>
+<li>
+<p><span class="stability_1"><a href="#vm_class_vm_sourcetextmodule">Class: vm.SourceTextModule</a></span></p>
+<ul>
+<li><a href="#vm_constructor_new_vm_sourcetextmodule_code_options">Constructor: new vm.SourceTextModule(code[, options])</a></li>
+<li><a href="#vm_module_dependencyspecifiers">module.dependencySpecifiers</a></li>
+<li><a href="#vm_module_error">module.error</a></li>
+<li><a href="#vm_module_evaluate_options">module.evaluate([options])</a></li>
+<li><a href="#vm_module_instantiate">module.instantiate()</a></li>
+<li><a href="#vm_module_link_linker">module.link(linker)</a></li>
+<li><a href="#vm_module_linkingstatus">module.linkingStatus</a></li>
+<li><a href="#vm_module_namespace">module.namespace</a></li>
+<li><a href="#vm_module_status">module.status</a></li>
+<li><a href="#vm_module_url">module.url</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#vm_class_vm_script">Class: vm.Script</a></p>
+<ul>
+<li><a href="#vm_new_vm_script_code_options">new vm.Script(code, options)</a></li>
+<li><a href="#vm_script_createcacheddata">script.createCachedData()</a></li>
+<li><a href="#vm_script_runincontext_contextifiedsandbox_options">script.runInContext(contextifiedSandbox[, options])</a></li>
+<li><a href="#vm_script_runinnewcontext_sandbox_options">script.runInNewContext([sandbox[, options]])</a></li>
+<li><a href="#vm_script_runinthiscontext_options">script.runInThisContext([options])</a></li>
+</ul>
+</li>
+<li><a href="#vm_vm_compilefunction_code_params_options">vm.compileFunction(code[, params[, options]])</a></li>
+<li><a href="#vm_vm_createcontext_sandbox_options">vm.createContext([sandbox[, options]])</a></li>
+<li><a href="#vm_vm_iscontext_sandbox">vm.isContext(sandbox)</a></li>
+<li><a href="#vm_vm_runincontext_code_contextifiedsandbox_options">vm.runInContext(code, contextifiedSandbox[, options])</a></li>
+<li><a href="#vm_vm_runinnewcontext_code_sandbox_options">vm.runInNewContext(code[, sandbox[, options]])</a></li>
+<li><a href="#vm_vm_runinthiscontext_code_options">vm.runInThisContext(code[, options])</a></li>
+<li><a href="#vm_example_running_an_http_server_within_a_vm">Example: Running an HTTP Server within a VM</a></li>
+<li><a href="#vm_what_does_it_mean_to_contextify_an_object">What does it mean to &quot;contextify&quot; an object?</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>vm&#xFF08;&#x865A;&#x62DF;&#x673A;&#xFF09;<span><a class="mark" href="#vm_vm_executing_javascript" id="vm_vm_executing_javascript" rel="nofollow">#</a></span></h1><p class="tip_wrap"><a href="vm_executing_javascript.html" tppabs="http://nodejs.cn/api/vm/vm_executing_javascript.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p>
+<!--name=vm-->
+<p><code>vm</code> &#x6A21;&#x5757;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x7CFB;&#x5217; API &#x7528;&#x4E8E;&#x5728; V8 &#x865A;&#x62DF;&#x673A;&#x73AF;&#x5883;&#x4E2D;&#x7F16;&#x8BD1;&#x548C;&#x8FD0;&#x884C;&#x4EE3;&#x7801;&#x3002;</p>
+<p>JavaScript &#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x88AB;&#x7F16;&#x8BD1;&#x5E76;&#x7ACB;&#x5373;&#x8FD0;&#x884C;&#xFF0C;&#x6216;&#x7F16;&#x8BD1;&#x3001;&#x4FDD;&#x5B58;&#x7136;&#x540E;&#x518D;&#x8FD0;&#x884C;&#x3002;</p>
+<p>A common use case is to run the code in a sandboxed environment.
+The sandboxed code uses a different V8 Context, meaning that
+it has a different global object than the rest of the code.</p>
+<p>One can provide the context by <a href="javascript:if(confirm('http://nodejs.cn/s/x6KGQQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/x6KGQQ'" tppabs="http://nodejs.cn/s/x6KGQQ" rel="nofollow">&quot;contextifying&quot;</a> a sandbox
+object. The sandboxed code treats any property on the sandbox like a
+global variable. Any changes on global variables caused by the sandboxed
+code are reflected in the sandbox object.</p>
+<pre><code class="language-js">const vm = require(&apos;vm&apos;);
+
+const x = 1;
+
+const sandbox = { x: 2 };
+vm.createContext(sandbox); // Contextify the sandbox.
+
+const code = &apos;x += 40; var y = 17;&apos;;
+// x and y are global variables in the sandboxed environment.
+// Initially, x has the value 2 because that is the value of sandbox.x.
+vm.runInContext(code, sandbox);
+
+console.log(sandbox.x); // 42
+console.log(sandbox.y); // 17
+
+console.log(x); // 1; y is not defined.
+</code></pre>
+<p><em>&#x6CE8;&#x610F;</em>: vm&#x6A21;&#x5757;&#x5E76;&#x4E0D;&#x662F;&#x5B9E;&#x73B0;&#x4EE3;&#x7801;&#x5B89;&#x5168;&#x6027;&#x7684;&#x4E00;&#x5957;&#x673A;&#x5236;&#x3002;
+<strong>&#x7EDD;&#x4E0D;&#x8981;&#x8BD5;&#x56FE;&#x7528;&#x5176;&#x8FD0;&#x884C;&#x672A;&#x7ECF;&#x4FE1;&#x4EFB;&#x7684;&#x4EE3;&#x7801;</strong>.</p>
+<h2>Class: vm.SourceTextModule<span><a class="mark" href="#vm_class_vm_sourcetextmodule" id="vm_class_vm_sourcetextmodule" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v9.6.0</span>
+</div>
+<p></p><div class="api_stability api_stability_1"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 1</a> - &#x8BD5;&#x9A8C;&#x7684;</div><p></p>
+<p><em>This feature is only available with the <code>--experimental-vm-modules</code> command
+flag enabled.</em></p>
+<p>The <code>vm.SourceTextModule</code> class provides a low-level interface for using
+ECMAScript modules in VM contexts. It is the counterpart of the <code>vm.Script</code>
+class that closely mirrors <a href="javascript:if(confirm('http://nodejs.cn/s/e1NMWc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/e1NMWc'" tppabs="http://nodejs.cn/s/e1NMWc" rel="nofollow">Source Text Module Record</a>s as defined in the
+ECMAScript specification.</p>
+<p>Unlike <code>vm.Script</code> however, every <code>vm.SourceTextModule</code> object is bound to a
+context from its creation. Operations on <code>vm.SourceTextModule</code> objects are
+intrinsically asynchronous, in contrast with the synchronous nature of
+<code>vm.Script</code> objects. With the help of async functions, however, manipulating
+<code>vm.SourceTextModule</code> objects is fairly straightforward.</p>
+<p>Using a <code>vm.SourceTextModule</code> object requires four distinct steps:
+creation/parsing, linking, instantiation, and evaluation. These four steps are
+illustrated in the following example.</p>
+<p>This implementation lies at a lower level than the <a href="javascript:if(confirm('http://nodejs.cn/s/v4p4aU  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/v4p4aU'" tppabs="http://nodejs.cn/s/v4p4aU" rel="nofollow">ECMAScript Module
+loader</a>. There is also currently no way to interact with the Loader, though
+support is planned.</p>
+<pre><code class="language-js">const vm = require(&apos;vm&apos;);
+
+const contextifiedSandbox = vm.createContext({ secret: 42 });
+
+(async () =&gt; {
+  // Step 1
+  //
+  // Create a Module by constructing a new `vm.SourceTextModule` object. This
+  // parses the provided source text, throwing a `SyntaxError` if anything goes
+  // wrong. By default, a Module is created in the top context. But here, we
+  // specify `contextifiedSandbox` as the context this Module belongs to.
+  //
+  // Here, we attempt to obtain the default export from the module &quot;foo&quot;, and
+  // put it into local binding &quot;secret&quot;.
+
+  const bar = new vm.SourceTextModule(`
+    import s from &apos;foo&apos;;
+    s;
+  `, { context: contextifiedSandbox });
+
+  // Step 2
+  //
+  // &quot;Link&quot; the imported dependencies of this Module to it.
+  //
+  // The provided linking callback (the &quot;linker&quot;) accepts two arguments: the
+  // parent module (`bar` in this case) and the string that is the specifier of
+  // the imported module. The callback is expected to return a Module that
+  // corresponds to the provided specifier, with certain requirements documented
+  // in `module.link()`.
+  //
+  // If linking has not started for the returned Module, the same linker
+  // callback will be called on the returned Module.
+  //
+  // Even top-level Modules without dependencies must be explicitly linked. The
+  // callback provided would never be called, however.
+  //
+  // The link() method returns a Promise that will be resolved when all the
+  // Promises returned by the linker resolve.
+  //
+  // Note: This is a contrived example in that the linker function creates a new
+  // &quot;foo&quot; module every time it is called. In a full-fledged module system, a
+  // cache would probably be used to avoid duplicated modules.
+
+  async function linker(specifier, referencingModule) {
+    if (specifier === &apos;foo&apos;) {
+      return new vm.SourceTextModule(`
+        // The &quot;secret&quot; variable refers to the global variable we added to
+        // &quot;contextifiedSandbox&quot; when creating the context.
+        export default secret;
+      `, { context: referencingModule.context });
+
+      // Using `contextifiedSandbox` instead of `referencingModule.context`
+      // here would work as well.
+    }
+    throw new Error(`Unable to resolve dependency: ${specifier}`);
+  }
+  await bar.link(linker);
+
+  // Step 3
+  //
+  // Instantiate the top-level Module.
+  //
+  // Only the top-level Module needs to be explicitly instantiated; its
+  // dependencies will be recursively instantiated by instantiate().
+
+  bar.instantiate();
+
+  // Step 4
+  //
+  // Evaluate the Module. The evaluate() method returns a Promise with a single
+  // property &quot;result&quot; that contains the result of the very last statement
+  // executed in the Module. In the case of `bar`, it is `s;`, which refers to
+  // the default export of the `foo` module, the `secret` we set in the
+  // beginning to 42.
+
+  const { result } = await bar.evaluate();
+
+  console.log(result);
+  // Prints 42.
+})();
+</code></pre>
+<h3>Constructor: new vm.SourceTextModule(code[, options])<span><a class="mark" href="#vm_constructor_new_vm_sourcetextmodule_code_options" id="vm_constructor_new_vm_sourcetextmodule_code_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> JavaScript Module code to parse</li>
+<li>
+<p><code>options</code></p>
+<ul>
+<li><code>url</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> URL used in module resolution and stack traces. <strong>Default:</strong>
+<code>&apos;vm:module(i)&apos;</code> where <code>i</code> is a context-specific ascending index.</li>
+<li><code>context</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> The <a href="javascript:if(confirm('http://nodejs.cn/s/x6KGQQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/x6KGQQ'" tppabs="http://nodejs.cn/s/x6KGQQ" rel="nofollow">contextified</a> object as returned by the
+<code>vm.createContext()</code> method, to compile and evaluate this <code>Module</code> in.</li>
+<li><code>lineOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> Specifies the line number offset that is displayed
+in stack traces produced by this <code>Module</code>.</li>
+<li><code>columnOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> Specifies the column number offset that is
+displayed in stack traces produced by this <code>Module</code>.</li>
+<li><code>initalizeImportMeta</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> Called during evaluation of this <code>Module</code>
+to initialize the <code>import.meta</code>. This function has the signature <code>(meta, module)</code>, where <code>meta</code> is the <code>import.meta</code> object in the <code>Module</code>, and
+<code>module</code> is this <code>vm.SourceTextModule</code> object.</li>
+</ul>
+</li>
+</ul>
+<p>Creates a new ES <code>Module</code> object.</p>
+<p>Properties assigned to the <code>import.meta</code> object that are objects may
+allow the <code>Module</code> to access information outside the specified <code>context</code>, if the
+object is created in the top level context. Use <code>vm.runInContext()</code> to create
+objects in a specific context.</p>
+<pre><code class="language-js">const vm = require(&apos;vm&apos;);
+
+const contextifiedSandbox = vm.createContext({ secret: 42 });
+
+(async () =&gt; {
+  const module = new vm.SourceTextModule(
+    &apos;Object.getPrototypeOf(import.meta.prop).secret = secret;&apos;,
+    {
+      initializeImportMeta(meta) {
+        // Note: this object is created in the top context. As such,
+        // Object.getPrototypeOf(import.meta.prop) points to the
+        // Object.prototype in the top context rather than that in
+        // the sandbox.
+        meta.prop = {};
+      }
+    });
+  // Since module has no dependencies, the linker function will never be called.
+  await module.link(() =&gt; {});
+  module.instantiate();
+  await module.evaluate();
+
+  // Now, Object.prototype.secret will be equal to 42.
+  //
+  // To fix this problem, replace
+  //     meta.prop = {};
+  // above with
+  //     meta.prop = vm.runInContext(&apos;{}&apos;, contextifiedSandbox);
+})();
+</code></pre>
+<h3>module.dependencySpecifiers<span><a class="mark" href="#vm_module_dependencyspecifiers" id="vm_module_dependencyspecifiers" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a></li>
+</ul>
+<p>The specifiers of all dependencies of this module. The returned array is frozen
+to disallow any changes to it.</p>
+<p>Corresponds to the <code>[[RequestedModules]]</code> field of
+<a href="javascript:if(confirm('http://nodejs.cn/s/e1NMWc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/e1NMWc'" tppabs="http://nodejs.cn/s/e1NMWc" rel="nofollow">Source Text Module Record</a>s in the ECMAScript specification.</p>
+<h3>module.error<span><a class="mark" href="#vm_module_error" id="vm_module_error" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+</ul>
+<p>If the <code>module.status</code> is <code>&apos;errored&apos;</code>, this property contains the exception
+thrown by the module during evaluation. If the status is anything else,
+accessing this property will result in a thrown exception.</p>
+<p>The value <code>undefined</code> cannot be used for cases where there is not a thrown
+exception due to possible ambiguity with <code>throw undefined;</code>.</p>
+<p>Corresponds to the <code>[[EvaluationError]]</code> field of <a href="javascript:if(confirm('http://nodejs.cn/s/e1NMWc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/e1NMWc'" tppabs="http://nodejs.cn/s/e1NMWc" rel="nofollow">Source Text Module Record</a>s
+in the ECMAScript specification.</p>
+<h3>module.evaluate([options])<span><a class="mark" href="#vm_module_evaluate_options" id="vm_module_evaluate_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> Specifies the number of milliseconds to evaluate
+before terminating execution. If execution is interrupted, an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>
+will be thrown. This value must be a strictly positive integer.</li>
+<li><code>breakOnSigint</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> If <code>true</code>, the execution will be terminated when
+<code>SIGINT</code> (Ctrl+C) is received. Existing handlers for the event that have
+been attached via <code>process.on(&apos;SIGINT&apos;)</code> will be disabled during script
+execution, but will continue to work after that. If execution is
+interrupted, an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> will be thrown.</li>
+</ul>
+</li>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise" target="_blank" rel="nofollow" class="type">&lt;Promise&gt;</a></li>
+</ul>
+<p>Evaluate the module.</p>
+<p>This must be called after the module has been instantiated; otherwise it will
+throw an error. It could be called also when the module has already been
+evaluated, in which case it will do one of the following two things:</p>
+<ul>
+<li>return <code>undefined</code> if the initial evaluation ended in success (<code>module.status</code>
+is <code>&apos;evaluated&apos;</code>)</li>
+<li>rethrow the same exception the initial evaluation threw if the initial
+evaluation ended in an error (<code>module.status</code> is <code>&apos;errored&apos;</code>)</li>
+</ul>
+<p>This method cannot be called while the module is being evaluated
+(<code>module.status</code> is <code>&apos;evaluating&apos;</code>) to prevent infinite recursion.</p>
+<p>Corresponds to the <a href="javascript:if(confirm('http://nodejs.cn/s/ov5nvH  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ov5nvH'" tppabs="http://nodejs.cn/s/ov5nvH" rel="nofollow">Evaluate() concrete method</a> field of <a href="javascript:if(confirm('http://nodejs.cn/s/e1NMWc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/e1NMWc'" tppabs="http://nodejs.cn/s/e1NMWc" rel="nofollow">Source Text Module
+Record</a>s in the ECMAScript specification.</p>
+<h3>module.instantiate()<span><a class="mark" href="#vm_module_instantiate" id="vm_module_instantiate" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>Instantiate the module. This must be called after linking has completed
+(<code>linkingStatus</code> is <code>&apos;linked&apos;</code>); otherwise it will throw an error. It may also
+throw an exception if one of the dependencies does not provide an export the
+parent module requires.</p>
+<p>However, if this function succeeded, further calls to this function after the
+initial instantiation will be no-ops, to be consistent with the ECMAScript
+specification.</p>
+<p>Unlike other methods operating on <code>Module</code>, this function completes
+synchronously and returns nothing.</p>
+<p>Corresponds to the <a href="javascript:if(confirm('http://nodejs.cn/s/PznntG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PznntG'" tppabs="http://nodejs.cn/s/PznntG" rel="nofollow">Instantiate() concrete method</a> field of <a href="javascript:if(confirm('http://nodejs.cn/s/e1NMWc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/e1NMWc'" tppabs="http://nodejs.cn/s/e1NMWc" rel="nofollow">Source Text
+Module Record</a>s in the ECMAScript specification.</p>
+<h3>module.link(linker)<span><a class="mark" href="#vm_module_link_linker" id="vm_module_link_linker" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><code>linker</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise" target="_blank" rel="nofollow" class="type">&lt;Promise&gt;</a></li>
+</ul>
+<p>Link module dependencies. This method must be called before instantiation, and
+can only be called once per module.</p>
+<p>Two parameters will be passed to the <code>linker</code> function:</p>
+<ul>
+<li>
+<p><code>specifier</code> The specifier of the requested module:</p>
+<!-- eslint-skip -->
+<pre><code class="language-js">import foo from &apos;foo&apos;;
+//              ^^^^^ the module specifier
+</code></pre>
+</li>
+<li><code>referencingModule</code> The <code>Module</code> object <code>link()</code> is called on.</li>
+</ul>
+<p>The function is expected to return a <code>Module</code> object or a <code>Promise</code> that
+eventually resolves to a <code>Module</code> object. The returned <code>Module</code> must satisfy the
+following two invariants:</p>
+<ul>
+<li>It must belong to the same context as the parent <code>Module</code>.</li>
+<li>Its <code>linkingStatus</code> must not be <code>&apos;errored&apos;</code>.</li>
+</ul>
+<p>If the returned <code>Module</code>&apos;s <code>linkingStatus</code> is <code>&apos;unlinked&apos;</code>, this method will be
+recursively called on the returned <code>Module</code> with the same provided <code>linker</code>
+function.</p>
+<p><code>link()</code> returns a <code>Promise</code> that will either get resolved when all linking
+instances resolve to a valid <code>Module</code>, or rejected if the linker function either
+throws an exception or returns an invalid <code>Module</code>.</p>
+<p>The linker function roughly corresponds to the implementation-defined
+<a href="javascript:if(confirm('http://nodejs.cn/s/mpfJNd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mpfJNd'" tppabs="http://nodejs.cn/s/mpfJNd" rel="nofollow">HostResolveImportedModule</a> abstract operation in the ECMAScript
+specification, with a few key differences:</p>
+<ul>
+<li>The linker function is allowed to be asynchronous while
+<a href="javascript:if(confirm('http://nodejs.cn/s/mpfJNd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mpfJNd'" tppabs="http://nodejs.cn/s/mpfJNd" rel="nofollow">HostResolveImportedModule</a> is synchronous.</li>
+<li>The linker function is executed during linking, a Node.js-specific stage
+before instantiation, while <a href="javascript:if(confirm('http://nodejs.cn/s/mpfJNd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mpfJNd'" tppabs="http://nodejs.cn/s/mpfJNd" rel="nofollow">HostResolveImportedModule</a> is called during
+instantiation.</li>
+</ul>
+<p>The actual <a href="javascript:if(confirm('http://nodejs.cn/s/mpfJNd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mpfJNd'" tppabs="http://nodejs.cn/s/mpfJNd" rel="nofollow">HostResolveImportedModule</a> implementation used during module
+instantiation is one that returns the modules linked during linking. Since at
+that point all modules would have been fully linked already, the
+<a href="javascript:if(confirm('http://nodejs.cn/s/mpfJNd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mpfJNd'" tppabs="http://nodejs.cn/s/mpfJNd" rel="nofollow">HostResolveImportedModule</a> implementation is fully synchronous per
+specification.</p>
+<h3>module.linkingStatus<span><a class="mark" href="#vm_module_linkingstatus" id="vm_module_linkingstatus" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>The current linking status of <code>module</code>. It will be one of the following values:</p>
+<ul>
+<li><code>&apos;unlinked&apos;</code>: <code>module.link()</code> has not yet been called.</li>
+<li><code>&apos;linking&apos;</code>: <code>module.link()</code> has been called, but not all Promises returned by
+the linker function have been resolved yet.</li>
+<li><code>&apos;linked&apos;</code>: <code>module.link()</code> has been called, and all its dependencies have
+been successfully linked.</li>
+<li><code>&apos;errored&apos;</code>: <code>module.link()</code> has been called, but at least one of its
+dependencies failed to link, either because the callback returned a <code>Promise</code>
+that is rejected, or because the <code>Module</code> the callback returned is invalid.</li>
+</ul>
+<h3>module.namespace<span><a class="mark" href="#vm_module_namespace" id="vm_module_namespace" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+</ul>
+<p>The namespace object of the module. This is only available after instantiation
+(<code>module.instantiate()</code>) has completed.</p>
+<p>Corresponds to the <a href="javascript:if(confirm('http://nodejs.cn/s/mi1dpk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mi1dpk'" tppabs="http://nodejs.cn/s/mi1dpk" rel="nofollow">GetModuleNamespace</a> abstract operation in the ECMAScript
+specification.</p>
+<h3>module.status<span><a class="mark" href="#vm_module_status" id="vm_module_status" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>The current status of the module. Will be one of:</p>
+<ul>
+<li>
+<p><code>&apos;uninstantiated&apos;</code>: The module is not instantiated. It may because of any of
+the following reasons:</p>
+<ul>
+<li>The module was just created.</li>
+<li><code>module.instantiate()</code> has been called on this module, but it failed for
+some reason.</li>
+</ul>
+<p>This status does not convey any information regarding if <code>module.link()</code> has
+been called. See <code>module.linkingStatus</code> for that.</p>
+</li>
+<li>
+<p><code>&apos;instantiating&apos;</code>: The module is currently being instantiated through a
+<code>module.instantiate()</code> call on itself or a parent module.</p>
+</li>
+<li>
+<p><code>&apos;instantiated&apos;</code>: The module has been instantiated successfully, but
+<code>module.evaluate()</code> has not yet been called.</p>
+</li>
+<li>
+<p><code>&apos;evaluating&apos;</code>: The module is being evaluated through a <code>module.evaluate()</code> on
+itself or a parent module.</p>
+</li>
+<li>
+<p><code>&apos;evaluated&apos;</code>: The module has been successfully evaluated.</p>
+</li>
+<li>
+<p><code>&apos;errored&apos;</code>: The module has been evaluated, but an exception was thrown.</p>
+</li>
+</ul>
+<p>Other than <code>&apos;errored&apos;</code>, this status string corresponds to the specification&apos;s
+<a href="javascript:if(confirm('http://nodejs.cn/s/e1NMWc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/e1NMWc'" tppabs="http://nodejs.cn/s/e1NMWc" rel="nofollow">Source Text Module Record</a>&apos;s <code>[[Status]]</code> field. <code>&apos;errored&apos;</code> corresponds to
+<code>&apos;evaluated&apos;</code> in the specification, but with <code>[[EvaluationError]]</code> set to a
+value that is not <code>undefined</code>.</p>
+<h3>module.url<span><a class="mark" href="#vm_module_url" id="vm_module_url" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>The URL of the current module, as set in the constructor.</p>
+<h2>Class: vm.Script<span><a class="mark" href="#vm_class_vm_script" id="vm_class_vm_script" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="class_vm_script.html" tppabs="http://nodejs.cn/api/vm/class_vm_script.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.1</span>
+</div>
+<p> <code>vm.Script</code>&#x7C7B;&#x578B;&#x7684;&#x5B9E;&#x4F8B;&#x5305;&#x542B;&#x82E5;&#x5E72;&#x9884;&#x7F16;&#x8BD1;&#x7684;&#x811A;&#x672C;&#xFF0C;&#x8FD9;&#x4E9B;&#x811A;&#x672C;&#x80FD;&#x591F;&#x5728;&#x7279;&#x5B9A;&#x7684;&#x6C99;&#x7BB1;&#xFF08;&#x6216;&#x8005;&#x4E0A;&#x4E0B;&#x6587;&#xFF09;&#x4E2D;&#x88AB;&#x8FD0;&#x884C;&#x3002;</p>
+<h3>new vm.Script(code, options)<span><a class="mark" href="#vm_new_vm_script_code_options" id="vm_new_vm_script_code_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="new_vm_script_code_options.html" tppabs="http://nodejs.cn/api/vm/new_vm_script_code_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v5.7.0</td>
+<td><p>&#x65B0;&#x589E;&#x5BF9;<code>cachedData</code>&#x548C;<code>produceCachedData</code>&#x9009;&#x9879;&#x7684;&#x652F;&#x6301;</p></td></tr>
+<tr><td>v0.3.1</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.3.1</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x9700;&#x8981;&#x88AB;&#x89E3;&#x6790;&#x7684;JavaScript&#x4EE3;&#x7801;</li>
+<li>
+<p><code>options</code></p>
+<ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5B9A;&#x4E49;&#x4F9B;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x540D;</li>
+<li><code>lineOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x884C;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>columnOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x5217;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>displayErrors</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x503C;&#x4E3A;&#x771F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5047;&#x5982;&#x5728;&#x89E3;&#x6790;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x751F;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#xFF0C;&#x5F15;&#x8D77;&#x9519;&#x8BEF;&#x7684;&#x884C;&#x5C06;&#x4F1A;&#x88AB;&#x52A0;&#x5165;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;
+&#xA0;<em> <code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x5728;&#x88AB;&#x7EC8;&#x6B62;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x6B64;code&#x88AB;&#x5141;&#x8BB8;&#x6267;&#x884C;&#x7684;&#x6700;&#x5927;&#x6BEB;&#x79D2;&#x6570;&#x3002;&#x5047;&#x5982;&#x6267;&#x884C;&#x88AB;&#x7EC8;&#x6B62;&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;[Error][]&#x3002;
+&#xA0;</em> <code>cachedData</code> <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> &#x4E3A;&#x6E90;&#x7801;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x7684;&#x5B58;&#x6709;v8&#x4EE3;&#x7801;&#x7F13;&#x5B58;&#x6570;&#x636E;&#x7684;Buffer&#x3002;&#x4E00;&#x65E6;&#x63D0;&#x4F9B;&#x4E86;&#x6B64;Buffer&#xFF0C;&#x53D6;&#x51B3;&#x4E8E;v8&#x5F15;&#x64CE;&#x5BF9;Buffer&#x4E2D;&#x6570;&#x636E;&#x7684;&#x63A5;&#x53D7;&#x72B6;&#x51B5;&#xFF0C;cachedDataRejected&#x503C;&#x5C06;&#x4F1A;&#x88AB;&#x8BBE;&#x4E3A;&#x8981;&#x4E48;
+&#xA0; &#xA0;&#x771F;&#x8981;&#x4E48;&#x4E3A;&#x5047;&#x3002;
+&#xA0;* <code>produceCachedData</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x503C;&#x4E3A;&#x771F;&#x4E14;cachedData&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x65F6;&#x5019;&#xFF0C;v8&#x5C06;&#x4F1A;&#x8BD5;&#x56FE;&#x4E3A;code&#x751F;&#x6210;&#x4EE3;&#x7801;&#x7F13;&#x5B58;&#x6570;&#x636E;&#x3002;&#x4E00;&#x65E6;&#x6210;&#x529F;&#xFF0C;&#x4E00;&#x4E2A;&#x6709;V8&#x4EE3;&#x7801;&#x7F13;&#x5B58;&#x6570;&#x636E;&#x7684;Buffer&#x5C06;&#x4F1A;&#x88AB;&#x751F;&#x6210;&#x548C;&#x50A8;&#x5B58;&#x5728;vm.Script&#x8FD4;&#x56DE;&#x7684;&#x5B9E;&#x4F8B;&#x7684;cachedData&#x5C5E;&#x6027;&#x91CC;&#x3002;
+   &#x53D6;&#x51B3;&#x4E8E;&#x4EE3;&#x7801;&#x7F13;&#x5B58;&#x6570;&#x636E;&#x662F;&#x5426;&#x88AB;&#x6210;&#x529F;&#x751F;&#x6210;&#xFF0C;cachedDataProduced&#x7684;&#x503C;&#x4F1A;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;true&#x6216;&#x8005;false&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;vm.Script&#x5BF9;&#x8C61;&#x53EA;&#x7F16;&#x8BD1;&#x4EE3;&#x7801;&#x4F46;&#x4E0D;&#x4F1A;&#x6267;&#x884C;&#x5B83;&#x3002;&#x7F16;&#x8BD1;&#x8FC7;&#x7684;vm.Script&#x6B64;&#x540E;&#x53EF;&#x4EE5;&#x88AB;&#x591A;&#x6B21;&#x6267;&#x884C;&#x3002;code&#x662F;&#x4E0D;&#x7ED1;&#x5B9A;&#x4E8E;&#x4EFB;&#x4F55;&#x5168;&#x5C40;&#x5BF9;&#x8C61;&#x7684;&#xFF0C;&#x76F8;&#x53CD;&#xFF0C;&#x5B83;&#x4EC5;&#x4EC5;&#x7ED1;&#x5B9A;&#x4E8E;&#x6BCF;&#x6B21;&#x6267;&#x884C;&#x5B83;&#x7684;&#x5BF9;&#x8C61;&#x3002;</p>
+<h3>script.createCachedData()<span><a class="mark" href="#vm_script_createcacheddata" id="vm_script_createcacheddata" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li>Returns: <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a></li>
+</ul>
+<p>Creates a code cache that can be used with the Script constructor&apos;s
+<code>cachedData</code> option. Returns a Buffer. This method may be called at any
+time and any number of times.</p>
+<pre><code class="language-js">const script = new vm.Script(`
+function add(a, b) {
+  return a + b;
+}
+
+const x = add(1, 2);
+`);
+
+const cacheWithoutX = script.createCachedData();
+
+script.runInThisContext();
+
+const cacheWithX = script.createCachedData();
+</code></pre>
+<h3>script.runInContext(contextifiedSandbox[, options])<span><a class="mark" href="#vm_script_runincontext_contextifiedsandbox_options" id="vm_script_runincontext_contextifiedsandbox_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="script_runincontext_contextifiedsandbox_options.html" tppabs="http://nodejs.cn/api/vm/script_runincontext_contextifiedsandbox_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.3.0</td>
+<td><p>&#x73B0;&#x5DF2;&#x652F;&#x6301;<code>breakOnSigint</code>&#x9009;&#x9879;&#x3002;</p></td></tr>
+<tr><td>v0.3.1</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.3.1</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>contextifiedSandbox</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x7531;<code>vm.createContext()</code>&#x8FD4;&#x56DE;&#x7684;[<code>contextified</code>][]&#x5BF9;&#x8C61;</li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5B9A;&#x4E49;&#x4F9B;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x540D;</li>
+<li><code>lineOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x884C;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>columnOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x5217;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>displayErrors</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x503C;&#x4E3A;&#x771F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5047;&#x5982;&#x5728;&#x89E3;&#x6790;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x751F;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#xFF0C;&#x5F15;&#x8D77;&#x9519;&#x8BEF;&#x7684;&#x884C;&#x5C06;&#x4F1A;&#x88AB;&#x52A0;&#x5165;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;</li>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x5728;&#x88AB;&#x7EC8;&#x6B62;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x6B64;code&#x88AB;&#x5141;&#x8BB8;&#x6267;&#x884C;&#x7684;&#x6700;&#x5927;&#x6BEB;&#x79D2;&#x6570;&#x3002;&#x5047;&#x5982;&#x6267;&#x884C;&#x88AB;&#x7EC8;&#x6B62;&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+<li><code>breakOnSigint</code>: &#x82E5;&#x503C;&#x4E3A;&#x771F;&#xFF0C;&#x5F53;&#x6536;&#x5230;<code>SIGINT</code> (Ctrl+C)&#x4E8B;&#x4EF6;&#x65F6;&#xFF0C;&#x4EE3;&#x7801;&#x4F1A;&#x88AB;&#x7EC8;&#x6B62;&#x6267;&#x884C;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x901A;&#x8FC7;<code>process.on(&quot;SIGINT&quot;)</code>&#x65B9;&#x6CD5;&#x6240;&#x8BBE;&#x7F6E;&#x7684;&#x6D88;&#x606F;&#x54CD;&#x5E94;&#x673A;&#x5236;&#x5728;&#x4EE3;&#x7801;&#x88AB;&#x6267;&#x884C;&#x65F6;&#x4F1A;&#x88AB;&#x5C4F;&#x853D;&#xFF0C;&#x4F46;&#x4EE3;&#x7801;&#x88AB;&#x7EC8;&#x6B62;&#x540E;&#x4F1A;&#x88AB;&#x6062;&#x590D;&#x3002;&#x5982;&#x679C;&#x6267;&#x884C;&#x88AB;&#x7EC8;&#x6B62;&#xFF0C;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x4F1A;&#x88AB;&#x629B;&#x51FA;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p>&#x5728;&#x6307;&#x5B9A;&#x7684;<code>contextifiedSandbox</code>&#x4E2D;&#x6267;&#x884C;<code>vm.Script</code>&#x5BF9;&#x8C61;&#x4E2D;&#x88AB;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x4EE3;&#x7801;&#x5E76;&#x8FD4;&#x56DE;&#x5176;&#x7ED3;&#x679C;&#x3002;&#x88AB;&#x6267;&#x884C;&#x7684;&#x4EE3;&#x7801;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x672C;&#x5730;&#x4F5C;&#x7528;&#x57DF;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x7684;&#x4F8B;&#x5B50;&#x4F1A;&#x7F16;&#x8BD1;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;&#xFF0C;&#x8BE5;&#x4EE3;&#x7801;&#x4F1A;&#x9012;&#x589E;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x7ED9;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x8D4B;&#x503C;&#x3002;&#x540C;&#x65F6;&#x8BE5;&#x4EE3;&#x7801;&#x88AB;&#x7F16;&#x8BD1;&#x540E;&#x4F1A;&#x88AB;&#x591A;&#x6B21;&#x6267;&#x884C;&#x3002;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4F1A;&#x88AB;&#x7F6E;&#x4E8E;<code>sandbox</code>&#x5BF9;&#x8C61;&#x5185;&#x3002;</p>
+<pre><code class="language-js">const util = require(&apos;util&apos;);
+const vm = require(&apos;vm&apos;);
+
+const sandbox = {
+  animal: &apos;cat&apos;,
+  count: 2
+};
+
+const script = new vm.Script(&apos;count += 1; name = &quot;kitty&quot;;&apos;);
+
+const context = vm.createContext(sandbox);
+for (let i = 0; i &lt; 10; ++i) {
+  script.runInContext(context);
+}
+
+console.log(util.inspect(sandbox));
+
+// { animal: &apos;cat&apos;, count: 12, name: &apos;kitty&apos; }
+</code></pre>
+<p><em>&#x6CE8;&#x610F;</em>: &#x4F7F;&#x7528;<code>timeout</code>&#x6216;&#x8005;<code>breakOnSigint</code>&#x9009;&#x9879;&#x4F1A;&#x5BFC;&#x81F4;&#x82E5;&#x5E72;&#x65B0;&#x7684;&#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;&#x4EE5;&#x53CA;&#x5BF9;&#x5E94;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x8FD9;&#x6709;&#x4E00;&#x4E2A;&#x975E;&#x96F6;&#x7684;&#x6027;&#x80FD;&#x6D88;&#x8017;&#x3002;</p>
+<h3>script.runInNewContext([sandbox[, options]])<span><a class="mark" href="#vm_script_runinnewcontext_sandbox_options" id="vm_script_runinnewcontext_sandbox_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="script_runinnewcontext_sandbox_options.html" tppabs="http://nodejs.cn/api/vm/script_runinnewcontext_sandbox_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.1</span>
+</div>
+<ul>
+<li><code>sandbox</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> An object that will be <a href="javascript:if(confirm('http://nodejs.cn/s/x6KGQQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/x6KGQQ'" tppabs="http://nodejs.cn/s/x6KGQQ" rel="nofollow">contextified</a>. If <code>undefined</code>, a
+new object will be created. &#x4E00;&#x4E2A;&#x5C06;&#x88AB;[<code>contextified</code>][]&#x7684;&#x5BF9;&#x8C61;&#x3002;&#x5982;&#x679C;&#x662F;<code>undefined</code>, &#x4F1A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x5BF9;&#x8C61;</li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5B9A;&#x4E49;&#x4F9B;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x540D;</li>
+<li><code>lineOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x884C;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>columnOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x5217;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>displayErrors</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x503C;&#x4E3A;&#x771F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5047;&#x5982;&#x5728;&#x89E3;&#x6790;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x751F;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#xFF0C;&#x5F15;&#x8D77;&#x9519;&#x8BEF;&#x7684;&#x884C;&#x5C06;&#x4F1A;&#x88AB;&#x52A0;&#x5165;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;</li>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x5728;&#x88AB;&#x7EC8;&#x6B62;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x6B64;code&#x88AB;&#x5141;&#x8BB8;&#x6267;&#x884C;&#x7684;&#x6700;&#x5927;&#x6BEB;&#x79D2;&#x6570;&#x3002;&#x5047;&#x5982;&#x6267;&#x884C;&#x88AB;&#x7EC8;&#x6B62;&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p>&#x9996;&#x5148;&#x7ED9;&#x6307;&#x5B9A;&#x7684;<code>sandbox</code>&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x9694;&#x79BB;&#x7684;&#x4E0A;&#x4E0B;&#x6587;, &#x518D;&#x5728;&#x6B64;&#x4E0A;&#x4E0B;&#x6587;&#x4E2D;&#x6267;&#x884C;<code>vm.Script</code>&#x4E2D;&#x88AB;&#x7F16;&#x8BD1;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x3002;&#x8FD0;&#x884C;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x672C;&#x5730;&#x4F5C;&#x7528;&#x57DF;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x7684;&#x4F8B;&#x5B50;&#x4F1A;&#x7F16;&#x8BD1;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;&#xFF0C;&#x8BE5;&#x4EE3;&#x7801;&#x4F1A;&#x9012;&#x589E;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x7ED9;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x8D4B;&#x503C;&#x3002;&#x540C;&#x65F6;&#x8BE5;&#x4EE3;&#x7801;&#x88AB;&#x7F16;&#x8BD1;&#x540E;&#x4F1A;&#x88AB;&#x591A;&#x6B21;&#x6267;&#x884C;&#x3002;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4F1A;&#x88AB;&#x7F6E;&#x4E8E;&#x5404;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;<code>sandbox</code>&#x5BF9;&#x8C61;&#x5185;&#x3002;</p>
+<pre><code class="language-js">const util = require(&apos;util&apos;);
+const vm = require(&apos;vm&apos;);
+
+const script = new vm.Script(&apos;globalVar = &quot;set&quot;&apos;);
+
+const sandboxes = [{}, {}, {}];
+sandboxes.forEach((sandbox) =&gt; {
+  script.runInNewContext(sandbox);
+});
+
+console.log(util.inspect(sandboxes));
+
+// [{ globalVar: &apos;set&apos; }, { globalVar: &apos;set&apos; }, { globalVar: &apos;set&apos; }]
+</code></pre>
+<h3>script.runInThisContext([options])<span><a class="mark" href="#vm_script_runinthiscontext_options" id="vm_script_runinthiscontext_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="script_runinthiscontext_options.html" tppabs="http://nodejs.cn/api/vm/script_runinthiscontext_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.1</span>
+</div>
+<ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5B9A;&#x4E49;&#x4F9B;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x540D;</li>
+<li><code>lineOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x884C;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>columnOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x5217;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>displayErrors</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x503C;&#x4E3A;&#x771F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5047;&#x5982;&#x5728;&#x89E3;&#x6790;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x751F;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#xFF0C;&#x5F15;&#x8D77;&#x9519;&#x8BEF;&#x7684;&#x884C;&#x5C06;&#x4F1A;&#x88AB;&#x52A0;&#x5165;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;</li>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x5728;&#x88AB;&#x7EC8;&#x6B62;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x6B64;code&#x88AB;&#x5141;&#x8BB8;&#x6267;&#x884C;&#x7684;&#x6700;&#x5927;&#x6BEB;&#x79D2;&#x6570;&#x3002;&#x5047;&#x5982;&#x6267;&#x884C;&#x88AB;&#x7EC8;&#x6B62;&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p>&#x5728;&#x6307;&#x5B9A;&#x7684;<code>global</code>&#x5BF9;&#x8C61;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x4E2D;&#x6267;&#x884C;<code>vm.Script</code>&#x5BF9;&#x8C61;&#x91CC;&#x88AB;&#x7F16;&#x8BD1;&#x7684;&#x4EE3;&#x7801;&#x5E76;&#x8FD4;&#x56DE;&#x5176;&#x7ED3;&#x679C;&#x3002;&#x88AB;&#x6267;&#x884C;&#x7684;&#x4EE3;&#x7801;&#x867D;&#x7136;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x672C;&#x5730;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x4F46;&#x662F;&#x80FD;&#x83B7;&#x53D6;<code>global</code>&#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x7684;&#x4F8B;&#x5B50;&#x4F1A;&#x7F16;&#x8BD1;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;&#xFF0C;&#x8BE5;&#x4EE3;&#x7801;&#x4F1A;&#x9012;&#x589E;&#x4E00;&#x4E2A;<code>global</code>&#x53D8;&#x91CF;&#x3002;&#x540C;&#x65F6;&#x8BE5;&#x4EE3;&#x7801;&#x88AB;&#x7F16;&#x8BD1;&#x540E;&#x4F1A;&#x88AB;&#x591A;&#x6B21;&#x6267;&#x884C;&#x3002;</p>
+<pre><code class="language-js">const vm = require(&apos;vm&apos;);
+
+global.globalVar = 0;
+
+const script = new vm.Script(&apos;globalVar += 1&apos;, { filename: &apos;myfile.vm&apos; });
+
+for (let i = 0; i &lt; 1000; ++i) {
+  script.runInThisContext();
+}
+
+console.log(globalVar);
+
+// 1000
+</code></pre>
+<h2>vm.compileFunction(code[, params[, options]])<span><a class="mark" href="#vm_vm_compilefunction_code_params_options" id="vm_vm_compilefunction_code_params_options" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.10.0</span>
+</div>
+<ul>
+<li><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> The body of the function to compile.</li>
+<li><code>params</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a> An array of strings containing all parameters for the
+function.</li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Specifies the filename used in stack traces produced
+by this script. <strong>Default:</strong> <code>&apos;&apos;</code>.</li>
+<li><code>lineOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Specifies the line number offset that is displayed
+in stack traces produced by this script. <strong>Default:</strong> <code>0</code>.</li>
+<li><code>columnOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Specifies the column number offset that is displayed
+in stack traces produced by this script. <strong>Default:</strong> <code>0</code>.</li>
+<li><code>cachedData</code> <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> Provides an optional <code>Buffer</code> with V8&apos;s code cache
+data for the supplied source.</li>
+<li><code>produceCachedData</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> Specifies whether to produce new cache data.
+<strong>Default:</strong> <code>false</code>.</li>
+<li><code>parsingContext</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> The <a href="javascript:if(confirm('http://nodejs.cn/s/x6KGQQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/x6KGQQ'" tppabs="http://nodejs.cn/s/x6KGQQ" rel="nofollow">contextified</a> sandbox in which the said
+function should be compiled in.</li>
+<li><code>contextExtensions</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object[]&gt;</a> An array containing a collection of context
+extensions (objects wrapping the current scope) to be applied while
+compiling. <strong>Default:</strong> <code>[]</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Compiles the given code into the provided context/sandbox (if no context is
+supplied, the current context is used), and returns it wrapped inside a
+function with the given <code>params</code>.</p>
+<h2>vm.createContext([sandbox[, options]])<span><a class="mark" href="#vm_vm_createcontext_sandbox_options" id="vm_vm_createcontext_sandbox_options" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>The <code>sandbox</code> option can no longer be a function.</p></td></tr>
+<tr><td>v10.0.0</td>
+<td><p>The <code>codeGeneration</code> option is supported now.</p></td></tr>
+<tr><td>v0.3.1</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.3.1</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>sandbox</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Human-readable name of the newly created context.
+<strong>Default:</strong> <code>&apos;VM Context i&apos;</code>, where <code>i</code> is an ascending numerical index of
+the created context.</li>
+<li><code>origin</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> <a href="javascript:if(confirm('http://nodejs.cn/s/SYyZxA  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SYyZxA'" tppabs="http://nodejs.cn/s/SYyZxA" rel="nofollow">Origin</a> corresponding to the newly created
+context for display purposes. The origin should be formatted like a URL,
+but with only the scheme, host, and port (if necessary), like the value of
+the <a href="javascript:if(confirm('http://nodejs.cn/s/rpuY73  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rpuY73'" tppabs="http://nodejs.cn/s/rpuY73" rel="nofollow"><code>url.origin</code></a> property of a <a href="javascript:if(confirm('http://nodejs.cn/s/vzpPx2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vzpPx2'" tppabs="http://nodejs.cn/s/vzpPx2" rel="nofollow"><code>URL</code></a> object. Most notably, this
+string should omit the trailing slash, as that denotes a path.
+<strong>Default:</strong> <code>&apos;&apos;</code>.</li>
+<li>
+<p><code>codeGeneration</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>strings</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> If set to false any calls to <code>eval</code> or function
+constructors (<code>Function</code>, <code>GeneratorFunction</code>, etc) will throw an
+<code>EvalError</code>. <strong>Default:</strong> <code>true</code>.</li>
+<li><code>wasm</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> If set to false any attempt to compile a WebAssembly
+module will throw a <code>WebAssembly.CompileError</code>. <strong>Default:</strong> <code>true</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>If given a <code>sandbox</code> object, the <code>vm.createContext()</code> method will <a href="javascript:if(confirm('http://nodejs.cn/s/x6KGQQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/x6KGQQ'" tppabs="http://nodejs.cn/s/x6KGQQ" rel="nofollow">prepare
+that sandbox</a> so that it can be used in calls to
+<a href="javascript:if(confirm('http://nodejs.cn/s/bGFfjZ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/bGFfjZ'" tppabs="http://nodejs.cn/s/bGFfjZ" rel="nofollow"><code>vm.runInContext()</code></a> or <a href="javascript:if(confirm('http://nodejs.cn/s/wnkk4u  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wnkk4u'" tppabs="http://nodejs.cn/s/wnkk4u" rel="nofollow"><code>script.runInContext()</code></a>. Inside such scripts,
+the <code>sandbox</code> object will be the global object, retaining all of its existing
+properties but also having the built-in objects and functions any standard
+<a href="javascript:if(confirm('http://nodejs.cn/s/hKgpea  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/hKgpea'" tppabs="http://nodejs.cn/s/hKgpea" rel="nofollow">global object</a> has. Outside of scripts run by the vm module, global variables
+will remain unchanged.</p>
+<pre><code class="language-js">const util = require(&apos;util&apos;);
+const vm = require(&apos;vm&apos;);
+
+global.globalVar = 3;
+
+const sandbox = { globalVar: 1 };
+vm.createContext(sandbox);
+
+vm.runInContext(&apos;globalVar *= 2;&apos;, sandbox);
+
+console.log(util.inspect(sandbox)); // { globalVar: 2 }
+
+console.log(util.inspect(globalVar)); // 3
+</code></pre>
+<p>If <code>sandbox</code> is omitted (or passed explicitly as <code>undefined</code>), a new, empty
+<a href="javascript:if(confirm('http://nodejs.cn/s/x6KGQQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/x6KGQQ'" tppabs="http://nodejs.cn/s/x6KGQQ" rel="nofollow">contextified</a> sandbox object will be returned.</p>
+<p>The <code>vm.createContext()</code> method is primarily useful for creating a single
+sandbox that can be used to run multiple scripts. For instance, if emulating a
+web browser, the method can be used to create a single sandbox representing a
+window&apos;s global object, then run all <code>&lt;script&gt;</code> tags together within the context
+of that sandbox.</p>
+<p>The provided <code>name</code> and <code>origin</code> of the context are made visible through the
+Inspector API.</p>
+<h2>vm.isContext(sandbox)<span><a class="mark" href="#vm_vm_iscontext_sandbox" id="vm_vm_iscontext_sandbox" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="vm_iscontext_sandbox.html" tppabs="http://nodejs.cn/api/vm/vm_iscontext_sandbox.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.7</span>
+</div>
+<ul>
+<li><code>sandbox</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+</ul>
+<p>&#x5F53;&#x7ED9;&#x5B9A;&#x7684;<code>sandbox</code>&#x5BF9;&#x8C61;&#x5DF2;&#x7ECF;&#x88AB;<a href="javascript:if(confirm('http://nodejs.cn/s/6WiPpe  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/6WiPpe'" tppabs="http://nodejs.cn/s/6WiPpe" rel="nofollow"><code>vm.createContext()</code></a>&#x4E0A;&#x4E0B;&#x6587;&#x9694;&#x79BB;&#x5316;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x771F;&#x3002;</p>
+<h2>vm.runInContext(code, contextifiedSandbox[, options])<span><a class="mark" href="#vm_vm_runincontext_code_contextifiedsandbox_options" id="vm_vm_runincontext_code_contextifiedsandbox_options" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="vm_runincontext_code_contextifiedsandbox_options.html" tppabs="http://nodejs.cn/api/vm/vm_runincontext_code_contextifiedsandbox_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<ul>
+<li><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5C06;&#x88AB;&#x7F16;&#x8BD1;&#x548C;&#x8FD0;&#x884C;&#x7684;JavaScript&#x4EE3;&#x7801;</li>
+<li><code>contextifiedSandbox</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x4E00;&#x4E2A;&#x88AB;<a href="javascript:if(confirm('http://nodejs.cn/s/x6KGQQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/x6KGQQ'" tppabs="http://nodejs.cn/s/x6KGQQ" rel="nofollow">&#x4E0A;&#x4E0B;&#x6587;&#x9694;&#x79BB;&#x5316;</a>&#x8FC7;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x4F1A;&#x5728;&#x4EE3;&#x7801;&#x88AB;&#x7F16;&#x8BD1;&#x548C;&#x6267;&#x884C;&#x4E4B;&#x540E;&#x5145;&#x5F53;<code>global</code>&#x5BF9;&#x8C61;</li>
+<li>
+<p><code>options</code></p>
+<ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5B9A;&#x4E49;&#x4F9B;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x540D;</li>
+<li><code>lineOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x884C;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>columnOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x5217;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>displayErrors</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x503C;&#x4E3A;&#x771F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5047;&#x5982;&#x5728;&#x89E3;&#x6790;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x751F;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#xFF0C;&#x5F15;&#x8D77;&#x9519;&#x8BEF;&#x7684;&#x884C;&#x5C06;&#x4F1A;&#x88AB;&#x52A0;&#x5165;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;</li>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x5728;&#x88AB;&#x7EC8;&#x6B62;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x6B64;code&#x88AB;&#x5141;&#x8BB8;&#x6267;&#x884C;&#x7684;&#x6700;&#x5927;&#x6BEB;&#x79D2;&#x6570;&#x3002;&#x5047;&#x5982;&#x6267;&#x884C;&#x88AB;&#x7EC8;&#x6B62;&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a></li>
+</ul>
+</li>
+</ul>
+<p><code>vm.runInContext()</code>&#x5728;&#x6307;&#x5B9A;&#x7684;<code>contextifiedSandbox</code>&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x91CC;&#x6267;&#x884C;vm.Script&#x5BF9;&#x8C61;&#x4E2D;&#x88AB;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x4EE3;&#x7801;&#x5E76;&#x8FD4;&#x56DE;&#x5176;&#x7ED3;&#x679C;&#x3002;&#x88AB;&#x6267;&#x884C;&#x7684;&#x4EE3;&#x7801;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x672C;&#x5730;&#x4F5C;&#x7528;&#x57DF;&#x3002;<code>contextifiedSandbox</code><em>&#x5FC5;&#x987B;</em>&#x662F;&#x4E8B;&#x5148;&#x88AB;<a href="javascript:if(confirm('http://nodejs.cn/s/6WiPpe  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/6WiPpe'" tppabs="http://nodejs.cn/s/6WiPpe" rel="nofollow"><code>vm.createContext()</code></a><a href="javascript:if(confirm('http://nodejs.cn/s/x6KGQQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/x6KGQQ'" tppabs="http://nodejs.cn/s/x6KGQQ" rel="nofollow">&#x4E0A;&#x4E0B;&#x6587;&#x9694;&#x79BB;&#x5316;</a>&#x8FC7;&#x7684;&#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x4F8B;&#x5B50;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684;, <a href="javascript:if(confirm('http://nodejs.cn/s/x6KGQQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/x6KGQQ'" tppabs="http://nodejs.cn/s/x6KGQQ" rel="nofollow">&#x4E0A;&#x4E0B;&#x6587;&#x9694;&#x79BB;&#x5316;</a>&#x8FC7;&#x7684;&#x5BF9;&#x8C61;&#x6765;&#x7F16;&#x8BD1;&#x5E76;&#x8FD0;&#x884C;&#x51E0;&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#x811A;&#x672C;:</p>
+<pre><code class="language-js">const util = require(&apos;util&apos;);
+const vm = require(&apos;vm&apos;);
+
+const sandbox = { globalVar: 1 };
+vm.createContext(sandbox);
+
+for (let i = 0; i &lt; 10; ++i) {
+  vm.runInContext(&apos;globalVar *= 2;&apos;, sandbox);
+}
+console.log(util.inspect(sandbox));
+
+// { globalVar: 1024 }
+</code></pre>
+<h2>vm.runInNewContext(code[, sandbox[, options]])<span><a class="mark" href="#vm_vm_runinnewcontext_code_sandbox_options" id="vm_vm_runinnewcontext_code_sandbox_options" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="vm_runinnewcontext_code_sandbox_options.html" tppabs="http://nodejs.cn/api/vm/vm_runinnewcontext_code_sandbox_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.1</span>
+</div>
+<ul>
+<li>
+<p><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5C06;&#x88AB;&#x7F16;&#x8BD1;&#x548C;&#x8FD0;&#x884C;&#x7684;JavaScript&#x4EE3;&#x7801;</p>
+</li>
+<li>
+<p><code>sandbox</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x4E00;&#x4E2A;&#x5C06;&#x88AB;<a href="javascript:if(confirm('http://nodejs.cn/s/x6KGQQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/x6KGQQ'" tppabs="http://nodejs.cn/s/x6KGQQ" rel="nofollow">&#x4E0A;&#x4E0B;&#x6587;&#x9694;&#x79BB;&#x5316;</a>&#x7684;&#x5BF9;&#x8C61;&#x3002;&#x5982;&#x679C;&#x662F;undefined, &#x4F1A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x5BF9;&#x8C61;</p>
+</li>
+<li>
+<p><code>options</code></p>
+<ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5B9A;&#x4E49;&#x4F9B;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x540D;</li>
+<li><code>lineOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x884C;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>columnOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x5217;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>displayErrors</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x503C;&#x4E3A;&#x771F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5047;&#x5982;&#x5728;&#x89E3;&#x6790;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x751F;&#x9519;&#x8BEF;Error&#xFF0C;&#x5F15;&#x8D77;&#x9519;&#x8BEF;&#x7684;&#x884C;&#x5C06;&#x4F1A;&#x88AB;&#x52A0;&#x5165;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;</li>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x5728;&#x88AB;&#x7EC8;&#x6B62;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x6B64;code&#x88AB;&#x5141;&#x8BB8;&#x6267;&#x884C;&#x7684;&#x6700;&#x5927;&#x6BEB;&#x79D2;&#x6570;&#x3002;&#x5047;&#x5982;&#x6267;&#x884C;&#x88AB;&#x7EC8;&#x6B62;&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a></li>
+</ul>
+</li>
+</ul>
+<p>&#x9996;&#x5148;&#x7ED9;&#x6307;&#x5B9A;&#x7684;sandbox&#xFF08;&#x82E5;&#x4E3A;<code>undefined</code>&#xFF0C;&#x5219;&#x4F1A;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;<code>sandbox</code>&#xFF09;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x9694;&#x79BB;&#x7684;&#x4E0A;&#x4E0B;&#x6587;, &#x518D;&#x5728;&#x6B64;&#x4E0A;&#x4E0B;&#x6587;&#x4E2D;&#x6267;&#x884C;vm.Script&#x4E2D;&#x88AB;&#x7F16;&#x8BD1;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x3002;&#x8FD0;&#x884C;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x672C;&#x5730;&#x4F5C;&#x7528;&#x57DF;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x7684;&#x4F8B;&#x5B50;&#x4F1A;&#x7F16;&#x8BD1;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;&#xFF0C;&#x8BE5;&#x4EE3;&#x7801;&#x4F1A;&#x9012;&#x589E;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x7ED9;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x8D4B;&#x503C;&#x3002;&#x540C;&#x65F6;&#x8BE5;&#x4EE3;&#x7801;&#x88AB;&#x7F16;&#x8BD1;&#x540E;&#x4F1A;&#x88AB;&#x591A;&#x6B21;&#x6267;&#x884C;&#x3002;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4F1A;&#x88AB;&#x7F6E;&#x4E8E;<code>sandbox</code>&#x5BF9;&#x8C61;&#x5185;&#x3002;</p>
+<pre><code class="language-js">const util = require(&apos;util&apos;);
+const vm = require(&apos;vm&apos;);
+
+const sandbox = {
+  animal: &apos;cat&apos;,
+  count: 2
+};
+
+vm.runInNewContext(&apos;count += 1; name = &quot;kitty&quot;&apos;, sandbox);
+console.log(util.inspect(sandbox));
+
+// { animal: &apos;cat&apos;, count: 3, name: &apos;kitty&apos; }
+</code></pre>
+<h2>vm.runInThisContext(code[, options])<span><a class="mark" href="#vm_vm_runinthiscontext_code_options" id="vm_vm_runinthiscontext_code_options" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="vm_runinthiscontext_code_options.html" tppabs="http://nodejs.cn/api/vm/vm_runinthiscontext_code_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.1</span>
+</div>
+<ul>
+<li><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5C06;&#x88AB;&#x7F16;&#x8BD1;&#x548C;&#x8FD0;&#x884C;&#x7684;JavaScript&#x4EE3;&#x7801;</li>
+<li>
+<p><code>options</code></p>
+<ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5B9A;&#x4E49;&#x4F9B;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x540D;</li>
+<li><code>lineOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x884C;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>columnOffset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x811A;&#x672C;&#x751F;&#x6210;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;&#x6240;&#x663E;&#x793A;&#x7684;&#x5217;&#x53F7;&#x504F;&#x79FB;</li>
+<li><code>displayErrors</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5F53;&#x503C;&#x4E3A;&#x771F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5047;&#x5982;&#x5728;&#x89E3;&#x6790;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x751F;&#x9519;&#x8BEF;Error&#xFF0C;&#x5F15;&#x8D77;&#x9519;&#x8BEF;&#x7684;&#x884C;&#x5C06;&#x4F1A;&#x88AB;&#x52A0;&#x5165;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x4FE1;&#x606F;</li>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5B9A;&#x4E49;&#x5728;&#x88AB;&#x7EC8;&#x6B62;&#x6267;&#x884C;&#x4E4B;&#x524D;&#x6B64;code&#x88AB;&#x5141;&#x8BB8;&#x6267;&#x884C;&#x7684;&#x6700;&#x5927;&#x6BEB;&#x79D2;&#x6570;&#x3002;&#x5047;&#x5982;&#x6267;&#x884C;&#x88AB;&#x7EC8;&#x6B62;&#xFF0C;&#x5C06;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a></li>
+</ul>
+</li>
+</ul>
+<p><code>vm.runInThisContext()</code>&#x5728;&#x5F53;&#x524D;&#x7684;<code>global</code>&#x5BF9;&#x8C61;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x4E2D;&#x7F16;&#x8BD1;&#x5E76;&#x6267;&#x884C;<code>code</code>&#xFF0C;&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x3002;&#x8FD0;&#x884C;&#x4E2D;&#x7684;&#x4EE3;&#x7801;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x672C;&#x5730;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x4F46;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7684;<code>global</code>&#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x6F14;&#x793A;&#x4E86;&#x4F7F;&#x7528;<code>vm.runInThisContext()</code>&#x548C;JavaScript&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/qHvCuM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qHvCuM'" tppabs="http://nodejs.cn/s/qHvCuM" rel="nofollow"><code>eval()</code></a>&#x65B9;&#x6CD5;&#x53BB;&#x6267;&#x884C;&#x76F8;&#x540C;&#x7684;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;&#xFF1A;</p>
+<!-- eslint-disable prefer-const -->
+<pre><code class="language-js">const vm = require(&apos;vm&apos;);
+let localVar = &apos;initial value&apos;;
+
+const vmResult = vm.runInThisContext(&apos;localVar = &quot;vm&quot;;&apos;);
+console.log(&apos;vmResult:&apos;, vmResult);
+console.log(&apos;localVar:&apos;, localVar);
+
+const evalResult = eval(&apos;localVar = &quot;eval&quot;;&apos;);
+console.log(&apos;evalResult:&apos;, evalResult);
+console.log(&apos;localVar:&apos;, localVar);
+
+// vmResult: &apos;vm&apos;, localVar: &apos;initial value&apos;
+// evalResult: &apos;eval&apos;, localVar: &apos;eval&apos;
+</code></pre>
+<p>&#x6B63;&#x56E0;<code>vm.runInThisContext()</code>&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x672C;&#x5730;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x6545;<code>localVar</code>&#x7684;&#x503C;&#x4E0D;&#x53D8;&#x3002;&#x76F8;&#x53CD;&#xFF0C;<a href="javascript:if(confirm('http://nodejs.cn/s/qHvCuM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qHvCuM'" tppabs="http://nodejs.cn/s/qHvCuM" rel="nofollow"><code>eval()</code></a><em>&#x786E;&#x5B9E;</em>&#x80FD;&#x83B7;&#x53D6;&#x672C;&#x5730;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x6240;&#x4EE5;<code>localVar</code>&#x7684;&#x503C;&#x88AB;&#x6539;&#x53D8;&#x4E86;&#x3002;&#x5982;&#x6B64;&#x770B;&#x6765;&#xFF0C;<code>vm.runInThisContext()</code>&#x66F4;&#x50CF;&#x662F;<a href="javascript:if(confirm('http://nodejs.cn/s/RBapQS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RBapQS'" tppabs="http://nodejs.cn/s/RBapQS" rel="nofollow">&#x95F4;&#x63A5;&#x7684;&#x6267;&#x884C;<code>eval()</code></a>, &#x5C31;&#x50CF;<code>(0, eval)(&apos;code&apos;)</code></p>
+<h2>Example: Running an HTTP Server within a VM<span><a class="mark" href="#vm_example_running_an_http_server_within_a_vm" id="vm_example_running_an_http_server_within_a_vm" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="example_running_an_http_server_within_a_vm.html" tppabs="http://nodejs.cn/api/vm/example_running_an_http_server_within_a_vm.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x5728;&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/BMPPiK  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/BMPPiK'" tppabs="http://nodejs.cn/s/BMPPiK" rel="nofollow"><code>script.runInThisContext()</code></a>&#x6216;&#x8005;<a href="javascript:if(confirm('http://nodejs.cn/s/wqeZ5X  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wqeZ5X'" tppabs="http://nodejs.cn/s/wqeZ5X" rel="nofollow"><code>vm.runInThisContext()</code></a>&#x65F6;&#xFF0C;&#x76EE;&#x6807;&#x4EE3;&#x7801;&#x662F;&#x5728;&#x5F53;&#x524D;&#x7684;V8&#x5168;&#x5C40;&#x5BF9;&#x8C61;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x4E2D;&#x6267;&#x884C;&#x7684;&#x3002;&#x88AB;&#x4F20;&#x5165;&#x6B64;&#x865A;&#x62DF;&#x673A;&#x4E0A;&#x4E0B;&#x6587;&#x7684;&#x76EE;&#x6807;&#x4EE3;&#x7801;&#x4F1A;&#x6709;&#x81EA;&#x5DF1;&#x72EC;&#x7ACB;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x3002;</p>
+<p>&#x8981;&#x60F3;&#x7528;<code>http</code>&#x6A21;&#x5757;&#x642D;&#x5EFA;&#x4E00;&#x4E2A;&#x7B80;&#x6613;&#x7684;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x88AB;&#x4F20;&#x5165;&#x7684;&#x4EE3;&#x7801;&#x5FC5;&#x987B;&#x8981;&#x4E48;&#x81EA;&#x5DF1;&#x6267;&#x884C;<code>require(&apos;http&apos;)</code>&#xFF0C;&#x8981;&#x4E48;&#x5F15;&#x7528;&#x4E00;&#x4E2A;<code>http</code>&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;</p>
+<pre><code class="language-js">&apos;use strict&apos;;
+const vm = require(&apos;vm&apos;);
+
+const code = `
+((require) =&gt; {
+  const http = require(&apos;http&apos;);
+
+  http.createServer((request, response) =&gt; {
+    response.writeHead(200, { &apos;Content-Type&apos;: &apos;text/plain&apos; });
+    response.end(&apos;Hello World\\n&apos;);
+  }).listen(8124);
+
+  console.log(&apos;Server running at http://127.0.0.1:8124/&apos;);
+})`;
+
+vm.runInThisContext(code)(require);
+</code></pre>
+<p><em>&#x6CE8;&#x610F;</em>: &#x4E0A;&#x8FF0;&#x4F8B;&#x5B50;&#x4E2D;&#x7684;<code>require()</code>&#x548C;&#x5BFC;&#x51FA;&#x5B83;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x5171;&#x4EAB;&#x72B6;&#x6001;&#x3002;&#x8FD9;&#x5728;&#x8FD0;&#x884C;&#x672A;&#x7ECF;&#x8BA4;&#x8BC1;&#x7684;&#x4EE3;&#x7801;&#x65F6;&#x53EF;&#x80FD;&#x4F1A;&#x5F15;&#x5165;&#x98CE;&#x9669;&#xFF0C;&#x6BD4;&#x5982;&#x5728;&#x4E0D;&#x7406;&#x60F3;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x4FEE;&#x6539;&#x4E0A;&#x4E0B;&#x6587;&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#x3002;</p>
+<h2>What does it mean to &quot;contextify&quot; an object?<span><a class="mark" href="#vm_what_does_it_mean_to_contextify_an_object" id="vm_what_does_it_mean_to_contextify_an_object" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="what_does_it_mean_to_contextify_an_object.html" tppabs="http://nodejs.cn/api/vm/what_does_it_mean_to_contextify_an_object.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x6240;&#x6709;&#x7528;Node.js&#x6240;&#x8FD0;&#x884C;&#x7684;JavaScript&#x4EE3;&#x7801;&#x90FD;&#x662F;&#x5728;&#x4E00;&#x4E2A;&#x201C;&#x4E0A;&#x4E0B;&#x6587;&#x201D;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x88AB;&#x6267;&#x884C;&#x7684;&#x3002;
+&#x6839;&#x636E;<a href="javascript:if(confirm('http://nodejs.cn/s/HT6rs1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/HT6rs1'" tppabs="http://nodejs.cn/s/HT6rs1" rel="nofollow">V8 Embedder&apos;s Guide</a>&#xFF1A;</p>
+<blockquote>
+<p>&#x5728;V8&#x4E2D;&#xFF0C;&#x4E00;&#x4E2A;&#x4E0A;&#x4E0B;&#x6587;&#x662F;&#x4E00;&#x4E2A;&#x6267;&#x884C;&#x73AF;&#x5883;&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x5206;&#x79BB;&#x7684;&#xFF0C;&#x65E0;&#x5173;&#x7684;JavaScript&#x5E94;&#x7528;&#x5728;&#x4E00;&#x4E2A;V8&#x7684;&#x5355;&#x4F8B;&#x4E2D;&#x88AB;&#x8FD0;&#x884C;&#x3002;
+&#x4F60;&#x5FC5;&#x987B;&#x660E;&#x786E;&#x5730;&#x6307;&#x5B9A;&#x7528;&#x4E8E;&#x8FD0;&#x884C;&#x6240;&#x6709;JavaScript&#x4EE3;&#x7801;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x3002;</p>
+</blockquote>
+<p>&#x5F53;&#x8C03;&#x7528;<code>vm.createContext()</code>&#x65F6;&#xFF0C;&#x4F20;&#x5165;&#x7684;<code>sandbox</code>&#x5BF9;&#x8C61;&#xFF08;&#x6216;&#x8005;&#x65B0;&#x5EFA;&#x7684;&#x4E00;&#x4E2A;<code>sandbox</code>&#x5BF9;&#x8C61;&#xFF0C;&#x82E5;&#x539F;<code>sandbox</code>&#x4E3A;<code>undefined</code>)&#x5728;&#x5E95;&#x5C42;&#x4F1A;&#x548C;&#x4E00;&#x4E2A;&#x65B0;&#x7684;V8&#x4E0A;&#x4E0B;&#x6587;&#x5B9E;&#x4F8B;&#x8054;&#x7CFB;&#x4E0A;&#x3002;&#x8FD9;&#x4E2A;V8&#x4E0A;&#x4E0B;&#x6587;&#x5728;&#x4E00;&#x4E2A;&#x9694;&#x79BB;&#x7684;&#x5168;&#x5C40;&#x73AF;&#x5883;&#x4E2D;&#xFF0C;&#x4F7F;&#x7528;<code>vm</code>&#x6A21;&#x5757;&#x7684;&#x65B9;&#x6CD5;&#x8FD0;&#x884C;<code>code</code>&#x3002;&#x521B;&#x5EFA;V8&#x4E0A;&#x4E0B;&#x6587;&#x548C;&#x4F7F;&#x4E4B;&#x8054;&#x7CFB;&#x4E0A;<code>sandbox</code>&#x7684;&#x8FC7;&#x7A0B;&#x5728;&#x6B64;&#x6587;&#x6863;&#x4E2D;&#x88AB;&#x79F0;&#x4F5C;&#x4E3A;&quot;&#x4E0A;&#x4E0B;&#x6587;&#x9694;&#x79BB;&#x5316;&quot;<code>sandbox</code>&#x3002;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712042210"><\/script>');
+  </script>
+
+</body></html>

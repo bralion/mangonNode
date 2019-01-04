@@ -1,0 +1,560 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>worker_threads | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712042680" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-worker_threads">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads active" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="worker_threads" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><span class="stability_1"><a href="#worker_threads_worker_threads">worker_threads&#xFF08;&#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;&#xFF09;</a></span></p>
+<ul>
+<li><a href="#worker_threads_worker_ismainthread">worker.isMainThread</a></li>
+<li><a href="#worker_threads_worker_parentport">worker.parentPort</a></li>
+<li><a href="#worker_threads_worker_threadid">worker.threadId</a></li>
+<li><a href="#worker_threads_worker_workerdata">worker.workerData</a></li>
+<li><a href="#worker_threads_class_messagechannel">MessageChannel &#x7C7B;</a></li>
+<li>
+<p><a href="#worker_threads_class_messageport">MessagePort &#x7C7B;</a></p>
+<ul>
+<li><a href="#worker_threads_event_close">&apos;close&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#worker_threads_event_message">&apos;message&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#worker_threads_port_close">port.close()</a></li>
+<li><a href="#worker_threads_port_postmessage_value_transferlist">port.postMessage(value[, transferList])</a></li>
+<li><a href="#worker_threads_port_ref">port.ref()</a></li>
+<li><a href="#worker_threads_port_start">port.start()</a></li>
+<li><a href="#worker_threads_port_unref">port.unref()</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#worker_threads_class_worker">Worker &#x7C7B;</a></p>
+<ul>
+<li><a href="#worker_threads_new_worker_filename_options">new Worker(filename[, options])</a></li>
+<li><a href="#worker_threads_event_error">&apos;error&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#worker_threads_event_exit">&apos;exit&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#worker_threads_event_message_1">&apos;message&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#worker_threads_event_online">&apos;online&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#worker_threads_worker_postmessage_value_transferlist">worker.postMessage(value[, transferList])</a></li>
+<li><a href="#worker_threads_worker_ref">worker.ref()</a></li>
+<li><a href="#worker_threads_worker_stderr">worker.stderr</a></li>
+<li><a href="#worker_threads_worker_stdin">worker.stdin</a></li>
+<li><a href="#worker_threads_worker_stdout">worker.stdout</a></li>
+<li><a href="#worker_threads_worker_terminate_callback">worker.terminate([callback])</a></li>
+<li><a href="#worker_threads_worker_threadid_1">worker.threadId</a></li>
+<li><a href="#worker_threads_worker_unref">worker.unref()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>worker_threads&#xFF08;&#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;&#xFF09;<span><a class="mark" href="#worker_threads_worker_threads" id="worker_threads_worker_threads" rel="nofollow">#</a></span></h1><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<!--introduced_in=v10.5.0-->
+<p></p><div class="api_stability api_stability_1"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 1</a> - &#x8BD5;&#x9A8C;&#x7684;</div><p></p>
+<p>The <code>worker</code> module provides a way to create multiple environments running
+on independent threads, and to create message channels between them. It
+can be accessed using the <code>--experimental-worker</code> flag and:</p>
+<pre><code class="language-js">const worker = require(&apos;worker_threads&apos;);
+</code></pre>
+<p>Workers are useful for performing CPU-intensive JavaScript operations; do not
+use them for I/O, since Node.js&#x2019;s built-in mechanisms for performing operations
+asynchronously already treat it more efficiently than Worker threads can.</p>
+<p>Workers, unlike child processes or when using the <code>cluster</code> module, can also
+share memory efficiently by transferring <code>ArrayBuffer</code> instances or sharing
+<code>SharedArrayBuffer</code> instances between them.</p>
+<pre><code class="language-js">const {
+  Worker, isMainThread, parentPort, workerData
+} = require(&apos;worker_threads&apos;);
+
+if (isMainThread) {
+  module.exports = async function parseJSAsync(script) {
+    return new Promise((resolve, reject) =&gt; {
+      const worker = new Worker(__filename, {
+        workerData: script
+      });
+      worker.on(&apos;message&apos;, resolve);
+      worker.on(&apos;error&apos;, reject);
+      worker.on(&apos;exit&apos;, (code) =&gt; {
+        if (code !== 0)
+          reject(new Error(`Worker stopped with exit code ${code}`));
+      });
+    });
+  };
+} else {
+  const { parse } = require(&apos;some-js-parsing-library&apos;);
+  const script = workerData;
+  parentPort.postMessage(parse(script));
+}
+</code></pre>
+<p>Note that this example spawns a Worker thread for each <code>parse</code> call.
+In practice, it is strongly recommended to use a pool of Workers for these
+kinds of tasks, since the overhead of creating Workers would likely exceed the
+benefit of handing the work off to it.</p>
+<h2>worker.isMainThread<span><a class="mark" href="#worker_threads_worker_ismainthread" id="worker_threads_worker_ismainthread" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a></li>
+</ul>
+<p>Is <code>true</code> if this code is not running inside of a <a href="javascript:if(confirm('http://nodejs.cn/s/S15DqM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/S15DqM'" tppabs="http://nodejs.cn/s/S15DqM" rel="nofollow"><code>Worker</code></a> thread.</p>
+<h2>worker.parentPort<span><a class="mark" href="#worker_threads_worker_parentport" id="worker_threads_worker_parentport" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Null_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Null_type" target="_blank" rel="nofollow" class="type">&lt;null&gt;</a> | <a href="worker_threads.html#worker_threads_class_messageport" tppabs="http://nodejs.cn/api/worker_threads.html#worker_threads_class_messageport" target="_blank" rel="nofollow" class="type">&lt;MessagePort&gt;</a></li>
+</ul>
+<p>If this thread was spawned as a <a href="javascript:if(confirm('http://nodejs.cn/s/S15DqM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/S15DqM'" tppabs="http://nodejs.cn/s/S15DqM" rel="nofollow"><code>Worker</code></a>, this will be a <a href="javascript:if(confirm('http://nodejs.cn/s/wt864Y  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wt864Y'" tppabs="http://nodejs.cn/s/wt864Y" rel="nofollow"><code>MessagePort</code></a>
+allowing communication with the parent thread. Messages sent using
+<code>parentPort.postMessage()</code> will be available in the parent thread
+using <code>worker.on(&apos;message&apos;)</code>, and messages sent from the parent thread
+using <code>worker.postMessage()</code> will be available in this thread using
+<code>parentPort.on(&apos;message&apos;)</code>.</p>
+<h2>worker.threadId<span><a class="mark" href="#worker_threads_worker_threadid" id="worker_threads_worker_threadid" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+</ul>
+<p>An integer identifier for the current thread. On the corresponding worker object
+(if there is any), it is available as <a href="javascript:if(confirm('http://nodejs.cn/s/KmShiL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/KmShiL'" tppabs="http://nodejs.cn/s/KmShiL" rel="nofollow"><code>worker.threadId</code></a>.</p>
+<h2>worker.workerData<span><a class="mark" href="#worker_threads_worker_workerdata" id="worker_threads_worker_workerdata" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<p>An arbitrary JavaScript value that contains a clone of the data passed
+to this thread&#x2019;s <code>Worker</code> constructor.</p>
+<h2>MessageChannel &#x7C7B;<span><a class="mark" href="#worker_threads_class_messagechannel" id="worker_threads_class_messagechannel" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<p>Instances of the <code>worker.MessageChannel</code> class represent an asynchronous,
+two-way communications channel.
+The <code>MessageChannel</code> has no methods of its own. <code>new MessageChannel()</code>
+yields an object with <code>port1</code> and <code>port2</code> properties, which refer to linked
+<a href="javascript:if(confirm('http://nodejs.cn/s/wt864Y  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wt864Y'" tppabs="http://nodejs.cn/s/wt864Y" rel="nofollow"><code>MessagePort</code></a> instances.</p>
+<pre><code class="language-js">const { MessageChannel } = require(&apos;worker_threads&apos;);
+
+const { port1, port2 } = new MessageChannel();
+port1.on(&apos;message&apos;, (message) =&gt; console.log(&apos;received&apos;, message));
+port2.postMessage({ foo: &apos;bar&apos; });
+// prints: received { foo: &apos;bar&apos; } from the `port1.on(&apos;message&apos;)` listener
+</code></pre>
+<h2>MessagePort &#x7C7B;<span><a class="mark" href="#worker_threads_class_messageport" id="worker_threads_class_messageport" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li>Extends: <a href="events.html#events_class_eventemitter" tppabs="http://nodejs.cn/api/events.html#events_class_eventemitter" target="_blank" rel="nofollow" class="type">&lt;EventEmitter&gt;</a></li>
+</ul>
+<p>Instances of the <code>worker.MessagePort</code> class represent one end of an
+asynchronous, two-way communications channel. It can be used to transfer
+structured data, memory regions and other <code>MessagePort</code>s between different
+<a href="javascript:if(confirm('http://nodejs.cn/s/S15DqM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/S15DqM'" tppabs="http://nodejs.cn/s/S15DqM" rel="nofollow"><code>Worker</code></a>s.</p>
+<p>With the exception of <code>MessagePort</code>s being <a href="javascript:if(confirm('http://nodejs.cn/s/7fRp3e  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/7fRp3e'" tppabs="http://nodejs.cn/s/7fRp3e" rel="nofollow"><code>EventEmitter</code></a>s rather
+than <code>EventTarget</code>s, this implementation matches <a href="javascript:if(confirm('http://nodejs.cn/s/beVAtP  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/beVAtP'" tppabs="http://nodejs.cn/s/beVAtP" rel="nofollow">browser <code>MessagePort</code></a>s.</p>
+<h3>&apos;close&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#worker_threads_event_close" id="worker_threads_event_close" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<p>The <code>&apos;close&apos;</code> event is emitted once either side of the channel has been
+disconnected.</p>
+<h3>&apos;message&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#worker_threads_event_message" id="worker_threads_event_message" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><code>value</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a> The transmitted value</li>
+</ul>
+<p>The <code>&apos;message&apos;</code> event is emitted for any incoming message, containing the cloned
+input of <a href="javascript:if(confirm('http://nodejs.cn/s/cMmBBF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/cMmBBF'" tppabs="http://nodejs.cn/s/cMmBBF" rel="nofollow"><code>port.postMessage()</code></a>.</p>
+<p>Listeners on this event will receive a clone of the <code>value</code> parameter as passed
+to <code>postMessage()</code> and no further arguments.</p>
+<h3>port.close()<span><a class="mark" href="#worker_threads_port_close" id="worker_threads_port_close" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<p>Disables further sending of messages on either side of the connection.
+This method can be called when no further communication will happen over this
+<code>MessagePort</code>.</p>
+<h3>port.postMessage(value[, transferList])<span><a class="mark" href="#worker_threads_port_postmessage_value_transferlist" id="worker_threads_port_postmessage_value_transferlist" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><code>value</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>transferList</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object[]&gt;</a></li>
+</ul>
+<p>Sends a JavaScript value to the receiving side of this channel.
+<code>value</code> will be transferred in a way which is compatible with
+the <a href="javascript:if(confirm('http://nodejs.cn/s/SLsDHc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SLsDHc'" tppabs="http://nodejs.cn/s/SLsDHc" rel="nofollow">HTML structured clone algorithm</a>. In particular, it may contain circular
+references and objects like typed arrays that the <code>JSON</code> API is not able
+to stringify.</p>
+<p><code>transferList</code> may be a list of <code>ArrayBuffer</code> and <code>MessagePort</code> objects.
+After transferring, they will not be usable on the sending side of the channel
+anymore (even if they are not contained in <code>value</code>). Unlike with
+<a href="javascript:if(confirm('http://nodejs.cn/s/73VVnB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/73VVnB'" tppabs="http://nodejs.cn/s/73VVnB" rel="nofollow">child processes</a>, transferring handles such as network sockets is currently
+not supported.</p>
+<p>If <code>value</code> contains <a href="javascript:if(confirm('http://nodejs.cn/s/6J6LBy  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/6J6LBy'" tppabs="http://nodejs.cn/s/6J6LBy" rel="nofollow"><code>SharedArrayBuffer</code></a> instances, those will be accessible
+from either thread. They cannot be listed in <code>transferList</code>.</p>
+<p><code>value</code> may still contain <code>ArrayBuffer</code> instances that are not in
+<code>transferList</code>; in that case, the underlying memory is copied rather than moved.</p>
+<p>Because the object cloning uses the structured clone algorithm,
+non-enumerable properties, property accessors, and object prototypes are
+not preserved. In particular, <a href="javascript:if(confirm('http://nodejs.cn/s/FP4oTy  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FP4oTy'" tppabs="http://nodejs.cn/s/FP4oTy" rel="nofollow"><code>Buffer</code></a> objects will be read as
+plain <a href="javascript:if(confirm('http://nodejs.cn/s/ZbDkpm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ZbDkpm'" tppabs="http://nodejs.cn/s/ZbDkpm" rel="nofollow"><code>Uint8Array</code></a>s on the receiving side.</p>
+<p>The message object will be cloned immediately, and can be modified after
+posting without having side effects.</p>
+<p>For more information on the serialization and deserialization mechanisms
+behind this API, see the <a href="javascript:if(confirm('http://nodejs.cn/s/cMzSNF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/cMzSNF'" tppabs="http://nodejs.cn/s/cMzSNF" rel="nofollow">serialization API of the <code>v8</code> module</a>.</p>
+<h3>port.ref()<span><a class="mark" href="#worker_threads_port_ref" id="worker_threads_port_ref" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<p>Opposite of <code>unref()</code>. Calling <code>ref()</code> on a previously <code>unref()</code>ed port will
+<em>not</em> let the program exit if it&apos;s the only active handle left (the default
+behavior). If the port is <code>ref()</code>ed, calling <code>ref()</code> again will have no effect.</p>
+<p>If listeners are attached or removed using <code>.on(&apos;message&apos;)</code>, the port will
+be <code>ref()</code>ed and <code>unref()</code>ed automatically depending on whether
+listeners for the event exist.</p>
+<h3>port.start()<span><a class="mark" href="#worker_threads_port_start" id="worker_threads_port_start" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<p>Starts receiving messages on this <code>MessagePort</code>. When using this port
+as an event emitter, this will be called automatically once <code>&apos;message&apos;</code>
+listeners are attached.</p>
+<h3>port.unref()<span><a class="mark" href="#worker_threads_port_unref" id="worker_threads_port_unref" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<p>Calling <code>unref()</code> on a port will allow the thread to exit if this is the only
+active handle in the event system. If the port is already <code>unref()</code>ed calling
+<code>unref()</code> again will have no effect.</p>
+<p>If listeners are attached or removed using <code>.on(&apos;message&apos;)</code>, the port will
+be <code>ref()</code>ed and <code>unref()</code>ed automatically depending on whether
+listeners for the event exist.</p>
+<h2>Worker &#x7C7B;<span><a class="mark" href="#worker_threads_class_worker" id="worker_threads_class_worker" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<p>The <code>Worker</code> class represents an independent JavaScript execution thread.
+Most Node.js APIs are available inside of it.</p>
+<p>Notable differences inside a Worker environment are:</p>
+<ul>
+<li>The <a href="javascript:if(confirm('http://nodejs.cn/s/gagmJq  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gagmJq'" tppabs="http://nodejs.cn/s/gagmJq" rel="nofollow"><code>process.stdin</code></a>, <a href="javascript:if(confirm('http://nodejs.cn/s/tQWUzG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tQWUzG'" tppabs="http://nodejs.cn/s/tQWUzG" rel="nofollow"><code>process.stdout</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/wPv5zY  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wPv5zY'" tppabs="http://nodejs.cn/s/wPv5zY" rel="nofollow"><code>process.stderr</code></a>
+may be redirected by the parent thread.</li>
+<li>The <a href="javascript:if(confirm('http://nodejs.cn/s/FbvjZe  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FbvjZe'" tppabs="http://nodejs.cn/s/FbvjZe" rel="nofollow"><code>require(&apos;worker_threads&apos;).isMainThread</code></a> property is set to <code>false</code>.</li>
+<li>The <a href="javascript:if(confirm('http://nodejs.cn/s/2CDmwz  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2CDmwz'" tppabs="http://nodejs.cn/s/2CDmwz" rel="nofollow"><code>require(&apos;worker_threads&apos;).parentPort</code></a> message port is available,</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/53qrEa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/53qrEa'" tppabs="http://nodejs.cn/s/53qrEa" rel="nofollow"><code>process.exit()</code></a> does not stop the whole program, just the single thread,
+and <a href="javascript:if(confirm('http://nodejs.cn/s/aNv9tA  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/aNv9tA'" tppabs="http://nodejs.cn/s/aNv9tA" rel="nofollow"><code>process.abort()</code></a> is not available.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/4ikeoU  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/4ikeoU'" tppabs="http://nodejs.cn/s/4ikeoU" rel="nofollow"><code>process.chdir()</code></a> and <code>process</code> methods that set group or user ids
+are not available.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/vFJ6HL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vFJ6HL'" tppabs="http://nodejs.cn/s/vFJ6HL" rel="nofollow"><code>process.env</code></a> is a read-only reference to the environment variables.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/zJmsMj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zJmsMj'" tppabs="http://nodejs.cn/s/zJmsMj" rel="nofollow"><code>process.title</code></a> cannot be modified.</li>
+<li>Signals will not be delivered through <a href="javascript:if(confirm('http://nodejs.cn/s/hihzhD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/hihzhD'" tppabs="http://nodejs.cn/s/hihzhD" rel="nofollow"><code>process.on(&apos;...&apos;)</code></a>.</li>
+<li>Execution may stop at any point as a result of <a href="javascript:if(confirm('http://nodejs.cn/s/Mt5j8N  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Mt5j8N'" tppabs="http://nodejs.cn/s/Mt5j8N" rel="nofollow"><code>worker.terminate()</code></a>
+being invoked.</li>
+<li>IPC channels from parent processes are not accessible.</li>
+</ul>
+<p>Currently, the following differences also exist until they are addressed:</p>
+<ul>
+<li>The <a href="javascript:if(confirm('http://nodejs.cn/s/7ZVzMM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/7ZVzMM'" tppabs="http://nodejs.cn/s/7ZVzMM" rel="nofollow"><code>inspector</code></a> module is not available yet.</li>
+<li>Native addons are not supported yet.</li>
+</ul>
+<p>Creating <code>Worker</code> instances inside of other <code>Worker</code>s is possible.</p>
+<p>Like <a href="javascript:if(confirm('http://nodejs.cn/s/skL7X7  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/skL7X7'" tppabs="http://nodejs.cn/s/skL7X7" rel="nofollow">Web Workers</a> and the <a href="javascript:if(confirm('http://nodejs.cn/s/4cbAVb  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/4cbAVb'" tppabs="http://nodejs.cn/s/4cbAVb" rel="nofollow"><code>cluster</code> module</a>, two-way communication can be
+achieved through inter-thread message passing. Internally, a <code>Worker</code> has a
+built-in pair of <a href="javascript:if(confirm('http://nodejs.cn/s/wt864Y  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wt864Y'" tppabs="http://nodejs.cn/s/wt864Y" rel="nofollow"><code>MessagePort</code></a>s that are already associated with each other
+when the <code>Worker</code> is created. While the <code>MessagePort</code> object on the parent side
+is not directly exposed, its functionalities are exposed through
+<a href="javascript:if(confirm('http://nodejs.cn/s/U2WeKZ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/U2WeKZ'" tppabs="http://nodejs.cn/s/U2WeKZ" rel="nofollow"><code>worker.postMessage()</code></a> and the <a href="javascript:if(confirm('http://nodejs.cn/s/mF5JVx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mF5JVx'" tppabs="http://nodejs.cn/s/mF5JVx" rel="nofollow"><code>worker.on(&apos;message&apos;)</code></a> event
+on the <code>Worker</code> object for the parent thread.</p>
+<p>To create custom messaging channels (which is encouraged over using the default
+global channel because it facilitates separation of concerns), users can create
+a <code>MessageChannel</code> object on either thread and pass one of the
+<code>MessagePort</code>s on that <code>MessageChannel</code> to the other thread through a
+pre-existing channel, such as the global one.</p>
+<p>See <a href="javascript:if(confirm('http://nodejs.cn/s/cMmBBF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/cMmBBF'" tppabs="http://nodejs.cn/s/cMmBBF" rel="nofollow"><code>port.postMessage()</code></a> for more information on how messages are passed,
+and what kind of JavaScript values can be successfully transported through
+the thread barrier.</p>
+<pre><code class="language-js">const assert = require(&apos;assert&apos;);
+const {
+  Worker, MessageChannel, MessagePort, isMainThread, parentPort
+} = require(&apos;worker_threads&apos;);
+if (isMainThread) {
+  const worker = new Worker(__filename);
+  const subChannel = new MessageChannel();
+  worker.postMessage({ hereIsYourPort: subChannel.port1 }, [subChannel.port1]);
+  subChannel.port2.on(&apos;message&apos;, (value) =&gt; {
+    console.log(&apos;received:&apos;, value);
+  });
+} else {
+  parentPort.once(&apos;message&apos;, (value) =&gt; {
+    assert(value.hereIsYourPort instanceof MessagePort);
+    value.hereIsYourPort.postMessage(&apos;the worker is sending this&apos;);
+    value.hereIsYourPort.close();
+  });
+}
+</code></pre>
+<h3>new Worker(filename[, options])<span><a class="mark" href="#worker_threads_new_worker_filename_options" id="worker_threads_new_worker_filename_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> The path to the Worker&#x2019;s main script. Must be
+either an absolute path or a relative path (i.e. relative to the
+current working directory) starting with <code>./</code> or <code>../</code>.
+If <code>options.eval</code> is true, this is a string containing JavaScript code rather
+than a path.</li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>eval</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> If true, interpret the first argument to the constructor
+as a script that is executed once the worker is online.</li>
+<li><code>workerData</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a> Any JavaScript value that will be cloned and made
+available as <a href="javascript:if(confirm('http://nodejs.cn/s/SeSr3Z  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SeSr3Z'" tppabs="http://nodejs.cn/s/SeSr3Z" rel="nofollow"><code>require(&apos;worker_threads&apos;).workerData</code></a>. The cloning will
+occur as described in the <a href="javascript:if(confirm('http://nodejs.cn/s/SLsDHc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SLsDHc'" tppabs="http://nodejs.cn/s/SLsDHc" rel="nofollow">HTML structured clone algorithm</a>, and an error
+will be thrown if the object cannot be cloned (e.g. because it contains
+<code>function</code>s).</li>
+<li>stdin <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> If this is set to <code>true</code>, then <code>worker.stdin</code> will
+provide a writable stream whose contents will appear as <code>process.stdin</code>
+inside the Worker. By default, no data is provided.</li>
+<li>stdout <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> If this is set to <code>true</code>, then <code>worker.stdout</code> will
+not automatically be piped through to <code>process.stdout</code> in the parent.</li>
+<li>stderr <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> If this is set to <code>true</code>, then <code>worker.stderr</code> will
+not automatically be piped through to <code>process.stderr</code> in the parent.</li>
+</ul>
+</li>
+</ul>
+<h3>&apos;error&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#worker_threads_event_error" id="worker_threads_event_error" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p>The <code>&apos;error&apos;</code> event is emitted if the worker thread throws an uncaught
+exception. In that case, the worker will be terminated.</p>
+<h3>&apos;exit&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#worker_threads_event_exit" id="worker_threads_event_exit" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><code>exitCode</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+</ul>
+<p>The <code>&apos;exit&apos;</code> event is emitted once the worker has stopped. If the worker
+exited by calling <a href="javascript:if(confirm('http://nodejs.cn/s/53qrEa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/53qrEa'" tppabs="http://nodejs.cn/s/53qrEa" rel="nofollow"><code>process.exit()</code></a>, the <code>exitCode</code> parameter will be the
+passed exit code. If the worker was terminated, the <code>exitCode</code> parameter will
+be <code>1</code>.</p>
+<h3>&apos;message&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#worker_threads_event_message_1" id="worker_threads_event_message_1" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><code>value</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a> The transmitted value</li>
+</ul>
+<p>The <code>&apos;message&apos;</code> event is emitted when the worker thread has invoked
+<a href="javascript:if(confirm('http://nodejs.cn/s/U2WeKZ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/U2WeKZ'" tppabs="http://nodejs.cn/s/U2WeKZ" rel="nofollow"><code>require(&apos;worker_threads&apos;).postMessage()</code></a>. See the <a href="javascript:if(confirm('http://nodejs.cn/s/UAGAfe  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UAGAfe'" tppabs="http://nodejs.cn/s/UAGAfe" rel="nofollow"><code>port.on(&apos;message&apos;)</code></a>
+event for more details.</p>
+<h3>&apos;online&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#worker_threads_event_online" id="worker_threads_event_online" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<p>The <code>&apos;online&apos;</code> event is emitted when the worker thread has started executing
+JavaScript code.</p>
+<h3>worker.postMessage(value[, transferList])<span><a class="mark" href="#worker_threads_worker_postmessage_value_transferlist" id="worker_threads_worker_postmessage_value_transferlist" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><code>value</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Data_types'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Data_types" target="_blank" rel="nofollow" class="type">&lt;any&gt;</a></li>
+<li><code>transferList</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object[]&gt;</a></li>
+</ul>
+<p>Send a message to the worker that will be received via
+<a href="javascript:if(confirm('http://nodejs.cn/s/UAGAfe  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UAGAfe'" tppabs="http://nodejs.cn/s/UAGAfe" rel="nofollow"><code>require(&apos;worker_threads&apos;).parentPort.on(&apos;message&apos;)</code></a>.
+See <a href="javascript:if(confirm('http://nodejs.cn/s/cMmBBF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/cMmBBF'" tppabs="http://nodejs.cn/s/cMmBBF" rel="nofollow"><code>port.postMessage()</code></a> for more details.</p>
+<h3>worker.ref()<span><a class="mark" href="#worker_threads_worker_ref" id="worker_threads_worker_ref" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<p>Opposite of <code>unref()</code>, calling <code>ref()</code> on a previously <code>unref()</code>ed worker will
+<em>not</em> let the program exit if it&apos;s the only active handle left (the default
+behavior). If the worker is <code>ref()</code>ed, calling <code>ref()</code> again will have
+no effect.</p>
+<h3>worker.stderr<span><a class="mark" href="#worker_threads_worker_stderr" id="worker_threads_worker_stderr" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><a href="stream.html#stream_class_stream_readable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_readable" target="_blank" rel="nofollow" class="type">&lt;stream.Readable&gt;</a></li>
+</ul>
+<p>This is a readable stream which contains data written to <a href="javascript:if(confirm('http://nodejs.cn/s/wPv5zY  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wPv5zY'" tppabs="http://nodejs.cn/s/wPv5zY" rel="nofollow"><code>process.stderr</code></a>
+inside the worker thread. If <code>stderr: true</code> was not passed to the
+<a href="javascript:if(confirm('http://nodejs.cn/s/S15DqM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/S15DqM'" tppabs="http://nodejs.cn/s/S15DqM" rel="nofollow"><code>Worker</code></a> constructor, then data will be piped to the parent thread&apos;s
+<a href="javascript:if(confirm('http://nodejs.cn/s/wPv5zY  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wPv5zY'" tppabs="http://nodejs.cn/s/wPv5zY" rel="nofollow"><code>process.stderr</code></a> stream.</p>
+<h3>worker.stdin<span><a class="mark" href="#worker_threads_worker_stdin" id="worker_threads_worker_stdin" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Null_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Null_type" target="_blank" rel="nofollow" class="type">&lt;null&gt;</a> | <a href="stream.html#stream_class_stream_writable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_writable" target="_blank" rel="nofollow" class="type">&lt;stream.Writable&gt;</a></li>
+</ul>
+<p>If <code>stdin: true</code> was passed to the <a href="javascript:if(confirm('http://nodejs.cn/s/S15DqM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/S15DqM'" tppabs="http://nodejs.cn/s/S15DqM" rel="nofollow"><code>Worker</code></a> constructor, this is a
+writable stream. The data written to this stream will be made available in
+the worker thread as <a href="javascript:if(confirm('http://nodejs.cn/s/gagmJq  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gagmJq'" tppabs="http://nodejs.cn/s/gagmJq" rel="nofollow"><code>process.stdin</code></a>.</p>
+<h3>worker.stdout<span><a class="mark" href="#worker_threads_worker_stdout" id="worker_threads_worker_stdout" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><a href="stream.html#stream_class_stream_readable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_readable" target="_blank" rel="nofollow" class="type">&lt;stream.Readable&gt;</a></li>
+</ul>
+<p>This is a readable stream which contains data written to <a href="javascript:if(confirm('http://nodejs.cn/s/tQWUzG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tQWUzG'" tppabs="http://nodejs.cn/s/tQWUzG" rel="nofollow"><code>process.stdout</code></a>
+inside the worker thread. If <code>stdout: true</code> was not passed to the
+<a href="javascript:if(confirm('http://nodejs.cn/s/S15DqM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/S15DqM'" tppabs="http://nodejs.cn/s/S15DqM" rel="nofollow"><code>Worker</code></a> constructor, then data will be piped to the parent thread&apos;s
+<a href="javascript:if(confirm('http://nodejs.cn/s/tQWUzG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tQWUzG'" tppabs="http://nodejs.cn/s/tQWUzG" rel="nofollow"><code>process.stdout</code></a> stream.</p>
+<h3>worker.terminate([callback])<span><a class="mark" href="#worker_threads_worker_terminate_callback" id="worker_threads_worker_terminate_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>exitCode</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>Stop all JavaScript execution in the worker thread as soon as possible.
+<code>callback</code> is an optional function that is invoked once this operation is known
+to have completed.</p>
+<p><strong>Warning</strong>: Currently, not all code in the internals of Node.js is prepared to
+expect termination at arbitrary points in time and may crash if it encounters
+that condition. Consequently, only call <code>.terminate()</code> if it is known that the
+Worker thread is not accessing Node.js core modules other than what is exposed
+in the <code>worker</code> module.</p>
+<h3>worker.threadId<span><a class="mark" href="#worker_threads_worker_threadid_1" id="worker_threads_worker_threadid_1" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+</ul>
+<p>An integer identifier for the referenced thread. Inside the worker thread,
+it is available as <a href="javascript:if(confirm('http://nodejs.cn/s/Cg381u  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Cg381u'" tppabs="http://nodejs.cn/s/Cg381u" rel="nofollow"><code>require(&apos;worker_threads&apos;).threadId</code></a>.</p>
+<h3>worker.unref()<span><a class="mark" href="#worker_threads_worker_unref" id="worker_threads_worker_unref" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<p>Calling <code>unref()</code> on a worker will allow the thread to exit if this is the only
+active handle in the event system. If the worker is already <code>unref()</code>ed calling
+<code>unref()</code> again will have no effect.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712042680"><\/script>');
+  </script>
+
+</body></html>

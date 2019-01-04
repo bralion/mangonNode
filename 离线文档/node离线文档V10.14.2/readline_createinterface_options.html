@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>readline.createInterface(options) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/readline/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712035775" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-readline">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>readline.createInterface(options)</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="readline.html#readline_readline_createinterface_options" tppabs="http://nodejs.cn/api/readline.html#readline_readline_createinterface_options" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.3.0, 6.11.4</td>
+<td><p>Remove max limit of <code>crlfDelay</code> option.</p></td></tr>
+<tr><td>v6.6.0</td>
+<td><p>The <code>crlfDelay</code> option is supported now.</p></td></tr>
+<tr><td>v6.3.0</td>
+<td><p>The <code>prompt</code> option is supported now.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>The <code>historySize</code> option can be <code>0</code> now.</p></td></tr>
+<tr><td>v0.1.98</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.98</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>input</code> <a href="stream.html#stream_class_stream_readable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_readable" target="_blank" rel="nofollow" class="type">&lt;stream.Readable&gt;</a> &#x8981;&#x76D1;&#x542C;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/zz7Dx3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zz7Dx3'" tppabs="http://nodejs.cn/s/zz7Dx3" rel="nofollow">&#x53EF;&#x8BFB;&#x6D41;</a>&#x3002;&#x8BE5;&#x9009;&#x9879;&#x662F;&#x5FC5;&#x9700;&#x7684;&#x3002;</li>
+<li><code>output</code> <a href="stream.html#stream_class_stream_writable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_writable" target="_blank" rel="nofollow" class="type">&lt;stream.Writable&gt;</a> &#x8981;&#x5199;&#x5165;&#x9010;&#x884C;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/LzH75p  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LzH75p'" tppabs="http://nodejs.cn/s/LzH75p" rel="nofollow">&#x53EF;&#x5199;&#x6D41;</a>&#x3002;</li>
+<li><code>completer</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x7528;&#x4E8E; Tab &#x81EA;&#x52A8;&#x8865;&#x5168;&#x3002;</li>
+<li><code>terminal</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C; <code>input</code> &#x548C; <code>output</code> &#x5E94;&#x88AB;&#x5F53;&#x4F5C;&#x4E00;&#x4E2A; TTY&#xFF0C;&#x4E14;&#x8981;&#x5199;&#x5165; ANSI/VT100 &#x8F6C;&#x6362;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5219;&#x8BBE;&#x4E3A; <code>true</code>&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A;&#x5B9E;&#x4F8B;&#x5316;&#x65F6;&#x5728; <code>output</code> &#x6D41;&#x4E0A;&#x68C0;&#x67E5; <code>isTTY</code>&#x3002;</li>
+<li><code>historySize</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x4FDD;&#x7559;&#x7684;&#x5386;&#x53F2;&#x884C;&#x6570;&#x7684;&#x6700;&#x5927;&#x6570;&#x91CF;&#x3002;
+&#x8BBE;&#x4E3A; <code>0</code> &#x53EF;&#x7981;&#x7528;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x3002;
+&#x8BE5;&#x9009;&#x9879;&#x53EA;&#x6709;&#x5F53; <code>terminal</code> &#x88AB;&#x7528;&#x6237;&#x6216;&#x5185;&#x90E8; <code>output</code> &#x8BBE;&#x4E3A; <code>true</code> &#x65F6;&#x624D;&#x6709;&#x610F;&#x4E49;&#xFF0C;&#x5426;&#x5219;&#x5386;&#x53F2;&#x7F13;&#x5B58;&#x673A;&#x5236;&#x4E0D;&#x4F1A;&#x88AB;&#x521D;&#x59CB;&#x5316;&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>30</code>&#x3002;</li>
+<li><code>prompt</code> - &#x8981;&#x4F7F;&#x7528;&#x7684;&#x63D0;&#x793A;&#x5B57;&#x7B26;&#x4E32;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>&apos;&gt; &apos;</code>&#x3002;</li>
+<li><code>crlfDelay</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5982;&#x679C; <code>\r</code> &#x4E0E; <code>\n</code> &#x4E4B;&#x95F4;&#x7684;&#x5EF6;&#x8FDF;&#x8D85;&#x8FC7; <code>crlfDelay</code> &#x6BEB;&#x79D2;&#xFF0C;&#x5219; <code>\r</code> &#x548C; <code>\n</code> &#x90FD;&#x4F1A;&#x88AB;&#x5F53;&#x4F5C;&#x6362;&#x884C;&#x5206;&#x9694;&#x7B26;&#x3002;
+<code>crlfDelay</code> &#x5F3A;&#x5236;&#x8BBE;&#x7F6E;&#x4E3A;&#x4E0D;&#x5C11;&#x4E8E; <code>100</code>. &#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x4E3A;
+<code>Infinity</code>, &#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C; <code>\r</code> &#x8DDF;&#x7740; <code>\n</code> &#x4F1A;&#x88AB;&#x89C6;&#x4E3A;&#x5355;&#x4E2A;&#x65B0;&#x884C;(&#x4E5F;&#x8BB8;&#x5BF9;&#x5E26;&#x6709;<code>\r\n</code>&#x5206;&#x9694;&#x7B26;&#x7684;<code>[reading files][]</code>&#x6765;&#x8BF4;&#x662F;&#x975E;&#x5E38;&#x5408;&#x7406;&#x7684;)&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>100</code> &#x6BEB;&#x79D2;&#x3002;</li>
+<li><code>removeHistoryDuplicates</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C;&#x4E3A; <code>true</code>, &#x5F53;&#x65B0;&#x8F93;&#x5165;&#x884C;&#x4E0E;&#x5386;&#x53F2;&#x5217;&#x8868;&#x4E2D;&#x7684;&#x67D0;&#x884C;&#x76F8;&#x540C;&#x65F6;&#xFF0C;
+&#x90A3;&#x4E48;&#x79FB;&#x9664;&#x65E7;&#x6709;&#x7684;&#x884C;&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>false</code>&#x3002;</li>
+</ul>
+</li>
+</ul><p><code>readline.createInterface()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>readline.Interface</code> &#x5B9E;&#x4F8B;&#x3002;</p><p>&#x4F8B;&#x5B50;&#xFF1A;</p><pre><code class="language-js">const readline = require(&apos;readline&apos;);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+</code></pre><p>&#x4E00;&#x65E6; <code>readline.Interface</code> &#x5B9E;&#x4F8B;&#x88AB;&#x521B;&#x5EFA;&#xFF0C;&#x6700;&#x5E38;&#x89C1;&#x7684;&#x7528;&#x6CD5;&#x662F;&#x76D1;&#x542C; <code>&apos;line&apos;</code> &#x4E8B;&#x4EF6;&#xFF1A;</p><pre><code class="language-js">rl.on(&apos;line&apos;, (line) =&gt; {
+  console.log(`&#x63A5;&#x6536;&#x5230;&#xFF1A;${line}`);
+});
+</code></pre><p>&#x5982;&#x679C;&#x8BE5;&#x5B9E;&#x4F8B;&#x7684; <code>terminal</code> &#x4E3A; <code>true</code>&#xFF0C;&#x5219;&#x82E5;&#x5B83;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A; <code>output.columns</code> &#x5C5E;&#x6027;&#x5219; <code>output</code> &#x6D41;&#x4F1A;&#x83B7;&#x5F97;&#x6700;&#x4F73;&#x517C;&#x5BB9;&#x6027;&#xFF0C;&#x4E14;&#x5982;&#x679C;&#x6216;&#x5F53;&#x5217;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x65F6;&#xFF0C;<code>output</code> &#x4E0A;&#x89E6;&#x53D1;&#x4E00;&#x4E2A; <code>&apos;resize&apos;</code> &#x4E8B;&#x4EF6;&#xFF08;&#x5F53;&#x5B83;&#x4E3A;&#x4E00;&#x4E2A; TTY &#x65F6;&#xFF0C;<a href="javascript:if(confirm('http://nodejs.cn/s/tQWUzG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tQWUzG'" tppabs="http://nodejs.cn/s/tQWUzG" rel="nofollow"><code>process.stdout</code></a> &#x4F1A;&#x81EA;&#x52A8;&#x5904;&#x7406;&#x8FD9;&#x4E2A;&#xFF09;&#x3002;</p></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v8.3.0, 6.11.4</td>
+<td><p>Remove max limit of <code>crlfDelay</code> option.</p></td></tr>
+<tr><td>v6.6.0</td>
+<td><p>The <code>crlfDelay</code> option is supported now.</p></td></tr>
+<tr><td>v6.3.0</td>
+<td><p>The <code>prompt</code> option is supported now.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>The <code>historySize</code> option can be <code>0</code> now.</p></td></tr>
+<tr><td>v0.1.98</td>
+<td><p><span>Added in: v0.1.98</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>input</code> <a href="stream.html#stream_class_stream_readable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_readable" target="_blank" rel="nofollow" class="type">&lt;stream.Readable&gt;</a> The <a href="javascript:if(confirm('http://nodejs.cn/s/zz7Dx3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zz7Dx3'" tppabs="http://nodejs.cn/s/zz7Dx3" rel="nofollow">Readable</a> stream to listen to. This option
+is <em>required</em>.</li>
+<li><code>output</code> <a href="stream.html#stream_class_stream_writable" tppabs="http://nodejs.cn/api/stream.html#stream_class_stream_writable" target="_blank" rel="nofollow" class="type">&lt;stream.Writable&gt;</a> The <a href="javascript:if(confirm('http://nodejs.cn/s/LzH75p  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LzH75p'" tppabs="http://nodejs.cn/s/LzH75p" rel="nofollow">Writable</a> stream to write readline data
+to.</li>
+<li><code>completer</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> An optional function used for Tab autocompletion.</li>
+<li><code>terminal</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> <code>true</code> if the <code>input</code> and <code>output</code> streams should be
+treated like a TTY, and have ANSI/VT100 escape codes written to it.
+<strong>Default:</strong> checking <code>isTTY</code> on the <code>output</code> stream upon instantiation.</li>
+<li><code>historySize</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Maximum number of history lines retained. To disable
+the history set this value to <code>0</code>. This option makes sense only if
+<code>terminal</code> is set to <code>true</code> by the user or by an internal <code>output</code> check,
+otherwise the history caching mechanism is not initialized at all.
+<strong>Default:</strong> <code>30</code>.</li>
+<li><code>prompt</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> The prompt string to use. <strong>Default:</strong> <code>&apos;&gt; &apos;</code>.</li>
+<li><code>crlfDelay</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> If the delay between <code>\r</code> and <code>\n</code> exceeds
+<code>crlfDelay</code> milliseconds, both <code>\r</code> and <code>\n</code> will be treated as separate
+end-of-line input. <code>crlfDelay</code> will be coerced to a number no less than
+<code>100</code>. It can be set to <code>Infinity</code>, in which case <code>\r</code> followed by <code>\n</code>
+will always be considered a single newline (which may be reasonable for
+<a href="javascript:if(confirm('http://nodejs.cn/s/SxsJAn  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SxsJAn'" tppabs="http://nodejs.cn/s/SxsJAn" rel="nofollow">reading files</a> with <code>\r\n</code> line delimiter). <strong>Default:</strong> <code>100</code>.</li>
+<li><code>removeHistoryDuplicates</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> If <code>true</code>, when a new input line added
+to the history list duplicates an older one, this removes the older line
+from the list. <strong>Default:</strong> <code>false</code>.</li>
+</ul>
+</li>
+</ul><p>The <code>readline.createInterface()</code> method creates a new <code>readline.Interface</code>
+instance.</p><pre><code class="language-js">const readline = require(&apos;readline&apos;);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+</code></pre><p>Once the <code>readline.Interface</code> instance is created, the most common case is to
+listen for the <code>&apos;line&apos;</code> event:</p><pre><code class="language-js">rl.on(&apos;line&apos;, (line) =&gt; {
+  console.log(`Received: ${line}`);
+});
+</code></pre><p>If <code>terminal</code> is <code>true</code> for this instance then the <code>output</code> stream will get
+the best compatibility if it defines an <code>output.columns</code> property and emits
+a <code>&apos;resize&apos;</code> event on the <code>output</code> if or when the columns ever change
+(<a href="javascript:if(confirm('http://nodejs.cn/s/tQWUzG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tQWUzG'" tppabs="http://nodejs.cn/s/tQWUzG" rel="nofollow"><code>process.stdout</code></a> does this automatically when it is a TTY).</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712035775"><\/script>');
+  </script>
+</body>
+</html>

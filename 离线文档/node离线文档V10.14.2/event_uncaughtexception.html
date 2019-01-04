@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>'uncaughtException' 事件 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/process/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712034478" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-process">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>'uncaughtException' 事件</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="process.html#process_event_uncaughtexception" tppabs="http://nodejs.cn/api/process.html#process_event_uncaughtexception" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.18</span>
+</div><p>&#x5982;&#x679C; Javascript &#x672A;&#x6355;&#x83B7;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x6CBF;&#x7740;&#x4EE3;&#x7801;&#x8C03;&#x7528;&#x8DEF;&#x5F84;&#x53CD;&#x5411;&#x4F20;&#x9012;&#x56DE;&#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;&#xFF0C;&#x4F1A;&#x89E6;&#x53D1; <code>&apos;uncaughtException&apos;</code> &#x4E8B;&#x4EF6;&#x3002;
+Node.js &#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#x4F1A;&#x5C06;&#x8FD9;&#x4E9B;&#x5F02;&#x5E38;&#x5806;&#x6808;&#x6253;&#x5370;&#x5230; <code>stderr</code> &#x7136;&#x540E;&#x8FDB;&#x7A0B;&#x9000;&#x51FA;&#x3002;
+&#x4E3A; <code>&apos;uncaughtException&apos;</code> &#x4E8B;&#x4EF6;&#x589E;&#x52A0;&#x76D1;&#x542C;&#x5668;&#x4F1A;&#x8986;&#x76D6;&#x4E0A;&#x8FF0;&#x9ED8;&#x8BA4;&#x884C;&#x4E3A;&#x3002;</p><p><code>&apos;uncaughtException&apos;</code> &#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x5668;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x4F7F;&#x7528; <code>Error</code> &#x5BF9;&#x8C61;&#x4F5C;&#x4E3A;&#x552F;&#x4E00;&#x53C2;&#x6570;&#x503C;&#x3002;</p><pre><code class="language-js">process.on(&apos;uncaughtException&apos;, (err) =&gt; {
+  fs.writeSync(1, `&#x6355;&#x83B7;&#x5230;&#x5F02;&#x5E38;&#xFF1A;${err}\n`);
+});
+
+setTimeout(() =&gt; {
+  console.log(&apos;&#x8FD9;&#x91CC;&#x4ECD;&#x7136;&#x4F1A;&#x8FD0;&#x884C;&#x3002;&apos;);
+}, 500);
+
+// &#x6545;&#x610F;&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5E94;&#x7528;&#x4F1A;&#x629B;&#x51FA;&#x672A;&#x6355;&#x83B7;&#x7684;&#x5F02;&#x5E38;&#x3002;
+nonexistentFunc();
+console.log(&apos;&#x8FD9;&#x91CC;&#x4E0D;&#x4F1A;&#x8FD0;&#x884C;&#x3002;&apos;);
+</code></pre></div>
+          <div id="content_right"><div class="api_metadata">
+<span>Added in: v0.1.18</span>
+</div><p>The <code>&apos;uncaughtException&apos;</code> event is emitted when an uncaught JavaScript
+exception bubbles all the way back to the event loop. By default, Node.js
+handles such exceptions by printing the stack trace to <code>stderr</code> and exiting
+with code 1, overriding any previously set <a href="javascript:if(confirm('http://nodejs.cn/s/TMxzzD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/TMxzzD'" tppabs="http://nodejs.cn/s/TMxzzD" rel="nofollow"><code>process.exitCode</code></a>.
+Adding a handler for the <code>&apos;uncaughtException&apos;</code> event overrides this default
+behavior. Alternatively, change the <a href="javascript:if(confirm('http://nodejs.cn/s/TMxzzD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/TMxzzD'" tppabs="http://nodejs.cn/s/TMxzzD" rel="nofollow"><code>process.exitCode</code></a> in the
+<code>&apos;uncaughtException&apos;</code> handler which will result in the process exiting with the
+provided exit code. Otherwise, in the presence of such handler the process will
+exit with 0.</p><p>The listener function is called with the <code>Error</code> object passed as the only
+argument.</p><pre><code class="language-js">process.on(&apos;uncaughtException&apos;, (err) =&gt; {
+  fs.writeSync(1, `Caught exception: ${err}\n`);
+});
+
+setTimeout(() =&gt; {
+  console.log(&apos;This will still run.&apos;);
+}, 500);
+
+// Intentionally cause an exception, but don&apos;t catch it.
+nonexistentFunc();
+console.log(&apos;This will not run.&apos;);
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712034478"><\/script>');
+  </script>
+</body>
+</html>

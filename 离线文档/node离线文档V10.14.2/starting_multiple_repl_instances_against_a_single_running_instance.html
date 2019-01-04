@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>在一个 Node.js 实例中启动多个 REPL 实例 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/repl/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712036220" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-repl">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>在一个 Node.js 实例中启动多个 REPL 实例</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="repl.html#repl_starting_multiple_repl_instances_against_a_single_running_instance" tppabs="http://nodejs.cn/api/repl.html#repl_starting_multiple_repl_instances_against_a_single_running_instance" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p>&#x53EF;&#x4EE5;&#x5728;&#x4E00;&#x4E2A; Node.js &#x5B9E;&#x4F8B;&#x4E2D;&#x521B;&#x5EFA;&#x5E76;&#x8FD0;&#x884C;&#x591A;&#x4E2A; REPL &#x5B9E;&#x4F8B;&#xFF0C;&#x5B83;&#x4EEC;&#x5171;&#x4EAB;&#x4E00;&#x4E2A; <code>global</code> &#x5BF9;&#x8C61;&#x4F46;&#x6709;&#x72EC;&#x7ACB;&#x7684; I/O &#x63A5;&#x53E3;&#x3002;</p><p>&#x4F8B;&#x5B50;&#xFF0C;&#x5728; <code>stdin</code>&#x3001;Unix socket&#x3001;&#x548C; TCP socket &#x4E0A;&#x5206;&#x522B;&#x63D0;&#x4F9B;&#x4E86;&#x72EC;&#x7ACB;&#x7684; REPL&#xFF1A;</p><pre><code class="language-js">const net = require(&apos;net&apos;);
+const repl = require(&apos;repl&apos;);
+let connections = 0;
+
+repl.start({
+  prompt: &apos;Node.js &#x4F7F;&#x7528; stdin&gt; &apos;,
+  input: process.stdin,
+  output: process.stdout
+});
+
+net.createServer((socket) =&gt; {
+  connections += 1;
+  repl.start({
+    prompt: &apos;Node.js &#x4F7F;&#x7528; Unix socket&gt; &apos;,
+    input: socket,
+    output: socket
+  }).on(&apos;exit&apos;, () =&gt; {
+    socket.end();
+  });
+}).listen(&apos;/tmp/node-repl-sock&apos;);
+
+net.createServer((socket) =&gt; {
+  connections += 1;
+  repl.start({
+    prompt: &apos;Node.js &#x4F7F;&#x7528; TCP socket&gt; &apos;,
+    input: socket,
+    output: socket
+  }).on(&apos;exit&apos;, () =&gt; {
+    socket.end();
+  });
+}).listen(5001);
+</code></pre><p>&#x4ECE;&#x547D;&#x4EE4;&#x884C;&#x8FD0;&#x884C;&#x8FD9;&#x4E2A;&#x5E94;&#x7528;&#x4F1A;&#x5728; stdin &#x4E0A;&#x542F;&#x52A8;&#x4E00;&#x4E2A; REPL&#x3002;
+&#x5176;&#x4ED6; REPL &#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; Unix socket &#x6216; TCP socket &#x8FDB;&#x884C;&#x8FDE;&#x63A5;&#x3002;
+&#x4F8B;&#x5982;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>telnet</code> &#x8FDE;&#x63A5;&#x5230; TCP socket&#xFF0C;&#x4F7F;&#x7528; <code>socat</code> &#x8FDE;&#x63A5;&#x5230; Unix socket &#x6216; TCP socket&#x3002;</p><p>&#x901A;&#x8FC7;&#x4ECE;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E; Unix socket &#x7684;&#x670D;&#x52A1;&#x5668;&#xFF08;&#x800C;&#x4E0D;&#x662F; stdin&#xFF09;&#x542F;&#x52A8;&#x4E00;&#x4E2A; REPL&#xFF0C;&#x53EF;&#x4EE5;&#x8FDE;&#x63A5;&#x5230;&#x4E00;&#x4E2A;&#x957F;&#x671F;&#x8FD0;&#x884C;&#x7684; Node.js &#x8FDB;&#x7A0B;&#x800C;&#x65E0;&#x9700;&#x91CD;&#x542F;&#x5B83;&#x3002;</p><p>&#x4F8B;&#x5B50;&#xFF0C;&#x5728;&#x4E00;&#x4E2A; <code>net.Server</code> &#x5B9E;&#x4F8B;&#x548C;&#x4E00;&#x4E2A; <code>net.Socket</code> &#x5B9E;&#x4F8B;&#x4E0A;&#x8FD0;&#x884C;&#x4E00;&#x4E2A;&#x5168;&#x7279;&#x6027;&#x7684;&#xFF08;<code>terminal</code>&#xFF09;REPL&#xFF0C;&#x8BE6;&#x89C1;&#xFF1A;<a href="javascript:if(confirm('https://gist.github.com/2209310  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://gist.github.com/2209310'" tppabs="https://gist.github.com/2209310" rel="nofollow">https://gist.github.com/2209310</a></p><p>&#x4F8B;&#x5B50;&#xFF0C;&#x5728; <a href="javascript:if(confirm('http://nodejs.cn/s/oJ3NGb  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/oJ3NGb'" tppabs="http://nodejs.cn/s/oJ3NGb" rel="nofollow"></a><a href="javascript:if(confirm('http://nodejs.cn/s/_man/1/curl.1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_man/1/curl.1'" tppabs="http://nodejs.cn/s/_man/1/curl.1" rel="nofollow"><code>curl(1)</code></a> &#x4E0A;&#x8FD0;&#x884C;&#x4E00;&#x4E2A; REPL &#x5B9E;&#x4F8B;&#xFF0C;&#x8BE6;&#x89C1;&#xFF1A;<a href="javascript:if(confirm('https://gist.github.com/2053342  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://gist.github.com/2053342'" tppabs="https://gist.github.com/2053342" rel="nofollow">https://gist.github.com/2053342</a></p></div>
+          <div id="content_right"><p>It is possible to create and run multiple REPL instances against a single
+running instance of Node.js that share a single <code>global</code> object but have
+separate I/O interfaces.</p><p>The following example, for instance, provides separate REPLs on <code>stdin</code>, a Unix
+socket, and a TCP socket:</p><pre><code class="language-js">const net = require(&apos;net&apos;);
+const repl = require(&apos;repl&apos;);
+let connections = 0;
+
+repl.start({
+  prompt: &apos;Node.js via stdin&gt; &apos;,
+  input: process.stdin,
+  output: process.stdout
+});
+
+net.createServer((socket) =&gt; {
+  connections += 1;
+  repl.start({
+    prompt: &apos;Node.js via Unix socket&gt; &apos;,
+    input: socket,
+    output: socket
+  }).on(&apos;exit&apos;, () =&gt; {
+    socket.end();
+  });
+}).listen(&apos;/tmp/node-repl-sock&apos;);
+
+net.createServer((socket) =&gt; {
+  connections += 1;
+  repl.start({
+    prompt: &apos;Node.js via TCP socket&gt; &apos;,
+    input: socket,
+    output: socket
+  }).on(&apos;exit&apos;, () =&gt; {
+    socket.end();
+  });
+}).listen(5001);
+</code></pre><p>Running this application from the command line will start a REPL on stdin.
+Other REPL clients may connect through the Unix socket or TCP socket. <code>telnet</code>,
+for instance, is useful for connecting to TCP sockets, while <code>socat</code> can be used
+to connect to both Unix and TCP sockets.</p><p>By starting a REPL from a Unix socket-based server instead of stdin, it is
+possible to connect to a long-running Node.js process without restarting it.</p><p>For an example of running a &quot;full-featured&quot; (<code>terminal</code>) REPL over
+a <code>net.Server</code> and <code>net.Socket</code> instance, see:
+<a href="javascript:if(confirm('https://gist.github.com/TooTallNate/2209310  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://gist.github.com/TooTallNate/2209310'" tppabs="https://gist.github.com/TooTallNate/2209310" rel="nofollow">https://gist.github.com/TooTallNate/2209310</a>.</p><p>For an example of running a REPL instance over <a href="javascript:if(confirm('http://nodejs.cn/s/oJ3NGb  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/oJ3NGb'" tppabs="http://nodejs.cn/s/oJ3NGb" rel="nofollow"></a><a href="javascript:if(confirm('http://nodejs.cn/s/_man/1/curl.1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_man/1/curl.1'" tppabs="http://nodejs.cn/s/_man/1/curl.1" rel="nofollow"><code>curl(1)</code></a>, see:
+<a href="javascript:if(confirm('https://gist.github.com/TooTallNate/2053342  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://gist.github.com/TooTallNate/2053342'" tppabs="https://gist.github.com/TooTallNate/2053342" rel="nofollow">https://gist.github.com/TooTallNate/2053342</a>.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712036220"><\/script>');
+  </script>
+</body>
+</html>

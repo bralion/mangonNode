@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>N-API | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/addons/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712009842" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-addons">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>N-API</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="addons.html#addons_n_api" tppabs="http://nodejs.cn/api/addons.html#addons_n_api" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">Stability: 2</a> - Stable</div><p></p><p>N-API&#x662F;&#x7528;&#x4E8E;&#x6784;&#x5EFA;&#x672C;&#x673A;&#x63D2;&#x4EF6;&#x7684;API&#x3002;&#x5B83;&#x72EC;&#x7ACB;&#x4E8E;&#x5E95;&#x5C42;JavaScript&#x8FD0;&#x884C;&#x65F6;&#xFF08;&#x4F8B;&#x5982;V8&#xFF09;&#xFF0C;&#x5E76;&#x4F5C;&#x4E3A;Node.js&#x672C;&#x8EAB;&#x7684;&#x4E00;&#x90E8;&#x5206;&#x8FDB;&#x884C;&#x7EF4;&#x62A4;&#x3002;&#x6B64;API&#x5C06;&#x662F;&#x8DE8;Node.js&#x7248;&#x672C;&#x7684;&#x5E94; Application Binary Interface&#xFF08;ABI&#xFF09;&#x7A33;&#x5B9A;&#x7248;&#x3002;&#x5B83;&#x65E8;&#x5728;&#x5C06;Addons&#x4E0E;&#x5E95;&#x5C42;JavaScript&#x5F15;&#x64CE;&#x4E2D;&#x7684;&#x66F4;&#x6539;&#x9694;&#x79BB;&#x5F00;&#x6765;&#xFF0C;&#x5E76;&#x5141;&#x8BB8;&#x4E3A;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#x7F16;&#x8BD1;&#x7684;&#x6A21;&#x5757;&#x5728;&#x66F4;&#x9AD8;&#x7248;&#x672C;&#x7684;Node.js&#x4E0A;&#x8FD0;&#x884C;&#x800C;&#x65E0;&#x9700;&#x91CD;&#x65B0;&#x7F16;&#x8BD1;&#x3002;&#x63D2;&#x4EF6;&#x4F7F;&#x7528;&#x672C;&#x6587;&#x6863;&#x4E2D;&#x6982;&#x8FF0;&#x7684;&#x76F8;&#x540C;&#x65B9;&#x6CD5;/&#x5DE5;&#x5177;&#xFF08;node-gyp&#x7B49;&#xFF09;&#x6784;&#x5EFA;/&#x6253;&#x5305;&#x3002;&#x552F;&#x4E00;&#x7684;&#x533A;&#x522B;&#x662F;&#x539F;&#x59CB;&#x4EE3;&#x7801;&#x4F7F;&#x7528;&#x7684;API&#x96C6;&#x3002;&#x4E0D;&#x4F7F;&#x7528;V8&#x6216;Native <a href="javascript:if(confirm('https://github.com/nodejs/nan  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://github.com/nodejs/nan'" tppabs="https://github.com/nodejs/nan" rel="nofollow">Abstractions for Node.js API</a>&#xFF0C;&#x800C;&#x662F;&#x4F7F;&#x7528;N-API&#x4E2D;&#x53EF;&#x7528;&#x7684;&#x529F;&#x80FD;&#x3002;</p><p>&#x8981;&#x5728;&#x4E0A;&#x9762;&#x7684;&#x201C;Hello world&#x201D;&#x793A;&#x4F8B;&#x4E2D;&#x4F7F;&#x7528;N-API&#xFF0C;&#x8BF7;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;&#x66FF;&#x6362;<code>hello.cc</code>&#x7684;&#x5185;&#x5BB9;&#x3002;&#x6240;&#x6709;&#x5176;&#x4ED6;&#x8BF4;&#x660E;&#x4FDD;&#x6301;&#x4E0D;&#x53D8;&#x3002;</p><pre><code class="language-cpp">// hello.cc using N-API
+#include &lt;node_api.h&gt;
+
+namespace demo {
+
+napi_value Method(napi_env env, napi_callback_info args) {
+  napi_value greeting;
+  napi_status status;
+
+  status = napi_create_string_utf8(env, &quot;hello&quot;, NAPI_AUTO_LENGTH, &amp;greeting);
+  if (status != napi_ok) return nullptr;
+  return greeting;
+}
+
+napi_value init(napi_env env, napi_value exports) {
+  napi_status status;
+  napi_value fn;
+
+  status = napi_create_function(env, nullptr, 0, Method, nullptr, &amp;fn);
+  if (status != napi_ok) return nullptr;
+
+  status = napi_set_named_property(env, exports, &quot;hello&quot;, fn);
+  if (status != napi_ok) return nullptr;
+  return exports;
+}
+
+NAPI_MODULE(NODE_GYP_MODULE_NAME, init)
+
+}  // namespace demo
+</code></pre><p>&#x53EF;&#x7528;&#x529F;&#x80FD;&#x548C;&#x4F7F;&#x7528;&#x6587;&#x6863;&#x5728;&#x8FD9;&#x91CC; <a href="javascript:if(confirm('http://nodejs.cn/api/addons/n-api.html  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ������������ļ�δ�ҵ���  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/api/addons/n-api.html'" tppabs="http://nodejs.cn/api/addons/n-api.html" rel="nofollow">C/C++ Addons - N-API</a>.</p></div>
+          <div id="content_right"><p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">Stability: 2</a> - Stable</div><p></p><p>N-API is an API for building native Addons. It is independent from
+the underlying JavaScript runtime (e.g. V8) and is maintained as part of
+Node.js itself. This API will be Application Binary Interface (ABI) stable
+across versions of Node.js. It is intended to insulate Addons from
+changes in the underlying JavaScript engine and allow modules
+compiled for one version to run on later versions of Node.js without
+recompilation. Addons are built/packaged with the same approach/tools
+outlined in this document (node-gyp, etc.). The only difference is the
+set of APIs that are used by the native code. Instead of using the V8
+or <a href="javascript:if(confirm('http://nodejs.cn/s/TMQ3WL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/TMQ3WL'" tppabs="http://nodejs.cn/s/TMQ3WL" rel="nofollow">Native Abstractions for Node.js</a> APIs, the functions available
+in the N-API are used.</p><p>Creating and maintaining an addon that benefits from the ABI stability
+provided by N-API carries with it certain
+<a href="javascript:if(confirm('http://nodejs.cn/api/addons/n-api.html  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ������������ļ�δ�ҵ���  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/api/addons/n-api.html#n_api_implications_of_abi_stability'" tppabs="http://nodejs.cn/api/addons/n-api.html#n_api_implications_of_abi_stability" rel="nofollow">implementation considerations</a>.</p><p>To use N-API in the above &quot;Hello world&quot; example, replace the content of
+<code>hello.cc</code> with the following. All other instructions remain the same.</p><pre><code class="language-cpp">// hello.cc using N-API
+#include &lt;node_api.h&gt;
+
+namespace demo {
+
+napi_value Method(napi_env env, napi_callback_info args) {
+  napi_value greeting;
+  napi_status status;
+
+  status = napi_create_string_utf8(env, &quot;hello&quot;, NAPI_AUTO_LENGTH, &amp;greeting);
+  if (status != napi_ok) return nullptr;
+  return greeting;
+}
+
+napi_value init(napi_env env, napi_value exports) {
+  napi_status status;
+  napi_value fn;
+
+  status = napi_create_function(env, nullptr, 0, Method, nullptr, &amp;fn);
+  if (status != napi_ok) return nullptr;
+
+  status = napi_set_named_property(env, exports, &quot;hello&quot;, fn);
+  if (status != napi_ok) return nullptr;
+  return exports;
+}
+
+NAPI_MODULE(NODE_GYP_MODULE_NAME, init)
+
+}  // namespace demo
+</code></pre><p>The functions available and how to use them are documented in the
+section titled <a href="javascript:if(confirm('http://nodejs.cn/api/addons/n-api.html  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ������������ļ�δ�ҵ���  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/api/addons/n-api.html'" tppabs="http://nodejs.cn/api/addons/n-api.html" rel="nofollow">C/C++ Addons - N-API</a>.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712009842"><\/script>');
+  </script>
+</body>
+</html>

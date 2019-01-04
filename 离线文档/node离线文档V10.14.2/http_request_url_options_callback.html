@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>http.request(url[, options][, callback]) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/http/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712025687" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-http">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>http.request(url[, options][, callback])</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="http.html#http_http_request_url_options_callback" tppabs="http://nodejs.cn/api/http.html#http_http_request_url_options_callback" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.9.0</td>
+<td><p>The <code>url</code> parameter can now be passed along with a separate <code>options</code> object.</p></td></tr>
+<tr><td>v7.5.0</td>
+<td><p>The <code>options</code> parameter can be a WHATWG <code>URL</code> object.</p></td></tr>
+<tr><td>v0.3.6</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.3.6</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>url</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="url.html#url_the_whatwg_url_api" tppabs="http://nodejs.cn/api/url.html#url_the_whatwg_url_api" target="_blank" rel="nofollow" class="type">&lt;URL&gt;</a></li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>protocol</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x4F7F;&#x7528;&#x7684;&#x534F;&#x8BAE;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>http:</code>&#x3002;</li>
+<li><code>host</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x670D;&#x52A1;&#x5668;&#x7684;&#x57DF;&#x540D;&#x6216; IP &#x5730;&#x5740;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>localhost</code>&#x3002;</li>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> <code>host</code> &#x7684;&#x522B;&#x540D;&#x3002;&#x4E3A;&#x4E86;&#x652F;&#x6301; <a href="javascript:if(confirm('http://nodejs.cn/s/b28B2A  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/b28B2A'" tppabs="http://nodejs.cn/s/b28B2A" rel="nofollow"><code>url.parse()</code></a>&#xFF0C;<code>hostname</code> &#x4F18;&#x5148;&#x4E8E; <code>host</code>&#x3002;</li>
+<li><code>family</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x89E3;&#x6790; <code>host</code> &#x548C; <code>hostname</code> &#x65F6;&#x4F7F;&#x7528;&#x7684; IP &#x5730;&#x5740;&#x65CF;&#x3002;&#x503C;&#x53EF;&#x4EE5;&#x662F; <code>4</code> &#x6216; <code>6</code>&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#xFF0C;&#x5219;&#x540C;&#x65F6;&#x4F7F;&#x7528; IP v4 &#x548C; v6&#x3002;</li>
+<li><code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#x5668;&#x7684;&#x7AEF;&#x53E3;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>80</code>&#x3002;</li>
+<li><code>localAddress</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x7ED1;&#x5B9A;&#x7684;&#x672C;&#x5730;&#x63A5;&#x53E3;&#x3002;</li>
+<li><code>socketPath</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Unix &#x57DF; Socket&#x3002;<code>host:port</code> &#x6216; <code>socketPath</code> &#x4E8C;&#x9009;&#x4E00;&#x3002;</li>
+<li><code>method</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x8BF7;&#x6C42;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>&apos;GET&apos;</code>&#x3002;</li>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x8BF7;&#x6C42;&#x7684;&#x8DEF;&#x5F84;&#x3002;&#x53EF;&#x4EE5;&#x5305;&#x62EC;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5982; <code>&apos;/index.html?page=12&apos;</code>&#x3002;&#x5982;&#x679C;&#x8BF7;&#x6C42;&#x7684;&#x8DEF;&#x5F84;&#x4E2D;&#x5305;&#x542B;&#x975E;&#x6CD5;&#x5B57;&#x7B26;&#xFF0C;&#x5219;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>&apos;/&apos;</code>&#x3002;</li>
+<li><code>headers</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x8BF7;&#x6C42;&#x5934;&#x3002;</li>
+<li><code>auth</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x57FA;&#x672C;&#x8EAB;&#x4EFD;&#x9A8C;&#x8BC1;&#xFF0C;&#x5982;&#x4F7F;&#x7528; <code>&apos;user:password&apos;</code> &#x8BA1;&#x7B97; <code>Authorization</code> &#x8BF7;&#x6C42;&#x5934;&#x3002;</li>
+<li>
+<p><code>agent</code> <a href="http.html#http_class_http_agent" tppabs="http://nodejs.cn/api/http.html#http_class_http_agent" target="_blank" rel="nofollow" class="type">&lt;http.Agent&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x63A7;&#x5236; <a href="javascript:if(confirm('http://nodejs.cn/s/HRCnER  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/HRCnER'" tppabs="http://nodejs.cn/s/HRCnER" rel="nofollow"><code>Agent</code></a> &#x7684;&#x884C;&#x4E3A;&#x3002;&#x53EF;&#x9009;&#x7684;&#x503C;&#x6709;&#xFF1A;</p>
+<ul>
+<li><code>undefined</code> (&#x9ED8;&#x8BA4;): &#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/g7BhW2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/g7BhW2'" tppabs="http://nodejs.cn/s/g7BhW2" rel="nofollow"><code>http.globalAgent</code></a>&#x3002;</li>
+<li><code>Agent</code>: &#x4F7F;&#x7528;&#x4F20;&#x5165;&#x7684; <code>Agent</code>&#x3002;</li>
+<li><code>false</code>: &#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;&#x7684; <code>Agent</code>&#x3002;</li>
+</ul>
+</li>
+<li><code>createConnection</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A; <code>agent</code>&#xFF0C;&#x5219;&#x53EF;&#x7528;&#x8BE5;&#x51FD;&#x6570;&#x4E3A;&#x8BF7;&#x6C42;&#x521B;&#x5EFA; socket &#x6216;&#x6D41;&#x3002;&#x8FD9;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x53EA;&#x662F;&#x4E3A;&#x4E86;&#x91CD;&#x5199;&#x9ED8;&#x8BA4;&#x7684; <code>createConnection</code> &#x800C;&#x521B;&#x5EFA;&#x81EA;&#x5B9A;&#x4E49;&#x7684; <code>Agent</code>&#x3002;&#x8BE6;&#x89C1; <a href="javascript:if(confirm('http://nodejs.cn/s/nH3X12  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/nH3X12'" tppabs="http://nodejs.cn/s/nH3X12" rel="nofollow"><code>agent.createConnection()</code></a>&#x3002;</li>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a>: socket &#x8D85;&#x65F6;&#x7684;&#x6BEB;&#x79D2;&#x6570;&#x3002;</li>
+<li><code>setHost</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a>: &#x662F;&#x5426;&#x81EA;&#x52A8;&#x6DFB;&#x52A0; <code>Host</code> &#x8BF7;&#x6C42;&#x5934;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>true</code>&#x3002;</li>
+</ul>
+</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="http.html#http_class_http_clientrequest" tppabs="http://nodejs.cn/api/http.html#http_class_http_clientrequest" target="_blank" rel="nofollow" class="type">&lt;http.ClientRequest&gt;</a></li>
+</ul><p>&#x53D1;&#x9001; HTTP &#x8BF7;&#x6C42;&#x3002;</p><p>&#x5982;&#x679C; <code>url</code> &#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x81EA;&#x52A8;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/b28B2A  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/b28B2A'" tppabs="http://nodejs.cn/s/b28B2A" rel="nofollow"><code>url.parse()</code></a> &#x89E3;&#x6790;&#x3002;
+&#x5982;&#x679C; <code>url</code> &#x662F;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/5dwq7G  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5dwq7G'" tppabs="http://nodejs.cn/s/5dwq7G" rel="nofollow"><code>URL</code></a>, &#x5219;&#x81EA;&#x52A8;&#x8F6C;&#x6362;&#x6210; <code>options</code> &#x9009;&#x9879;&#x3002;</p><p>&#x5982;&#x679C;&#x540C;&#x65F6;&#x6307;&#x5B9A;&#x4E86; <code>url</code> &#x548C; <code>options</code>&#xFF0C;&#x5219;&#x5408;&#x5E76;&#x4E24;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5176;&#x4E2D; <code>options</code> &#x4F18;&#x5148;&#x3002;</p><p><code>callback</code> &#x4F1A;&#x4F5C;&#x4E3A;&#x5355;&#x6B21;&#x76D1;&#x542C;&#x5668;&#x6DFB;&#x52A0;&#x5230; <a href="javascript:if(confirm('http://nodejs.cn/s/qwaiK8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qwaiK8'" tppabs="http://nodejs.cn/s/qwaiK8" rel="nofollow"><code>&apos;response&apos;</code></a> &#x4E8B;&#x4EF6;&#x3002;</p><p>&#x8FD4;&#x56DE;&#x7684; <code>ClientRequest</code> &#x662F;&#x53EF;&#x5199;&#x6D41;&#x3002;
+&#x5982;&#x679C;&#x8981;&#x901A;&#x8FC7; POST &#x8BF7;&#x6C42;&#x4E0A;&#x4F20;&#x6587;&#x4EF6;&#xFF0C;&#x5219;&#x5199;&#x5165;&#x5230; <code>ClientRequest</code>&#x3002;</p><pre><code class="language-js">const postData = querystring.stringify({
+  &apos;msg&apos;: &apos;Node.js&#x4E2D;&#x6587;&#x7F51;&apos;
+});
+
+const options = {
+  hostname: &apos;nodejs.cn&apos;,
+  port: 80,
+  path: &apos;/upload&apos;,
+  method: &apos;POST&apos;,
+  headers: {
+    &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos;,
+    &apos;Content-Length&apos;: Buffer.byteLength(postData)
+  }
+};
+
+const req = http.request(options, (res) =&gt; {
+  console.log(`&#x72B6;&#x6001;&#x7801;: ${res.statusCode}`);
+  console.log(`&#x54CD;&#x5E94;&#x5934;: ${JSON.stringify(res.headers)}`);
+  res.setEncoding(&apos;utf8&apos;);
+  res.on(&apos;data&apos;, (chunk) =&gt; {
+    console.log(`&#x54CD;&#x5E94;&#x4E3B;&#x4F53;: ${chunk}`);
+  });
+  res.on(&apos;end&apos;, () =&gt; {
+    console.log(&apos;&#x54CD;&#x5E94;&#x4E2D;&#x5DF2;&#x65E0;&#x6570;&#x636E;&apos;);
+  });
+});
+
+req.on(&apos;error&apos;, (e) =&gt; {
+  console.error(`&#x8BF7;&#x6C42;&#x9047;&#x5230;&#x95EE;&#x9898;: ${e.message}`);
+});
+
+// &#x5C06;&#x6570;&#x636E;&#x5199;&#x5165;&#x5230;&#x8BF7;&#x6C42;&#x4E3B;&#x4F53;&#x3002;
+req.write(postData);
+req.end();
+</code></pre><p>&#x4F7F;&#x7528; <code>http.request()</code> &#x5FC5;&#x987B;&#x8C03;&#x7528; <code>req.end()</code> &#x8868;&#x660E;&#x8BF7;&#x6C42;&#x7684;&#x7ED3;&#x675F;&#xFF0C;&#x5373;&#x4F7F;&#x6CA1;&#x6709;&#x5199;&#x5165;&#x6570;&#x636E;&#x5230;&#x8BF7;&#x6C42;&#x4E3B;&#x4F53;&#x3002;</p><p>&#x5982;&#x679C;&#x8BF7;&#x6C42;&#x8FC7;&#x7A0B;&#x4E2D;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#xFF08;DNS &#x89E3;&#x6790;&#x9519;&#x8BEF;&#x3001;TCP &#x7EA7;&#x7684;&#x9519;&#x8BEF;&#x3001;&#x6216; HTTP &#x89E3;&#x6790;&#x9519;&#x8BEF;&#xFF09;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x7684;&#x8BF7;&#x6C42;&#x5BF9;&#x8C61;&#x4F1A;&#x89E6;&#x53D1; <code>&apos;error&apos;</code> &#x4E8B;&#x4EF6;&#x3002;
+&#x5982;&#x679C; <code>&apos;error&apos;</code> &#x4E8B;&#x4EF6;&#x6CA1;&#x6709;&#x6CE8;&#x518C;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x5219;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x3002;</p><p>&#x4EE5;&#x4E0B;&#x662F;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x51E0;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x8BF7;&#x6C42;&#x5934;&#x3002;</p><ul>
+<li>
+<p>&#x53D1;&#x9001; <code>&apos;Connection: keep-alive&apos;</code> &#x5219;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x4FDD;&#x6301;&#x8FDE;&#x63A5;&#x76F4;&#x5230;&#x4E0B;&#x4E00;&#x6B21;&#x8BF7;&#x6C42;&#x3002;</p>
+</li>
+<li>
+<p>&#x53D1;&#x9001; <code>&apos;Content-Length&apos;</code> &#x4F1A;&#x7981;&#x7528;&#x9ED8;&#x8BA4;&#x7684;&#x5757;&#x7F16;&#x7801;&#x3002;</p>
+</li>
+<li>
+<p>&#x53D1;&#x9001; <code>&apos;Expect&apos;</code> &#x4F1A;&#x7ACB;&#x5373;&#x53D1;&#x9001;&#x8BF7;&#x6C42;&#x5934;&#x3002;&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5F53;&#x53D1;&#x9001; <code>&apos;Expect: 100-continue&apos;</code> &#x65F6;&#xFF0C;&#x9700;&#x8981;&#x8BBE;&#x7F6E;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x548C; <code>continue</code> &#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x3002;</p>
+</li>
+<li>
+<p>&#x53D1;&#x9001; <code>Authorization</code> &#x4F1A;&#x4EE3;&#x66FF; <code>auth</code> &#x8BA1;&#x7B97;&#x57FA;&#x672C;&#x8EAB;&#x4EFD;&#x9A8C;&#x8BC1;&#x3002;</p>
+</li>
+</ul><p>&#x4F8B;&#x5B50;&#xFF0C;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/5dwq7G  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5dwq7G'" tppabs="http://nodejs.cn/s/5dwq7G" rel="nofollow"><code>URL</code></a> &#x4F5C;&#x4E3A; <code>options</code>&#xFF1A;</p><pre><code class="language-js">const options = new URL(&apos;http://abc:xyz@example.com&apos;);
+
+const req = http.request(options, (res) =&gt; {
+  // ...
+});
+</code></pre><p>&#x5982;&#x679C;&#x8BF7;&#x6C42;&#x6210;&#x529F;&#xFF0C;&#x5219;&#x4F9D;&#x6B21;&#x89E6;&#x53D1;&#x4EE5;&#x4E0B;&#x4E8B;&#x4EF6;&#xFF1A;</p><ul>
+<li><code>&apos;socket&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+<li>
+<p><code>&apos;response&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p>
+<ul>
+<li>&#x591A;&#x6B21;&#x89E6;&#x53D1; <code>res</code> &#x7684; <code>&apos;data&apos;</code> &#x4E8B;&#x4EF6;&#xFF08;&#x5982;&#x679C;&#x54CD;&#x5E94;&#x4E3B;&#x4F53;&#x4E3A;&#x7A7A;&#xFF0C;&#x5219;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1; <code>&apos;data&apos;</code> &#x4E8B;&#x4EF6;&#xFF0C;&#x6BD4;&#x5982;&#x91CD;&#x5B9A;&#x5411;&#xFF09;&#x3002;</li>
+<li><code>res</code> &#x7684; <code>&apos;end&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+</ul>
+</li>
+<li><code>&apos;close&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+</ul><p>&#x5982;&#x679C;&#x8FDE;&#x63A5;&#x51FA;&#x9519;&#xFF0C;&#x5219;&#x4F9D;&#x6B21;&#x89E6;&#x53D1;&#x4EE5;&#x4E0B;&#x4E8B;&#x4EF6;&#xFF1A;</p><ul>
+<li><code>&apos;socket&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+<li><code>&apos;error&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+<li><code>&apos;close&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+</ul><p>&#x5982;&#x679C;&#x8FDE;&#x63A5;&#x6210;&#x529F;&#x4E4B;&#x524D;&#x8C03;&#x7528; <code>req.abort()</code>&#xFF0C;&#x5219;&#x4F9D;&#x6B21;&#x89E6;&#x53D1;&#x4EE5;&#x4E0B;&#x4E8B;&#x4EF6;&#xFF1A;</p><ul>
+<li><code>&apos;socket&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+<li>(&#x6B64;&#x65F6;&#x8C03;&#x7528; <code>req.abort()</code>)</li>
+<li><code>&apos;abort&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+<li><code>&apos;close&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+<li><code>&apos;error&apos;</code> &#x4E8B;&#x4EF6;&#x5E76;&#x5E26;&#x4E0A;&#x9519;&#x8BEF;&#x4FE1;&#x606F; <code>&apos;Error: socket hang up&apos;</code> &#x548C;&#x9519;&#x8BEF;&#x7801; <code>&apos;ECONNRESET&apos;</code>&#x3002;</li>
+</ul><p>&#x5982;&#x679C;&#x63A5;&#x6536;&#x5230;&#x54CD;&#x5E94;&#x4E4B;&#x540E;&#x8C03;&#x7528; <code>req.abort()</code>&#xFF0C;&#x5219;&#x4F9D;&#x6B21;&#x89E6;&#x53D1;&#x4EE5;&#x4E0B;&#x4E8B;&#x4EF6;&#xFF1A;</p><ul>
+<li><code>&apos;socket&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+<li>
+<p><code>&apos;response&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p>
+<ul>
+<li>&#x591A;&#x6B21;&#x89E6;&#x53D1; <code>res</code> &#x7684; <code>&apos;data&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+</ul>
+</li>
+<li>(&#x6B64;&#x65F6;&#x8C03;&#x7528; <code>req.abort()</code>)</li>
+<li><code>&apos;abort&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+<li>
+<p><code>&apos;close&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p>
+<ul>
+<li><code>res</code> &#x7684; <code>&apos;aborted&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+<li><code>res</code> &#x7684; <code>&apos;end&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+<li><code>res</code> &#x7684; <code>&apos;close&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</li>
+</ul>
+</li>
+</ul></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v10.9.0</td>
+<td><p>The <code>url</code> parameter can now be passed along with a separate <code>options</code> object.</p></td></tr>
+<tr><td>v7.5.0</td>
+<td><p>The <code>options</code> parameter can be a WHATWG <code>URL</code> object.</p></td></tr>
+<tr><td>v0.3.6</td>
+<td><p><span>Added in: v0.3.6</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>url</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="url.html#url_the_whatwg_url_api" tppabs="http://nodejs.cn/api/url.html#url_the_whatwg_url_api" target="_blank" rel="nofollow" class="type">&lt;URL&gt;</a></li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>protocol</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Protocol to use. <strong>Default:</strong> <code>&apos;http:&apos;</code>.</li>
+<li><code>host</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> A domain name or IP address of the server to issue the
+request to. <strong>Default:</strong> <code>&apos;localhost&apos;</code>.</li>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Alias for <code>host</code>. To support <a href="javascript:if(confirm('http://nodejs.cn/s/b28B2A  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/b28B2A'" tppabs="http://nodejs.cn/s/b28B2A" rel="nofollow"><code>url.parse()</code></a>,
+<code>hostname</code> is preferred over <code>host</code>.</li>
+<li><code>family</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> IP address family to use when resolving <code>host</code> and
+<code>hostname</code>. Valid values are <code>4</code> or <code>6</code>. When unspecified, both IP v4 and
+v6 will be used.</li>
+<li><code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Port of remote server. <strong>Default:</strong> <code>80</code>.</li>
+<li><code>localAddress</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Local interface to bind for network connections.</li>
+<li><code>socketPath</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Unix Domain Socket (use one of <code>host:port</code> or
+<code>socketPath</code>).</li>
+<li><code>method</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> A string specifying the HTTP request method. <strong>Default:</strong>
+<code>&apos;GET&apos;</code>.</li>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Request path. Should include query string if any.
+E.G. <code>&apos;/index.html?page=12&apos;</code>. An exception is thrown when the request path
+contains illegal characters. Currently, only spaces are rejected but that
+may change in the future. <strong>Default:</strong> <code>&apos;/&apos;</code>.</li>
+<li><code>headers</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> An object containing request headers.</li>
+<li><code>auth</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Basic authentication i.e. <code>&apos;user:password&apos;</code> to compute an
+Authorization header.</li>
+<li>
+<p><code>agent</code> <a href="http.html#http_class_http_agent" tppabs="http://nodejs.cn/api/http.html#http_class_http_agent" target="_blank" rel="nofollow" class="type">&lt;http.Agent&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> Controls <a href="javascript:if(confirm('http://nodejs.cn/s/HRCnER  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/HRCnER'" tppabs="http://nodejs.cn/s/HRCnER" rel="nofollow"><code>Agent</code></a> behavior. Possible
+values:</p>
+<ul>
+<li><code>undefined</code> (default): use <a href="javascript:if(confirm('http://nodejs.cn/s/g7BhW2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/g7BhW2'" tppabs="http://nodejs.cn/s/g7BhW2" rel="nofollow"><code>http.globalAgent</code></a> for this host and port.</li>
+<li><code>Agent</code> object: explicitly use the passed in <code>Agent</code>.</li>
+<li><code>false</code>: causes a new <code>Agent</code> with default values to be used.</li>
+</ul>
+</li>
+<li><code>createConnection</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> A function that produces a socket/stream to
+use for the request when the <code>agent</code> option is not used. This can be used to
+avoid creating a custom <code>Agent</code> class just to override the default
+<code>createConnection</code> function. See <a href="javascript:if(confirm('http://nodejs.cn/s/nH3X12  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/nH3X12'" tppabs="http://nodejs.cn/s/nH3X12" rel="nofollow"><code>agent.createConnection()</code></a> for more
+details. Any <a href="javascript:if(confirm('http://nodejs.cn/s/2iRabr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2iRabr'" tppabs="http://nodejs.cn/s/2iRabr" rel="nofollow"><code>Duplex</code></a> stream is a valid return value.</li>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a>: A number specifying the socket timeout in milliseconds.
+This will set the timeout before the socket is connected.</li>
+<li><code>setHost</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a>: Specifies whether or not to automatically add the
+<code>Host</code> header. Defaults to <code>true</code>.</li>
+</ul>
+</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+<li>Returns: <a href="http.html#http_class_http_clientrequest" tppabs="http://nodejs.cn/api/http.html#http_class_http_clientrequest" target="_blank" rel="nofollow" class="type">&lt;http.ClientRequest&gt;</a></li>
+</ul><p>Node.js maintains several connections per server to make HTTP requests.
+This function allows one to transparently issue requests.</p><p><code>url</code> can be a string or a <a href="javascript:if(confirm('http://nodejs.cn/s/5dwq7G  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5dwq7G'" tppabs="http://nodejs.cn/s/5dwq7G" rel="nofollow"><code>URL</code></a> object. If <code>url</code> is a
+string, it is automatically parsed with <a href="javascript:if(confirm('http://nodejs.cn/s/b28B2A  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/b28B2A'" tppabs="http://nodejs.cn/s/b28B2A" rel="nofollow"><code>url.parse()</code></a>. If it is a <a href="javascript:if(confirm('http://nodejs.cn/s/5dwq7G  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5dwq7G'" tppabs="http://nodejs.cn/s/5dwq7G" rel="nofollow"><code>URL</code></a>
+object, it will be automatically converted to an ordinary <code>options</code> object.</p><p>If both <code>url</code> and <code>options</code> are specified, the objects are merged, with the
+<code>options</code> properties taking precedence.</p><p>The optional <code>callback</code> parameter will be added as a one-time listener for
+the <a href="javascript:if(confirm('http://nodejs.cn/s/qwaiK8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qwaiK8'" tppabs="http://nodejs.cn/s/qwaiK8" rel="nofollow"><code>&apos;response&apos;</code></a> event.</p><p><code>http.request()</code> returns an instance of the <a href="javascript:if(confirm('http://nodejs.cn/s/2F5RHd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2F5RHd'" tppabs="http://nodejs.cn/s/2F5RHd" rel="nofollow"><code>http.ClientRequest</code></a>
+class. The <code>ClientRequest</code> instance is a writable stream. If one needs to
+upload a file with a POST request, then write to the <code>ClientRequest</code> object.</p><pre><code class="language-js">const postData = querystring.stringify({
+  &apos;msg&apos;: &apos;Hello World!&apos;
+});
+
+const options = {
+  hostname: &apos;www.google.com&apos;,
+  port: 80,
+  path: &apos;/upload&apos;,
+  method: &apos;POST&apos;,
+  headers: {
+    &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos;,
+    &apos;Content-Length&apos;: Buffer.byteLength(postData)
+  }
+};
+
+const req = http.request(options, (res) =&gt; {
+  console.log(`STATUS: ${res.statusCode}`);
+  console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+  res.setEncoding(&apos;utf8&apos;);
+  res.on(&apos;data&apos;, (chunk) =&gt; {
+    console.log(`BODY: ${chunk}`);
+  });
+  res.on(&apos;end&apos;, () =&gt; {
+    console.log(&apos;No more data in response.&apos;);
+  });
+});
+
+req.on(&apos;error&apos;, (e) =&gt; {
+  console.error(`problem with request: ${e.message}`);
+});
+
+// write data to request body
+req.write(postData);
+req.end();
+</code></pre><p>Note that in the example <code>req.end()</code> was called. With <code>http.request()</code> one
+must always call <code>req.end()</code> to signify the end of the request -
+even if there is no data being written to the request body.</p><p>If any error is encountered during the request (be that with DNS resolution,
+TCP level errors, or actual HTTP parse errors) an <code>&apos;error&apos;</code> event is emitted
+on the returned request object. As with all <code>&apos;error&apos;</code> events, if no listeners
+are registered the error will be thrown.</p><p>There are a few special headers that should be noted.</p><ul>
+<li>
+<p>Sending a &apos;Connection: keep-alive&apos; will notify Node.js that the connection to
+the server should be persisted until the next request.</p>
+</li>
+<li>
+<p>Sending a &apos;Content-Length&apos; header will disable the default chunked encoding.</p>
+</li>
+<li>
+<p>Sending an &apos;Expect&apos; header will immediately send the request headers.
+Usually, when sending &apos;Expect: 100-continue&apos;, both a timeout and a listener
+for the <code>&apos;continue&apos;</code> event should be set. See RFC2616 Section 8.2.3 for more
+information.</p>
+</li>
+<li>
+<p>Sending an Authorization header will override using the <code>auth</code> option
+to compute basic authentication.</p>
+</li>
+</ul><p>Example using a <a href="javascript:if(confirm('http://nodejs.cn/s/5dwq7G  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5dwq7G'" tppabs="http://nodejs.cn/s/5dwq7G" rel="nofollow"><code>URL</code></a> as <code>options</code>:</p><pre><code class="language-js">const options = new URL(&apos;http://abc:xyz@example.com&apos;);
+
+const req = http.request(options, (res) =&gt; {
+  // ...
+});
+</code></pre><p>In a successful request, the following events will be emitted in the following
+order:</p><ul>
+<li><code>&apos;socket&apos;</code></li>
+<li>
+<p><code>&apos;response&apos;</code></p>
+<ul>
+<li><code>&apos;data&apos;</code> any number of times, on the <code>res</code> object
+(<code>&apos;data&apos;</code> will not be emitted at all if the response body is empty, for
+instance, in most redirects)</li>
+<li><code>&apos;end&apos;</code> on the <code>res</code> object</li>
+</ul>
+</li>
+<li><code>&apos;close&apos;</code></li>
+</ul><p>In the case of a connection error, the following events will be emitted:</p><ul>
+<li><code>&apos;socket&apos;</code></li>
+<li><code>&apos;error&apos;</code></li>
+<li><code>&apos;close&apos;</code></li>
+</ul><p>If <code>req.abort()</code> is called before the connection succeeds, the following events
+will be emitted in the following order:</p><ul>
+<li><code>&apos;socket&apos;</code></li>
+<li>(<code>req.abort()</code> called here)</li>
+<li><code>&apos;abort&apos;</code></li>
+<li><code>&apos;close&apos;</code></li>
+<li><code>&apos;error&apos;</code> with an error with message <code>&apos;Error: socket hang up&apos;</code> and code
+<code>&apos;ECONNRESET&apos;</code></li>
+</ul><p>If <code>req.abort()</code> is called after the response is received, the following events
+will be emitted in the following order:</p><ul>
+<li><code>&apos;socket&apos;</code></li>
+<li>
+<p><code>&apos;response&apos;</code></p>
+<ul>
+<li><code>&apos;data&apos;</code> any number of times, on the <code>res</code> object</li>
+</ul>
+</li>
+<li>(<code>req.abort()</code> called here)</li>
+<li><code>&apos;abort&apos;</code></li>
+<li>
+<p><code>&apos;close&apos;</code></p>
+<ul>
+<li><code>&apos;aborted&apos;</code> on the <code>res</code> object</li>
+<li><code>&apos;end&apos;</code> on the <code>res</code> object</li>
+<li><code>&apos;close&apos;</code> on the <code>res</code> object</li>
+</ul>
+</li>
+</ul><p>Note that setting the <code>timeout</code> option or using the <code>setTimeout()</code> function will
+not abort the request or do anything besides add a <code>&apos;timeout&apos;</code> event.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712025687"><\/script>');
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>'rejectionHandled' 事件 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/process/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712034476" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-process">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>'rejectionHandled' 事件</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="process.html#process_event_rejectionhandled" tppabs="http://nodejs.cn/api/process.html#process_event_rejectionhandled" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v1.4.1</span>
+</div><ul>
+<li><code>promise</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise" target="_blank" rel="nofollow" class="type">&lt;Promise&gt;</a> &#x6700;&#x8FD1;&#x5904;&#x7406;&#x7684; promise&#x3002;</li>
+</ul><p>&#x5982;&#x679C;&#x6709; <code>Promise</code> &#x88AB; rejected&#xFF0C;&#x5E76;&#x4E14;&#x6B64; <code>Promise</code>&#x5728; Node.js &#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;&#x7684;&#x4E0B;&#x6B21;&#x8F6E;&#x8BE2;&#x53CA;&#x4E4B;&#x540E;&#x671F;&#x95F4;&#xFF0C;&#x88AB;&#x7ED1;&#x5B9A;&#x4E86;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x5904;&#x7406;&#x5668;&#xFF08;&#x4F8B;&#x5982;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/gMRBfK  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gMRBfK'" tppabs="http://nodejs.cn/s/gMRBfK" rel="nofollow"><code>promise.catch()</code></a>&#xFF09;&#xFF0C;&#x4F1A;&#x89E6;&#x53D1; <code>&apos;rejectionHandled&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p><p>&#x6B64;&#x4E8B;&#x4EF6;&#x76D1;&#x542C;&#x5668;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4F7F;&#x7528; rejected &#x7684; <code>Promise</code> &#x5F15;&#x7528;&#xFF0C;&#x4F5C;&#x4E3A;&#x552F;&#x4E00;&#x5165;&#x53C2;&#x3002;</p><p><code>Promise</code> &#x5BF9;&#x8C61;&#x5E94;&#x8BE5;&#x5DF2;&#x7ECF;&#x5728; <code>&apos;unhandledRejection&apos;</code> &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x65F6;&#x88AB;&#x5904;&#x7406;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x88AB;&#x5904;&#x7406;&#x8FC7;&#x7A0B;&#x4E2D;&#x83B7;&#x5F97;&#x4E86;&#x4E00;&#x4E2A; rejection &#x5904;&#x7406;&#x5668;&#x3002;</p><p>&#x5BF9;&#x4E8E; <code>Promise</code> &#x94FE;&#xFF0C;&#x6CA1;&#x6709;&#x6982;&#x5FF5;&#x8868;&#x660E;&#x5728; <code>Promise</code> &#x94FE;&#x7684;&#x54EA;&#x4E2A;&#x5730;&#x65B9;&#xFF0C;&#x6240;&#x6709;&#x7684; rejection &#x603B;&#x662F;&#x4F1A;&#x88AB;&#x5904;&#x7406;&#x3002;
+&#x7531;&#x4E8E;&#x672C;&#x6765;&#x5C31;&#x662F;&#x5F02;&#x6B65;&#x7684;&#xFF0C;&#x4E00;&#x4E2A; <code>Promise</code> rejection &#x53EF;&#x4EE5;&#x5728;&#x5C06;&#x6765;&#x7684;&#x67D0;&#x4E2A;&#x65F6;&#x95F4;&#x70B9;&#x88AB;&#x5904;&#x7406;-&#x53EF;&#x80FD;&#x8981;&#x8FDC;&#x8FDC;&#x665A;&#x4E8E; <code>&apos;unhandledRejection&apos;</code> &#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x53CA;&#x5904;&#x7406;&#x7684;&#x65F6;&#x95F4;&#x3002;</p><p>&#x53E6;&#x4E00;&#x79CD;&#x8868;&#x8FF0;&#x7684;&#x65B9;&#x5F0F;&#x5C31;&#x662F;&#xFF0C;&#x4E0E;&#x4F7F;&#x7528;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x65F6;&#x4F1A;&#x51FA;&#x73B0;&#x4E0D;&#x65AD;&#x589E;&#x957F;&#x7684;&#x672A;&#x5904;&#x7406;&#x5F02;&#x5E38;&#x5217;&#x8868;&#x4E0D;&#x540C;&#xFF0C;&#x4F7F;&#x7528; <code>Promise</code> &#x65F6;&#xFF0C;&#x672A;&#x5904;&#x7406;&#x5F02;&#x5E38;&#x5217;&#x8868;&#x53EF;&#x80FD;&#x4F1A;&#x51FA;&#x73B0;&#x589E;&#x957F;&#x7136;&#x540E;&#x6536;&#x7F29;&#x7684;&#x60C5;&#x51B5;&#x3002;</p><p>&#x5728;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5F53;&#x672A;&#x5904;&#x7406;&#x5F02;&#x5E38;&#x5217;&#x8868;&#x589E;&#x957F;&#x65F6;&#xFF0C;&#x4F1A;&#x89E6;&#x53D1; <code>&apos;uncaughtException&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p><p>&#x5728;&#x5F02;&#x6B65;&#x4EE3;&#x7801;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5F53;&#x672A;&#x5904;&#x7406;&#x5F02;&#x5E38;&#x5217;&#x8868;&#x589E;&#x957F;&#x65F6;&#xFF0C;&#x4F1A;&#x89E6;&#x53D1; <code>&apos;unhandledRejection&apos;</code> &#x4E8B;&#x4EF6;&#xFF0C;&#x5F53;&#x672A;&#x5904;&#x7406;&#x5217;&#x8868;&#x6536;&#x7F29;&#x65F6;&#xFF0C;&#x4F1A;&#x89E6;&#x53D1; <code>&apos;rejectionHandled&apos;</code> &#x4E8B;&#x4EF6;&#x3002;</p><pre><code class="language-js">const unhandledRejections = new Map();
+process.on(&apos;unhandledRejection&apos;, (reason, promise) =&gt; {
+  unhandledRejections.set(promise, reason);
+});
+process.on(&apos;rejectionHandled&apos;, (promise) =&gt; {
+  unhandledRejections.delete(promise);
+});
+</code></pre><p>&#x5728;&#x4E0A;&#x8FF0;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;<code>unhandledRejections</code> &#x4F1A;&#x968F;&#x7740;&#x65F6;&#x95F4;&#x589E;&#x52A0;&#x548C;&#x7F29;&#x51CF;&#xFF0C;&#x8868;&#x660E; rejection &#x5F00;&#x59CB;&#x662F;&#x672A;&#x88AB;&#x5904;&#x7406;&#x72B6;&#x6001;&#xFF0C;&#x7136;&#x540E;&#x53D8;&#x6210;&#x5DF2;&#x5904;&#x7406;&#x72B6;&#x6001;&#x3002;
+&#x53EF;&#x4EE5;&#x5B9A;&#x65F6;&#xFF08;&#x5BF9;&#x4E8E;&#x9700;&#x957F;&#x671F;&#x8FD0;&#x884C;&#x7684;&#x5E94;&#x7528;&#xFF0C;&#x8FD9;&#x4E2A;&#x53EF;&#x80FD;&#x662F;&#x6700;&#x597D;&#x7684;&#x65B9;&#x5F0F;&#xFF09;&#x6216;&#x5F53;&#x8FDB;&#x7A0B;&#x7ED3;&#x675F;&#x65F6;&#xFF08;&#x5BF9;&#x811A;&#x672C;&#x7684;&#x5E94;&#x7528;&#x53EF;&#x80FD;&#x662F;&#x6700;&#x65B9;&#x4FBF;&#x7684;&#xFF09;&#xFF0C;&#x5728;&#x9519;&#x8BEF;&#x65E5;&#x5FD7;&#x4E2D;&#x8BB0;&#x5F55;&#x8FD9;&#x4E9B;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x3002;</p></div>
+          <div id="content_right"><div class="api_metadata">
+<span>Added in: v1.4.1</span>
+</div><ul>
+<li><code>promise</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Promise" target="_blank" rel="nofollow" class="type">&lt;Promise&gt;</a> The late handled promise.</li>
+</ul><p>The <code>&apos;rejectionHandled&apos;</code> event is emitted whenever a <code>Promise</code> has been rejected
+and an error handler was attached to it (using <a href="javascript:if(confirm('http://nodejs.cn/s/gMRBfK  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gMRBfK'" tppabs="http://nodejs.cn/s/gMRBfK" rel="nofollow"><code>promise.catch()</code></a>, for
+example) later than one turn of the Node.js event loop.</p><p>The <code>Promise</code> object would have previously been emitted in an
+<code>&apos;unhandledRejection&apos;</code> event, but during the course of processing gained a
+rejection handler.</p><p>There is no notion of a top level for a <code>Promise</code> chain at which rejections can
+always be handled. Being inherently asynchronous in nature, a <code>Promise</code>
+rejection can be handled at a future point in time &#x2014; possibly much later than
+the event loop turn it takes for the <code>&apos;unhandledRejection&apos;</code> event to be emitted.</p><p>Another way of stating this is that, unlike in synchronous code where there is
+an ever-growing list of unhandled exceptions, with Promises there can be a
+growing-and-shrinking list of unhandled rejections.</p><p>In synchronous code, the <code>&apos;uncaughtException&apos;</code> event is emitted when the list of
+unhandled exceptions grows.</p><p>In asynchronous code, the <code>&apos;unhandledRejection&apos;</code> event is emitted when the list
+of unhandled rejections grows, and the <code>&apos;rejectionHandled&apos;</code> event is emitted
+when the list of unhandled rejections shrinks.</p><pre><code class="language-js">const unhandledRejections = new Map();
+process.on(&apos;unhandledRejection&apos;, (reason, promise) =&gt; {
+  unhandledRejections.set(promise, reason);
+});
+process.on(&apos;rejectionHandled&apos;, (promise) =&gt; {
+  unhandledRejections.delete(promise);
+});
+</code></pre><p>In this example, the <code>unhandledRejections</code> <code>Map</code> will grow and shrink over time,
+reflecting rejections that start unhandled and then become handled. It is
+possible to record such errors in an error log, either periodically (which is
+likely best for long-running application) or upon process exit (which is likely
+most convenient for scripts).</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712034476"><\/script>');
+  </script>
+</body>
+</html>

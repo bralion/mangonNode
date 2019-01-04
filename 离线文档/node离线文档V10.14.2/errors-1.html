@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Error（错误） | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/errors/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712020312" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-errors">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>Error（错误）</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="errors.html#errors_errors" tppabs="http://nodejs.cn/api/errors.html#errors_errors" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p>Node.js &#x4E2D;&#x8FD0;&#x884C;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E00;&#x822C;&#x4F1A;&#x9047;&#x5230;&#x4EE5;&#x4E0B;&#x56DB;&#x7C7B;&#x9519;&#x8BEF;&#xFF1A;</p><ul>
+<li>
+<p>&#x6807;&#x51C6;&#x7684; JavaScript &#x9519;&#x8BEF;&#xFF1A;</p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/EvalError  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/EvalError'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/EvalError" target="_blank" rel="nofollow" class="type">&lt;EvalError&gt;</a> : &#x5F53;&#x8C03;&#x7528; <code>eval()</code> &#x5931;&#x8D25;&#x65F6;&#x629B;&#x51FA;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/SyntaxError  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/SyntaxError'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/SyntaxError" target="_blank" rel="nofollow" class="type">&lt;SyntaxError&gt;</a> : &#x5F53; JavaScript &#x8BED;&#x6CD5;&#x9519;&#x8BEF;&#x65F6;&#x629B;&#x51FA;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/RangeError  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/RangeError'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/RangeError" target="_blank" rel="nofollow" class="type">&lt;RangeError&gt;</a> : &#x5F53;&#x503C;&#x4E0D;&#x5728;&#x9884;&#x671F;&#x8303;&#x56F4;&#x5185;&#x65F6;&#x629B;&#x51FA;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/ReferenceError  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/ReferenceError'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/ReferenceError" target="_blank" rel="nofollow" class="type">&lt;ReferenceError&gt;</a> : &#x5F53;&#x4F7F;&#x7528;&#x672A;&#x5B9A;&#x4E49;&#x7684;&#x53D8;&#x91CF;&#x65F6;&#x629B;&#x51FA;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/TypeError  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/TypeError'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/TypeError" target="_blank" rel="nofollow" class="type">&lt;TypeError&gt;</a> : &#x5F53;&#x4F20;&#x5165;&#x9519;&#x8BEF;&#x7C7B;&#x578B;&#x7684;&#x53C2;&#x6570;&#x65F6;&#x629B;&#x51FA;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/URIError  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/URIError'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/URIError" target="_blank" rel="nofollow" class="type">&lt;URIError&gt;</a> : &#x5F53;&#x5168;&#x5C40;&#x7684; URI &#x5904;&#x7406;&#x51FD;&#x6570;&#x88AB;&#x8BEF;&#x7528;&#x65F6;&#x629B;&#x51FA;&#x3002;</li>
+</ul>
+</li>
+<li>&#x7531;&#x5E95;&#x5C42;&#x64CD;&#x4F5C;&#x7CFB;&#x89E6;&#x53D1;&#x7684;&#x7CFB;&#x7EDF;&#x9519;&#x8BEF;&#xFF0C;&#x4F8B;&#x5982;&#x8BD5;&#x56FE;&#x6253;&#x5F00;&#x4E00;&#x4E2A;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x6587;&#x4EF6;&#x3001;&#x8BD5;&#x56FE;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x5DF2;&#x5173;&#x95ED;&#x7684; socket &#x53D1;&#x9001;&#x6570;&#x636E;&#x7B49;&#x3002;</li>
+<li>&#x7531;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4EE3;&#x7801;&#x89E6;&#x53D1;&#x7684;&#x7528;&#x6237;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x9519;&#x8BEF;&#x3002;</li>
+<li>&#x65AD;&#x8A00;&#x9519;&#x8BEF;&#x662F;&#x9519;&#x8BEF;&#x7684;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x7C7B;&#x522B;&#xFF0C;&#x6BCF;&#x5F53; Node.js &#x68C0;&#x6D4B;&#x5230;&#x4E00;&#x4E2A;&#x4E0D;&#x5E94;&#x8BE5;&#x53D1;&#x751F;&#x7684;&#x5F02;&#x5E38;&#x903B;&#x8F91;&#x65F6;&#x89E6;&#x53D1;&#x3002;
+&#x8FD9;&#x7C7B;&#x9519;&#x8BEF;&#x901A;&#x5E38;&#x7531; <code>assert</code> &#x6A21;&#x5757;&#x5F15;&#x8D77;&#x3002;</li>
+</ul><p>&#x6240;&#x6709;&#x7531; Node.js &#x5F15;&#x8D77;&#x7684; JavaScript &#x9519;&#x8BEF;&#x4E0E;&#x7CFB;&#x7EDF;&#x9519;&#x8BEF;&#x90FD;&#x7EE7;&#x627F;&#x81EA;&#x6216;&#x5B9E;&#x4F8B;&#x5316;&#x81EA;&#x6807;&#x51C6;&#x7684; JavaScript <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a> &#x7C7B;&#xFF0C;&#x4E14;&#x4FDD;&#x8BC1;&#x81F3;&#x5C11;&#x63D0;&#x4F9B;&#x7C7B;&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x3002;</p></div>
+          <div id="content_right"><p>Applications running in Node.js will generally experience four categories of
+errors:</p><ul>
+<li>Standard JavaScript errors such as <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/EvalError  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/EvalError'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/EvalError" target="_blank" rel="nofollow" class="type">&lt;EvalError&gt;</a>, <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/SyntaxError  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/SyntaxError'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/SyntaxError" target="_blank" rel="nofollow" class="type">&lt;SyntaxError&gt;</a>, <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/RangeError  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/RangeError'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/RangeError" target="_blank" rel="nofollow" class="type">&lt;RangeError&gt;</a>,
+<a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/ReferenceError  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/ReferenceError'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/ReferenceError" target="_blank" rel="nofollow" class="type">&lt;ReferenceError&gt;</a>, <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/TypeError  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/TypeError'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/TypeError" target="_blank" rel="nofollow" class="type">&lt;TypeError&gt;</a>, and <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/URIError  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/URIError'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/URIError" target="_blank" rel="nofollow" class="type">&lt;URIError&gt;</a>.</li>
+<li>System errors triggered by underlying operating system constraints such
+as attempting to open a file that does not exist or attempting to send data
+over a closed socket.</li>
+<li>User-specified errors triggered by application code.</li>
+<li><code>AssertionError</code>s are a special class of error that can be triggered when
+Node.js detects an exceptional logic violation that should never occur. These
+are raised typically by the <code>assert</code> module.</li>
+</ul><p>All JavaScript and System errors raised by Node.js inherit from, or are
+instances of, the standard JavaScript <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a> class and are guaranteed
+to provide <em>at least</em> the properties available on that class.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712020312"><\/script>');
+  </script>
+</body>
+</html>

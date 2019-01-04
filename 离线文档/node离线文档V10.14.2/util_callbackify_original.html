@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>util.callbackify(original) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/util/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712041146" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-util">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>util.callbackify(original)</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="util.html#util_util_callbackify_original" tppabs="http://nodejs.cn/api/util.html#util_util_callbackify_original" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.2.0</span>
+</div><ul>
+<li><code>original</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#xA0;<code>async</code> &#x5F02;&#x6B65;&#x51FD;&#x6570;</li>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x4F20;&#x7EDF;&#x56DE;&#x8C03;&#x51FD;&#x6570;</li>
+</ul><p>&#x5C06; <code>async</code> &#x5F02;&#x6B65;&#x51FD;&#x6570;(&#x6216;&#x8005;&#x4E00;&#x4E2A;&#x8FD4;&#x56DE;&#x503C;&#x4E3A; Promise &#x7684;&#x51FD;&#x6570;)&#x8F6C;&#x6362;&#x6210;&#x9075;&#x5FAA;&#x5F02;&#x5E38;&#x4F18;&#x5148;&#x7684;&#x56DE;&#x8C03;&#x98CE;&#x683C;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x4F8B;&#x5982;&#x5C06; <code>(err, value) =&gt; ...</code> &#x56DE;&#x8C03;&#x4F5C;&#x4E3A;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x3002;&#x5728;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E2D;, &#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570; err &#x4E3A; Promise rejected &#x7684;&#x539F;&#x56E0; (&#x5982;&#x679C; Promise &#x72B6;&#x6001;&#x4E3A; resolved , err&#x4E3A; <code>null</code> ),&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x5219;&#x662F; Promise &#x72B6;&#x6001;&#x4E3A; resolved &#x65F6;&#x7684;&#x8FD4;&#x56DE;&#x503C;.</p><p>&#x4F8B;&#x5982; :</p><pre><code class="language-js">const util = require(&apos;util&apos;);
+
+async function fn() {
+  return &apos;hello world&apos;;
+}
+const callbackFunction = util.callbackify(fn);
+
+callbackFunction((err, ret) =&gt; {
+  if (err) throw err;
+  console.log(ret);
+});
+</code></pre><p>&#x5C06;&#x4F1A;&#x6253;&#x5370;&#x51FA;:</p><pre><code class="language-txt">hello world
+</code></pre><p><strong>&#x6CE8;&#x610F;</strong>:</p><ul>
+<li>
+<p>&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x662F;&#x5F02;&#x6B65;&#x6267;&#x884C;&#x7684;, &#x5E76;&#x4E14;&#x6709;&#x5F02;&#x5E38;&#x5806;&#x6808;&#x9519;&#x8BEF;&#x8FFD;&#x8E2A;.
+&#x5982;&#x679C;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x5F02;&#x5E38;, &#x8FDB;&#x7A0B;&#x4F1A;&#x89E6;&#x53D1;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/Lc6A38  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Lc6A38'" tppabs="http://nodejs.cn/s/Lc6A38" rel="nofollow"><code>&apos;uncaughtException&apos;</code></a> &#x5F02;&#x5E38;, &#x5982;&#x679C;&#x6CA1;&#x6709;&#x88AB;&#x6355;&#x83B7;, &#x8FDB;&#x7A0B;&#x5C06;&#x4F1A;&#x9000;&#x51FA;.</p>
+</li>
+<li>
+<p><code>null</code> &#x5728;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E2D;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x6709;&#x5176;&#x7279;&#x6B8A;&#x7684;&#x610F;&#x4E49;, &#x5982;&#x679C;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684;&#x9996;&#x4E2A;&#x53C2;&#x6570;&#x4E3A; Promise rejected &#x7684;&#x539F;&#x56E0;&#x4E14;&#x5E26;&#x6709;&#x8FD4;&#x56DE;&#x503C;, &#x4E14;&#x503C;&#x53EF;&#x4EE5;&#x8F6C;&#x6362;&#x6210;&#x5E03;&#x5C14;&#x503C; <code>false</code>, &#x8FD9;&#x4E2A;&#x503C;&#x4F1A;&#x88AB;&#x5C01;&#x88C5;&#x5728; <code>Error</code> &#x5BF9;&#x8C61;&#x91CC;, &#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5C5E;&#x6027; <code>reason</code> &#x83B7;&#x53D6;.</p>
+<pre><code class="language-js">function fn() {
+  return Promise.reject(null);
+}
+const callbackFunction = util.callbackify(fn);
+
+callbackFunction((err, ret) =&gt; {
+  // When the Promise was rejected with `null` it is wrapped with an Error and
+  // the original value is stored in `reason`.
+  err &amp;&amp; err.hasOwnProperty(&apos;reason&apos;) &amp;&amp; err.reason === null;  // true
+});
+</code></pre>
+</li>
+</ul></div>
+          <div id="content_right"><div class="api_metadata">
+<span>Added in: v8.2.0</span>
+</div><ul>
+<li><code>original</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> An <code>async</code> function</li>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> a callback style function</li>
+</ul><p>Takes an <code>async</code> function (or a function that returns a <code>Promise</code>) and returns a
+function following the error-first callback style, i.e. taking
+an <code>(err, value) =&gt; ...</code> callback as the last argument. In the callback, the
+first argument will be the rejection reason (or <code>null</code> if the <code>Promise</code>
+resolved), and the second argument will be the resolved value.</p><pre><code class="language-js">const util = require(&apos;util&apos;);
+
+async function fn() {
+  return &apos;hello world&apos;;
+}
+const callbackFunction = util.callbackify(fn);
+
+callbackFunction((err, ret) =&gt; {
+  if (err) throw err;
+  console.log(ret);
+});
+</code></pre><p>Will print:</p><pre><code class="language-txt">hello world
+</code></pre><p>The callback is executed asynchronously, and will have a limited stack trace.
+If the callback throws, the process will emit an <a href="javascript:if(confirm('http://nodejs.cn/s/Lc6A38  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Lc6A38'" tppabs="http://nodejs.cn/s/Lc6A38" rel="nofollow"><code>&apos;uncaughtException&apos;</code></a>
+event, and if not handled will exit.</p><p>Since <code>null</code> has a special meaning as the first argument to a callback, if a
+wrapped function rejects a <code>Promise</code> with a falsy value as a reason, the value
+is wrapped in an <code>Error</code> with the original value stored in a field named
+<code>reason</code>.</p><pre><code class="language-js">function fn() {
+  return Promise.reject(null);
+}
+const callbackFunction = util.callbackify(fn);
+
+callbackFunction((err, ret) =&gt; {
+  // When the Promise was rejected with `null` it is wrapped with an Error and
+  // the original value is stored in `reason`.
+  err &amp;&amp; err.hasOwnProperty(&apos;reason&apos;) &amp;&amp; err.reason === null;  // true
+});
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712041146"><\/script>');
+  </script>
+</body>
+</html>

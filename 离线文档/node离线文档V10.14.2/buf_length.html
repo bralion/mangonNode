@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>buf.length | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/buffer/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712012127" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-buffer">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>buf.length</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="buffer.html#buffer_buf_length" tppabs="http://nodejs.cn/api/buffer.html#buffer_buf_length" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div><ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+</ul><p>&#x8FD4;&#x56DE;&#x5185;&#x5B58;&#x4E2D;&#x5206;&#x914D;&#x7ED9; <code>buf</code> &#x7684;&#x5B57;&#x8282;&#x6570;&#x3002;
+&#x4E0D;&#x4E00;&#x5B9A;&#x53CD;&#x6620; <code>buf</code> &#x4E2D;&#x53EF;&#x7528;&#x6570;&#x636E;&#x7684;&#x5B57;&#x8282;&#x91CF;&#x3002;</p><pre><code class="language-js">// &#x521B;&#x5EFA;&#x4E00;&#x4E2A; `Buffer`&#xFF0C;&#x5E76;&#x5199;&#x5165;&#x4E00;&#x4E2A; ASCII &#x5B57;&#x7B26;&#x4E32;&#x3002;
+
+const buf = Buffer.alloc(1234);
+
+console.log(buf.length);
+// &#x8F93;&#x51FA;: 1234
+
+buf.write(&apos;http://nodejs.cn/&apos;, 0, &apos;ascii&apos;);
+
+console.log(buf.length);
+// &#x8F93;&#x51FA;: 1234
+</code></pre><p>&#x867D;&#x7136; <code>length</code> &#x5C5E;&#x6027;&#x4E0D;&#x662F;&#x4E0D;&#x53EF;&#x53D8;&#x7684;&#xFF0C;&#x4F46;&#x6539;&#x53D8; <code>length</code> &#x7684;&#x503C;&#x53EF;&#x80FD;&#x4F1A;&#x9020;&#x6210;&#x4E0D;&#x786E;&#x5B9A;&#x7684;&#x7ED3;&#x679C;&#x3002;
+&#x5982;&#x679C;&#x60F3;&#x6539;&#x53D8;&#x4E00;&#x4E2A; <code>Buffer</code> &#x7684;&#x957F;&#x5EA6;&#xFF0C;&#x5E94;&#x8BE5;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/uQPgxt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uQPgxt'" tppabs="http://nodejs.cn/s/uQPgxt" rel="nofollow"><code>buf.slice()</code></a> &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684; <code>Buffer</code>&#x3002;</p><pre><code class="language-js">let buf = Buffer.allocUnsafe(10);
+
+buf.write(&apos;abcdefghj&apos;, 0, &apos;ascii&apos;);
+
+console.log(buf.length);
+// &#x8F93;&#x51FA;: 10
+
+buf = buf.slice(0, 5);
+
+console.log(buf.length);
+// &#x8F93;&#x51FA;: 5
+</code></pre></div>
+          <div id="content_right"><div class="api_metadata">
+<span>Added in: v0.1.90</span>
+</div><ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+</ul><p>Returns the amount of memory allocated for <code>buf</code> in bytes. Note that this
+does not necessarily reflect the amount of &quot;usable&quot; data within <code>buf</code>.</p><pre><code class="language-js">// Create a `Buffer` and write a shorter ASCII string to it.
+
+const buf = Buffer.alloc(1234);
+
+console.log(buf.length);
+// Prints: 1234
+
+buf.write(&apos;some string&apos;, 0, &apos;ascii&apos;);
+
+console.log(buf.length);
+// Prints: 1234
+</code></pre><p>While the <code>length</code> property is not immutable, changing the value of <code>length</code>
+can result in undefined and inconsistent behavior. Applications that wish to
+modify the length of a <code>Buffer</code> should therefore treat <code>length</code> as read-only and
+use <a href="javascript:if(confirm('http://nodejs.cn/s/uQPgxt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uQPgxt'" tppabs="http://nodejs.cn/s/uQPgxt" rel="nofollow"><code>buf.slice()</code></a> to create a new <code>Buffer</code>.</p><pre><code class="language-js">let buf = Buffer.allocUnsafe(10);
+
+buf.write(&apos;abcdefghj&apos;, 0, &apos;ascii&apos;);
+
+console.log(buf.length);
+// Prints: 10
+
+buf = buf.slice(0, 5);
+
+console.log(buf.length);
+// Prints: 5
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712012127"><\/script>');
+  </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>options.stdio | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/child_process/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712012923" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-child_process">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>options.stdio</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="child_process.html#child_process_options_stdio" tppabs="http://nodejs.cn/api/child_process.html#child_process_options_stdio" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v3.3.1</td>
+<td><p>The value <code>0</code> is now accepted as a file descriptor.</p></td></tr>
+<tr><td>v0.7.10</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.7.10</span></p></td></tr>
+</tbody></table>
+</details>
+</div><p>&#x7528;&#x4E8E;&#x914D;&#x7F6E;&#x5B50;&#x8FDB;&#x7A0B;&#x4E0E;&#x7236;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x5EFA;&#x7ACB;&#x7684;&#x7BA1;&#x9053;&#x3002;
+&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5B50;&#x8FDB;&#x7A0B;&#x7684; stdin&#x3001; stdout &#x548C; stderr &#x4F1A;&#x91CD;&#x5B9A;&#x5411;&#x5230; <a href="javascript:if(confirm('http://nodejs.cn/s/uALgct  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uALgct'" tppabs="http://nodejs.cn/s/uALgct" rel="nofollow"><code>ChildProcess</code></a> &#x5BF9;&#x8C61;&#x4E0A;&#x76F8;&#x5E94;&#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/Su8gEr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Su8gEr'" tppabs="http://nodejs.cn/s/Su8gEr" rel="nofollow"><code>subprocess.stdin</code></a>&#x3001; <a href="javascript:if(confirm('http://nodejs.cn/s/F2vs59  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F2vs59'" tppabs="http://nodejs.cn/s/F2vs59" rel="nofollow"><code>subprocess.stdout</code></a> &#x548C; <a href="javascript:if(confirm('http://nodejs.cn/s/jjhXtd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jjhXtd'" tppabs="http://nodejs.cn/s/jjhXtd" rel="nofollow"><code>subprocess.stderr</code></a> &#x6D41;&#x3002;
+&#x7B49;&#x540C;&#x4E8E;&#x5C06; <code>options.stdio</code> &#x8BBE;&#x4E3A; <code>[&apos;pipe&apos;, &apos;pipe&apos;, &apos;pipe&apos;]</code>&#x3002;</p><p><code>options.stdio</code> &#x53EF;&#x4EE5;&#x662F;&#x4EE5;&#x4E0B;&#x5B57;&#x7B26;&#x4E32;&#x4E4B;&#x4E00;&#xFF1A;</p><ul>
+<li><code>&apos;pipe&apos;</code> - &#x7B49;&#x540C;&#x4E8E; <code>[&apos;pipe&apos;, &apos;pipe&apos;, &apos;pipe&apos;]</code>&#xFF08;&#x9ED8;&#x8BA4;&#xFF09;&#x3002;</li>
+<li><code>&apos;ignore&apos;</code> - &#x7B49;&#x540C;&#x4E8E; <code>[&apos;ignore&apos;, &apos;ignore&apos;, &apos;ignore&apos;]</code>&#x3002;</li>
+<li><code>&apos;inherit&apos;</code> - &#x7B49;&#x540C;&#x4E8E; <code>[&apos;inherit&apos;, &apos;inherit&apos;, &apos;inherit&apos;]</code> &#x6216; <code>[0,1,2]</code>&#x3002;</li>
+</ul><p><code>option.stdio</code> &#x7684;&#x503C;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x5176;&#x4E2D;&#x6BCF;&#x4E2A;&#x7D22;&#x5F15;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B; fd&#x3002;
+fd &#x7684; 0&#x3001;1 &#x548C; 2 &#x5206;&#x522B;&#x5BF9;&#x5E94; stdin&#x3001;stdout &#x548C; stderr&#x3002;
+&#x989D;&#x5916;&#x7684; fd &#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x521B;&#x5EFA;&#x7236;&#x8FDB;&#x7A0B;&#x548C;&#x5B50;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x989D;&#x5916;&#x7BA1;&#x9053;&#x3002;
+&#x8BE5;&#x503C;&#x662F;&#x4EE5;&#x4E0B;&#x4E4B;&#x4E00;&#xFF1A;</p><ol>
+<li><code>&apos;pipe&apos;</code> - &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x548C;&#x7236;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x7BA1;&#x9053;&#x3002;
+&#x7BA1;&#x9053;&#x7684;&#x7236;&#x7AEF;&#x4F5C;&#x4E3A; <code>child_process</code> &#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x3002;
+&#x4E3A; fd &#x521B;&#x5EFA;&#x7684;&#x7BA1;&#x9053; 0 - 2 &#x5206;&#x522B;&#x4F5C;&#x4E3A; <a href="javascript:if(confirm('http://nodejs.cn/s/Su8gEr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Su8gEr'" tppabs="http://nodejs.cn/s/Su8gEr" rel="nofollow"><code>subprocess.stdin</code></a>&#x3001;<a href="javascript:if(confirm('http://nodejs.cn/s/F2vs59  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F2vs59'" tppabs="http://nodejs.cn/s/F2vs59" rel="nofollow"><code>subprocess.stdout</code></a> &#x548C; <a href="javascript:if(confirm('http://nodejs.cn/s/jjhXtd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jjhXtd'" tppabs="http://nodejs.cn/s/jjhXtd" rel="nofollow"><code>subprocess.stderr</code></a>&#x3002;</li>
+<li><code>&apos;ipc&apos;</code> - &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x7236;&#x8FDB;&#x7A0B;&#x548C;&#x5B50;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x4F20;&#x9012;&#x6D88;&#x606F;&#x6216;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x7684; IPC &#x901A;&#x9053;&#x7B26;&#x3002;
+&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/uALgct  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uALgct'" tppabs="http://nodejs.cn/s/uALgct" rel="nofollow"><code>ChildProcess</code></a> &#x6700;&#x591A;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A; IPC stdio &#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3002;
+&#x8BBE;&#x7F6E;&#x8BE5;&#x9009;&#x9879;&#x53EF;&#x542F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/Eggixm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Eggixm'" tppabs="http://nodejs.cn/s/Eggixm" rel="nofollow"><code>subprocess.send()</code></a>&#x3002;
+&#x5982;&#x679C;&#x5B50;&#x8FDB;&#x7A0B;&#x662F;&#x4E00;&#x4E2A; Node.js &#x8FDB;&#x7A0B;&#xFF0C;&#x5219;&#x4E00;&#x4E2A;&#x5DF2;&#x5B58;&#x5728;&#x7684; IPC &#x901A;&#x9053;&#x4F1A;&#x5728;&#x5B50;&#x8FDB;&#x7A0B;&#x4E2D;&#x542F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/Cd2TZw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Cd2TZw'" tppabs="http://nodejs.cn/s/Cd2TZw" rel="nofollow"><code>process.send()</code></a> &#x548C; <a href="javascript:if(confirm('http://nodejs.cn/s/omDrya  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/omDrya'" tppabs="http://nodejs.cn/s/omDrya" rel="nofollow"><code>process.disconnect()</code></a>&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x4F1A;&#x542F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/n6LBD8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/n6LBD8'" tppabs="http://nodejs.cn/s/n6LBD8" rel="nofollow"><code>&apos;disconnect&apos;</code></a> &#x548C; <a href="javascript:if(confirm('http://nodejs.cn/s/vYuu5g  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vYuu5g'" tppabs="http://nodejs.cn/s/vYuu5g" rel="nofollow"><code>&apos;message&apos;</code></a> &#x4E8B;&#x4EF6;&#x3002;</li>
+<li><code>&apos;ignore&apos;</code> - &#x6307;&#x793A; Node.js &#x5FFD;&#x7565;&#x5B50;&#x8FDB;&#x7A0B;&#x4E2D;&#x7684; fd&#x3002;
+&#x7531;&#x4E8E; Node.js &#x603B;&#x662F;&#x4F1A;&#x4E3A;&#x5B83;&#x884D;&#x751F;&#x7684;&#x8FDB;&#x7A0B;&#x6253;&#x5F00; fd 0 - 2&#xFF0C;&#x6240;&#x4EE5;&#x8BBE;&#x7F6E; fd &#x4E3A; <code>&apos;ignore&apos;</code> &#x53EF;&#x4EE5;&#x4F7F; Node.js &#x6253;&#x5F00; <code>/dev/null</code> &#x5E76;&#x5C06;&#x5B83;&#x9644;&#x52A0;&#x5230;&#x5B50;&#x8FDB;&#x7A0B;&#x7684; fd &#x4E0A;&#x3002;</li>
+<li><code>&apos;inherit&apos;</code> - &#x4ECE;&#x7236;&#x8FDB;&#x7A0B;&#x4F20;&#x5165;&#x6216;&#x4F20;&#x5165;&#x7236;&#x8FDB;&#x7A0B;&#x76F8;&#x5E94;&#x7684; stdio &#x6D41;&#x3002;
+&#x524D;&#x4E09;&#x4E2A;&#x4F4D;&#x7F6E;&#x5206;&#x522B;&#x7B49;&#x540C;&#x4E8E; <code>process.stdin</code>&#x3001;<code>process.stdout</code> &#x4E0E; <code>process.stderr</code>&#x3002;
+&#x5176;&#x4ED6;&#x4F4D;&#x7F6E;&#x7B49;&#x540C;&#x4E8E; <code>&apos;ignore&apos;</code>&#x3002;</li>
+<li><a href="stream.html#stream_stream" tppabs="http://nodejs.cn/api/stream.html#stream_stream" target="_blank" rel="nofollow" class="type">&lt;Stream&gt;</a> &#x5BF9;&#x8C61; - &#x5171;&#x4EAB;&#x4E00;&#x4E2A;&#x6307;&#x5411;&#x5B50;&#x8FDB;&#x7A0B;&#x7684; tty&#x3001;&#x6587;&#x4EF6;&#x3001;socket &#x6216;&#x7BA1;&#x9053;&#x7684;&#x53EF;&#x8BFB;&#x6216;&#x53EF;&#x5199;&#x6D41;&#x3002;
+&#x6D41;&#x7684;&#x5E95;&#x5C42;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x5728;&#x5B50;&#x8FDB;&#x7A0B;&#x4E2D;&#x5BF9;&#x5E94; <code>stdio</code> &#x6570;&#x7EC4;&#x7D22;&#x5F15;&#x7684; fd&#x3002;
+&#x8BE5;&#x6D41;&#x5FC5;&#x987B;&#x6709;&#x4E00;&#x4E2A;&#x5E95;&#x5C42;&#x63CF;&#x8FF0;&#x7B26;&#xFF08;&#x6587;&#x4EF6;&#x6D41;&#x76F4;&#x5230; <code>&apos;open&apos;</code> &#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x624D;&#x9700;&#x8981;&#xFF09;&#x3002;</li>
+<li>&#x6B63;&#x6574;&#x6570; - &#x89E3;&#x6790;&#x6210;&#x5728;&#x7236;&#x8FDB;&#x7A0B;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x3002;
+&#x4E0E;&#x5B50;&#x8FDB;&#x7A0B;&#x5171;&#x4EAB;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E8E; Stream &#x5BF9;&#x8C61;&#x7684;&#x5171;&#x4EAB;&#x3002;</li>
+<li><code>null</code> &#x6216; <code>undefined</code> - &#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x503C;&#x3002;
+&#x5BF9;&#x4E8E; stdio &#x7684; fd 0&#x3001;1 &#x548C; 2&#xFF08;&#x6362;&#x8A00;&#x4E4B;&#xFF0C;stdin&#x3001;stdout &#x548C; stderr&#xFF09;&#xFF0C;&#x521B;&#x5EFA;&#x7BA1;&#x9053;&#x3002;
+&#x5BF9;&#x4E8E; fd 3 &#x53CA;&#x4EE5;&#x4E0A;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A; <code>&apos;ignore&apos;</code>&#x3002;</li>
+</ol><pre><code class="language-js">const { spawn } = require(&apos;child_process&apos;);
+
+// &#x5B50;&#x8FDB;&#x7A0B;&#x4F7F;&#x7528;&#x7236;&#x8FDB;&#x7A0B;&#x7684; stdio&#x3002;
+spawn(&apos;prg&apos;, [], { stdio: &apos;inherit&apos; });
+
+// &#x884D;&#x751F;&#x7684;&#x5B50;&#x8FDB;&#x7A0B;&#x53EA;&#x5171;&#x4EAB; stderr&#x3002;
+spawn(&apos;prg&apos;, [], { stdio: [&apos;pipe&apos;, &apos;pipe&apos;, process.stderr] });
+
+// &#x6253;&#x5F00;&#x4E00;&#x4E2A;&#x989D;&#x5916;&#x7684; fd=4&#xFF0C;&#x7528;&#x4E8E;&#x4E0E;&#x7A0B;&#x5E8F;&#x4EA4;&#x4E92;&#x3002;
+spawn(&apos;prg&apos;, [], { stdio: [&apos;pipe&apos;, null, null, null, &apos;pipe&apos;] });
+</code></pre></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v3.3.1</td>
+<td><p>The value <code>0</code> is now accepted as a file descriptor.</p></td></tr>
+<tr><td>v0.7.10</td>
+<td><p><span>Added in: v0.7.10</span></p></td></tr>
+</tbody></table>
+</details>
+</div><p>The <code>options.stdio</code> option is used to configure the pipes that are established
+between the parent and child process. By default, the child&apos;s stdin, stdout,
+and stderr are redirected to corresponding <a href="javascript:if(confirm('http://nodejs.cn/s/Su8gEr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Su8gEr'" tppabs="http://nodejs.cn/s/Su8gEr" rel="nofollow"><code>subprocess.stdin</code></a>,
+<a href="javascript:if(confirm('http://nodejs.cn/s/F2vs59  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F2vs59'" tppabs="http://nodejs.cn/s/F2vs59" rel="nofollow"><code>subprocess.stdout</code></a>, and <a href="javascript:if(confirm('http://nodejs.cn/s/jjhXtd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jjhXtd'" tppabs="http://nodejs.cn/s/jjhXtd" rel="nofollow"><code>subprocess.stderr</code></a> streams on the
+<a href="javascript:if(confirm('http://nodejs.cn/s/uALgct  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uALgct'" tppabs="http://nodejs.cn/s/uALgct" rel="nofollow"><code>ChildProcess</code></a> object. This is equivalent to setting the <code>options.stdio</code>
+equal to <code>[&apos;pipe&apos;, &apos;pipe&apos;, &apos;pipe&apos;]</code>.</p><p>For convenience, <code>options.stdio</code> may be one of the following strings:</p><ul>
+<li><code>&apos;pipe&apos;</code> - equivalent to <code>[&apos;pipe&apos;, &apos;pipe&apos;, &apos;pipe&apos;]</code> (the default)</li>
+<li><code>&apos;ignore&apos;</code> - equivalent to <code>[&apos;ignore&apos;, &apos;ignore&apos;, &apos;ignore&apos;]</code></li>
+<li><code>&apos;inherit&apos;</code> - equivalent to <code>[&apos;inherit&apos;, &apos;inherit&apos;, &apos;inherit&apos;]</code> or <code>[0, 1, 2]</code></li>
+</ul><p>Otherwise, the value of <code>options.stdio</code> is an array where each index corresponds
+to an fd in the child. The fds 0, 1, and 2 correspond to stdin, stdout,
+and stderr, respectively. Additional fds can be specified to create additional
+pipes between the parent and child. The value is one of the following:</p><ol>
+<li>
+<p><code>&apos;pipe&apos;</code> - Create a pipe between the child process and the parent process.
+The parent end of the pipe is exposed to the parent as a property on the
+<code>child_process</code> object as <a href="javascript:if(confirm('http://nodejs.cn/s/ixmPX9  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ixmPX9'" tppabs="http://nodejs.cn/s/ixmPX9" rel="nofollow"><code>subprocess.stdio[fd]</code></a>. Pipes created
+for fds 0 - 2 are also available as <a href="javascript:if(confirm('http://nodejs.cn/s/Su8gEr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Su8gEr'" tppabs="http://nodejs.cn/s/Su8gEr" rel="nofollow"><code>subprocess.stdin</code></a>,
+<a href="javascript:if(confirm('http://nodejs.cn/s/F2vs59  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F2vs59'" tppabs="http://nodejs.cn/s/F2vs59" rel="nofollow"><code>subprocess.stdout</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/jjhXtd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jjhXtd'" tppabs="http://nodejs.cn/s/jjhXtd" rel="nofollow"><code>subprocess.stderr</code></a>, respectively.</p>
+</li>
+<li>
+<p><code>&apos;ipc&apos;</code> - Create an IPC channel for passing messages/file descriptors
+between parent and child. A <a href="javascript:if(confirm('http://nodejs.cn/s/uALgct  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uALgct'" tppabs="http://nodejs.cn/s/uALgct" rel="nofollow"><code>ChildProcess</code></a> may have at most <em>one</em> IPC stdio
+file descriptor. Setting this option enables the <a href="javascript:if(confirm('http://nodejs.cn/s/Eggixm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Eggixm'" tppabs="http://nodejs.cn/s/Eggixm" rel="nofollow"><code>subprocess.send()</code></a>
+method. If the child is a Node.js process, the presence of an IPC channel
+will enable <a href="javascript:if(confirm('http://nodejs.cn/s/Cd2TZw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Cd2TZw'" tppabs="http://nodejs.cn/s/Cd2TZw" rel="nofollow"><code>process.send()</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/omDrya  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/omDrya'" tppabs="http://nodejs.cn/s/omDrya" rel="nofollow"><code>process.disconnect()</code></a> methods,
+as well as <a href="javascript:if(confirm('http://nodejs.cn/s/n6LBD8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/n6LBD8'" tppabs="http://nodejs.cn/s/n6LBD8" rel="nofollow"><code>&apos;disconnect&apos;</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/vYuu5g  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vYuu5g'" tppabs="http://nodejs.cn/s/vYuu5g" rel="nofollow"><code>&apos;message&apos;</code></a> events within the child.</p>
+<p>Accessing the IPC channel fd in any way other than <a href="javascript:if(confirm('http://nodejs.cn/s/Cd2TZw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Cd2TZw'" tppabs="http://nodejs.cn/s/Cd2TZw" rel="nofollow"><code>process.send()</code></a>
+or using the IPC channel with a child process that is not a Node.js instance
+is not supported.</p>
+</li>
+<li>
+<p><code>&apos;ignore&apos;</code> - Instructs Node.js to ignore the fd in the child. While Node.js
+will always open fds 0 - 2 for the processes it spawns, setting the fd to
+<code>&apos;ignore&apos;</code> will cause Node.js to open <code>/dev/null</code> and attach it to the
+child&apos;s fd.</p>
+</li>
+<li>
+<p><code>&apos;inherit&apos;</code> - Pass through the corresponding stdio stream to/from the
+parent process.  In the first three positions, this is equivalent to
+<code>process.stdin</code>, <code>process.stdout</code>, and <code>process.stderr</code>, respectively.  In
+any other position, equivalent to <code>&apos;ignore&apos;</code>.</p>
+</li>
+<li>
+<p><a href="stream.html#stream_stream" tppabs="http://nodejs.cn/api/stream.html#stream_stream" target="_blank" rel="nofollow" class="type">&lt;Stream&gt;</a> object - Share a readable or writable stream that refers to a tty,
+file, socket, or a pipe with the child process. The stream&apos;s underlying
+file descriptor is duplicated in the child process to the fd that
+corresponds to the index in the <code>stdio</code> array. Note that the stream must
+have an underlying descriptor (file streams do not until the <code>&apos;open&apos;</code>
+event has occurred).</p>
+</li>
+<li>
+<p>Positive integer - The integer value is interpreted as a file descriptor
+that is currently open in the parent process. It is shared with the child
+process, similar to how <a href="stream.html#stream_stream" tppabs="http://nodejs.cn/api/stream.html#stream_stream" target="_blank" rel="nofollow" class="type">&lt;Stream&gt;</a> objects can be shared.</p>
+</li>
+<li>
+<p><code>null</code>, <code>undefined</code> - Use default value. For stdio fds 0, 1, and 2 (in other
+words, stdin, stdout, and stderr) a pipe is created. For fd 3 and up, the
+default is <code>&apos;ignore&apos;</code>.</p>
+</li>
+</ol><pre><code class="language-js">const { spawn } = require(&apos;child_process&apos;);
+
+// Child will use parent&apos;s stdios
+spawn(&apos;prg&apos;, [], { stdio: &apos;inherit&apos; });
+
+// Spawn child sharing only stderr
+spawn(&apos;prg&apos;, [], { stdio: [&apos;pipe&apos;, &apos;pipe&apos;, process.stderr] });
+
+// Open an extra fd=4, to interact with programs presenting a
+// startd-style interface.
+spawn(&apos;prg&apos;, [], { stdio: [&apos;pipe&apos;, null, null, null, &apos;pipe&apos;] });
+</code></pre><p><em>It is worth noting that when an IPC channel is established between the
+parent and child processes, and the child is a Node.js process, the child
+is launched with the IPC channel unreferenced (using <code>unref()</code>) until the
+child registers an event handler for the <a href="javascript:if(confirm('http://nodejs.cn/s/n6LBD8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/n6LBD8'" tppabs="http://nodejs.cn/s/n6LBD8" rel="nofollow"><code>&apos;disconnect&apos;</code></a> event
+or the <a href="javascript:if(confirm('http://nodejs.cn/s/vYuu5g  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vYuu5g'" tppabs="http://nodejs.cn/s/vYuu5g" rel="nofollow"><code>&apos;message&apos;</code></a> event. This allows the child to exit
+normally without the process being held open by the open IPC channel.</em></p><p>On UNIX-like operating systems, the <a href="javascript:if(confirm('http://nodejs.cn/s/CKoDGf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/CKoDGf'" tppabs="http://nodejs.cn/s/CKoDGf" rel="nofollow"><code>child_process.spawn()</code></a> method
+performs memory operations synchronously before decoupling the event loop
+from the child. Applications with a large memory footprint may find frequent
+<a href="javascript:if(confirm('http://nodejs.cn/s/CKoDGf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/CKoDGf'" tppabs="http://nodejs.cn/s/CKoDGf" rel="nofollow"><code>child_process.spawn()</code></a> calls to be a bottleneck. For more information,
+see <a href="javascript:if(confirm('https://bugs.chromium.org/p/v8/issues/detail?id=7381  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://bugs.chromium.org/p/v8/issues/detail?id=7381'" tppabs="https://bugs.chromium.org/p/v8/issues/detail?id=7381" rel="nofollow">V8 issue 7381</a>.</p><p>See also: <a href="javascript:if(confirm('http://nodejs.cn/s/pkpJMy  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/pkpJMy'" tppabs="http://nodejs.cn/s/pkpJMy" rel="nofollow"><code>child_process.exec()</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/VDCJMa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/VDCJMa'" tppabs="http://nodejs.cn/s/VDCJMa" rel="nofollow"><code>child_process.fork()</code></a>.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712012923"><\/script>');
+  </script>
+</body>
+</html>

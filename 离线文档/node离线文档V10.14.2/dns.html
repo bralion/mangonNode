@@ -1,0 +1,1389 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>dns | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712018547" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-dns">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns active" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="dns" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><span class="stability_2"><a href="#dns_dns">dns&#xFF08;&#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;&#xFF09;</a></span></p>
+<ul>
+<li>
+<p><a href="#dns_class_dns_resolver">Class: dns.Resolver</a></p>
+<ul>
+<li><a href="#dns_resolver_cancel">resolver.cancel()</a></li>
+</ul>
+</li>
+<li><a href="#dns_dns_getservers">dns.getServers()</a></li>
+<li>
+<p><a href="#dns_dns_lookup_hostname_options_callback">dns.lookup(hostname[, options], callback)</a></p>
+<ul>
+<li><a href="#dns_supported_getaddrinfo_flags">Supported getaddrinfo flags</a></li>
+</ul>
+</li>
+<li><a href="#dns_dns_lookupservice_address_port_callback">dns.lookupService(address, port, callback)</a></li>
+<li><a href="#dns_dns_resolve_hostname_rrtype_callback">dns.resolve(hostname[, rrtype], callback)</a></li>
+<li><a href="#dns_dns_resolve4_hostname_options_callback">dns.resolve4(hostname[, options], callback)</a></li>
+<li><a href="#dns_dns_resolve6_hostname_options_callback">dns.resolve6(hostname[, options], callback)</a></li>
+<li><a href="#dns_dns_resolveany_hostname_callback">dns.resolveAny(hostname, callback)</a></li>
+<li><a href="#dns_dns_resolvecname_hostname_callback">dns.resolveCname(hostname, callback)</a></li>
+<li><a href="#dns_dns_resolvemx_hostname_callback">dns.resolveMx(hostname, callback)</a></li>
+<li><a href="#dns_dns_resolvenaptr_hostname_callback">dns.resolveNaptr(hostname, callback)</a></li>
+<li><a href="#dns_dns_resolvens_hostname_callback">dns.resolveNs(hostname, callback)</a></li>
+<li><a href="#dns_dns_resolveptr_hostname_callback">dns.resolvePtr(hostname, callback)</a></li>
+<li><a href="#dns_dns_resolvesoa_hostname_callback">dns.resolveSoa(hostname, callback)</a></li>
+<li><a href="#dns_dns_resolvesrv_hostname_callback">dns.resolveSrv(hostname, callback)</a></li>
+<li><a href="#dns_dns_resolvetxt_hostname_callback">dns.resolveTxt(hostname, callback)</a></li>
+<li><a href="#dns_dns_reverse_ip_callback">dns.reverse(ip, callback)</a></li>
+<li><a href="#dns_dns_setservers_servers">dns.setServers(servers)</a></li>
+<li>
+<p><a href="#dns_dns_promises_api">DNS Promises API</a></p>
+<ul>
+<li><a href="#dns_class_dnspromises_resolver">Class: dnsPromises.Resolver</a></li>
+<li><a href="#dns_dnspromises_getservers">dnsPromises.getServers()</a></li>
+<li><a href="#dns_dnspromises_lookup_hostname_options">dnsPromises.lookup(hostname[, options])</a></li>
+<li><a href="#dns_dnspromises_lookupservice_address_port">dnsPromises.lookupService(address, port)</a></li>
+<li><a href="#dns_dnspromises_resolve_hostname_rrtype">dnsPromises.resolve(hostname[, rrtype])</a></li>
+<li><a href="#dns_dnspromises_resolve4_hostname_options">dnsPromises.resolve4(hostname[, options])</a></li>
+<li><a href="#dns_dnspromises_resolve6_hostname_options">dnsPromises.resolve6(hostname[, options])</a></li>
+<li><a href="#dns_dnspromises_resolveany_hostname">dnsPromises.resolveAny(hostname)</a></li>
+<li><a href="#dns_dnspromises_resolvecname_hostname">dnsPromises.resolveCname(hostname)</a></li>
+<li><a href="#dns_dnspromises_resolvemx_hostname">dnsPromises.resolveMx(hostname)</a></li>
+<li><a href="#dns_dnspromises_resolvenaptr_hostname">dnsPromises.resolveNaptr(hostname)</a></li>
+<li><a href="#dns_dnspromises_resolvens_hostname">dnsPromises.resolveNs(hostname)</a></li>
+<li><a href="#dns_dnspromises_resolveptr_hostname">dnsPromises.resolvePtr(hostname)</a></li>
+<li><a href="#dns_dnspromises_resolvesoa_hostname">dnsPromises.resolveSoa(hostname)</a></li>
+<li><a href="#dns_dnspromises_resolvesrv_hostname">dnsPromises.resolveSrv(hostname)</a></li>
+<li><a href="#dns_dnspromises_resolvetxt_hostname">dnsPromises.resolveTxt(hostname)</a></li>
+<li><a href="#dns_dnspromises_reverse_ip">dnsPromises.reverse(ip)</a></li>
+<li><a href="#dns_dnspromises_setservers_servers">dnsPromises.setServers(servers)</a></li>
+</ul>
+</li>
+<li><a href="#dns_error_codes">&#x9519;&#x8BEF;&#x7801;</a></li>
+<li>
+<p><a href="#dns_implementation_considerations">&#x5B9E;&#x73B0;&#x4E0A;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;</a></p>
+<ul>
+<li><a href="#dns_dns_lookup"><code>dns.lookup()</code></a></li>
+<li><a href="#dns_dns_resolve_dns_resolve_and_dns_reverse"><code>dns.resolve()</code>, <code>dns.resolve*()</code> and <code>dns.reverse()</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>dns&#xFF08;&#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;&#xFF09;<span><a class="mark" href="#dns_dns" id="dns_dns" rel="nofollow">#</a></span></h1><p class="tip_wrap"><a href="dns-1.html" tppabs="http://nodejs.cn/api/dns/dns.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<!--introduced_in=v0.10.0-->
+<p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p>
+<p><code>dns</code> &#x6A21;&#x5757;&#x5305;&#x542B;&#x4E24;&#x7C7B;&#x51FD;&#x6570;&#xFF1A;</p>
+<p>1) &#x7B2C;&#x4E00;&#x7C7B;&#x51FD;&#x6570;&#xFF0C;&#x4F7F;&#x7528;&#x5E95;&#x5C42;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5DE5;&#x5177;&#x8FDB;&#x884C;&#x57DF;&#x540D;&#x89E3;&#x6790;&#xFF0C;&#x4E14;&#x65E0;&#x9700;&#x8FDB;&#x884C;&#x7F51;&#x7EDC;&#x901A;&#x4FE1;&#x3002;
+&#x8FD9;&#x7C7B;&#x51FD;&#x6570;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#xFF1A;<a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a>&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF0C;&#x67E5;&#x627E; <code>iana.org</code>&#xFF1A;</p>
+<pre><code class="language-js">const dns = require(&apos;dns&apos;);
+
+dns.lookup(&apos;iana.org&apos;, (err, address, family) =&gt; {
+  console.log(&apos;IP &#x5730;&#x5740;: %j &#x5730;&#x5740;&#x65CF;: IPv%s&apos;, address, family);
+});
+// IP &#x5730;&#x5740;: &quot;192.0.43.8&quot; &#x5730;&#x5740;&#x65CF;: IPv4
+</code></pre>
+<p>2) &#x7B2C;&#x4E8C;&#x7C7B;&#x51FD;&#x6570;&#xFF0C;&#x8FDE;&#x63A5;&#x5230;&#x4E00;&#x4E2A;&#x771F;&#x5B9E;&#x7684; DNS &#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x57DF;&#x540D;&#x89E3;&#x6790;&#xFF0C;&#x4E14;&#x59CB;&#x7EC8;&#x4F7F;&#x7528;&#x7F51;&#x7EDC;&#x8FDB;&#x884C; DNS &#x67E5;&#x8BE2;&#x3002;
+&#x8FD9;&#x7C7B;&#x51FD;&#x6570;&#x5305;&#x542B;&#x4E86; <code>dns</code> &#x6A21;&#x5757;&#x4E2D;&#x9664; <a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a> &#x4EE5;&#x5916;&#x7684;&#x6240;&#x6709;&#x51FD;&#x6570;&#x3002;
+&#x8FD9;&#x4E9B;&#x51FD;&#x6570;&#x4F7F;&#x7528;&#x4E0E; <code>dns.lookup()</code> &#x4E0D;&#x540C;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF08;&#x4F8B;&#x5982; <code>/etc/hosts</code>&#xFF09;&#x3002;
+&#x8FD9;&#x7C7B;&#x51FD;&#x6570;&#x9002;&#x5408;&#x4E8E;&#x90A3;&#x4E9B;&#x4E0D;&#x60F3;&#x4F7F;&#x7528;&#x5E95;&#x5C42;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5DE5;&#x5177;&#x8FDB;&#x884C;&#x57DF;&#x540D;&#x89E3;&#x6790;&#x3001;&#x800C;&#x662F;&#x60F3;&#x4F7F;&#x7528;&#x7F51;&#x7EDC;&#x8FDB;&#x884C; DNS &#x67E5;&#x8BE2;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x3002;</p>
+<p>&#x4F8B;&#x5B50;&#xFF0C;&#x89E3;&#x6790; <code>&apos;archive.org&apos;</code> &#x7136;&#x540E;&#x9006;&#x5411;&#x89E3;&#x6790;&#x8FD4;&#x56DE;&#x7684; IP &#x5730;&#x5740;&#xFF1A;</p>
+<pre><code class="language-js">const dns = require(&apos;dns&apos;);
+
+dns.resolve4(&apos;archive.org&apos;, (err, addresses) =&gt; {
+  if (err) throw err;
+
+  console.log(`IP &#x5730;&#x5740;: ${JSON.stringify(addresses)}`);
+
+  addresses.forEach((a) =&gt; {
+    dns.reverse(a, (err, hostnames) =&gt; {
+      if (err) {
+        throw err;
+      }
+      console.log(`IP &#x5730;&#x5740; ${a} &#x9006;&#x5411;&#x89E3;&#x6790;&#x5230;&#x57DF;&#x540D;: ${JSON.stringify(hostnames)}`);
+    });
+  });
+});
+</code></pre>
+<p>&#x4E24;&#x7C7B;&#x51FD;&#x6570;&#x6709;&#x5FAE;&#x5999;&#x7684;&#x5DEE;&#x522B;&#xFF0C;&#x8BE6;&#x89C1; <a href="javascript:if(confirm('http://nodejs.cn/s/fC4ou7  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fC4ou7'" tppabs="http://nodejs.cn/s/fC4ou7" rel="nofollow">&#x5B9E;&#x73B0;&#x4E0A;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;</a>&#x3002;</p>
+<h2>Class: dns.Resolver<span><a class="mark" href="#dns_class_dns_resolver" id="dns_class_dns_resolver" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="class_dns_resolver.html" tppabs="http://nodejs.cn/api/dns/class_dns_resolver.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.3.0</span>
+</div>
+<p>DNS&#x8BF7;&#x6C42;&#x7684;&#x72EC;&#x7ACB;&#x89E3;&#x6790;&#x7A0B;&#x5E8F;&#x3002;</p>
+<p>&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x7684;&#x8BBE;&#x7F6E;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x89E3;&#x6790;&#x7A0B;&#x5E8F;&#x3002;&#x4E3A;&#x4E00;&#x4E2A;&#x89E3;&#x6790;&#x7A0B;&#x5E8F;&#x8BBE;&#x7F6E;servers&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/K4y1Dd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/K4y1Dd'" tppabs="http://nodejs.cn/s/K4y1Dd" rel="nofollow"><code>resolver.setServers()</code></a>&#xFF0C;&#x5B83;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x5176;&#x4ED6;&#x7684;&#x89E3;&#x6790;&#x7A0B;&#x5E8F;&#xFF1A;</p>
+<pre><code class="language-js">const { Resolver } = require(&apos;dns&apos;);
+const resolver = new Resolver();
+resolver.setServers([&apos;4.4.4.4&apos;]);
+
+// This request will use the server at 4.4.4.4, independent of global settings.
+resolver.resolve4(&apos;example.org&apos;, (err, addresses) =&gt; {
+  // ...
+});
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7684;<code>dns</code>&#x6A21;&#x5757;&#x7684;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/b9Wj32  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/b9Wj32'" tppabs="http://nodejs.cn/s/b9Wj32" rel="nofollow"><code>resolver.getServers()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/K4y1Dd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/K4y1Dd'" tppabs="http://nodejs.cn/s/K4y1Dd" rel="nofollow"><code>resolver.setServers()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/wWS6mS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wWS6mS'" tppabs="http://nodejs.cn/s/wWS6mS" rel="nofollow"><code>resolver.resolve()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/bkouRT  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/bkouRT'" tppabs="http://nodejs.cn/s/bkouRT" rel="nofollow"><code>resolver.resolve4()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/uWo3QT  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uWo3QT'" tppabs="http://nodejs.cn/s/uWo3QT" rel="nofollow"><code>resolver.resolve6()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/AhgtkV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/AhgtkV'" tppabs="http://nodejs.cn/s/AhgtkV" rel="nofollow"><code>resolver.resolveAny()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/UwXGoo  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UwXGoo'" tppabs="http://nodejs.cn/s/UwXGoo" rel="nofollow"><code>resolver.resolveCname()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/Xm7Kak  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Xm7Kak'" tppabs="http://nodejs.cn/s/Xm7Kak" rel="nofollow"><code>resolver.resolveMx()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/uCLTRh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uCLTRh'" tppabs="http://nodejs.cn/s/uCLTRh" rel="nofollow"><code>resolver.resolveNaptr()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/623FRf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/623FRf'" tppabs="http://nodejs.cn/s/623FRf" rel="nofollow"><code>resolver.resolveNs()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/USS5jX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/USS5jX'" tppabs="http://nodejs.cn/s/USS5jX" rel="nofollow"><code>resolver.resolvePtr()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/QgkH6F  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/QgkH6F'" tppabs="http://nodejs.cn/s/QgkH6F" rel="nofollow"><code>resolver.resolveSoa()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/mmTjFF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mmTjFF'" tppabs="http://nodejs.cn/s/mmTjFF" rel="nofollow"><code>resolver.resolveSrv()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/oQKPWT  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/oQKPWT'" tppabs="http://nodejs.cn/s/oQKPWT" rel="nofollow"><code>resolver.resolveTxt()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/EByarc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/EByarc'" tppabs="http://nodejs.cn/s/EByarc" rel="nofollow"><code>resolver.reverse()</code></a></li>
+</ul>
+<h3>resolver.cancel()<span><a class="mark" href="#dns_resolver_cancel" id="dns_resolver_cancel" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="resolver_cancel.html" tppabs="http://nodejs.cn/api/dns/resolver_cancel.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.3.0</span>
+</div>
+<p>&#x53D6;&#x6D88;&#x8FD9;&#x4E2A;&#x89E3;&#x6790;&#x7A0B;&#x5E8F;&#x7684;&#x672A;&#x89E3;&#x51B3;&#x7684;DNS&#x67E5;&#x8BE2;&#xFF0C;&#x76F8;&#x5E94;&#x7684;&#x56DE;&#x8C03;&#x7528;&#x4E00;&#x4E2A;<code>ECANCELLED</code>&#x7801;&#x8C03;&#x7528;&#x3002;</p>
+<h2>dns.getServers()<span><a class="mark" href="#dns_dns_getservers" id="dns_dns_getservers" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_getservers.html" tppabs="http://nodejs.cn/api/dns/dns_getservers.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.3</span>
+</div>
+<p>&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x5F53;&#x524D;DNS&#x89E3;&#x6790;&#x7684;IP&#x5730;&#x5740;&#x7684;&#x6570;&#x7EC4;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x683C;&#x5F0F;&#x6839;&#x636E;<a href="javascript:if(confirm('http://nodejs.cn/s/jzbgfM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jzbgfM'" tppabs="http://nodejs.cn/s/jzbgfM" rel="nofollow">rfc5952</a>&#x3002;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x7AEF;&#x53E3;&#xFF0C;&#x90A3;&#x4E48;&#x5B57;&#x7B26;&#x4E32;&#x5C06;&#x5305;&#x62EC;&#x4E00;&#x4E2A;&#x7AEF;&#x53E3;&#x90E8;&#x5206;&#x3002;</p>
+<p>&#x4F8B;&#x5982;:</p>
+<!-- eslint-disable semi-->
+<pre><code class="language-js">[
+  &apos;4.4.4.4&apos;,
+  &apos;2001:4860:4860::8888&apos;,
+  &apos;4.4.4.4:1053&apos;,
+  &apos;[2001:4860:4860::8888]:1053&apos;
+]
+</code></pre>
+<h2>dns.lookup(hostname[, options], callback)<span><a class="mark" href="#dns_dns_lookup_hostname_options_callback" id="dns_dns_lookup_hostname_options_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_lookup_hostname_options_callback.html" tppabs="http://nodejs.cn/api/dns/dns_lookup_hostname_options_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v1.2.0</td>
+<td><p>The <code>all</code> option is supported now.</p></td></tr>
+<tr><td>v0.1.90</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>family</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> The record family. Must be <code>4</code> or <code>6</code>. IPv4
+and IPv6 addresses are both returned by default.</li>
+<li><code>hints</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> One or more <a href="javascript:if(confirm('http://nodejs.cn/s/WpjMXq  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/WpjMXq'" tppabs="http://nodejs.cn/s/WpjMXq" rel="nofollow">supported <code>getaddrinfo</code> flags</a>. Multiple
+flags may be passed by bitwise <code>OR</code>ing their values.</li>
+<li><code>all</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> When <code>true</code>, the callback returns all resolved addresses in
+an array. Otherwise, returns a single address. <strong>Default:</strong> <code>false</code></li>
+<li><code>verbatim</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> When <code>true</code>, the callback receives IPv4 and IPv6
+addresses in the order the DNS resolver returned them.  When <code>false</code>,
+IPv4 addresses are placed before IPv6 addresses.
+<strong>Default:</strong> currently <code>false</code> (addresses are reordered) but this is expected
+to change in the not too distant future.
+New code should use <code>{ verbatim: true }</code>.</li>
+</ul>
+</li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>address</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> A string representation of an IPv4 or IPv6 address.</li>
+<li><code>family</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> <code>4</code> or <code>6</code>, denoting the family of <code>address</code>.</li>
+</ul>
+</li>
+</ul>
+<p>&#x89E3;&#x6790;<code>hostname</code>(&#x4F8B;&#x5982;&#xFF1A;<code>&apos;nodejs.org&apos;</code>)&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x627E;&#x5230;&#x7684;A&#xFF08;IPv4&#xFF09;&#x6216;AAAA&#xFF08;IPv6&#xFF09;&#x8BB0;&#x5F55;&#x3002;<code>options</code>&#x53EF;&#x4EE5;&#x662F;&#x5BF9;&#x8C61;&#x6216;&#x8005;&#x6574;&#x6570;&#x3002;&#x5982;&#x679C;<code>options</code>&#x6CA1;&#x6709;&#x88AB;&#x63D0;&#x4F9B;&#xFF0C;&#x90A3;&#x4E48;IPv4 &#x548C; IPv6&#x90FD;&#x662F;&#x6709;&#x6548;&#x7684;&#x3002;&#x5982;&#x679C;<code>options</code>&#x662F;&#x6574;&#x6570;&#xFF0C;&#x53EA;&#x80FD;&#x662F;<code>4</code>&#x6216;<code>6</code>&#x3002;</p>
+<p>&#x53E6;&#x5916;&#xFF0C;<code>options</code>&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;&#x542B;&#x6709;&#x4EE5;&#x4E0B;&#x5C5E;&#x6027;&#x7684;&#x5BF9;&#x8C61;&#xFF1A;</p>
+<ul>
+<li><code>family</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> - T&#x5730;&#x5740;&#x65CF;&#x3002;&#x5982;&#x679C;&#x63D0;&#x4F9B;&#xFF0C;&#x5FC5;&#x987B;&#x4E3A;&#x6574;&#x6570;4&#x6216;6&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x63D0;&#x4F9B;&#xFF0C;&#x53EA;&#x63A5;&#x53D7;IPv4&#x548C;IPv6&#x5730;&#x5740;&#x3002;</li>
+<li><code>hints</code>: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> - &#x5982;&#x679C;&#x63D0;&#x4F9B;&#xFF0C;&#x5B83;&#x5FC5;&#x987B;&#x662F;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x652F;&#x6301;&#x7684;<code>getaddrinfo</code>&#x6807;&#x8BC6;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x63D0;&#x4F9B;&#xFF0C;&#x90A3;&#x4E48;&#x6CA1;&#x6709;&#x6807;&#x8BC6;&#x88AB;&#x4F20;&#x9012;&#x7ED9;<code>getaddrinfo</code>&#x3002;&#x591A;&#x4E2A;&#x6807;&#x8BC6;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5728;&#x903B;&#x8F91;&#x4E0A;<code>OR</code>ing&#x5B83;&#x4EEC;&#x7684;&#x503C;&#xFF0C;&#x6765;&#x4F20;&#x9012;&#x7ED9;hints&#x3002;&#x652F;&#x6301;&#x7684;<code>getaddrinfo</code>&#x6807;&#x8BC6;&#x8BF7;&#x53C2;&#x9605;&#x4E0B;&#x6587;&#x3002;&#x6709;&#x5173;&#x652F;&#x6301;&#x7684;&#x6807;&#x5FD7;&#x7684;&#x66F4;&#x591A;&#x4FE1;&#x606F;&#x8BF7;&#x67E5;&#x8BE2;<a href="javascript:if(confirm('http://nodejs.cn/s/WpjMXq  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/WpjMXq'" tppabs="http://nodejs.cn/s/WpjMXq" rel="nofollow">supported <code>getaddrinfo</code> flags</a>&#x7AE0;&#x8282;&#x3002;</li>
+<li><code>all</code>: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> - &#x503C;&#x4E3A;<code>true</code>&#x65F6;&#xFF0C; &#x56DE;&#x8C03;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x6240;&#x6709;&#x89E3;&#x6790;&#x540E;&#x5730;&#x5740;&#x7684;&#x6570;&#x7EC4;&#xFF0C;&#x5426;&#x5219;&#x53EA;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5730;&#x5740;&#x3002;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;<code>false</code>&#x3002;</li>
+</ul>
+<p>&#x6240;&#x6709;&#x7684;&#x53C2;&#x6570;&#x90FD;&#x662F;&#x53EF;&#x9009;&#x7684;&#x3002;</p>
+<p>&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x5305;&#x542B;<code>(err, address, family)</code>&#x53C2;&#x6570;&#x3002;<code>address</code>&#x662F;IPv4&#x6216;IPv6&#x5730;&#x5740;&#x5B57;&#x7B26;&#x4E32;&#x3002;<code>family</code>&#x3001;&#x662F;&#x6574;&#x6570;4&#x6216;6&#xFF0C;&#x8868;&#x793A;&#x5730;&#x5740;&#x65CF;&#xFF08;&#x4E0D;&#x4E00;&#x5B9A;&#x662F;&#x6700;&#x521D;&#x4F20;&#x9012;&#x7ED9;&#x67E5;&#x627E;&#x7684;&#x503C;&#xFF09;&#x3002;</p>
+<p>&#x5F53;<code>all</code>&#x5C5E;&#x6027;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;<code>true</code>&#x65F6;&#xFF0C;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x53C2;&#x6570;&#x53D8;&#x4E3A;<code>(err, addresses)</code>&#xFF0C;<code>addresses</code>&#x5219;&#x53D8;&#x6210;&#x4E00;&#x4E2A;&#x7531;<code>address</code> &#x548C; <code>family</code> &#x5C5E;&#x6027;&#x7EC4;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#x6570;&#x7EC4;&#x3002;</p>
+<p>&#x53D1;&#x751F;&#x9519;&#x8BEF;&#x65F6;&#xFF0C;<code>err</code>&#x662F;&#x4E00;&#x4E2A;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x5BF9;&#x8C61;&#xFF0C;<code>err.code</code>&#x662F;&#x9519;&#x8BEF;&#x7801;&#x3002;&#x4E0D;&#x4EC5;&#x5728;&#x4E3B;&#x673A;&#x540D;&#x4E0D;&#x5B58;&#x5728;&#x65F6;&#xFF0C;&#x5728;&#x5982;&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x7B49;&#x60C5;&#x51B5;&#x4E0B;&#x67E5;&#x627E;&#x5931;&#x8D25;&#xFF0C;err.code&#x4E5F;&#x4F1A;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;<code>&apos;ENOENT&apos;</code>&#x3002;</p>
+<p><code>dns.lookup()</code> &#x4E0D;&#x9700;&#x8981;&#x4E0E;DNS&#x534F;&#x8BAE;&#x6709;&#x4EFB;&#x4F55;&#x5173;&#x7CFB;&#x3002;&#x5B83;&#x4EC5;&#x4EC5;&#x662F;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x540D;&#x5B57;&#x548C;&#x5730;&#x5740;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x529F;&#x80FD;&#x3002;&#x5728;&#x4EFB;&#x4F55;&#x7684;node.js&#x7A0B;&#x5E8F;&#x4E2D;&#xFF0C;&#x5B83;&#x7684;&#x5B9E;&#x73B0;&#x5BF9;&#x8868;&#x73B0;&#x6709;&#x4E00;&#x4E9B;&#x5FAE;&#x5999;&#x4F46;&#x662F;&#x91CD;&#x8981;&#x7684;&#x5F71;&#x54CD;&#x3002;&#x5728;&#x4F7F;&#x7528;<code>dns.lookup()</code>&#x4E4B;&#x524D;&#x8BF7;&#x82B1;&#x4E9B;&#x65F6;&#x95F4;&#x67E5;&#x8BE2;<a href="javascript:if(confirm('http://nodejs.cn/s/fC4ou7  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fC4ou7'" tppabs="http://nodejs.cn/s/fC4ou7" rel="nofollow">Implementation considerations section</a>&#x7AE0;&#x8282;&#x3002;</p>
+<p>&#x4F7F;&#x7528;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">const dns = require(&apos;dns&apos;);
+const options = {
+  family: 6,
+  hints: dns.ADDRCONFIG | dns.V4MAPPED,
+};
+dns.lookup(&apos;example.com&apos;, options, (err, address, family) =&gt;
+  console.log(&apos;address: %j family: IPv%s&apos;, address, family));
+// address: &quot;2606:2800:220:1:248:1893:25c8:1946&quot; family: IPv6
+
+// When options.all is true, the result will be an Array.
+options.all = true;
+dns.lookup(&apos;example.com&apos;, options, (err, addresses) =&gt;
+  console.log(&apos;addresses: %j&apos;, addresses));
+// addresses: [{&quot;address&quot;:&quot;2606:2800:220:1:248:1893:25c8:1946&quot;,&quot;family&quot;:6}]
+</code></pre>
+<p>If this method is invoked as its <a href="javascript:if(confirm('http://nodejs.cn/s/DGMNHh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/DGMNHh'" tppabs="http://nodejs.cn/s/DGMNHh" rel="nofollow"><code>util.promisify()</code></a>ed version, and <code>all</code>
+is not set to <code>true</code>, it returns a Promise for an object with <code>address</code> and
+<code>family</code> properties.</p>
+<h3>Supported getaddrinfo flags<span><a class="mark" href="#dns_supported_getaddrinfo_flags" id="dns_supported_getaddrinfo_flags" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="supported_getaddrinfo_flags.html" tppabs="http://nodejs.cn/api/dns/supported_getaddrinfo_flags.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;hints&#x6807;&#x5FD7;&#x4F20;&#x9012;&#x7ED9;<a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a>&#x3002;</p>
+<ul>
+<li><code>dns.ADDRCONFIG</code>: &#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x7CFB;&#x7EDF;&#x652F;&#x6301;&#x7684;&#x5730;&#x5740;&#x7C7B;&#x578B;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5982;&#x679C;&#x5F53;&#x524D;&#x7CFB;&#x7EDF;&#x81F3;&#x5C11;&#x914D;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A; IPv4 &#x5730;&#x5740;&#xFF0C;&#x5219;&#x8FD4;&#x56DE; IPv4&#x5730;&#x5740;&#x3002;&#x4E0D;&#x8003;&#x8651;&#x56DE;&#x73AF;&#x5730;&#x5740;&#x3002;</li>
+<li><code>dns.V4MAPPED</code>: &#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; IPv6 &#x5BB6;&#x65CF;&#xFF0C; &#x4F46;&#x662F;&#x6CA1;&#x6709;&#x627E;&#x5230; IPv6 &#x5730;&#x5740;&#xFF0C;&#x5C06;&#x8FD4;&#x56DE; IPv4 &#x6620;&#x5C04;&#x7684; IPv6&#x5730;&#x5740;&#x3002;&#x5728;&#x6709;&#x4E9B;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x4E0D;&#x652F;&#x6301;&#xFF08;e.g FreeBSD 10.1&#xFF09;&#x3002;</li>
+</ul>
+<h2>dns.lookupService(address, port, callback)<span><a class="mark" href="#dns_dns_lookupservice_address_port_callback" id="dns_dns_lookupservice_address_port_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_lookupservice_address_port_callback.html" tppabs="http://nodejs.cn/api/dns/dns_lookupservice_address_port_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.14</span>
+</div>
+<ul>
+<li><code>address</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> e.g. <code>example.com</code></li>
+<li><code>service</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> e.g. <code>http</code></li>
+</ul>
+</li>
+</ul>
+<p>&#x5C06;&#x53C2;&#x6570;<code>address</code>&#x548C;<code>port</code>&#x4F20;&#x5165;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5E95;&#x5C42;<code>getnameinfo</code>&#x670D;&#x52A1;&#x6765;&#x89E3;&#x6790;&#x5904;&#x7406;&#x5E76;&#x8FD4;&#x56DE;&#x4E3B;&#x673A;&#x540D;&#x3002;</p>
+<p>&#x5982;&#x679C;<code>address</code>&#x4E0D;&#x662F;&#x6709;&#x6548;&#x7684;IP&#x5730;&#x5740;&#xFF0C;&#x4F1A;&#x629B;&#x51FA;<code>TypeError</code>&#x3002;<code>port</code>&#x5FC5;&#x987B;&#x662F;&#x4E00;&#x4E2A;&#x6574;&#x6570;.&#x5982;&#x679C;&#x4E0D;&#x662F;&#x89C4;&#x5B9A;&#x7684;&#x7AEF;&#x53E3;&#x53F7;&#xFF0C;&#x4F1A;&#x629B;&#x51FA;<code>TypeError</code>.</p>
+<p>&#x51FA;&#x9519;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;<code>err</code>&#x662F;&#x4E00;&#x4E2A;<code>Error</code>&#x5BF9;&#x8C61;&#xFF0C;<code>err.code</code>&#x4EE3;&#x7801;&#x9519;&#x8BEF;&#x7801;&#x3002;</p>
+<pre><code class="language-js">const dns = require(&apos;dns&apos;);
+dns.lookupService(&apos;127.0.0.1&apos;, 22, (err, hostname, service) =&gt; {
+  console.log(hostname, service);
+  // Prints: localhost ssh
+});
+</code></pre>
+<p>&#x5982;&#x679C;&#x4EE5; <a href="javascript:if(confirm('http://nodejs.cn/s/DGMNHh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/DGMNHh'" tppabs="http://nodejs.cn/s/DGMNHh" rel="nofollow"><code>util.promisify()</code></a> &#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x8C03;&#x7528;, &#x5B83;&#x5C06;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5305;&#x542B;<code>hostname</code>&#x548C;<code>service</code>&#x5C5E;&#x6027;&#x7684; Promise &#x5BF9;&#x8C61;&#x3002;</p>
+<h2>dns.resolve(hostname[, rrtype], callback)<span><a class="mark" href="#dns_dns_resolve_hostname_rrtype_callback" id="dns_dns_resolve_hostname_rrtype_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_resolve_hostname_rrtype_callback.html" tppabs="http://nodejs.cn/api/dns/dns_resolve_hostname_rrtype_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.27</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x89E3;&#x6790;&#x7684;&#x4E3B;&#x673A;&#x540D;&#x3002;</li>
+<li><code>rrtype</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x8D44;&#x6E90;&#x8BB0;&#x5F55;&#x7C7B;&#x578B;. &#x9ED8;&#x8BA4;: <code>&apos;A&apos;</code>.</li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>records</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object[]&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>&#x4F7F;&#x7528;DNS&#x534F;&#x8BAE;&#x6765;&#x89E3;&#x6790;&#x4E00;&#x4E2A;&#x4E3B;&#x673A;&#x540D;(e.g. <code>&apos;nodejs.org&apos;</code>)&#x4E3A;&#x4E00;&#x4E2A;&#x8D44;&#x6E90;&#x8BB0;&#x5F55;&#x7684;&#x6570;&#x7EC4;&#x3002;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x4E3A;<code>(err, records)</code>&#x3002;&#x5F53;&#x6210;&#x529F;&#x65F6;&#xFF0C;<code>records</code>&#x5C06;&#x662F;&#x4E00;&#x4E2A;&#x8D44;&#x6E90;&#x8BB0;&#x5F55;&#x7684;&#x6570;&#x7EC4;&#x3002;&#x5B83;&#x7684;&#x7C7B;&#x578B;&#x548C;&#x7ED3;&#x6784;&#x53D6;&#x51B3;&#x4E8E;<code>rrtype</code>&#xFF1A;</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th><code>rrtype</code></th><th><code>records</code> contains</th><th>Result type</th><th>Shorthand method</th></tr></thead><tbody><tr><td><code>&apos;A&apos;</code></td><td>IPv4 addresses (default)</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/bkouRT  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/bkouRT'" tppabs="http://nodejs.cn/s/bkouRT" rel="nofollow"><code>dns.resolve4()</code></a></td></tr><tr><td><code>&apos;AAAA&apos;</code></td><td>IPv6 addresses</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/uWo3QT  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uWo3QT'" tppabs="http://nodejs.cn/s/uWo3QT" rel="nofollow"><code>dns.resolve6()</code></a></td></tr><tr><td><code>&apos;CNAME&apos;</code></td><td>canonical name records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/UwXGoo  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UwXGoo'" tppabs="http://nodejs.cn/s/UwXGoo" rel="nofollow"><code>dns.resolveCname()</code></a></td></tr><tr><td><code>&apos;MX&apos;</code></td><td>mail exchange records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/Xm7Kak  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Xm7Kak'" tppabs="http://nodejs.cn/s/Xm7Kak" rel="nofollow"><code>dns.resolveMx()</code></a></td></tr><tr><td><code>&apos;NAPTR&apos;</code></td><td>name authority pointer records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/uCLTRh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uCLTRh'" tppabs="http://nodejs.cn/s/uCLTRh" rel="nofollow"><code>dns.resolveNaptr()</code></a></td></tr><tr><td><code>&apos;NS&apos;</code></td><td>name server records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/623FRf  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/623FRf'" tppabs="http://nodejs.cn/s/623FRf" rel="nofollow"><code>dns.resolveNs()</code></a></td></tr><tr><td><code>&apos;PTR&apos;</code></td><td>pointer records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/USS5jX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/USS5jX'" tppabs="http://nodejs.cn/s/USS5jX" rel="nofollow"><code>dns.resolvePtr()</code></a></td></tr><tr><td><code>&apos;SOA&apos;</code></td><td>start of authority records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/QgkH6F  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/QgkH6F'" tppabs="http://nodejs.cn/s/QgkH6F" rel="nofollow"><code>dns.resolveSoa()</code></a></td></tr><tr><td><code>&apos;SRV&apos;</code></td><td>service records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/mmTjFF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mmTjFF'" tppabs="http://nodejs.cn/s/mmTjFF" rel="nofollow"><code>dns.resolveSrv()</code></a></td></tr><tr><td><code>&apos;TXT&apos;</code></td><td>text records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/oQKPWT  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/oQKPWT'" tppabs="http://nodejs.cn/s/oQKPWT" rel="nofollow"><code>dns.resolveTxt()</code></a></td></tr><tr><td><code>&apos;ANY&apos;</code></td><td>any records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/AhgtkV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/AhgtkV'" tppabs="http://nodejs.cn/s/AhgtkV" rel="nofollow"><code>dns.resolveAny()</code></a></td></tr></tbody></table>
+<p>&#x51FA;&#x9519;&#x65F6;&#xFF0C;<code>err</code>&#x662F;&#x4E00;&#x4E2A;<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> object&#xFF0C;<code>err.code</code>&#x662F;<a href="#dns_error_codes" rel="nofollow">DNS error codes</a>&#x7684;&#x4E00;&#x79CD;&#x3002;</p>
+<h2>dns.resolve4(hostname[, options], callback)<span><a class="mark" href="#dns_dns_resolve4_hostname_options_callback" id="dns_dns_resolve4_hostname_options_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_resolve4_hostname_options_callback.html" tppabs="http://nodejs.cn/api/dns/dns_resolve4_hostname_options_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v7.2.0</td>
+<td><p>This method now supports passing <code>options</code>, specifically <code>options.ttl</code>.</p></td></tr>
+<tr><td>v0.1.16</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.16</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x9700;&#x8981;&#x89E3;&#x6790;&#x7684;&#x4E3B;&#x673A;&#x540D;&#x3002;</li>
+<li><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a>
+&#xA0;- <code>ttl</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x8BB0;&#x5F55;&#x6BCF;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#x7684;&#x5B58;&#x6D3B;&#x6B21;&#x6570; (TTL)&#x3002;&#x5982;&#x679C;&#x4E3A; <code>true</code>&#xFF0C; &#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x679C;&#x5C06;&#x4F1A;&#x4E3A; <code>Object</code> &#x7684;&#x6570;&#x7EC4;&#xFF0C;&#x5C31;&#x50CF; <code>{ address: &apos;1.2.3.4&apos;, ttl: 60 }</code> &#x5E26;&#x6709; <code>TTL</code> &#x79D2;&#x6570;&#x7684;&#x8BB0;&#x5F55;&#xFF0C;&#x800C;&#x4E0D;&#x662F; <code>string</code> &#x7684;&#x6570;&#x7EC4;.</li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>addresses</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object[]&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>&#x4F7F;&#x7528;<code>DNS</code>&#x534F;&#x8BAE;&#x89E3;&#x6790;IPv4&#x5730;&#x5740;&#x4E3B;&#x673A;&#x540D;(<code>A</code>&#x8BB0;&#x5F55;)&#x3002;<code>adresses</code>&#x53C2;&#x6570;&#x662F;&#x4F20;&#x9012;&#x7ED9;<code>callback</code>&#x51FD;&#x6570;&#x7684;IPv4&#x5730;&#x5740;&#x6570;&#x7EC4;&#x3002;&#xFF08;&#x4F8B;&#x5982;&#xFF1A;<code>[&apos;74.125.79.104&apos;, &apos;74.125.79.105&apos;, &apos;74.125.79.106&apos;]</code>&#xFF09;</p>
+<h2>dns.resolve6(hostname[, options], callback)<span><a class="mark" href="#dns_dns_resolve6_hostname_options_callback" id="dns_dns_resolve6_hostname_options_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_resolve6_hostname_options_callback.html" tppabs="http://nodejs.cn/api/dns/dns_resolve6_hostname_options_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v7.2.0</td>
+<td><p>This method now supports passing <code>options</code>, specifically <code>options.ttl</code>.</p></td></tr>
+<tr><td>v0.1.16</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.16</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x9700;&#x8981;&#x89E3;&#x6790;&#x7684;&#x4E3B;&#x673A;&#x540D;&#x3002;</li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>ttl</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x8BB0;&#x5F55;&#x6BCF;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#x7684;&#x5B58;&#x6D3B;&#x6B21;&#x6570; (TTL)&#x3002;&#x5982;&#x679C;&#x4E3A; <code>true</code>&#xFF0C; &#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x679C;&#x5C06;&#x4F1A;&#x4E3A; <code>Object</code> &#x7684;&#x6570;&#x7EC4;&#xFF0C;&#x5C31;&#x50CF; <code>{ address: &apos;0:1:2:3:4:5:6:7&apos;, ttl: 60 }</code> &#x5E26;&#x6709; <code>TTL</code> &#x79D2;&#x6570;&#x7684;&#x8BB0;&#x5F55;&#xFF0C;&#x800C;&#x4E0D;&#x662F; <code>string</code> &#x7684;&#x6570;&#x7EC4;.</li>
+</ul>
+</li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>addresses</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object[]&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>&#x4F7F;&#x7528;<code>DNS</code>&#x534F;&#x8BAE;&#x89E3;&#x6790;IPv6&#x5730;&#x5740;&#x4E3B;&#x673A;&#x540D;(<code>AAAA</code>&#x8BB0;&#x5F55;)&#x3002;<code>adresses</code>&#x53C2;&#x6570;&#x662F;&#x4F20;&#x9012;&#x7ED9;<code>callback</code>&#x51FD;&#x6570;&#x7684;IPv6&#x5730;&#x5740;&#x6570;&#x7EC4;.</p>
+<h2>dns.resolveAny(hostname, callback)<span><a class="mark" href="#dns_dns_resolveany_hostname_callback" id="dns_dns_resolveany_hostname_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>ret</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object[]&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>Uses the DNS protocol to resolve all records (also known as <code>ANY</code> or <code>*</code> query).
+The <code>ret</code> argument passed to the <code>callback</code> function will be an array containing
+various types of records. Each object has a property <code>type</code> that indicates the
+type of the current record. And depending on the <code>type</code>, additional properties
+will be present on the object:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Type</th><th>Properties</th></tr></thead><tbody><tr><td><code>&apos;A&apos;</code></td><td><code>address</code>/<code>ttl</code></td></tr><tr><td><code>&apos;AAAA&apos;</code></td><td><code>address</code>/<code>ttl</code></td></tr><tr><td><code>&apos;CNAME&apos;</code></td><td><code>value</code></td></tr><tr><td><code>&apos;MX&apos;</code></td><td>Refer to <a href="javascript:if(confirm('http://nodejs.cn/s/Xm7Kak  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Xm7Kak'" tppabs="http://nodejs.cn/s/Xm7Kak" rel="nofollow"><code>dns.resolveMx()</code></a></td></tr><tr><td><code>&apos;NAPTR&apos;</code></td><td>Refer to <a href="javascript:if(confirm('http://nodejs.cn/s/uCLTRh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/uCLTRh'" tppabs="http://nodejs.cn/s/uCLTRh" rel="nofollow"><code>dns.resolveNaptr()</code></a></td></tr><tr><td><code>&apos;NS&apos;</code></td><td><code>value</code></td></tr><tr><td><code>&apos;PTR&apos;</code></td><td><code>value</code></td></tr><tr><td><code>&apos;SOA&apos;</code></td><td>Refer to <a href="javascript:if(confirm('http://nodejs.cn/s/QgkH6F  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/QgkH6F'" tppabs="http://nodejs.cn/s/QgkH6F" rel="nofollow"><code>dns.resolveSoa()</code></a></td></tr><tr><td><code>&apos;SRV&apos;</code></td><td>Refer to <a href="javascript:if(confirm('http://nodejs.cn/s/mmTjFF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mmTjFF'" tppabs="http://nodejs.cn/s/mmTjFF" rel="nofollow"><code>dns.resolveSrv()</code></a></td></tr><tr><td><code>&apos;TXT&apos;</code></td><td>This type of record contains an array property called <code>entries</code> which refers to <a href="javascript:if(confirm('http://nodejs.cn/s/oQKPWT  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/oQKPWT'" tppabs="http://nodejs.cn/s/oQKPWT" rel="nofollow"><code>dns.resolveTxt()</code></a>, e.g. <code>{ entries: [&apos;...&apos;], type: &apos;TXT&apos; }</code></td></tr></tbody></table>
+<p>Here is an example of the <code>ret</code> object passed to the callback:</p>
+<!-- eslint-disable semi -->
+<pre><code class="language-js">[ { type: &apos;A&apos;, address: &apos;127.0.0.1&apos;, ttl: 299 },
+  { type: &apos;CNAME&apos;, value: &apos;example.com&apos; },
+  { type: &apos;MX&apos;, exchange: &apos;alt4.aspmx.l.example.com&apos;, priority: 50 },
+  { type: &apos;NS&apos;, value: &apos;ns1.example.com&apos; },
+  { type: &apos;TXT&apos;, entries: [ &apos;v=spf1 include:_spf.example.com ~all&apos; ] },
+  { type: &apos;SOA&apos;,
+    nsname: &apos;ns1.example.com&apos;,
+    hostmaster: &apos;admin.example.com&apos;,
+    serial: 156696742,
+    refresh: 900,
+    retry: 900,
+    expire: 1800,
+    minttl: 60 } ]
+</code></pre>
+<h2>dns.resolveCname(hostname, callback)<span><a class="mark" href="#dns_dns_resolvecname_hostname_callback" id="dns_dns_resolvecname_hostname_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_resolvecname_hostname_callback.html" tppabs="http://nodejs.cn/api/dns/dns_resolvecname_hostname_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.2</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>addresses</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>&#x4F7F;&#x7528;<code>DNS</code>&#x534F;&#x8BAE;&#x89E3;&#x6790;<code>CNAME</code>&#x8BB0;&#x5F55;&#x4E3B;&#x673A;&#x540D;&#x3002;<code>adresses</code>&#x53C2;&#x6570;&#x662F;&#x4F20;&#x9012;&#x7ED9;<code>callback</code>&#x51FD;&#x6570;&#x89C4;&#x8303;&#x5185;&#x6709;&#x6548;&#x7684;&#x4E3B;&#x673A;&#x540D;&#x6570;&#x7EC4;&#xFF08;&#x4F8B;&#x5982;&#xFF1A;<code>[&apos;bar.example.com&apos;]</code>&#xFF09;.</p>
+<h2>dns.resolveMx(hostname, callback)<span><a class="mark" href="#dns_dns_resolvemx_hostname_callback" id="dns_dns_resolvemx_hostname_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_resolvemx_hostname_callback.html" tppabs="http://nodejs.cn/api/dns/dns_resolvemx_hostname_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.27</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>addresses</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object[]&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>&#x4F7F;&#x7528;DNS&#x534F;&#x8BAE;&#x5904;&#x7406;&#x90AE;&#x4EF6;&#x4EA4;&#x6362;&#x8BB0;&#x5F55;&#x4E3B;&#x673A;&#x540D;(<code>MX</code>&#x8BB0;&#x5F55;)&#x3002;<code>adresses</code>&#x53C2;&#x6570;&#x662F;&#x4F20;&#x9012;&#x7ED9;<code>callback</code>&#x51FD;&#x6570;&#x7684;&#x4E3B;&#x673A;&#x540D;&#x5BF9;&#x8C61;&#x6570;&#x7EC4;&#xFF0C;&#x5BF9;&#x8C61;&#x5305;&#x542B;<code>priority</code>&#x548C;<code>exchange</code>&#x5C5E;&#x6027;&#xFF08;&#x4F8B;&#x5982;&#xFF1A; <code>[{priority: 10, exchange: &apos;mx.example.com&apos;}, ...]</code>&#xFF09;&#x3002;</p>
+<h2>dns.resolveNaptr(hostname, callback)<span><a class="mark" href="#dns_dns_resolvenaptr_hostname_callback" id="dns_dns_resolvenaptr_hostname_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_resolvenaptr_hostname_callback.html" tppabs="http://nodejs.cn/api/dns/dns_resolvenaptr_hostname_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.12</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>addresses</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object[]&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>&#x4F7F;&#x7528;DNS&#x534F;&#x8BAE;&#x6765;&#x5904;&#x7406;&#x57FA;&#x4E8E;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5339;&#x914D;&#x7684;&#x8BB0;&#x5F55;(<code>NAPTR</code>&#x8BB0;&#x5F55;)&#x7684;&#x4E3B;&#x673A;&#x540D;&#x3002;<code>adresses</code>&#x53C2;&#x6570;&#x662F;&#x4F20;&#x9012;&#x7ED9;<code>callback</code>&#x51FD;&#x6570;&#x7684;&#x4E3B;&#x673A;&#x540D;&#x5BF9;&#x8C61;&#x6570;&#x7EC4;&#xFF0C;&#x5BF9;&#x8C61;&#x5305;&#x542B;&#x5C5E;&#x6027;&#xFF1A;</p>
+<ul>
+<li><code>flags</code></li>
+<li><code>service</code></li>
+<li><code>regexp</code></li>
+<li><code>replacement</code></li>
+<li><code>order</code></li>
+<li><code>preference</code></li>
+</ul>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<!-- eslint-skip -->
+<pre><code class="language-js">{
+  flags: &apos;s&apos;,
+  service: &apos;SIP+D2U&apos;,
+  regexp: &apos;&apos;,
+  replacement: &apos;_sip._udp.example.com&apos;,
+  order: 30,
+  preference: 100
+}
+</code></pre>
+<h2>dns.resolveNs(hostname, callback)<span><a class="mark" href="#dns_dns_resolvens_hostname_callback" id="dns_dns_resolvens_hostname_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_resolvens_hostname_callback.html" tppabs="http://nodejs.cn/api/dns/dns_resolvens_hostname_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>addresses</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>&#x4F7F;&#x7528;DNS&#x534F;&#x8BAE;&#x5904;&#x7406;&#x540D;&#x79F0;&#x670D;&#x52A1;&#x5668;&#x4E3B;&#x673A;&#x540D;&#x8BB0;&#x5F55;(<code>NS</code>&#x8BB0;&#x5F55;)&#x3002;<code>adresses</code>&#x4E3A;&#x6709;&#x6548;&#x7684;&#x540D;&#x79F0;&#x670D;&#x52A1;&#x5668;&#x8BB0;&#x5F55;&#x4E3B;&#x673A;&#x540D;&#x6570;&#x7EC4;&#xFF08;eg:<code>[&apos;ns1.example.com&apos;, &apos;ns2.example.com&apos;]</code>&#xFF09;&#x3002;</p>
+<h2>dns.resolvePtr(hostname, callback)<span><a class="mark" href="#dns_dns_resolveptr_hostname_callback" id="dns_dns_resolveptr_hostname_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_resolveptr_hostname_callback.html" tppabs="http://nodejs.cn/api/dns/dns_resolveptr_hostname_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.0.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>addresses</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>&#x4F7F;&#x7528;DNS&#x534F;&#x8BAE;&#x5904;&#x7406;&#x4E3B;&#x673A;&#x540D;&#x5F15;&#x7528;&#x8BB0;&#x5F55;(PTR&#x8BB0;&#x5F55;)&#x3002;<code>addresses</code>&#x53C2;&#x6570;&#x5C06;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x6570;&#x7EC4;&#x4F20;&#x9012;&#x7ED9;&#x56DE;&#x8C03;&#x51FD;&#x6570;<code>callback</code>,&#x5176;&#x4E2D;&#x5305;&#x542B;&#x56DE;&#x590D;&#x8BB0;&#x5F55;&#x3002;</p>
+<h2>dns.resolveSoa(hostname, callback)<span><a class="mark" href="#dns_dns_resolvesoa_hostname_callback" id="dns_dns_resolvesoa_hostname_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_resolvesoa_hostname_callback.html" tppabs="http://nodejs.cn/api/dns/dns_resolvesoa_hostname_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.10</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>address</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>&#x4F7F;&#x7528;DNS&#x534F;&#x8BAE;&#x5904;&#x7406;&#x4E3B;&#x673A;&#x540D;&#x5B50;&#x57DF;&#x540D;&#x8BB0;&#x5F55;(<code>SOA</code>&#x8BB0;&#x5F55;)&#x3002;<code>addresses</code>&#x53C2;&#x6570;&#x4E3A;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x5C5E;&#x6027;&#xFF1A;</p>
+<ul>
+<li><code>nsname</code></li>
+<li><code>hostmaster</code></li>
+<li><code>serial</code></li>
+<li><code>refresh</code></li>
+<li><code>retry</code></li>
+<li><code>expire</code></li>
+<li><code>minttl</code></li>
+</ul>
+<!-- eslint-skip -->
+<pre><code class="language-js">{
+  nsname: &apos;ns.example.com&apos;,
+  hostmaster: &apos;root.example.com&apos;,
+  serial: 2013101809,
+  refresh: 10000,
+  retry: 2400,
+  expire: 604800,
+  minttl: 3600
+}
+</code></pre>
+<h2>dns.resolveSrv(hostname, callback)<span><a class="mark" href="#dns_dns_resolvesrv_hostname_callback" id="dns_dns_resolvesrv_hostname_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_resolvesrv_hostname_callback.html" tppabs="http://nodejs.cn/api/dns/dns_resolvesrv_hostname_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.27</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>addresses</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object[]&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>&#x4F7F;&#x7528;DNS&#x534F;&#x8BAE;&#x6765;&#x5904;&#x7406;&#x4E3B;&#x673A;&#x540D;&#x670D;&#x52A1;&#x8BB0;&#x5F55;(SRV&#x8BB0;&#x5F55;)&#x3002;<code>callback</code>&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x7684;<code>addresses</code>&#x53C2;&#x6570;&#x4E3A;&#x5BF9;&#x8C61;&#x6570;&#x7EC4;,&#x6BCF;&#x4E2A;&#x5BF9;&#x8C61;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x5C5E;&#x6027;&#xFF1A;</p>
+<ul>
+<li><code>priority</code></li>
+<li><code>weight</code></li>
+<li><code>port</code></li>
+<li><code>name</code></li>
+</ul>
+<!-- eslint-skip -->
+<pre><code class="language-js">{
+  priority: 10,
+  weight: 5,
+  port: 21223,
+  name: &apos;service.example.com&apos;
+}
+</code></pre>
+<h2>dns.resolveTxt(hostname, callback)<span><a class="mark" href="#dns_dns_resolvetxt_hostname_callback" id="dns_dns_resolvetxt_hostname_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_resolvetxt_hostname_callback.html" tppabs="http://nodejs.cn/api/dns/dns_resolvetxt_hostname_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.27</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>records</code> {string[][]}</li>
+</ul>
+</li>
+</ul>
+<p>&#x4F7F;&#x7528;DNS&#x534F;&#x8BAE;&#x5904;&#x7406;&#x6587;&#x672C;&#x67E5;&#x8BE2;&#x4E3B;&#x673A;&#x540D;(TXT&#x8BB0;&#x5F55;)&#x3002;&#x56DE;&#x8C03;&#x51FD;&#x6570;<code>callback</code>&#x4F1A;&#x8FD4;&#x56DE;<code>records</code>&#x53C2;&#x6570;&#xFF0C;&#x5B83;&#x662F;&#x4E00;&#x4E2A;&#x6587;&#x672C;&#x8BB0;&#x5F55;&#x4E0E;&#x4E3B;&#x673A;&#x540D;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#x7684;&#x4E8C;&#x7EF4;&#x6570;&#x7EC4;(&#x4F8B;&#x5982;&#xFF1A;<code>[ [&apos;v=spf1 ip4:0.0.0.0 &apos;, &apos;~all&apos; ] ]</code>).
+&#x6BCF;&#x4E2A;&#x6570;&#x7EC4;&#x6587;&#x672C;&#x5757;&#x5305;&#x542B;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#x3002;&#x6839;&#x636E;&#x7528;&#x4F8B;,&#x8FD9;&#x4E9B;&#x53EF;&#x4EE5;&#x662F;&#x8FDE;&#x63A5;&#x5728;&#x4E00;&#x8D77;&#x6216;&#x5355;&#x72EC;&#x5BF9;&#x5F85;&#x3002;</p>
+<h2>dns.reverse(ip, callback)<span><a class="mark" href="#dns_dns_reverse_ip_callback" id="dns_dns_reverse_ip_callback" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_reverse_ip_callback.html" tppabs="http://nodejs.cn/api/dns/dns_reverse_ip_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.16</span>
+</div>
+<ul>
+<li><code>ip</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+<li><code>hostnames</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p>&#x6267;&#x884C;&#x4E00;&#x4E2A;&#x53CD;&#x5411;DNS&#x67E5;&#x8BE2;&#x8FD4;&#x56DE;IPv4&#x6216;IPv6&#x5730;&#x5740;&#x7684;&#x4E3B;&#x673A;&#x540D;&#x7684;&#x6570;&#x7EC4;&#x3002;</p>
+<p>&#x51FA;&#x9519;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;<code>err</code>&#x662F;&#x4E00;&#x4E2A;<code>Error</code>&#x5BF9;&#x8C61;&#xFF0C;<code>err.code</code>&#x4EE3;&#x7801;&#x9519;&#x8BEF;&#x7801;&#x3002;&#x9519;&#x8BEF;&#x7801;&#x5217;&#x8868;&#xFF1A;<a href="javascript:if(confirm('https://nodejs.org/dist/latest-v8.x/docs/api/dns.html  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://nodejs.org/dist/latest-v8.x/docs/api/dns.html#dns_error_codes'" tppabs="https://nodejs.org/dist/latest-v8.x/docs/api/dns.html#dns_error_codes" rel="nofollow">here</a>.</p>
+<h2>dns.setServers(servers)<span><a class="mark" href="#dns_dns_setservers_servers" id="dns_dns_setservers_servers" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="dns_setservers_servers.html" tppabs="http://nodejs.cn/api/dns/dns_setservers_servers.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.3</span>
+</div>
+<ul>
+<li><code>servers</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a> array of <a href="javascript:if(confirm('http://nodejs.cn/s/jzbgfM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jzbgfM'" tppabs="http://nodejs.cn/s/jzbgfM" rel="nofollow">rfc5952</a> formatted addresses</li>
+</ul>
+<p>&#x8BBE;&#x7F6E;IP&#x5730;&#x5740;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x53E3;&#x5728;&#x8FDB;&#x884C;DNS&#x89E3;&#x6790;&#x65F6;&#x53EF;&#x7528;&#xFF0C;<code>servers</code>&#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E2A;<a href="javascript:if(confirm('http://nodejs.cn/s/jzbgfM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jzbgfM'" tppabs="http://nodejs.cn/s/jzbgfM" rel="nofollow">rfc5952</a>&#x6570;&#x7EC4;&#x683C;&#x5F0F;&#x7684;&#x5730;&#x5740;&#x3002;
+&#x5982;&#x679C;&#x7AEF;&#x53E3;&#x662F;IANA&#x9ED8;&#x8BA4;&#x7AEF;&#x53E3;(53),&#x90A3;&#x4E48;&#x5B83;&#x53EF;&#x4EE5;&#x88AB;&#x5FFD;&#x7565;&#x3002;</p>
+<p>&#x6BD4;&#x5982;:</p>
+<pre><code class="language-js">dns.setServers([
+  &apos;4.4.4.4&apos;,
+  &apos;[2001:4860:4860::8888]&apos;,
+  &apos;4.4.4.4:1053&apos;,
+  &apos;[2001:4860:4860::8888]:1053&apos;
+]);
+</code></pre>
+<p><code>ip</code>&#x5730;&#x5740;&#x65E0;&#x6548;&#x5C06;&#x4F1A;&#x62A5;&#x9519;&#x3002;</p>
+<p><code>dns.setServers()</code>&#x65B9;&#x6CD5;&#x4E0D;&#x8981;&#x5728;DNS&#x67E5;&#x8BE2;&#x8FC7;&#x7A0B;&#x4E2D;&#x4F7F;&#x7528;&#x3002;</p>
+<h2>DNS Promises API<span><a class="mark" href="#dns_dns_promises_api" id="dns_dns_promises_api" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p></p><div class="api_stability api_stability_1"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 1</a> - &#x8BD5;&#x9A8C;&#x7684;</div><p></p>
+<p>The <code>dns.promises</code> API provides an alternative set of asynchronous DNS methods
+that return <code>Promise</code> objects rather than using callbacks. The API is accessible
+via <code>require(&apos;dns&apos;).promises</code>.</p>
+<h3>Class: dnsPromises.Resolver<span><a class="mark" href="#dns_class_dnspromises_resolver" id="dns_class_dnspromises_resolver" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<p>An independent resolver for DNS requests.</p>
+<p>Note that creating a new resolver uses the default server settings. Setting
+the servers used for a resolver using
+<a href="javascript:if(confirm('http://nodejs.cn/s/nX1SWi  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/nX1SWi'" tppabs="http://nodejs.cn/s/nX1SWi" rel="nofollow"><code>resolver.setServers()</code></a> does not affect
+other resolvers:</p>
+<pre><code class="language-js">const { Resolver } = require(&apos;dns&apos;).promises;
+const resolver = new Resolver();
+resolver.setServers([&apos;4.4.4.4&apos;]);
+
+// This request will use the server at 4.4.4.4, independent of global settings.
+resolver.resolve4(&apos;example.org&apos;).then((addresses) =&gt; {
+  // ...
+});
+
+// Alternatively, the same code can be written using async-await style.
+(async function() {
+  const addresses = await resolver.resolve4(&apos;example.org&apos;);
+})();
+</code></pre>
+<p>The following methods from the <code>dnsPromises</code> API are available:</p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/5TDJdW  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5TDJdW'" tppabs="http://nodejs.cn/s/5TDJdW" rel="nofollow"><code>resolver.getServers()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/yuNHc6  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/yuNHc6'" tppabs="http://nodejs.cn/s/yuNHc6" rel="nofollow"><code>resolver.resolve()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/66pCN6  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/66pCN6'" tppabs="http://nodejs.cn/s/66pCN6" rel="nofollow"><code>resolver.resolve4()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/d7DrLY  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/d7DrLY'" tppabs="http://nodejs.cn/s/d7DrLY" rel="nofollow"><code>resolver.resolve6()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/UiwwZx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UiwwZx'" tppabs="http://nodejs.cn/s/UiwwZx" rel="nofollow"><code>resolver.resolveAny()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/m9sfbn  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/m9sfbn'" tppabs="http://nodejs.cn/s/m9sfbn" rel="nofollow"><code>resolver.resolveCname()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/7jVLRd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/7jVLRd'" tppabs="http://nodejs.cn/s/7jVLRd" rel="nofollow"><code>resolver.resolveMx()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/JQKDQh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JQKDQh'" tppabs="http://nodejs.cn/s/JQKDQh" rel="nofollow"><code>resolver.resolveNaptr()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/utn8qg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/utn8qg'" tppabs="http://nodejs.cn/s/utn8qg" rel="nofollow"><code>resolver.resolveNs()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/dWzKkM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/dWzKkM'" tppabs="http://nodejs.cn/s/dWzKkM" rel="nofollow"><code>resolver.resolvePtr()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/LyjTNm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LyjTNm'" tppabs="http://nodejs.cn/s/LyjTNm" rel="nofollow"><code>resolver.resolveSoa()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/dXL63Y  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/dXL63Y'" tppabs="http://nodejs.cn/s/dXL63Y" rel="nofollow"><code>resolver.resolveSrv()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/8xmgiV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8xmgiV'" tppabs="http://nodejs.cn/s/8xmgiV" rel="nofollow"><code>resolver.resolveTxt()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/jezUmd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jezUmd'" tppabs="http://nodejs.cn/s/jezUmd" rel="nofollow"><code>resolver.reverse()</code></a></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/nX1SWi  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/nX1SWi'" tppabs="http://nodejs.cn/s/nX1SWi" rel="nofollow"><code>resolver.setServers()</code></a></li>
+</ul>
+<h3>dnsPromises.getServers()<span><a class="mark" href="#dns_dnspromises_getservers" id="dns_dnspromises_getservers" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a></li>
+</ul>
+<p>Returns an array of IP address strings, formatted according to <a href="javascript:if(confirm('http://nodejs.cn/s/jzbgfM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jzbgfM'" tppabs="http://nodejs.cn/s/jzbgfM" rel="nofollow">rfc5952</a>,
+that are currently configured for DNS resolution. A string will include a port
+section if a custom port is used.</p>
+<!-- eslint-disable semi-->
+<pre><code class="language-js">[
+  &apos;4.4.4.4&apos;,
+  &apos;2001:4860:4860::8888&apos;,
+  &apos;4.4.4.4:1053&apos;,
+  &apos;[2001:4860:4860::8888]:1053&apos;
+]
+</code></pre>
+<h3>dnsPromises.lookup(hostname[, options])<span><a class="mark" href="#dns_dnspromises_lookup_hostname_options" id="dns_dnspromises_lookup_hostname_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>family</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> The record family. Must be <code>4</code> or <code>6</code>. IPv4
+and IPv6 addresses are both returned by default.</li>
+<li><code>hints</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> One or more <a href="javascript:if(confirm('http://nodejs.cn/s/WpjMXq  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/WpjMXq'" tppabs="http://nodejs.cn/s/WpjMXq" rel="nofollow">supported <code>getaddrinfo</code> flags</a>. Multiple
+flags may be passed by bitwise <code>OR</code>ing their values.</li>
+<li><code>all</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> When <code>true</code>, the <code>Promise</code> is resolved with all addresses in
+an array. Otherwise, returns a single address. <strong>Default:</strong> <code>false</code>.</li>
+<li><code>verbatim</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> When <code>true</code>, the <code>Promise</code> is resolved with IPv4 and
+IPv6 addresses in the order the DNS resolver returned them. When <code>false</code>,
+IPv4 addresses are placed before IPv6 addresses.
+<strong>Default:</strong> currently <code>false</code> (addresses are reordered) but this is
+expected to change in the not too distant future.
+New code should use <code>{ verbatim: true }</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Resolves a hostname (e.g. <code>&apos;nodejs.org&apos;</code>) into the first found A (IPv4) or
+AAAA (IPv6) record. All <code>option</code> properties are optional. If <code>options</code> is an
+integer, then it must be <code>4</code> or <code>6</code> &#x2013; if <code>options</code> is not provided, then IPv4
+and IPv6 addresses are both returned if found.</p>
+<p>With the <code>all</code> option set to <code>true</code>, the <code>Promise</code> is resolved with <code>addresses</code>
+being an array of objects with the properties <code>address</code> and <code>family</code>.</p>
+<p>On error, the <code>Promise</code> is rejected with an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> object, where <code>err.code</code>
+is the error code.
+Keep in mind that <code>err.code</code> will be set to <code>&apos;ENOENT&apos;</code> not only when
+the hostname does not exist but also when the lookup fails in other ways
+such as no available file descriptors.</p>
+<p><a href="javascript:if(confirm('http://nodejs.cn/s/W5QCqB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/W5QCqB'" tppabs="http://nodejs.cn/s/W5QCqB" rel="nofollow"><code>dnsPromises.lookup()</code></a> does not necessarily have anything to do with the DNS
+protocol. The implementation uses an operating system facility that can
+associate names with addresses, and vice versa. This implementation can have
+subtle but important consequences on the behavior of any Node.js program. Please
+take some time to consult the <a href="javascript:if(confirm('http://nodejs.cn/s/fC4ou7  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fC4ou7'" tppabs="http://nodejs.cn/s/fC4ou7" rel="nofollow">Implementation considerations section</a> before
+using <code>dnsPromises.lookup()</code>.</p>
+<p>Example usage:</p>
+<pre><code class="language-js">const dns = require(&apos;dns&apos;);
+const dnsPromises = dns.promises;
+const options = {
+  family: 6,
+  hints: dns.ADDRCONFIG | dns.V4MAPPED,
+};
+
+dnsPromises.lookup(&apos;example.com&apos;, options).then((result) =&gt; {
+  console.log(&apos;address: %j family: IPv%s&apos;, result.address, result.family);
+  // address: &quot;2606:2800:220:1:248:1893:25c8:1946&quot; family: IPv6
+});
+
+// When options.all is true, the result will be an Array.
+options.all = true;
+dnsPromises.lookup(&apos;example.com&apos;, options).then((result) =&gt; {
+  console.log(&apos;addresses: %j&apos;, result);
+  // addresses: [{&quot;address&quot;:&quot;2606:2800:220:1:248:1893:25c8:1946&quot;,&quot;family&quot;:6}]
+});
+</code></pre>
+<h3>dnsPromises.lookupService(address, port)<span><a class="mark" href="#dns_dnspromises_lookupservice_address_port" id="dns_dnspromises_lookupservice_address_port" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>address</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>Resolves the given <code>address</code> and <code>port</code> into a hostname and service using
+the operating system&apos;s underlying <code>getnameinfo</code> implementation.</p>
+<p>If <code>address</code> is not a valid IP address, a <code>TypeError</code> will be thrown.
+The <code>port</code> will be coerced to a number. If it is not a legal port, a <code>TypeError</code>
+will be thrown.</p>
+<p>On error, the <code>Promise</code> is rejected with an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> object, where <code>err.code</code>
+is the error code.</p>
+<pre><code class="language-js">const dnsPromises = require(&apos;dns&apos;).promises;
+dnsPromises.lookupService(&apos;127.0.0.1&apos;, 22).then((result) =&gt; {
+  console.log(result.hostname, result.service);
+  // Prints: localhost ssh
+});
+</code></pre>
+<h3>dnsPromises.resolve(hostname[, rrtype])<span><a class="mark" href="#dns_dnspromises_resolve_hostname_rrtype" id="dns_dnspromises_resolve_hostname_rrtype" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Hostname to resolve.</li>
+<li><code>rrtype</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Resource record type. <strong>Default:</strong> <code>&apos;A&apos;</code>.</li>
+</ul>
+<p>Uses the DNS protocol to resolve a hostname (e.g. <code>&apos;nodejs.org&apos;</code>) into an array
+of the resource records. When successful, the <code>Promise</code> is resolved with an
+array of resource records. The type and structure of individual results vary
+based on <code>rrtype</code>:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th><code>rrtype</code></th><th><code>records</code> contains</th><th>Result type</th><th>Shorthand method</th></tr></thead><tbody><tr><td><code>&apos;A&apos;</code></td><td>IPv4 addresses (default)</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/66pCN6  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/66pCN6'" tppabs="http://nodejs.cn/s/66pCN6" rel="nofollow"><code>dnsPromises.resolve4()</code></a></td></tr><tr><td><code>&apos;AAAA&apos;</code></td><td>IPv6 addresses</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/d7DrLY  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/d7DrLY'" tppabs="http://nodejs.cn/s/d7DrLY" rel="nofollow"><code>dnsPromises.resolve6()</code></a></td></tr><tr><td><code>&apos;ANY&apos;</code></td><td>any records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/UiwwZx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UiwwZx'" tppabs="http://nodejs.cn/s/UiwwZx" rel="nofollow"><code>dnsPromises.resolveAny()</code></a></td></tr><tr><td><code>&apos;CNAME&apos;</code></td><td>canonical name records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/m9sfbn  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/m9sfbn'" tppabs="http://nodejs.cn/s/m9sfbn" rel="nofollow"><code>dnsPromises.resolveCname()</code></a></td></tr><tr><td><code>&apos;MX&apos;</code></td><td>mail exchange records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/7jVLRd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/7jVLRd'" tppabs="http://nodejs.cn/s/7jVLRd" rel="nofollow"><code>dnsPromises.resolveMx()</code></a></td></tr><tr><td><code>&apos;NAPTR&apos;</code></td><td>name authority pointer records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/JQKDQh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JQKDQh'" tppabs="http://nodejs.cn/s/JQKDQh" rel="nofollow"><code>dnsPromises.resolveNaptr()</code></a></td></tr><tr><td><code>&apos;NS&apos;</code></td><td>name server records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/utn8qg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/utn8qg'" tppabs="http://nodejs.cn/s/utn8qg" rel="nofollow"><code>dnsPromises.resolveNs()</code></a></td></tr><tr><td><code>&apos;PTR&apos;</code></td><td>pointer records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/dWzKkM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/dWzKkM'" tppabs="http://nodejs.cn/s/dWzKkM" rel="nofollow"><code>dnsPromises.resolvePtr()</code></a></td></tr><tr><td><code>&apos;SOA&apos;</code></td><td>start of authority records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/LyjTNm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LyjTNm'" tppabs="http://nodejs.cn/s/LyjTNm" rel="nofollow"><code>dnsPromises.resolveSoa()</code></a></td></tr><tr><td><code>&apos;SRV&apos;</code></td><td>service records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/dXL63Y  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/dXL63Y'" tppabs="http://nodejs.cn/s/dXL63Y" rel="nofollow"><code>dnsPromises.resolveSrv()</code></a></td></tr><tr><td><code>&apos;TXT&apos;</code></td><td>text records</td><td><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a></td><td><a href="javascript:if(confirm('http://nodejs.cn/s/8xmgiV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8xmgiV'" tppabs="http://nodejs.cn/s/8xmgiV" rel="nofollow"><code>dnsPromises.resolveTxt()</code></a></td></tr></tbody></table>
+<p>On error, the <code>Promise</code> is rejected with an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> object, where <code>err.code</code>
+is one of the <a href="#dns_error_codes" rel="nofollow">DNS error codes</a>.</p>
+<h3>dnsPromises.resolve4(hostname[, options])<span><a class="mark" href="#dns_dnspromises_resolve4_hostname_options" id="dns_dnspromises_resolve4_hostname_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Hostname to resolve.</li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>ttl</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> Retrieve the Time-To-Live value (TTL) of each record.
+When <code>true</code>, the <code>Promise</code> is resolved with an array of
+<code>{ address: &apos;1.2.3.4&apos;, ttl: 60 }</code> objects rather than an array of strings,
+with the TTL expressed in seconds.</li>
+</ul>
+</li>
+</ul>
+<p>Uses the DNS protocol to resolve IPv4 addresses (<code>A</code> records) for the
+<code>hostname</code>. On success, the <code>Promise</code> is resolved with an array of IPv4
+addresses (e.g. <code>[&apos;74.125.79.104&apos;, &apos;74.125.79.105&apos;, &apos;74.125.79.106&apos;]</code>).</p>
+<h3>dnsPromises.resolve6(hostname[, options])<span><a class="mark" href="#dns_dnspromises_resolve6_hostname_options" id="dns_dnspromises_resolve6_hostname_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> Hostname to resolve.</li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>ttl</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> Retrieve the Time-To-Live value (TTL) of each record.
+When <code>true</code>, the <code>Promise</code> is resolved with an array of
+<code>{ address: &apos;0:1:2:3:4:5:6:7&apos;, ttl: 60 }</code> objects rather than an array of
+strings, with the TTL expressed in seconds.</li>
+</ul>
+</li>
+</ul>
+<p>Uses the DNS protocol to resolve IPv6 addresses (<code>AAAA</code> records) for the
+<code>hostname</code>. On success, the <code>Promise</code> is resolved with an array of IPv6
+addresses.</p>
+<h3>dnsPromises.resolveAny(hostname)<span><a class="mark" href="#dns_dnspromises_resolveany_hostname" id="dns_dnspromises_resolveany_hostname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>Uses the DNS protocol to resolve all records (also known as <code>ANY</code> or <code>*</code> query).
+On success, the <code>Promise</code> is resolved with an array containing various types of
+records. Each object has a property <code>type</code> that indicates the type of the
+current record. And depending on the <code>type</code>, additional properties will be
+present on the object:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Type</th><th>Properties</th></tr></thead><tbody><tr><td><code>&apos;A&apos;</code></td><td><code>address</code>/<code>ttl</code></td></tr><tr><td><code>&apos;AAAA&apos;</code></td><td><code>address</code>/<code>ttl</code></td></tr><tr><td><code>&apos;CNAME&apos;</code></td><td><code>value</code></td></tr><tr><td><code>&apos;MX&apos;</code></td><td>Refer to <a href="javascript:if(confirm('http://nodejs.cn/s/7jVLRd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/7jVLRd'" tppabs="http://nodejs.cn/s/7jVLRd" rel="nofollow"><code>dnsPromises.resolveMx()</code></a></td></tr><tr><td><code>&apos;NAPTR&apos;</code></td><td>Refer to <a href="javascript:if(confirm('http://nodejs.cn/s/JQKDQh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JQKDQh'" tppabs="http://nodejs.cn/s/JQKDQh" rel="nofollow"><code>dnsPromises.resolveNaptr()</code></a></td></tr><tr><td><code>&apos;NS&apos;</code></td><td><code>value</code></td></tr><tr><td><code>&apos;PTR&apos;</code></td><td><code>value</code></td></tr><tr><td><code>&apos;SOA&apos;</code></td><td>Refer to <a href="javascript:if(confirm('http://nodejs.cn/s/LyjTNm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LyjTNm'" tppabs="http://nodejs.cn/s/LyjTNm" rel="nofollow"><code>dnsPromises.resolveSoa()</code></a></td></tr><tr><td><code>&apos;SRV&apos;</code></td><td>Refer to <a href="javascript:if(confirm('http://nodejs.cn/s/dXL63Y  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/dXL63Y'" tppabs="http://nodejs.cn/s/dXL63Y" rel="nofollow"><code>dnsPromises.resolveSrv()</code></a></td></tr><tr><td><code>&apos;TXT&apos;</code></td><td>This type of record contains an array property called <code>entries</code> which refers to <a href="javascript:if(confirm('http://nodejs.cn/s/8xmgiV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8xmgiV'" tppabs="http://nodejs.cn/s/8xmgiV" rel="nofollow"><code>dnsPromises.resolveTxt()</code></a>, e.g. <code>{ entries: [&apos;...&apos;], type: &apos;TXT&apos; }</code></td></tr></tbody></table>
+<p>Here is an example of the result object:</p>
+<!-- eslint-disable semi -->
+<pre><code class="language-js">[ { type: &apos;A&apos;, address: &apos;127.0.0.1&apos;, ttl: 299 },
+  { type: &apos;CNAME&apos;, value: &apos;example.com&apos; },
+  { type: &apos;MX&apos;, exchange: &apos;alt4.aspmx.l.example.com&apos;, priority: 50 },
+  { type: &apos;NS&apos;, value: &apos;ns1.example.com&apos; },
+  { type: &apos;TXT&apos;, entries: [ &apos;v=spf1 include:_spf.example.com ~all&apos; ] },
+  { type: &apos;SOA&apos;,
+    nsname: &apos;ns1.example.com&apos;,
+    hostmaster: &apos;admin.example.com&apos;,
+    serial: 156696742,
+    refresh: 900,
+    retry: 900,
+    expire: 1800,
+    minttl: 60 } ]
+</code></pre>
+<h3>dnsPromises.resolveCname(hostname)<span><a class="mark" href="#dns_dnspromises_resolvecname_hostname" id="dns_dnspromises_resolvecname_hostname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>Uses the DNS protocol to resolve <code>CNAME</code> records for the <code>hostname</code>. On success,
+the <code>Promise</code> is resolved with an array of canonical name records available for
+the <code>hostname</code> (e.g. <code>[&apos;bar.example.com&apos;]</code>).</p>
+<h3>dnsPromises.resolveMx(hostname)<span><a class="mark" href="#dns_dnspromises_resolvemx_hostname" id="dns_dnspromises_resolvemx_hostname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>Uses the DNS protocol to resolve mail exchange records (<code>MX</code> records) for the
+<code>hostname</code>. On success, the <code>Promise</code> is resolved with an array of objects
+containing both a <code>priority</code> and <code>exchange</code> property (e.g.
+<code>[{priority: 10, exchange: &apos;mx.example.com&apos;}, ...]</code>).</p>
+<h3>dnsPromises.resolveNaptr(hostname)<span><a class="mark" href="#dns_dnspromises_resolvenaptr_hostname" id="dns_dnspromises_resolvenaptr_hostname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>Uses the DNS protocol to resolve regular expression based records (<code>NAPTR</code>
+records) for the <code>hostname</code>. On success, the <code>Promise</code> is resolved with an array
+of objects with the following properties:</p>
+<ul>
+<li><code>flags</code></li>
+<li><code>service</code></li>
+<li><code>regexp</code></li>
+<li><code>replacement</code></li>
+<li><code>order</code></li>
+<li><code>preference</code></li>
+</ul>
+<!-- eslint-skip -->
+<pre><code class="language-js">{
+  flags: &apos;s&apos;,
+  service: &apos;SIP+D2U&apos;,
+  regexp: &apos;&apos;,
+  replacement: &apos;_sip._udp.example.com&apos;,
+  order: 30,
+  preference: 100
+}
+</code></pre>
+<h3>dnsPromises.resolveNs(hostname)<span><a class="mark" href="#dns_dnspromises_resolvens_hostname" id="dns_dnspromises_resolvens_hostname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>Uses the DNS protocol to resolve name server records (<code>NS</code> records) for the
+<code>hostname</code>. On success, the <code>Promise</code> is resolved with an array of name server
+records available for <code>hostname</code> (e.g.
+<code>[&apos;ns1.example.com&apos;, &apos;ns2.example.com&apos;]</code>).</p>
+<h3>dnsPromises.resolvePtr(hostname)<span><a class="mark" href="#dns_dnspromises_resolveptr_hostname" id="dns_dnspromises_resolveptr_hostname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>Uses the DNS protocol to resolve pointer records (<code>PTR</code> records) for the
+<code>hostname</code>. On success, the <code>Promise</code> is resolved with an array of strings
+containing the reply records.</p>
+<h3>dnsPromises.resolveSoa(hostname)<span><a class="mark" href="#dns_dnspromises_resolvesoa_hostname" id="dns_dnspromises_resolvesoa_hostname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>Uses the DNS protocol to resolve a start of authority record (<code>SOA</code> record) for
+the <code>hostname</code>. On success, the <code>Promise</code> is resolved with an object with the
+following properties:</p>
+<ul>
+<li><code>nsname</code></li>
+<li><code>hostmaster</code></li>
+<li><code>serial</code></li>
+<li><code>refresh</code></li>
+<li><code>retry</code></li>
+<li><code>expire</code></li>
+<li><code>minttl</code></li>
+</ul>
+<!-- eslint-skip -->
+<pre><code class="language-js">{
+  nsname: &apos;ns.example.com&apos;,
+  hostmaster: &apos;root.example.com&apos;,
+  serial: 2013101809,
+  refresh: 10000,
+  retry: 2400,
+  expire: 604800,
+  minttl: 3600
+}
+</code></pre>
+<h3>dnsPromises.resolveSrv(hostname)<span><a class="mark" href="#dns_dnspromises_resolvesrv_hostname" id="dns_dnspromises_resolvesrv_hostname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>Uses the DNS protocol to resolve service records (<code>SRV</code> records) for the
+<code>hostname</code>. On success, the <code>Promise</code> is resolved with an array of objects with
+the following properties:</p>
+<ul>
+<li><code>priority</code></li>
+<li><code>weight</code></li>
+<li><code>port</code></li>
+<li><code>name</code></li>
+</ul>
+<!-- eslint-skip -->
+<pre><code class="language-js">{
+  priority: 10,
+  weight: 5,
+  port: 21223,
+  name: &apos;service.example.com&apos;
+}
+</code></pre>
+<h3>dnsPromises.resolveTxt(hostname)<span><a class="mark" href="#dns_dnspromises_resolvetxt_hostname" id="dns_dnspromises_resolvetxt_hostname" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>hostname</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>Uses the DNS protocol to resolve text queries (<code>TXT</code> records) for the
+<code>hostname</code>. On success, the <code>Promise</code> is resolved with a two-dimensional array
+of the text records available for <code>hostname</code> (e.g.
+<code>[ [&apos;v=spf1 ip4:0.0.0.0 &apos;, &apos;~all&apos; ] ]</code>). Each sub-array contains TXT chunks of
+one record. Depending on the use case, these could be either joined together or
+treated separately.</p>
+<h3>dnsPromises.reverse(ip)<span><a class="mark" href="#dns_dnspromises_reverse_ip" id="dns_dnspromises_reverse_ip" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>ip</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>Performs a reverse DNS query that resolves an IPv4 or IPv6 address to an
+array of hostnames.</p>
+<p>On error, the <code>Promise</code> is rejected with an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> object, where <code>err.code</code>
+is one of the <a href="#dns_error_codes" rel="nofollow">DNS error codes</a>.</p>
+<h3>dnsPromises.setServers(servers)<span><a class="mark" href="#dns_dnspromises_setservers_servers" id="dns_dnspromises_setservers_servers" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.6.0</span>
+</div>
+<ul>
+<li><code>servers</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a> array of <a href="javascript:if(confirm('http://nodejs.cn/s/jzbgfM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jzbgfM'" tppabs="http://nodejs.cn/s/jzbgfM" rel="nofollow">rfc5952</a> formatted addresses</li>
+</ul>
+<p>Sets the IP address and port of servers to be used when performing DNS
+resolution. The <code>servers</code> argument is an array of <a href="javascript:if(confirm('http://nodejs.cn/s/jzbgfM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jzbgfM'" tppabs="http://nodejs.cn/s/jzbgfM" rel="nofollow">rfc5952</a> formatted
+addresses. If the port is the IANA default DNS port (53) it can be omitted.</p>
+<pre><code class="language-js">dnsPromises.setServers([
+  &apos;4.4.4.4&apos;,
+  &apos;[2001:4860:4860::8888]&apos;,
+  &apos;4.4.4.4:1053&apos;,
+  &apos;[2001:4860:4860::8888]:1053&apos;
+]);
+</code></pre>
+<p>An error will be thrown if an invalid address is provided.</p>
+<p>The <code>dnsPromises.setServers()</code> method must not be called while a DNS query is in
+progress.</p>
+<p>Note that this method works much like</p>
+<p>That is, if attempting to resolve with the first server provided results in a
+<code>NOTFOUND</code> error, the <code>resolve()</code> method will <em>not</em> attempt to resolve with
+subsequent servers provided. Fallback DNS servers will only be used if the
+earlier ones time out or result in some other error.</p>
+<h2>&#x9519;&#x8BEF;&#x7801;<span><a class="mark" href="#dns_error_codes" id="dns_error_codes" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="error_codes.html" tppabs="http://nodejs.cn/api/dns/error_codes.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x6BCF;&#x4E2A;DNS&#x67E5;&#x8BE2;&#x53EF;&#x4EE5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x4EE3;&#x7801;&#x5982;&#x4E0B;:</p>
+<ul>
+<li><code>dns.NODATA</code>: DNS&#x670D;&#x52A1;&#x8FD4;&#x56DE;&#x6CA1;&#x6709;&#x6570;&#x636E;.</li>
+<li><code>dns.FORMERR</code>: DNS&#x670D;&#x52A1;&#x5668;&#x67E5;&#x8BE2;&#x6CA1;&#x6709;&#x683C;&#x5F0F;&#x5316;.</li>
+<li><code>dns.SERVFAIL</code>: DNS&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x5931;&#x8D25;&#x3002;</li>
+<li><code>dns.NOTFOUND</code>: &#x57DF;&#x540D;&#x672A;&#x627E;&#x5230;&#x3002;</li>
+<li><code>dns.NOIMP</code>: DNS&#x670D;&#x52A1;&#x5668;&#x4E0D;&#x6267;&#x884C;&#x8BF7;&#x6C42;&#x7684;&#x64CD;&#x4F5C;&#x3002;</li>
+<li><code>dns.REFUSED</code>: &#x67E5;&#x8BE2;DNS&#x670D;&#x52A1;&#x5668;&#x62D2;&#x7EDD;&#x3002;</li>
+<li><code>dns.BADQUERY</code>:  &#x672A;&#x683C;&#x5F0F;&#x5316;DNS&#x67E5;&#x8BE2;&#x3002;</li>
+<li><code>dns.BADNAME</code>: &#x672A;&#x683C;&#x5F0F;&#x5316;&#x4E3B;&#x673A;&#x540D;</li>
+<li><code>dns.BADFAMILY</code>: &#x6CA1;&#x6709;&#x63D0;&#x4F9B;&#x5730;&#x5740;&#x65CF;</li>
+<li><code>dns.BADRESP</code>: &#x672A;&#x683C;&#x5F0F;&#x5316;DNS&#x56DE;&#x590D;</li>
+<li><code>dns.CONNREFUSED</code>: &#x65E0;&#x6CD5;&#x8FDE;&#x63A5;DNS&#x670D;&#x52A1;&#x5668;</li>
+<li><code>dns.TIMEOUT</code>: &#x8FDE;&#x63A5;DNS&#x670D;&#x52A1;&#x5668;&#x8D85;&#x65F6;</li>
+<li><code>dns.EOF</code>: &#x6587;&#x4EF6;&#x672B;&#x5C3E;</li>
+<li><code>dns.FILE</code>: &#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x9519;&#x8BEF;</li>
+<li><code>dns.NOMEM</code>: &#x5185;&#x5B58;&#x6EA2;&#x51FA;</li>
+<li><code>dns.DESTRUCTION</code>: &#x901A;&#x9053;&#x4EE5;&#x53CA;&#x9500;&#x6BC1;</li>
+<li><code>dns.BADSTR</code>: &#x672A;&#x683C;&#x5F0F;&#x5316;&#x5B57;&#x7B26;&#x4E32;</li>
+<li><code>dns.BADFLAGS</code>: &#x6307;&#x5B9A;&#x975E;&#x6CD5;&#x6807;&#x8BB0;</li>
+<li><code>dns.NONAME</code>: &#x7ED9;&#x5B9A;&#x7684;&#x4E3B;&#x673A;&#x540D;&#x4E0D;&#x662F;&#x6570;&#x5B57;&#x3002;</li>
+<li><code>dns.BADHINTS</code>: &#x6307;&#x5B9A;&#x975E;&#x6CD5;&#x7684;&#x63D0;&#x793A;&#x6807;&#x5FD7;&#x3002;</li>
+<li><code>dns.NOTINITIALIZED</code>: <code>c-ares</code>&#x5F02;&#x6B65;DNS&#x8BF7;&#x6C42;&#x5E93;&#x521D;&#x59CB;&#x5316;&#x672A;&#x5B8C;&#x6210;&#x3002;</li>
+<li><code>dns.LOADIPHLPAPI</code>: &#x52A0;&#x8F7D;<code>iphlpapi.dll</code>(Windows IP&#x8F85;&#x52A9;API&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x63A5;&#x53E3;&#x6A21;&#x5757;)&#x9519;&#x8BEF;</li>
+<li><code>dns.ADDRGETNETWORKPARAMS</code>: &#x627E;&#x4E0D;&#x5230;<code>GetNetworkParams</code>(&#x8BFB;&#x53D6;&#x672C;&#x673A;DNS&#x4FE1;&#x606F;)&#x51FD;&#x6570;</li>
+<li><code>dns.CANCELLED</code>: DNS&#x67E5;&#x8BE2;&#x53D6;&#x6D88;</li>
+</ul>
+<h2>&#x5B9E;&#x73B0;&#x4E0A;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;<span><a class="mark" href="#dns_implementation_considerations" id="dns_implementation_considerations" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="implementation_considerations.html" tppabs="http://nodejs.cn/api/dns/implementation_considerations.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x5C3D;&#x7BA1;<code>dns.lookup()</code>&#x548C;&#x5404;&#x79CD;<code>dns.resolve *()/ dns.reverse()</code>&#x51FD;&#x6570;&#x6709;&#x76F8;&#x540C;&#x7684;&#x76EE;&#x6807;&#x5C06;&#x7F51;&#x7EDC;&#x7684;&#x540D;&#x5B57;&#x4E0E;&#x7F51;&#x7EDC;&#x5730;&#x5740;&#x8054;&#x7CFB;&#x5728;&#x4E00;&#x8D77;(&#x53CD;&#x4E4B;&#x4EA6;&#x7136;)&#xFF0C;&#x4ED6;&#x4EEC;&#x7684;&#x884C;&#x4E3A;&#x662F;&#x5B8C;&#x5168;&#x4E0D;&#x540C;&#x7684;&#x3002;
+&#x8FD9;&#x4E9B;&#x5DEE;&#x5F02;&#x53EF;&#x4EE5;&#x6709;&#x5FAE;&#x5999;&#x4F46;&#x91CD;&#x5927;&#x5F71;&#x54CD;&#x7740;Node.js&#x7A0B;&#x5E8F;&#x884C;&#x4E3A;&#x3002;</p>
+<h3><code>dns.lookup()</code><span><a class="mark" href="#dns_dns_lookup" id="dns_dns_lookup" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="dns_lookup.html" tppabs="http://nodejs.cn/api/dns/dns_lookup.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x5728;&#x5E95;&#x5C42;,<code>dns.lookup()</code>&#x4F7F;&#x7528;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x8BBE;&#x65BD;&#x4E0E;&#x5927;&#x591A;&#x6570;&#x5176;&#x4ED6;&#x7A0B;&#x5E8F;&#x76F8;&#x540C;&#x3002;&#x4F8B;&#x5982;&#xFF0C;<code>dns.lookup()</code>&#x51E0;&#x4E4E;&#x603B;&#x662F;&#x89E3;&#x6790;&#x7ED9;&#x5B9A;&#x7684;&#x4E3B;&#x673A;&#x540D;&#x4E0E;<code>ping</code>&#x547D;&#x4EE4;&#x4E00;&#x6837;&#x3002;&#x5728;&#x8BB8;&#x591A;&#x7C7B;POSIX&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;
+<code>dns.lookup()</code>&#x51FD;&#x6570;&#x7684;&#x884C;&#x4E3A;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6539;&#x53D8;<code>nsswitch.conf(5)</code>&#x5E76;&#x4E14;/&#x6216;<code>resolv.conf(5)</code>&#x8BBE;&#x7F6E;&#x8FDB;&#x884C;&#x6539;&#x53D8;&#xFF0C;&#x4F46;&#x662F;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x6539;&#x53D8;&#x8FD9;&#x4E9B;&#x6587;&#x4EF6;&#x5C31;&#x610F;&#x5473;&#x7740;&#x6539;&#x53D8;&#x6240;&#x6709;&#x6B63;&#x5728;&#x8FD9;&#x4E2A;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x8FD0;&#x884C;
+&#x7684;&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x7684;&#x884C;&#x4E3A;&#x3002;</p>
+<p>&#x5C3D;&#x7BA1;&#x4EE5;&#x5F02;&#x6B65;<code>JavaScript</code>&#x7684;&#x89D2;&#x5EA6;&#x6765;&#x8C03;&#x7528;<code>dns.lookup()</code>,&#x4F46;&#x5728;&#x5185;&#x90E8;<code>libuv</code>&#x5E95;&#x5C42;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x5374;&#x662F;&#x540C;&#x6B65;&#x7684;&#x8C03;&#x7528;<code>getaddrinfo(3)</code>&#x3002;
+This can have surprising negative performance
+implications for some applications, see the <a href="javascript:if(confirm('http://nodejs.cn/s/6DjmgS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/6DjmgS'" tppabs="http://nodejs.cn/s/6DjmgS" rel="nofollow"><code>UV_THREADPOOL_SIZE</code></a>
+documentation for more information.</p>
+<p>Note that various networking APIs will call <code>dns.lookup()</code> internally to resolve
+host names. If that is an issue, consider resolving the hostname to and address
+using <code>dns.resolve()</code> and using the address instead of a host name. Also, some
+networking APIs (such as <a href="javascript:if(confirm('http://nodejs.cn/s/787XLt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/787XLt'" tppabs="http://nodejs.cn/s/787XLt" rel="nofollow"><code>socket.connect()</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/HecCYT  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/HecCYT'" tppabs="http://nodejs.cn/s/HecCYT" rel="nofollow"><code>dgram.createSocket()</code></a>)
+allow the default resolver, <code>dns.lookup()</code>, to be replaced.</p>
+<h3>`dns.resolve()`, `dns.resolve*()` and `dns.reverse()`<span><a class="mark" href="#dns_dns_resolve_dns_resolve_and_dns_reverse" id="dns_dns_resolve_dns_resolve_and_dns_reverse" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="dns_resolve_dns_resolve_and_dns_reverse.html" tppabs="http://nodejs.cn/api/dns/dns_resolve_dns_resolve_and_dns_reverse.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x8FD9;&#x4E9B;&#x529F;&#x80FD;&#x5B9E;&#x73B0;&#x4E0E;dns.lookup()&#x622A;&#x7136;&#x4E0D;&#x540C;&#x3002;&#x5B83;&#x4EEC;&#x4E0D;&#x4EC5;&#x6CA1;&#x6709;&#x4F7F;&#x7528;<code>getaddrinfo(3)</code>&#x5E76;&#x4E14;&#x901A;&#x8FC7;&#x7F51;&#x7EDC;&#x6267;&#x884C;DNS&#x67E5;&#x8BE2;&#x3002;&#x4F7F;&#x7528;&#x5F02;&#x6B65;&#x7F51;&#x7EDC;&#x901A;&#x4FE1;&#xFF0C;&#x5E76;&#x4E14;&#x6CA1;&#x6709;&#x4F7F;&#x7528;libuv&#x7EBF;&#x7A0B;&#x6C60;&#x3002;</p>
+<p>&#x56E0;&#x6B64;,&#x8FD9;&#x4E9B;&#x51FD;&#x6570;&#x4E0D;&#x4F1A;&#x50CF;&#x4F7F;&#x7528;libuv&#x7EBF;&#x7A0B;&#x6C60;&#x7684;<code>dns.lookup()</code>&#x51FD;&#x6570;&#x4E00;&#x6837;&#x4F1A;&#x5BF9;&#x5176;&#x5B83;&#x8FDB;&#x7A0B;&#x6709;&#x8D1F;&#x9762;&#x5F71;&#x54CD;&#x3002;</p>
+<p>&#x5B83;&#x4EEC;&#x4E0D;&#x50CF;<code>dns.lookup()</code>&#x4E00;&#x6837;&#x4F7F;&#x7528;&#x76F8;&#x540C;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5B83;&#x4EEC;&#x4E0D;&#x4F1A;&#x4F7F;&#x7528;&#x6765;&#x81EA;<code>/etc/hosts</code>&#x914D;&#x7F6E;&#x3002;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712018547"><\/script>');
+  </script>
+
+</body></html>

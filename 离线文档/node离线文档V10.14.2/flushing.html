@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Flushing | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/zlib/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712043231" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-zlib">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>Flushing</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="zlib.html#zlib_flushing" tppabs="http://nodejs.cn/api/zlib.html#zlib_flushing" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p>&#x5728;&#x538B;&#x7F29;&#x6D41;&#x4E0A;&#x8C03;&#x7528; <a href="" rel="nofollow"><code>.flush()</code></a> &#x65B9;&#x6CD5;&#x5C06;&#x4F7F; <code>zlib</code> &#x8FD4;&#x56DE;&#x5C3D;&#x53EF;&#x80FD;&#x591A;&#x7684;&#x8F93;&#x51FA;. &#x8FD9;&#x53EF;&#x80FD;&#x662F;&#x4EE5;&#x538B;&#x7F29;&#x8D28;&#x91CF;&#x4E0B;&#x964D;
+&#x4E3A;&#x4EE3;&#x4EF7;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x5F53;&#x9700;&#x8981;&#x5C3D;&#x5FEB;&#x63D0;&#x4F9B;&#x6570;&#x636E;&#x65F6;&#xFF0C;&#x8FD9;&#x53EF;&#x80FD;&#x662F;&#x6709;&#x7528;&#x7684;</p><p>&#x5728;&#x4EE5;&#x4E0B;&#x7684;&#x5B9E;&#x4F8B;&#x4E2D;, &#xA0;<code>flush()</code> &#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x5C06;&#x90E8;&#x5206;&#x538B;&#x7F29;&#x8FC7;&#x7684; HTTP &#x54CD;&#x5E94;&#x8FD4;&#x56DE;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;:</p><pre><code class="language-js">const zlib = require(&apos;zlib&apos;);
+const http = require(&apos;http&apos;);
+
+http.createServer((request, response) =&gt; {
+  // &#x4E3A;&#x4E86;&#x7B80;&#x5355;&#x8D77;&#x89C1;&#xFF0C;&#x7701;&#x7565;&#x4E86;&#x5BF9; Accept-Encoding &#x7684;&#x68C0;&#x6D4B;
+  response.writeHead(200, { &apos;content-encoding&apos;: &apos;gzip&apos; });
+  const output = zlib.createGzip();
+  output.pipe(response);
+
+  setInterval(() =&gt; {
+    output.write(`The current time is ${Date()}\n`, () =&gt; {
+      // &#x6570;&#x636E;&#x5DF2;&#x7ECF;&#x4F20;&#x9012;&#x7ED9;&#x4E86; zlib&#xFF0C;&#x4F46;&#x538B;&#x7F29;&#x7B97;&#x6CD5;&#x770B;&#x80FD;&#x5DF2;&#x7ECF;&#x51B3;&#x5B9A;&#x7F13;&#x5B58;&#x6570;&#x636E;&#x4EE5;&#x4FBF;&#x5F97;&#x5230;&#x66F4;&#x9AD8;&#x7684;&#x538B;&#x7F29;&#x6548;&#x7387;&#x3002;
+      output.flush();
+    });
+  }, 1000);
+}).listen(1337);
+</code></pre></div>
+          <div id="content_right"><p>Calling <a href="javascript:if(confirm('http://nodejs.cn/s/THDXxt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/THDXxt'" tppabs="http://nodejs.cn/s/THDXxt" rel="nofollow"><code>.flush()</code></a> on a compression stream will make <code>zlib</code> return as much
+output as currently possible. This may come at the cost of degraded compression
+quality, but can be useful when data needs to be available as soon as possible.</p><p>In the following example, <code>flush()</code> is used to write a compressed partial
+HTTP response to the client:</p><pre><code class="language-js">const zlib = require(&apos;zlib&apos;);
+const http = require(&apos;http&apos;);
+
+http.createServer((request, response) =&gt; {
+  // For the sake of simplicity, the Accept-Encoding checks are omitted.
+  response.writeHead(200, { &apos;content-encoding&apos;: &apos;gzip&apos; });
+  const output = zlib.createGzip();
+  output.pipe(response);
+
+  setInterval(() =&gt; {
+    output.write(`The current time is ${Date()}\n`, () =&gt; {
+      // The data has been passed to zlib, but the compression algorithm may
+      // have decided to buffer the data for more efficient compression.
+      // Calling .flush() will make the data available as soon as the client
+      // is ready to receive it.
+      output.flush();
+    });
+  }, 1000);
+}).listen(1337);
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712043231"><\/script>');
+  </script>
+</body>
+</html>

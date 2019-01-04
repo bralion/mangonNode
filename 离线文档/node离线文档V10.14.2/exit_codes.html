@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>退出码 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/process/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712034635" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-process">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>退出码</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="process.html#process_exit_codes" tppabs="http://nodejs.cn/api/process.html#process_exit_codes" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p>&#x6B63;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x6B63;&#x5728;&#x7B49;&#x5F85;&#xFF0C;&#x90A3;&#x4E48;Node.js&#x4F1A;&#x4EE5;&#x72B6;&#x6001;&#x7801;<code>0</code>&#x9000;&#x51FA;&#xFF0C;&#x5176;&#x4ED6;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4F1A;
+&#x7528;&#x5982;&#x4E0B;&#x7684;&#x72B6;&#x6001;&#x7801;:</p><ul>
+<li><code>1</code> <strong>&#x672A;&#x6355;&#x83B7;&#x5F02;&#x5E38;</strong> - &#x6709;&#x4E00;&#x4E2A;&#x672A;&#x88AB;&#x6355;&#x83B7;&#x7684;&#x5F02;&#x5E38;,
+&#x5E76;&#x4E14;&#x6CA1;&#x88AB;&#x4E00;&#x4E2A; domain &#x6216; an <a href="javascript:if(confirm('http://nodejs.cn/s/Lc6A38  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Lc6A38'" tppabs="http://nodejs.cn/s/Lc6A38" rel="nofollow"><code>&apos;uncaughtException&apos;</code></a> &#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x5668;&#x5904;&#x7406;&#x3002;</li>
+<li><code>2</code> - &#x672A;&#x88AB;&#x4F7F;&#x7528; (Bash&#x4E3A;&#x9632;&#x5185;&#x90E8;&#x6EE5;&#x7528;&#x800C;&#x4FDD;&#x7559;)</li>
+<li><code>3</code> <strong>&#x5185;&#x90E8;JavaScript &#x5206;&#x6790;&#x9519;&#x8BEF;</strong> - Node.js&#x7684;&#x5185;&#x90E8;&#x7684;JavaScript&#x6E90;&#x4EE3;&#x7801;
+&#x5728;&#x5F15;&#x5BFC;&#x8FDB;&#x7A0B;&#x4E2D;&#x5BFC;&#x81F4;&#x4E86;&#x4E00;&#x4E2A;&#x8BED;&#x6CD5;&#x5206;&#x6790;&#x9519;&#x8BEF;&#x3002;
+&#x8FD9;&#x662F;&#x975E;&#x5E38;&#x5C11;&#x89C1;&#x7684;, &#x4E00;&#x822C;&#x53EA;&#x4F1A;&#x5728;&#x5F00;&#x53D1;Node.js&#x672C;&#x8EAB;&#x7684;&#x65F6;&#x5019;&#x51FA;&#x73B0;&#x3002;</li>
+<li><code>4</code> <strong>&#x5185;&#x90E8;JavaScript&#x6267;&#x884C;&#x5931;&#x8D25;</strong> -
+&#x5F15;&#x5BFC;&#x8FDB;&#x7A0B;&#x6267;&#x884C;Node.js&#x7684;&#x5185;&#x90E8;&#x7684;JavaScript&#x6E90;&#x4EE3;&#x7801;&#x65F6;&#xFF0C;&#x8FD4;&#x56DE;&#x51FD;&#x6570;&#x503C;&#x5931;&#x8D25;&#x3002;
+&#x8FD9;&#x662F;&#x975E;&#x5E38;&#x5C11;&#x89C1;&#x7684;, &#x4E00;&#x822C;&#x53EA;&#x4F1A;&#x5728;&#x5F00;&#x53D1;Node.js&#x672C;&#x8EAB;&#x7684;&#x65F6;&#x5019;&#x51FA;&#x73B0;&#x3002;</li>
+<li><code>5</code> <strong>&#x81F4;&#x547D;&#x9519;&#x8BEF;</strong> - &#x5728;V8&#x4E2D;&#x6709;&#x4E00;&#x4E2A;&#x81F4;&#x547D;&#x7684;&#x9519;&#x8BEF;.
+&#x6BD4;&#x8F83;&#x5178;&#x578B;&#x7684;&#x662F;&#x4EE5;<code>FATALERROR</code>&#x4E3A;&#x524D;&#x7F00;&#x4ECE;stderr&#x6253;&#x5370;&#x51FA;&#x6765;&#x7684;&#x6D88;&#x606F;&#x3002;</li>
+<li><code>6</code> <strong>&#x975E;&#x51FD;&#x6570;&#x7684;&#x5185;&#x90E8;&#x5F02;&#x5E38;&#x5904;&#x7406;</strong> - &#x53D1;&#x751F;&#x4E86;&#x4E00;&#x4E2A;&#x5185;&#x90E8;&#x5F02;&#x5E38;&#xFF0C;&#x4F46;&#x662F;&#x5185;&#x90E8;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x51FD;&#x6570;
+&#x88AB;&#x8BBE;&#x7F6E;&#x6210;&#x4E86;&#x4E00;&#x4E2A;&#x975E;&#x51FD;&#x6570;&#xFF0C;&#x6216;&#x8005;&#x4E0D;&#x80FD;&#x88AB;&#x8C03;&#x7528;&#x3002;</li>
+<li><code>7</code> <strong>&#x5185;&#x90E8;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x8FD0;&#x884C;&#x65F6;&#x5931;&#x8D25;</strong> - &#x6709;&#x4E00;&#x4E2A;&#x4E0D;&#x80FD;&#x88AB;&#x6355;&#x83B7;&#x7684;&#x5F02;&#x5E38;&#x3002;
+&#x5728;&#x8BD5;&#x56FE;&#x5904;&#x7406;&#x8FD9;&#x4E2A;&#x5F02;&#x5E38;&#x65F6;&#xFF0C;&#x5904;&#x7406;&#x51FD;&#x6570;&#x672C;&#x8EAB;&#x629B;&#x51FA;&#x4E86;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x3002;
+&#x8FD9;&#x662F;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x7684;, &#x6BD4;&#x5982;, &#x5982;&#x679C;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/Lc6A38  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Lc6A38'" tppabs="http://nodejs.cn/s/Lc6A38" rel="nofollow"><code>&apos;uncaughtException&apos;</code></a> &#x6216;&#x8005;
+<code>domain.on(&apos;error&apos;)</code> &#x5904;&#x7406;&#x51FD;&#x6570;&#x629B;&#x51FA;&#x4E86;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x3002;</li>
+<li><code>8</code> - &#x672A;&#x88AB;&#x4F7F;&#x7528;.  &#x5728;&#x4E4B;&#x524D;&#x7248;&#x672C;&#x7684;Node.js, &#x9000;&#x51FA;&#x7801;8&#x6709;&#x65F6;&#x5019;&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x672A;&#x88AB;&#x6355;&#x83B7;&#x7684;&#x5F02;&#x5E38;&#x3002;</li>
+<li><code>9</code> - <strong>&#x4E0D;&#x53EF;&#x7528;&#x53C2;&#x6570;</strong> - &#x4E5F;&#x8BB8;&#x662F;&#x67D0;&#x4E2A;&#x672A;&#x77E5;&#x9009;&#x9879;&#x6CA1;&#x6709;&#x786E;&#x5B9A;&#xFF0C;&#x6216;&#x8005;&#x6CA1;&#x7ED9;&#x5FC5;&#x9700;&#x8981;&#x7684;&#x9009;&#x9879;&#x586B;&#x503C;&#x3002;</li>
+<li><code>10</code> <strong>&#x5185;&#x90E8;JavaScript&#x8FD0;&#x884C;&#x65F6;&#x5931;&#x8D25;</strong> - &#x8C03;&#x7528;&#x5F15;&#x5BFC;&#x51FD;&#x6570;&#x65F6;&#xFF0C;
+&#x5F15;&#x5BFC;&#x8FDB;&#x7A0B;&#x6267;&#x884C;Node.js&#x7684;&#x5185;&#x90E8;&#x7684;JavaScript&#x6E90;&#x4EE3;&#x7801;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x3002;
+&#x8FD9;&#x662F;&#x975E;&#x5E38;&#x5C11;&#x89C1;&#x7684;, &#x4E00;&#x822C;&#x53EA;&#x4F1A;&#x5728;&#x5F00;&#x53D1;Node.js&#x672C;&#x8EAB;&#x7684;&#x65F6;&#x5019;&#x51FA;&#x73B0;&#x3002;</li>
+<li><code>12</code> <strong>&#x4E0D;&#x53EF;&#x7528;&#x7684;&#x8C03;&#x8BD5;&#x53C2;&#x6570;</strong> - <code>--inspect</code> &#x548C;/&#x6216; <code>--inspect-brk</code> &#x9009;&#x9879;&#x5DF2;&#x8BBE;&#x7F6E;&#xFF0C;&#x4F46;&#x9009;&#x62E9;&#x7684;&#x7AEF;&#x53E3;&#x53F7;&#x65E0;&#x6548;&#x6216;&#x4E0D;&#x53EF;&#x7528;&#x3002;</li>
+<li><code>&gt;128</code> <strong>&#x9000;&#x51FA;&#x4FE1;&#x53F7;</strong> - &#x5982;&#x679C;Node.js&#x7684;&#x63A5;&#x6536;&#x4FE1;&#x53F7;&#x81F4;&#x547D;&#x8BF8;&#x5982; <code>SIGKILL</code> &#x6216; <code>SIGHUP</code>&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x7684;&#x9000;&#x51FA;&#x4EE3;&#x7801;&#x5C06;&#x662F; <code>128</code> &#x52A0;&#x4E0A;&#x4FE1;&#x53F7;&#x7684;&#x7801;&#x503C;&#x3002; &#x8FD9;&#x662F;POSIX&#x7684;&#x6807;&#x51C6;&#x505A;&#x6CD5;&#xFF0C;&#x56E0;&#x4E3A;&#x9000;&#x51FA;&#x7801;&#x88AB;&#x5B9A;&#x4E49;&#x4E3A;7&#x4F4D;&#x6574;&#x6570;&#xFF0C;&#x5E76;&#x4E14;&#x4FE1;&#x53F7;&#x9000;&#x51FA;&#x8BBE;&#x7F6E;&#x9AD8;&#x4F4D;&#xFF0C;&#x7136;&#x540E;&#x5305;&#x542B;&#x4FE1;&#x53F7;&#x7801;&#x503C;&#x3002;</li>
+</ul></div>
+          <div id="content_right"><p>Node.js will normally exit with a <code>0</code> status code when no more async
+operations are pending. The following status codes are used in other
+cases:</p><ul>
+<li><code>1</code> <strong>Uncaught Fatal Exception</strong> - There was an uncaught exception,
+and it was not handled by a domain or an <a href="javascript:if(confirm('http://nodejs.cn/s/Lc6A38  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Lc6A38'" tppabs="http://nodejs.cn/s/Lc6A38" rel="nofollow"><code>&apos;uncaughtException&apos;</code></a> event
+handler.</li>
+<li><code>2</code> - Unused (reserved by Bash for builtin misuse)</li>
+<li><code>3</code> <strong>Internal JavaScript Parse Error</strong> - The JavaScript source code
+internal in Node.js&apos;s bootstrapping process caused a parse error. This
+is extremely rare, and generally can only happen during development
+of Node.js itself.</li>
+<li><code>4</code> <strong>Internal JavaScript Evaluation Failure</strong> - The JavaScript
+source code internal in Node.js&apos;s bootstrapping process failed to
+return a function value when evaluated. This is extremely rare, and
+generally can only happen during development of Node.js itself.</li>
+<li><code>5</code> <strong>Fatal Error</strong> - There was a fatal unrecoverable error in V8.
+Typically a message will be printed to stderr with the prefix <code>FATAL ERROR</code>.</li>
+<li><code>6</code> <strong>Non-function Internal Exception Handler</strong> - There was an
+uncaught exception, but the internal fatal exception handler
+function was somehow set to a non-function, and could not be called.</li>
+<li><code>7</code> <strong>Internal Exception Handler Run-Time Failure</strong> - There was an
+uncaught exception, and the internal fatal exception handler
+function itself threw an error while attempting to handle it. This
+can happen, for example, if an <a href="javascript:if(confirm('http://nodejs.cn/s/Lc6A38  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Lc6A38'" tppabs="http://nodejs.cn/s/Lc6A38" rel="nofollow"><code>&apos;uncaughtException&apos;</code></a> or
+<code>domain.on(&apos;error&apos;)</code> handler throws an error.</li>
+<li><code>8</code> - Unused. In previous versions of Node.js, exit code 8 sometimes
+indicated an uncaught exception.</li>
+<li><code>9</code> - <strong>Invalid Argument</strong> - Either an unknown option was specified,
+or an option requiring a value was provided without a value.</li>
+<li><code>10</code> <strong>Internal JavaScript Run-Time Failure</strong> - The JavaScript
+source code internal in Node.js&apos;s bootstrapping process threw an error
+when the bootstrapping function was called. This is extremely rare,
+and generally can only happen during development of Node.js itself.</li>
+<li><code>12</code> <strong>Invalid Debug Argument</strong> - The <code>--inspect</code> and/or <code>--inspect-brk</code>
+options were set, but the port number chosen was invalid or unavailable.</li>
+<li><code>&gt;128</code> <strong>Signal Exits</strong> - If Node.js receives a fatal signal such as
+<code>SIGKILL</code> or <code>SIGHUP</code>, then its exit code will be <code>128</code> plus the
+value of the signal code. This is a standard POSIX practice, since
+exit codes are defined to be 7-bit integers, and signal exits set
+the high-order bit, and then contain the value of the signal code.
+For example, signal <code>SIGABRT</code> has value <code>6</code>, so the expected exit
+code will be <code>128</code> + <code>6</code>, or <code>134</code>.</li>
+</ul></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712034635"><\/script>');
+  </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>IPC 连接的识别路径 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/net/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712032242" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-net">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>IPC 连接的识别路径</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="net.html#net_identifying_paths_for_ipc_connections" tppabs="http://nodejs.cn/api/net.html#net_identifying_paths_for_ipc_connections" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p><a href="javascript:if(confirm('http://nodejs.cn/s/mw8BBV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mw8BBV'" tppabs="http://nodejs.cn/s/mw8BBV" rel="nofollow"><code>net.connect()</code></a>, <a href="javascript:if(confirm('http://nodejs.cn/s/RTNxdX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RTNxdX'" tppabs="http://nodejs.cn/s/RTNxdX" rel="nofollow"><code>net.createConnection()</code></a>, <a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a> &#x548C;
+<a href="javascript:if(confirm('http://nodejs.cn/s/fGCDDg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fGCDDg'" tppabs="http://nodejs.cn/s/fGCDDg" rel="nofollow"><code>socket.connect()</code></a> &#x4F7F;&#x7528;&#x4E00;&#x4E2A; <code>path</code> &#x53C2;&#x6570;&#x6765;&#x8BC6;&#x522B; IPC &#x7AEF;&#x70B9;&#x3002;</p><p>&#x5728; UNIX &#x4E0A;&#xFF0C;&#x672C;&#x5730;&#x57DF;&#x4E5F;&#x79F0;&#x4E3A; UNIX &#x57DF;&#x3002;&#x53C2;&#x6570; <code>path</code> &#x662F;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x8DEF;&#x5F84;&#x540D;&#x3002;&#x5B83;&#x88AB;&#x4ECE; <code>sizeof(sockaddr_un.sun_path) - 1</code> &#x5904;&#x88AB;&#x622A;&#x65AD;&#xFF0C;&#x5176;&#x957F;&#x5EA6;&#x56E0;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E0D;&#x540C;&#x800C;&#x5728; 91 &#x81F3; 107 &#x5B57;&#x8282;&#x4E4B;&#x95F4;&#x53D8;&#x5316;&#x3002;&#x5178;&#x578B;&#x503C;&#x5728; Linux &#x4E0A;&#x4E3A; 107&#xFF0C;&#x5728; macOS &#x4E0A;&#x4E3A; 103&#x3002;&#x8BE5;&#x8DEF;&#x5F84;&#x53D7;&#x5230;&#x4E0E;&#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x76F8;&#x540C;&#x7684;&#x547D;&#x540D;&#x7EA6;&#x5B9A;&#x548C;&#x6743;&#x9650;&#x68C0;&#x67E5;&#x3002;&#x5B83;&#x5C06;&#x5728;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E2D;&#x53EF;&#x89C1;&#xFF0C;&#x5E76;&#x4E14;&#x5C06;&#x6301;&#x7EED;&#x5230;&#x53D6;&#x6D88;&#x94FE;&#x63A5;&#x7684;&#x65F6;&#x5019;&#x3002;</p><p>&#x5728; Windows &#x4E0A;&#xFF0C;&#x672C;&#x5730;&#x57DF;&#x901A;&#x8FC7;&#x547D;&#x540D;&#x7BA1;&#x9053;&#x5B9E;&#x73B0;&#x3002;&#x8DEF;&#x5F84;&#x5FC5;&#x987B;&#x662F;&#x4EE5; <code>\\?\pipe\</code> &#x6216; <code>\\.\pipe\</code> &#x4E3A;&#x5165;&#x53E3;&#x3002;&#x8DEF;&#x5F84;&#x5141;&#x8BB8;&#x4EFB;&#x4F55;&#x5B57;&#x7B26;&#xFF0C;&#x4F46;&#x540E;&#x9762;&#x7684;&#x5B57;&#x7B26;&#x53EF;&#x80FD;&#x4F1A;&#x5BF9;&#x7BA1;&#x9053;&#x540D;&#x79F0;&#x8FDB;&#x884C;&#x4E00;&#x4E9B;&#x5904;&#x7406;&#xFF0C;&#x4F8B;&#x5982;&#x89E3;&#x6790; <code>..</code> &#x5E8F;&#x5217;&#x3002;&#x5C3D;&#x7BA1;&#x5982;&#x6B64;&#xFF0C;&#x7BA1;&#x9053;&#x7A7A;&#x95F4;&#x662F;&#x5E73;&#x9762;&#x7684;&#x3002;&#x7BA1;&#x9053;&#x4E0D;&#x4F1A;&#x6301;&#x7EED;&#xFF0C;&#x5F53;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x5F15;&#x7528;&#x5173;&#x95ED;&#x65F6;&#xFF0C;&#x7BA1;&#x9053;&#x5C31;&#x4F1A;&#x88AB;&#x5220;&#x9664;&#x3002;&#x4E0D;&#x8981;&#x5FD8;&#x4E86; JavaScript &#x5B57;&#x7B26;&#x4E32;&#x8F6C;&#x4E49;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x53CC;&#x53CD;&#x659C;&#x6760;&#x6307;&#x5B9A;&#x8DEF;&#x5F84;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;</p><pre><code class="language-js">net.createServer().listen(
+  path.join(&apos;\\\\?\\pipe&apos;, process.cwd(), &apos;myctl&apos;));
+</code></pre></div>
+          <div id="content_right"><p><a href="javascript:if(confirm('http://nodejs.cn/s/mw8BBV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mw8BBV'" tppabs="http://nodejs.cn/s/mw8BBV" rel="nofollow"><code>net.connect()</code></a>, <a href="javascript:if(confirm('http://nodejs.cn/s/RTNxdX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RTNxdX'" tppabs="http://nodejs.cn/s/RTNxdX" rel="nofollow"><code>net.createConnection()</code></a>, <a href="javascript:if(confirm('http://nodejs.cn/s/xGksiu  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xGksiu'" tppabs="http://nodejs.cn/s/xGksiu" rel="nofollow"><code>server.listen()</code></a> and
+<a href="javascript:if(confirm('http://nodejs.cn/s/fGCDDg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fGCDDg'" tppabs="http://nodejs.cn/s/fGCDDg" rel="nofollow"><code>socket.connect()</code></a> take a <code>path</code> parameter to identify IPC endpoints.</p><p>On UNIX, the local domain is also known as the UNIX domain. The path is a
+filesystem pathname. It gets truncated to <code>sizeof(sockaddr_un.sun_path) - 1</code>,
+which varies on different operating system between 91 and 107 bytes.
+The typical values are 107 on Linux and 103 on macOS. The path is
+subject to the same naming conventions and permissions checks as would be done
+on file creation. If the UNIX domain socket (that is visible as a file system
+path) is created and used in conjunction with one of Node.js&apos; API abstractions
+such as <a href="javascript:if(confirm('http://nodejs.cn/s/e8cikS  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/e8cikS'" tppabs="http://nodejs.cn/s/e8cikS" rel="nofollow"><code>net.createServer()</code></a>, it will be unlinked as part of
+<a href="javascript:if(confirm('http://nodejs.cn/s/zZ874N  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zZ874N'" tppabs="http://nodejs.cn/s/zZ874N" rel="nofollow"><code>server.close()</code></a>. On the other hand, if it is created and used outside of
+these abstractions, the user will need to manually remove it. The same applies
+when the path was created by a Node.js API but the program crashes abruptly.
+In short, a UNIX domain socket once successfully created will be visible in the
+filesystem, and will persist until unlinked.</p><p>On Windows, the local domain is implemented using a named pipe. The path <em>must</em>
+refer to an entry in <code>\\?\pipe\</code> or <code>\\.\pipe\</code>. Any characters are permitted,
+but the latter may do some processing of pipe names, such as resolving <code>..</code>
+sequences. Despite how it might look, the pipe namespace is flat. Pipes will
+<em>not persist</em>. They are removed when the last reference to them is closed.
+Unlike UNIX domain sockets, Windows will close and remove the pipe when the
+owning process exits.</p><p>JavaScript string escaping requires paths to be specified with extra backslash
+escaping such as:</p><pre><code class="language-js">net.createServer().listen(
+  path.join(&apos;\\\\?\\pipe&apos;, process.cwd(), &apos;myctl&apos;));
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712032242"><\/script>');
+  </script>
+</body>
+</html>

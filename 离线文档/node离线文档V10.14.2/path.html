@@ -1,0 +1,551 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>path | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712033230" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-path">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path active" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="path" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><span class="stability_2"><a href="#path_path">path&#xFF08;&#x8DEF;&#x5F84;&#xFF09;</a></span></p>
+<ul>
+<li><a href="#path_windows_vs_posix">Windows &#x4E0E; POSIX</a></li>
+<li><a href="#path_path_basename_path_ext">path.basename(path[, ext])</a></li>
+<li><a href="#path_path_delimiter">path.delimiter</a></li>
+<li><a href="#path_path_dirname_path">path.dirname(path)</a></li>
+<li><a href="#path_path_extname_path">path.extname(path)</a></li>
+<li><a href="#path_path_format_pathobject">path.format(pathObject)</a></li>
+<li><a href="#path_path_isabsolute_path">path.isAbsolute(path)</a></li>
+<li><a href="#path_path_join_paths">path.join([...paths])</a></li>
+<li><a href="#path_path_normalize_path">path.normalize(path)</a></li>
+<li><a href="#path_path_parse_path">path.parse(path)</a></li>
+<li><a href="#path_path_posix">path.posix</a></li>
+<li><a href="#path_path_relative_from_to">path.relative(from, to)</a></li>
+<li><a href="#path_path_resolve_paths">path.resolve([...paths])</a></li>
+<li><a href="#path_path_sep">path.sep</a></li>
+<li><a href="#path_path_tonamespacedpath_path">path.toNamespacedPath(path)</a></li>
+<li><a href="#path_path_win32">path.win32</a></li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>path&#xFF08;&#x8DEF;&#x5F84;&#xFF09;<span><a class="mark" href="#path_path" id="path_path" rel="nofollow">#</a></span></h1><p class="tip_wrap"><a href="path-1.html" tppabs="http://nodejs.cn/api/path/path.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<!--introduced_in=v0.10.0-->
+<p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p>
+<p><code>path</code> &#x6A21;&#x5757;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x6587;&#x4EF6;&#x4E0E;&#x76EE;&#x5F55;&#x7684;&#x8DEF;&#x5F84;&#x3002;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre><code class="language-js">const path = require(&apos;path&apos;);
+</code></pre>
+<h2>Windows &#x4E0E; POSIX<span><a class="mark" href="#path_windows_vs_posix" id="path_windows_vs_posix" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="windows_vs_posix.html" tppabs="http://nodejs.cn/api/path/windows_vs_posix.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>path</code> &#x6A21;&#x5757;&#x4F1A;&#x56E0;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x5DEE;&#x5F02;&#x800C;&#x4E0D;&#x540C;&#x3002;
+&#x6BD4;&#x5982;&#x5728; Windows &#x4E0A;&#xFF0C;<code>path</code> &#x6A21;&#x5757;&#x4F1A;&#x8BA4;&#x4E3A;&#x4F7F;&#x7528;&#x7684;&#x662F; Windows &#x98CE;&#x683C;&#x7684;&#x8DEF;&#x5F84;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5BF9;&#x6587;&#x4EF6;&#x8DEF;&#x5F84; <code>C:\temp\myfile.html</code> &#x4F7F;&#x7528; <code>path.basename()</code>&#xFF0C;&#x5728; POSIX &#x4E0A;&#x4E0E;&#x5728; Windows &#x4E0A;&#x4F1A;&#x4EA7;&#x751F;&#x4E0D;&#x540C;&#x7684;&#x7ED3;&#x679C;&#xFF1A;</p>
+<p>&#x5728; POSIX &#x4E0A;:</p>
+<pre><code class="language-js">path.basename(&apos;C:\\temp\\myfile.html&apos;);
+// &#x8FD4;&#x56DE;: &apos;C:\\temp\\myfile.html&apos;
+</code></pre>
+<p>&#x5728; Windows &#x4E0A;:</p>
+<pre><code class="language-js">path.basename(&apos;C:\\temp\\myfile.html&apos;);
+// &#x8FD4;&#x56DE;: &apos;myfile.html&apos;
+</code></pre>
+<p>&#x8981;&#x60F3;&#x5728;&#x4EFB;&#x4F55;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E0A;&#x5904;&#x7406; Windows &#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#x65F6;&#x83B7;&#x5F97;&#x4E00;&#x81F4;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/eH3AFM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/eH3AFM'" tppabs="http://nodejs.cn/s/eH3AFM" rel="nofollow"><code>path.win32</code></a>&#xFF1A;</p>
+<p>&#x5728; POSIX &#x548C; Windows &#x4E0A;:</p>
+<pre><code class="language-js">path.win32.basename(&apos;C:\\temp\\myfile.html&apos;);
+// &#x8FD4;&#x56DE;: &apos;myfile.html&apos;
+</code></pre>
+<p>&#x5982;&#x679C;&#x60F3;&#x5728;&#x4EFB;&#x4F55;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E0A;&#x5904;&#x7406; POSIX &#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#x65F6;&#x83B7;&#x5F97;&#x4E00;&#x81F4;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x5219;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/c8hd35  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/c8hd35'" tppabs="http://nodejs.cn/s/c8hd35" rel="nofollow"><code>path.posix</code></a>&#xFF1A;</p>
+<p>&#x5728; POSIX &#x548C; Windows &#x4E0A;:</p>
+<pre><code class="language-js">path.posix.basename(&apos;/tmp/myfile.html&apos;);
+// &#x8FD4;&#x56DE;: &apos;myfile.html&apos;
+</code></pre>
+<h2>path.basename(path[, ext])<span><a class="mark" href="#path_path_basename_path_ext" id="path_path_basename_path_ext" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_basename_path_ext.html" tppabs="http://nodejs.cn/api/path/path_basename_path_ext.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.0.0</td>
+<td><p>Passing a non-string as the <code>path</code> argument will throw now.</p></td></tr>
+<tr><td>v0.1.25</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.25</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>ext</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x6587;&#x4EF6;&#x7684;&#x6269;&#x5C55;&#x540D;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE; <code>path</code> &#x7684;&#x6700;&#x540E;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E8E; Unix &#x4E2D;&#x7684; <code>basename</code> &#x547D;&#x4EE4;&#x3002;</p>
+<pre><code class="language-js">path.basename(&apos;/foo/bar/baz/asdf/quux.html&apos;);
+// &#x8FD4;&#x56DE;: &apos;quux.html&apos;
+
+path.basename(&apos;/foo/bar/baz/asdf/quux.html&apos;, &apos;.html&apos;);
+// &#x8FD4;&#x56DE;: &apos;quux&apos;
+</code></pre>
+<p>&#x5982;&#x679C; <code>path</code> &#x6216; <code>ext</code> &#x4E0D;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/Z7Lqyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Z7Lqyj'" tppabs="http://nodejs.cn/s/Z7Lqyj" rel="nofollow"><code>TypeError</code></a>&#x3002;</p>
+<h2>path.delimiter<span><a class="mark" href="#path_path_delimiter" id="path_path_delimiter" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_delimiter.html" tppabs="http://nodejs.cn/api/path/path_delimiter.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.3</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x5E73;&#x53F0;&#x7279;&#x5B9A;&#x7684;&#x8DEF;&#x5F84;&#x5206;&#x9694;&#x7B26;&#xFF1A;</p>
+<ul>
+<li>Windows &#x4E0A;&#x662F; <code>;</code>&#x3002;</li>
+<li>POSIX &#x4E0A;&#x662F; <code>:</code>&#x3002;</li>
+</ul>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5728; POSIX &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">console.log(process.env.PATH);
+// &#x8F93;&#x51FA;: &apos;/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin&apos;
+
+process.env.PATH.split(path.delimiter);
+// &#x8FD4;&#x56DE;: [&apos;/usr/bin&apos;, &apos;/bin&apos;, &apos;/usr/sbin&apos;, &apos;/sbin&apos;, &apos;/usr/local/bin&apos;]
+</code></pre>
+<p>&#x5728; Windows &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">console.log(process.env.PATH);
+// &#x8F93;&#x51FA;: &apos;C:\Windows\system32;C:\Windows;C:\Program Files\node\&apos;
+
+process.env.PATH.split(path.delimiter);
+// &#x8FD4;&#x56DE;: [&apos;C:\\Windows\\system32&apos;, &apos;C:\\Windows&apos;, &apos;C:\\Program Files\\node\\&apos;]
+</code></pre>
+<h2>path.dirname(path)<span><a class="mark" href="#path_path_dirname_path" id="path_path_dirname_path" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_dirname_path.html" tppabs="http://nodejs.cn/api/path/path_dirname_path.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.0.0</td>
+<td><p>Passing a non-string as the <code>path</code> argument will throw now.</p></td></tr>
+<tr><td>v0.1.16</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.16</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE; <code>path</code> &#x7684;&#x76EE;&#x5F55;&#x540D;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E8E; Unix &#x4E2D;&#x7684; <code>dirname</code> &#x547D;&#x4EE4;&#x3002;</p>
+<pre><code class="language-js">path.dirname(&apos;/foo/bar/baz/asdf/quux&apos;);
+// &#x8FD4;&#x56DE;: &apos;/foo/bar/baz/asdf&apos;
+</code></pre>
+<p>&#x5982;&#x679C; <code>path</code> &#x4E0D;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/Z7Lqyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Z7Lqyj'" tppabs="http://nodejs.cn/s/Z7Lqyj" rel="nofollow"><code>TypeError</code></a>&#x3002;</p>
+<h2>path.extname(path)<span><a class="mark" href="#path_path_extname_path" id="path_path_extname_path" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_extname_path.html" tppabs="http://nodejs.cn/api/path/path_extname_path.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.0.0</td>
+<td><p>Passing a non-string as the <code>path</code> argument will throw now.</p></td></tr>
+<tr><td>v0.1.25</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.25</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE; <code>path</code> &#x7684;&#x6269;&#x5C55;&#x540D;&#xFF0C;&#x5373;&#x4ECE; <code>path</code> &#x7684;&#x6700;&#x540E;&#x4E00;&#x90E8;&#x5206;&#x4E2D;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A; <code>.</code>&#xFF08;&#x53E5;&#x53F7;&#xFF09;&#x5B57;&#x7B26;&#x5230;&#x5B57;&#x7B26;&#x4E32;&#x7ED3;&#x675F;&#x3002;
+&#x5982;&#x679C; <code>path</code> &#x7684;&#x6700;&#x540E;&#x4E00;&#x90E8;&#x5206;&#x6CA1;&#x6709; <code>.</code> &#x6216; <code>path</code> &#x7684;&#x6587;&#x4EF6;&#x540D;&#xFF08;&#x53C2;&#x8003; <code>path.basename()</code>&#xFF09;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x662F; <code>.</code>&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#x3002;</p>
+<pre><code class="language-js">path.extname(&apos;index.html&apos;);
+// &#x8FD4;&#x56DE;: &apos;.html&apos;
+
+path.extname(&apos;index.coffee.md&apos;);
+// &#x8FD4;&#x56DE;: &apos;.md&apos;
+
+path.extname(&apos;index.&apos;);
+// &#x8FD4;&#x56DE;: &apos;.&apos;
+
+path.extname(&apos;index&apos;);
+// &#x8FD4;&#x56DE;: &apos;&apos;
+
+path.extname(&apos;.index&apos;);
+// &#x8FD4;&#x56DE;: &apos;&apos;
+</code></pre>
+<p>&#x5982;&#x679C; <code>path</code> &#x4E0D;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/Z7Lqyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Z7Lqyj'" tppabs="http://nodejs.cn/s/Z7Lqyj" rel="nofollow"><code>TypeError</code></a>&#x3002;</p>
+<h2>path.format(pathObject)<span><a class="mark" href="#path_path_format_pathobject" id="path_path_format_pathobject" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_format_pathobject.html" tppabs="http://nodejs.cn/api/path/path_format_pathobject.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.15</span>
+</div>
+<ul>
+<li>
+<p><code>pathObject</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>dir</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>root</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>base</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>ext</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+</li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x5C06;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x683C;&#x5F0F;&#x5316;&#x4E3A;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;&#x5B57;&#x7B26;&#x4E32;&#x3002;
+&#x4E0E; <a href="javascript:if(confirm('http://nodejs.cn/s/pqufSi  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/pqufSi'" tppabs="http://nodejs.cn/s/pqufSi" rel="nofollow"><code>path.parse()</code></a> &#x76F8;&#x53CD;&#x3002;</p>
+<p><code>pathObject</code> &#x7684;&#x5C5E;&#x6027;&#x6709;&#x4E0D;&#x540C;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; <code>pathObject.dir</code>&#xFF0C;&#x5219;&#x5FFD;&#x7565; <code>pathObject.root</code>&#x3002;</li>
+<li>&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; <code>pathObject.base</code>&#xFF0C;&#x5219;&#x5FFD;&#x7565; <code>pathObject.ext</code> &#x548C; <code>pathObject.name</code>&#x3002;</li>
+</ul>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5728; POSIX &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">// &#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86; `dir`&#x3001;`root` &#x548C; `base`&#xFF0C;&#x5219;&#x8FD4;&#x56DE; `${dir}${path.sep}${base}`&#x3002;
+// `root` &#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;
+path.format({
+  root: &apos;/ignored&apos;,
+  dir: &apos;/home/user/dir&apos;,
+  base: &apos;file.txt&apos;
+});
+// &#x8FD4;&#x56DE;: &apos;/home/user/dir/file.txt&apos;
+
+// &#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A; `dir`&#xFF0C;&#x5219;&#x4F7F;&#x7528; `root`&#x3002;
+// &#x5982;&#x679C;&#x53EA;&#x6307;&#x5B9A;&#x4E86; `root` &#x6216; `dir` &#x7B49;&#x4E8E; `root`&#xFF0C;&#x5219;&#x4E0D;&#x4F1A;&#x5305;&#x542B;&#x5206;&#x9694;&#x7B26;&#x3002;
+// `ext` &#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;
+path.format({
+  root: &apos;/&apos;,
+  base: &apos;file.txt&apos;,
+  ext: &apos;ignored&apos;
+});
+// &#x8FD4;&#x56DE;: &apos;/file.txt&apos;
+
+// &#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A; `base`&#xFF0C;&#x5219;&#x4F7F;&#x7528; `name` + `ext`&#x3002;
+path.format({
+  root: &apos;/&apos;,
+  name: &apos;file&apos;,
+  ext: &apos;.txt&apos;
+});
+// &#x8FD4;&#x56DE;: &apos;/file.txt&apos;
+</code></pre>
+<p>&#x5728; Windows &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">path.format({
+  dir: &apos;C:\\path\\dir&apos;,
+  base: &apos;file.txt&apos;
+});
+// &#x8FD4;&#x56DE;: &apos;C:\\path\\dir\\file.txt&apos;
+</code></pre>
+<h2>path.isAbsolute(path)<span><a class="mark" href="#path_path_isabsolute_path" id="path_path_isabsolute_path" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_isabsolute_path.html" tppabs="http://nodejs.cn/api/path/path_isabsolute_path.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.2</span>
+</div>
+<ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a></li>
+</ul>
+<p>&#x5224;&#x65AD; <code>path</code> &#x662F;&#x5426;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6307;&#x5B9A;&#x7684; <code>path</code> &#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x8FD4;&#x56DE; <code>false</code>&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5728; POSIX &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">path.isAbsolute(&apos;/foo/bar&apos;); // true
+path.isAbsolute(&apos;/baz/..&apos;);  // true
+path.isAbsolute(&apos;qux/&apos;);     // false
+path.isAbsolute(&apos;.&apos;);        // false
+</code></pre>
+<p>&#x5728; Windows &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">path.isAbsolute(&apos;//server&apos;);    // true
+path.isAbsolute(&apos;\\\\server&apos;);  // true
+path.isAbsolute(&apos;C:/foo/..&apos;);   // true
+path.isAbsolute(&apos;C:\\foo\\..&apos;); // true
+path.isAbsolute(&apos;bar\\baz&apos;);    // false
+path.isAbsolute(&apos;bar/baz&apos;);     // false
+path.isAbsolute(&apos;.&apos;);           // false
+</code></pre>
+<h2>path.join([...paths])<span><a class="mark" href="#path_path_join_paths" id="path_path_join_paths" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_join_paths.html" tppabs="http://nodejs.cn/api/path/path_join_paths.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.16</span>
+</div>
+<ul>
+<li><code>...paths</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x8DEF;&#x5F84;&#x7247;&#x6BB5;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x4F7F;&#x7528;&#x5E73;&#x53F0;&#x7279;&#x5B9A;&#x7684;&#x5206;&#x9694;&#x7B26;&#x628A;&#x6240;&#x6709; <code>path</code> &#x7247;&#x6BB5;&#x8FDE;&#x63A5;&#x5230;&#x4E00;&#x8D77;&#xFF0C;&#x5E76;&#x89C4;&#x8303;&#x5316;&#x751F;&#x6210;&#x7684;&#x8DEF;&#x5F84;&#x3002;</p>
+<p>&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#x7684; <code>path</code> &#x7247;&#x6BB5;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;
+&#x5982;&#x679C;&#x8FDE;&#x63A5;&#x540E;&#x7684;&#x8DEF;&#x5F84;&#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x8FD4;&#x56DE; <code>&apos;.&apos;</code>&#xFF0C;&#x8868;&#x793A;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x3002;</p>
+<pre><code class="language-js">path.join(&apos;/foo&apos;, &apos;bar&apos;, &apos;baz/asdf&apos;, &apos;quux&apos;, &apos;..&apos;);
+// &#x8FD4;&#x56DE;: &apos;/foo/bar/baz/asdf&apos;
+
+path.join(&apos;foo&apos;, {}, &apos;bar&apos;);
+// &#x629B;&#x51FA; &apos;TypeError: Path must be a string. Received {}&apos;
+</code></pre>
+<p>&#x5982;&#x679C; <code>path</code> &#x4E0D;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/Z7Lqyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Z7Lqyj'" tppabs="http://nodejs.cn/s/Z7Lqyj" rel="nofollow"><code>TypeError</code></a>&#x3002;</p>
+<h2>path.normalize(path)<span><a class="mark" href="#path_path_normalize_path" id="path_path_normalize_path" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_normalize_path.html" tppabs="http://nodejs.cn/api/path/path_normalize_path.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.23</span>
+</div>
+<ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x89C4;&#x8303;&#x5316; <code>path</code>&#xFF0C;&#x5E76;&#x5904;&#x7406; <code>&apos;..&apos;</code> &#x548C; <code>&apos;.&apos;</code> &#x7247;&#x6BB5;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x51FA;&#x73B0;&#x591A;&#x4E2A;&#x8FDE;&#x7EED;&#x7684;&#x8DEF;&#x5F84;&#x5206;&#x9694;&#x7B26;&#xFF08;&#x5982; POSIX &#x4E0A;&#x7684; <code>/</code> &#x6216; Windows &#x4E0A;&#x7684; <code>\</code> &#x4E0E; <code>/</code>&#xFF09;&#xFF0C;&#x5219;&#x66FF;&#x6362;&#x4E3A;&#x5355;&#x4E2A;&#x5206;&#x9694;&#x7B26;&#x3002;
+&#x672B;&#x5C3E;&#x7684;&#x591A;&#x4E2A;&#x5206;&#x9694;&#x7B26;&#x4F1A;&#x88AB;&#x4FDD;&#x7559;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>path</code> &#x662F;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x8FD4;&#x56DE; <code>&apos;.&apos;</code>&#xFF0C;&#x8868;&#x793A;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5728; POSIX &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">path.normalize(&apos;/foo/bar//baz/asdf/quux/..&apos;);
+// &#x8FD4;&#x56DE;: &apos;/foo/bar/baz/asdf&apos;
+</code></pre>
+<p>&#x5728; Windows &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">path.normalize(&apos;C:\\temp\\\\foo\\bar\\..\\&apos;);
+// &#x8FD4;&#x56DE;: &apos;C:\\temp\\foo\\&apos;
+</code></pre>
+<p>&#x5982;&#x679C; Windows &#x4E0A;&#x51FA;&#x73B0;&#x591A;&#x79CD;&#x8DEF;&#x5F84;&#x5206;&#x9694;&#x7B26;&#xFF0C;&#x5219;&#x90FD;&#x4F7F;&#x7528; <code>\</code> &#x66FF;&#x6362;&#xFF1A;</p>
+<pre><code class="language-js">path.win32.normalize(&apos;C:////temp\\\\/\\/\\/foo/bar&apos;);
+// &#x8FD4;&#x56DE;: &apos;C:\\temp\\foo\\bar&apos;
+</code></pre>
+<p>&#x5982;&#x679C; <code>path</code> &#x4E0D;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/Z7Lqyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Z7Lqyj'" tppabs="http://nodejs.cn/s/Z7Lqyj" rel="nofollow"><code>TypeError</code></a>&#x3002;</p>
+<h2>path.parse(path)<span><a class="mark" href="#path_path_parse_path" id="path_path_parse_path" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_parse_path.html" tppabs="http://nodejs.cn/api/path/path_parse_path.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.15</span>
+</div>
+<ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5176;&#x4E2D;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x4EE3;&#x8868; <code>path</code> &#x7684;&#x5143;&#x7D20;&#x3002;</p>
+<p>&#x8FD4;&#x56DE;&#x7684;&#x5BF9;&#x8C61;&#x6709;&#x4EE5;&#x4E0B;&#x5C5E;&#x6027;&#xFF1A;</p>
+<ul>
+<li><code>dir</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>root</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>base</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>ext</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5728; POSIX &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">path.parse(&apos;/home/user/dir/file.txt&apos;);
+// &#x8FD4;&#x56DE;:
+// { root: &apos;/&apos;,
+//   dir: &apos;/home/user/dir&apos;,
+//   base: &apos;file.txt&apos;,
+//   ext: &apos;.txt&apos;,
+//   name: &apos;file&apos; }
+</code></pre>
+<pre><code class="language-text">&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+&#x2502;          dir        &#x2502;    base    &#x2502;
+&#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;              &#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;
+&#x2502; root &#x2502;              &#x2502; name &#x2502; ext &#x2502;
+&quot;  /    home/user/dir / file  .txt &quot;
+&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+<p>&#x5728; Windows &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">path.parse(&apos;C:\\path\\dir\\file.txt&apos;);
+// &#x8FD4;&#x56DE;:
+// { root: &apos;C:\\&apos;,
+//   dir: &apos;C:\\path\\dir&apos;,
+//   base: &apos;file.txt&apos;,
+//   ext: &apos;.txt&apos;,
+//   name: &apos;file&apos; }
+</code></pre>
+<pre><code class="language-text">&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+&#x2502;          dir        &#x2502;    base    &#x2502;
+&#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;              &#x251C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2524;
+&#x2502; root &#x2502;              &#x2502; name &#x2502; ext &#x2502;
+&quot; C:\      path\dir   \ file  .txt &quot;
+&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2534;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+</code></pre>
+<p>&#x5982;&#x679C; <code>path</code> &#x4E0D;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/Z7Lqyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Z7Lqyj'" tppabs="http://nodejs.cn/s/Z7Lqyj" rel="nofollow"><code>TypeError</code></a>&#x3002;</p>
+<h2>path.posix<span><a class="mark" href="#path_path_posix" id="path_path_posix" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_posix.html" tppabs="http://nodejs.cn/api/path/path_posix.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.15</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x4E3A; POSIX &#x5B9E;&#x73B0;&#x7684; <code>path</code> &#x65B9;&#x6CD5;&#x3002;</p>
+<h2>path.relative(from, to)<span><a class="mark" href="#path_path_relative_from_to" id="path_path_relative_from_to" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_relative_from_to.html" tppabs="http://nodejs.cn/api/path/path_relative_from_to.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.8.0</td>
+<td><p>On Windows, the leading slashes for UNC paths are now included in the return value.</p></td></tr>
+<tr><td>v0.5.0</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.5.0</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>from</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>to</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x4ECE; <code>from</code> &#x5230; <code>to</code> &#x7684;&#x76F8;&#x5BF9;&#x8DEF;&#x5F84;&#xFF08;&#x57FA;&#x4E8E;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#xFF09;&#x3002;
+&#x5982;&#x679C; <code>from</code> &#x548C; <code>to</code> &#x5206;&#x522B;&#x8C03;&#x7528; <code>path.resolve()</code> &#x4E4B;&#x540E;&#x89E3;&#x6790;&#x5230;&#x540C;&#x4E00;&#x8DEF;&#x5F84;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#x3002;</p>
+<p>&#x5982;&#x679C; <code>from</code> &#x6216; <code>to</code> &#x662F;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x89C6;&#x4E3A;&#x4F20;&#x5165;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5728; POSIX &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">path.relative(&apos;/data/orandea/test/aaa&apos;, &apos;/data/orandea/impl/bbb&apos;);
+// &#x8FD4;&#x56DE;: &apos;../../impl/bbb&apos;
+</code></pre>
+<p>&#x5728; Windows &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">path.relative(&apos;C:\\orandea\\test\\aaa&apos;, &apos;C:\\orandea\\impl\\bbb&apos;);
+// &#x8FD4;&#x56DE;: &apos;..\\..\\impl\\bbb&apos;
+</code></pre>
+<p>&#x5982;&#x679C; <code>from</code> &#x6216; <code>to</code> &#x4E0D;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/Z7Lqyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Z7Lqyj'" tppabs="http://nodejs.cn/s/Z7Lqyj" rel="nofollow"><code>TypeError</code></a>&#x3002;</p>
+<h2>path.resolve([...paths])<span><a class="mark" href="#path_path_resolve_paths" id="path_path_resolve_paths" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_resolve_paths.html" tppabs="http://nodejs.cn/api/path/path_resolve_paths.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.4</span>
+</div>
+<ul>
+<li><code>...paths</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x8DEF;&#x5F84;&#x6216;&#x8DEF;&#x5F84;&#x7247;&#x6BB5;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x5C06;&#x8DEF;&#x5F84;&#x6216;&#x8DEF;&#x5F84;&#x7247;&#x6BB5;&#x5904;&#x7406;&#x6210;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#x3002;</p>
+<p><code>path</code> &#x4ECE;&#x53F3;&#x5230;&#x5DE6;&#x4F9D;&#x6B21;&#x5904;&#x7406;&#xFF0C;&#x76F4;&#x5230;&#x6784;&#x9020;&#x51FA;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#x3002;
+&#x4F8B;&#x5982;&#xFF0C;&#x6307;&#x5B9A;&#x7684;&#x8DEF;&#x5F84;&#x7247;&#x6BB5;&#x662F;&#xFF1A;<code>/foo</code>&#x3001;<code>/bar</code>&#x3001;<code>baz</code>&#xFF0C;&#x5219;&#x8C03;&#x7528; <code>path.resolve(&apos;/foo&apos;, &apos;/bar&apos;, &apos;baz&apos;)</code> &#x4F1A;&#x8FD4;&#x56DE; <code>/bar/baz</code>&#x3002;</p>
+<p>&#x5982;&#x679C;&#x5904;&#x7406;&#x5B8C;&#x5168;&#x90E8; <code>path</code> &#x7247;&#x6BB5;&#x540E;&#x8FD8;&#x672A;&#x4EA7;&#x751F;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#xFF0C;&#x5219;&#x52A0;&#x4E0A;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x3002;</p>
+<p>&#x751F;&#x6210;&#x7684;&#x8DEF;&#x5F84;&#x4F1A;&#x8FDB;&#x884C;&#x89C4;&#x8303;&#x5316;&#xFF0C;&#x5E76;&#x4E14;&#x5220;&#x9664;&#x672B;&#x5C3E;&#x7684;&#x659C;&#x6760;&#xFF0C;&#x9664;&#x975E;&#x8DEF;&#x5F84;&#x662F;&#x6839;&#x76EE;&#x5F55;&#x3002;</p>
+<p>&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#x7684; <code>path</code> &#x7247;&#x6BB5;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A; <code>path</code>&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x7684;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#x3002;</p>
+<pre><code class="language-js">path.resolve(&apos;/foo/bar&apos;, &apos;./baz&apos;);
+// &#x8FD4;&#x56DE;: &apos;/foo/bar/baz&apos;
+
+path.resolve(&apos;/foo/bar&apos;, &apos;/tmp/file/&apos;);
+// &#x8FD4;&#x56DE;: &apos;/tmp/file&apos;
+
+path.resolve(&apos;wwwroot&apos;, &apos;static_files/png/&apos;, &apos;../gif/image.gif&apos;);
+// &#x5982;&#x679C;&#x5F53;&#x524D;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;&#x662F; /home/myself/node&#xFF0C;&#x5219;&#x8FD4;&#x56DE; &apos;/home/myself/node/wwwroot/static_files/gif/image.gif&apos;
+</code></pre>
+<p>&#x5982;&#x679C; <code>path</code> &#x4E0D;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/Z7Lqyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Z7Lqyj'" tppabs="http://nodejs.cn/s/Z7Lqyj" rel="nofollow"><code>TypeError</code></a>&#x3002;</p>
+<h2>path.sep<span><a class="mark" href="#path_path_sep" id="path_path_sep" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_sep.html" tppabs="http://nodejs.cn/api/path/path_sep.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.9</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x5E73;&#x53F0;&#x7279;&#x5B9A;&#x7684;&#x8DEF;&#x5F84;&#x7247;&#x6BB5;&#x5206;&#x9694;&#x7B26;&#xFF1A;</p>
+<ul>
+<li>Windows &#x4E0A;&#x662F; <code>\</code>&#x3002;</li>
+<li>POSIX &#x4E0A;&#x662F; <code>/</code>&#x3002;</li>
+</ul>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5728; POSIX &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">&apos;foo/bar/baz&apos;.split(path.sep);
+// &#x8FD4;&#x56DE;: [&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]
+</code></pre>
+<p>&#x5728; Windows &#x4E0A;&#xFF1A;</p>
+<pre><code class="language-js">&apos;foo\\bar\\baz&apos;.split(path.sep);
+// &#x8FD4;&#x56DE;: [&apos;foo&apos;, &apos;bar&apos;, &apos;baz&apos;]
+</code></pre>
+<p>&#x5728; Windows &#x4E0A;&#xFF0C;&#x659C;&#x6760;&#x5B57;&#x7B26;&#xFF08;<code>/</code>&#xFF09;&#x548C;&#x53CD;&#x659C;&#x6760;&#x5B57;&#x7B26;&#xFF08;<code>\</code>&#xFF09;&#x90FD;&#x53EF;&#x4F5C;&#x4E3A;&#x8DEF;&#x5F84;&#x5206;&#x9694;&#x7B26;&#x3002;
+<code>path</code> &#x7684;&#x65B9;&#x6CD5;&#x53EA;&#x4F7F;&#x7528;&#x53CD;&#x659C;&#x6760;&#xFF08;<code>\</code>&#xFF09;&#x3002;</p>
+<h2>path.toNamespacedPath(path)<span><a class="mark" href="#path_path_tonamespacedpath_path" id="path_path_tonamespacedpath_path" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_tonamespacedpath_path.html" tppabs="http://nodejs.cn/api/path/path_tonamespacedpath_path.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v9.0.0</span>
+</div>
+<ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE; <code>path</code> &#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/cVsGGE  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/cVsGGE'" tppabs="http://nodejs.cn/s/cVsGGE" rel="nofollow">&#x5E26;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x524D;&#x7F00;&#x7684;&#x8DEF;&#x5F84;</a>&#xFF0C;&#x4EC5;&#x652F;&#x6301; Window &#x7CFB;&#x7EDF;&#x3002;</p>
+<h2>path.win32<span><a class="mark" href="#path_path_win32" id="path_path_win32" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="path_win32.html" tppabs="http://nodejs.cn/api/path/path_win32.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.15</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x4E3A; Windows &#x5B9E;&#x73B0;&#x7684; <code>path</code> &#x65B9;&#x6CD5;&#x3002;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712033230"><\/script>');
+  </script>
+
+</body></html>

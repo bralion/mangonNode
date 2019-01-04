@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>util.deprecate(fn, msg[, code]) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/util/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712041151" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-util">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>util.deprecate(fn, msg[, code])</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="util.html#util_util_deprecate_fn_msg_code" tppabs="http://nodejs.cn/api/util.html#util_util_deprecate_fn_msg_code" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Deprecation warnings are only emitted once for each code.</p></td></tr>
+<tr><td>v0.8.0</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.8.0</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>fn</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> The function that is being deprecated.</li>
+<li><code>msg</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> A warning message to display when the deprecated function is
+invoked.</li>
+<li><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> A deprecation code. See the <a href="javascript:if(confirm('http://nodejs.cn/s/F7GdLc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F7GdLc'" tppabs="http://nodejs.cn/s/F7GdLc" rel="nofollow">list of deprecated APIs</a> for a
+list of codes.</li>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> The deprecated function wrapped to emit a warning.</li>
+</ul><p><code>util.deprecate()</code> &#x65B9;&#x6CD5;&#x4F1A;&#x5305;&#x88C5;&#x7ED9;&#x5B9A;&#x7684; <code>function</code> &#x6216;&#x7C7B;&#xFF0C;&#x5E76;&#x6807;&#x8BB0;&#x4E3A;&#x5E9F;&#x5F03;&#x7684;&#x3002;</p><pre><code class="language-js">const util = require(&apos;util&apos;);
+
+exports.obsoleteFunction = util.deprecate(() =&gt; {
+  // Do something here.
+}, &apos;obsoleteFunction() is deprecated. Use newShinyFunction() instead.&apos;);
+</code></pre><p>&#x5F53;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;<code>util.deprecate()</code> &#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x4F1A;&#x4F7F;&#x7528; <code>process.on(&apos;warning&apos;)</code> &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x4E00;&#x4E2A; <code>DeprecationWarning</code>&#x3002;
+&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x8B66;&#x544A;&#x53EA;&#x5728;&#x9996;&#x6B21;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#x624D;&#x4F1A;&#x88AB;&#x89E6;&#x53D1;&#x5E76;&#x6253;&#x5370;&#x5230; <code>stderr</code>&#x3002;
+&#x8B66;&#x544A;&#x88AB;&#x89E6;&#x53D1;&#x4E4B;&#x540E;&#xFF0C;&#x88AB;&#x5305;&#x88C5;&#x7684; <code>function</code> &#x4F1A;&#x88AB;&#x8C03;&#x7528;&#x3002;</p><pre><code class="language-js">const util = require(&apos;util&apos;);
+
+const fn1 = util.deprecate(someFunction, someMessage, &apos;DEP0001&apos;);
+const fn2 = util.deprecate(someOtherFunction, someOtherMessage, &apos;DEP0001&apos;);
+fn1(); // emits a deprecation warning with code DEP0001
+fn2(); // does not emit a deprecation warning because it has the same code
+</code></pre><p>&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E86; <code>--no-deprecation</code> &#x6216; <code>--no-warnings</code> &#x547D;&#x4EE4;&#x884C;&#x6807;&#x8BB0;&#xFF0C;&#x6216; <code>process.noDeprecation</code> &#x5C5E;&#x6027;&#x5728;&#x9996;&#x6B21;&#x5E9F;&#x5F03;&#x8B66;&#x544A;&#x4E4B;&#x524D;&#x88AB;&#x8BBE;&#x4E3A; <code>true</code>&#xFF0C;&#x5219; <code>util.deprecate()</code> &#x65B9;&#x6CD5;&#x4EC0;&#x4E48;&#x4E5F;&#x4E0D;&#x505A;&#x3002;</p><p>&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E86; <code>--trace-deprecation</code> &#x6216; <code>--trace-warnings</code> &#x547D;&#x4EE4;&#x884C;&#x6807;&#x8BB0;&#xFF0C;&#x6216; <code>process.traceDeprecation</code> &#x5C5E;&#x6027;&#x88AB;&#x8BBE;&#x4E3A; <code>true</code>&#xFF0C;&#x5219;&#x5E9F;&#x5F03;&#x7684;&#x51FD;&#x6570;&#x9996;&#x6B21;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#x4F1A;&#x628A;&#x8B66;&#x544A;&#x4E0E;&#x5806;&#x6808;&#x8FFD;&#x8E2A;&#x6253;&#x5370;&#x5230; <code>stderr</code>&#x3002;</p><p>&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E86; <code>--throw-deprecation</code> &#x547D;&#x4EE4;&#x884C;&#x6807;&#x8BB0;&#xFF0C;&#x6216; <code>process.throwDeprecation</code> &#x5C5E;&#x6027;&#x88AB;&#x8BBE;&#x4E3A; <code>true</code>&#xFF0C;&#x5219;&#x5F53;&#x5E9F;&#x5F03;&#x7684;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x5F02;&#x5E38;&#x3002;</p><p><code>--throw-deprecation</code> &#x547D;&#x4EE4;&#x884C;&#x6807;&#x8BB0;&#x548C; <code>process.throwDeprecation</code> &#x5C5E;&#x6027;&#x4F18;&#x5148;&#x4E8E; <code>--trace-deprecation</code> &#x548C; <code>process.traceDeprecation</code>&#x3002;</p></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Deprecation warnings are only emitted once for each code.</p></td></tr>
+<tr><td>v0.8.0</td>
+<td><p><span>Added in: v0.8.0</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>fn</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> The function that is being deprecated.</li>
+<li><code>msg</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> A warning message to display when the deprecated function is
+invoked.</li>
+<li><code>code</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> A deprecation code. See the <a href="javascript:if(confirm('http://nodejs.cn/s/F7GdLc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F7GdLc'" tppabs="http://nodejs.cn/s/F7GdLc" rel="nofollow">list of deprecated APIs</a> for a
+list of codes.</li>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> The deprecated function wrapped to emit a warning.</li>
+</ul><p>The <code>util.deprecate()</code> method wraps <code>fn</code> (which may be a function or class) in
+such a way that it is marked as deprecated.</p><pre><code class="language-js">const util = require(&apos;util&apos;);
+
+exports.obsoleteFunction = util.deprecate(() =&gt; {
+  // Do something here.
+}, &apos;obsoleteFunction() is deprecated. Use newShinyFunction() instead.&apos;);
+</code></pre><p>When called, <code>util.deprecate()</code> will return a function that will emit a
+<code>DeprecationWarning</code> using the <a href="javascript:if(confirm('http://nodejs.cn/s/YXSqii  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YXSqii'" tppabs="http://nodejs.cn/s/YXSqii" rel="nofollow"><code>&apos;warning&apos;</code></a> event. The warning will
+be emitted and printed to <code>stderr</code> the first time the returned function is
+called. After the warning is emitted, the wrapped function is called without
+emitting a warning.</p><p>If the same optional <code>code</code> is supplied in multiple calls to <code>util.deprecate()</code>,
+the warning will be emitted only once for that <code>code</code>.</p><pre><code class="language-js">const util = require(&apos;util&apos;);
+
+const fn1 = util.deprecate(someFunction, someMessage, &apos;DEP0001&apos;);
+const fn2 = util.deprecate(someOtherFunction, someOtherMessage, &apos;DEP0001&apos;);
+fn1(); // emits a deprecation warning with code DEP0001
+fn2(); // does not emit a deprecation warning because it has the same code
+</code></pre><p>If either the <code>--no-deprecation</code> or <code>--no-warnings</code> command line flags are
+used, or if the <code>process.noDeprecation</code> property is set to <code>true</code> <em>prior</em> to
+the first deprecation warning, the <code>util.deprecate()</code> method does nothing.</p><p>If the <code>--trace-deprecation</code> or <code>--trace-warnings</code> command line flags are set,
+or the <code>process.traceDeprecation</code> property is set to <code>true</code>, a warning and a
+stack trace are printed to <code>stderr</code> the first time the deprecated function is
+called.</p><p>If the <code>--throw-deprecation</code> command line flag is set, or the
+<code>process.throwDeprecation</code> property is set to <code>true</code>, then an exception will be
+thrown when the deprecated function is called.</p><p>The <code>--throw-deprecation</code> command line flag and <code>process.throwDeprecation</code>
+property take precedence over <code>--trace-deprecation</code> and
+<code>process.traceDeprecation</code>.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712041151"><\/script>');
+  </script>
+</body>
+</html>

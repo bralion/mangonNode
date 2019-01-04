@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>文件打开的常量 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/fs/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712024293" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-fs">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>文件打开的常量</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="fs.html#fs_file_open_constants" tppabs="http://nodejs.cn/api/fs.html#fs_file_open_constants" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p>&#x4EE5;&#x4E0B;&#x5E38;&#x91CF;&#x7528;&#x4E8E; <code>fs.open()</code>&#x3002;</p><table>
+  <tbody><tr>
+    <th>&#x5E38;&#x91CF;</th>
+    <th>&#x63CF;&#x8FF0;</th>
+  </tr>
+  <tr>
+    <td><code>O_RDONLY</code></td>
+    <td>&#x8868;&#x660E;&#x6253;&#x5F00;&#x6587;&#x4EF6;&#x7528;&#x4E8E;&#x53EA;&#x8BFB;&#x8BBF;&#x95EE;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_WRONLY</code></td>
+    <td>&#x8868;&#x660E;&#x6253;&#x5F00;&#x6587;&#x4EF6;&#x7528;&#x4E8E;&#x53EA;&#x5199;&#x8BBF;&#x95EE;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_RDWR</code></td>
+    <td>&#x8868;&#x660E;&#x6253;&#x5F00;&#x6587;&#x4EF6;&#x7528;&#x4E8E;&#x8BFB;&#x5199;&#x8BBF;&#x95EE;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_CREAT</code></td>
+    <td>&#x8868;&#x660E;&#x5982;&#x679C;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;&#x5219;&#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_EXCL</code></td>
+    <td>&#x8868;&#x660E;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E86; <code>O_CREAT</code> &#x6807;&#x5FD7;&#x4E14;&#x6587;&#x4EF6;&#x5DF2;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x6253;&#x5F00;&#x6587;&#x4EF6;&#x65F6;&#x4F1A;&#x5931;&#x8D25;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_NOCTTY</code></td>
+    <td>&#x8868;&#x660E;&#x5982;&#x679C;&#x8DEF;&#x5F84;&#x662F;&#x4E00;&#x4E2A;&#x7EC8;&#x7AEF;&#x8BBE;&#x5907;&#xFF0C;&#x5219;&#x6253;&#x5F00;&#x8BE5;&#x8DEF;&#x5F84;&#x4E0D;&#x5E94;&#x8BE5;&#x9020;&#x6210;&#x8BE5;&#x7EC8;&#x7AEF;&#x53D8;&#x6210;&#x8FDB;&#x7A0B;&#x7684;&#x63A7;&#x5236;&#x7EC8;&#x7AEF;&#xFF08;&#x5982;&#x679C;&#x8FDB;&#x7A0B;&#x8FD8;&#x6CA1;&#x6709;&#x7EC8;&#x7AEF;&#xFF09;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_TRUNC</code></td>
+    <td>&#x8868;&#x660E;&#x5982;&#x679C;&#x6587;&#x4EF6;&#x5DF2;&#x5B58;&#x5728;&#x4E14;&#x4E3A;&#x4E00;&#x4E2A;&#x666E;&#x901A;&#x6587;&#x4EF6;&#x3001;&#x4E14;&#x6587;&#x4EF6;&#x88AB;&#x6210;&#x529F;&#x6253;&#x5F00;&#x4E3A;&#x5199;&#x5165;&#x8BBF;&#x95EE;&#xFF0C;&#x5219;&#x5B83;&#x7684;&#x957F;&#x5EA6;&#x4F1A;&#x88AB;&#x622A;&#x65AD;&#x81F3;&#x96F6;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_APPEND</code></td>
+    <td>&#x8868;&#x660E;&#x6570;&#x636E;&#x4F1A;&#x88AB;&#x8FFD;&#x52A0;&#x5230;&#x6587;&#x4EF6;&#x7684;&#x672B;&#x5C3E;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_DIRECTORY</code></td>
+    <td>&#x8868;&#x660E;&#x5982;&#x679C;&#x8DEF;&#x5F84;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#xFF0C;&#x5219;&#x6253;&#x5F00;&#x4F1A;&#x5931;&#x8D25;&#x3002;</td>
+  </tr>
+  <tr>
+  <td><code>O_NOATIME</code></td>
+    <td>&#x8868;&#x660E;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x8BFB;&#x53D6;&#x8BBF;&#x95EE;&#x4E0D;&#x518D;&#x5F15;&#x8D77;&#x6587;&#x4EF6;&#x7684; <code>atime</code> &#x4FE1;&#x606F;&#x7684;&#x66F4;&#x65B0;&#x3002;
+    &#x53EA;&#x5728; Linux &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x6709;&#x6548;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_NOFOLLOW</code></td>
+    <td>&#x8868;&#x660E;&#x5982;&#x679C;&#x8DEF;&#x5F84;&#x662F;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#x94FE;&#x63A5;&#xFF0C;&#x5219;&#x6253;&#x5F00;&#x4F1A;&#x5931;&#x8D25;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_SYNC</code></td>
+    <td>&#x8868;&#x660E;&#x6587;&#x4EF6;&#x4EE5;&#x540C;&#x6B65; I/O &#x6253;&#x5F00;&#xFF0C;&#x5199;&#x5165;&#x64CD;&#x4F5C;&#x4F1A;&#x7B49;&#x5F85;&#x6587;&#x4EF6;&#x7684;&#x5B8C;&#x6574;&#x6027;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_DSYNC</code></td>
+    <td>&#x8868;&#x660E;&#x6587;&#x4EF6;&#x4EE5;&#x540C;&#x6B65; I/O &#x6253;&#x5F00;&#xFF0C;&#x5199;&#x5165;&#x64CD;&#x4F5C;&#x4F1A;&#x7B49;&#x5F85;&#x6570;&#x636E;&#x7684;&#x5B8C;&#x6574;&#x6027;</td>
+  </tr>
+  <tr>
+    <td><code>O_SYMLINK</code></td>
+    <td>&#x8868;&#x660E;&#x6253;&#x5F00;&#x7B26;&#x53F7;&#x94FE;&#x63A5;&#x81EA;&#x8EAB;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5B83;&#x6307;&#x5411;&#x7684;&#x8D44;&#x6E90;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_DIRECT</code></td>
+    <td>&#x8868;&#x660E;&#x4F1A;&#x5C1D;&#x8BD5;&#x6700;&#x5C0F;&#x5316;&#x6587;&#x4EF6; I/O &#x7684;&#x7F13;&#x5B58;&#x6548;&#x679C;&#x3002;</td>
+  </tr>
+  <tr>
+    <td><code>O_NONBLOCK</code></td>
+    <td>&#x8868;&#x660E;&#x4EE5;&#x975E;&#x963B;&#x585E;&#x6A21;&#x5F0F;&#x6253;&#x5F00;&#x6587;&#x4EF6;&#x3002;</td>
+  </tr>
+</tbody></table></div>
+          <div id="content_right"><p>The following constants are meant for use with <code>fs.open()</code>.</p><table>
+  <tbody><tr>
+    <th>Constant</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>O_RDONLY</code></td>
+    <td>Flag indicating to open a file for read-only access.</td>
+  </tr>
+  <tr>
+    <td><code>O_WRONLY</code></td>
+    <td>Flag indicating to open a file for write-only access.</td>
+  </tr>
+  <tr>
+    <td><code>O_RDWR</code></td>
+    <td>Flag indicating to open a file for read-write access.</td>
+  </tr>
+  <tr>
+    <td><code>O_CREAT</code></td>
+    <td>Flag indicating to create the file if it does not already exist.</td>
+  </tr>
+  <tr>
+    <td><code>O_EXCL</code></td>
+    <td>Flag indicating that opening a file should fail if the
+    <code>O_CREAT</code> flag is set and the file already exists.</td>
+  </tr>
+  <tr>
+    <td><code>O_NOCTTY</code></td>
+    <td>Flag indicating that if path identifies a terminal device, opening the
+    path shall not cause that terminal to become the controlling terminal for
+    the process (if the process does not already have one).</td>
+  </tr>
+  <tr>
+    <td><code>O_TRUNC</code></td>
+    <td>Flag indicating that if the file exists and is a regular file, and the
+    file is opened successfully for write access, its length shall be truncated
+    to zero.</td>
+  </tr>
+  <tr>
+    <td><code>O_APPEND</code></td>
+    <td>Flag indicating that data will be appended to the end of the file.</td>
+  </tr>
+  <tr>
+    <td><code>O_DIRECTORY</code></td>
+    <td>Flag indicating that the open should fail if the path is not a
+    directory.</td>
+  </tr>
+  <tr>
+  <td><code>O_NOATIME</code></td>
+    <td>Flag indicating reading accesses to the file system will no longer
+    result in an update to the <code>atime</code> information associated with
+    the file.  This flag is available on Linux operating systems only.</td>
+  </tr>
+  <tr>
+    <td><code>O_NOFOLLOW</code></td>
+    <td>Flag indicating that the open should fail if the path is a symbolic
+    link.</td>
+  </tr>
+  <tr>
+    <td><code>O_SYNC</code></td>
+    <td>Flag indicating that the file is opened for synchronized I/O with write
+    operations waiting for file integrity.</td>
+  </tr>
+  <tr>
+    <td><code>O_DSYNC</code></td>
+    <td>Flag indicating that the file is opened for synchronized I/O with write
+    operations waiting for data integrity.</td>
+  </tr>
+  <tr>
+    <td><code>O_SYMLINK</code></td>
+    <td>Flag indicating to open the symbolic link itself rather than the
+    resource it is pointing to.</td>
+  </tr>
+  <tr>
+    <td><code>O_DIRECT</code></td>
+    <td>When set, an attempt will be made to minimize caching effects of file
+    I/O.</td>
+  </tr>
+  <tr>
+    <td><code>O_NONBLOCK</code></td>
+    <td>Flag indicating to open the file in nonblocking mode when possible.</td>
+  </tr>
+</tbody></table></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712024293"><\/script>');
+  </script>
+</body>
+</html>

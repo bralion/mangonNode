@@ -1,0 +1,589 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>dgram | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712017938" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-dgram">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram active" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="dgram" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><span class="stability_2"><a href="#dgram_udp_datagram_sockets">dgram&#xFF08;&#x6570;&#x636E;&#x62A5;&#xFF09;</a></span></p>
+<ul>
+<li>
+<p><a href="#dgram_class_dgram_socket">dgram.Socket &#x7C7B;</a></p>
+<ul>
+<li><a href="#dgram_event_close">&apos;close&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#dgram_event_error">&apos;error&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#dgram_event_listening">&apos;listening&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#dgram_event_message">&apos;message&apos; &#x4E8B;&#x4EF6;</a></li>
+<li><a href="#dgram_socket_addmembership_multicastaddress_multicastinterface">socket.addMembership(multicastAddress[, multicastInterface])</a></li>
+<li><a href="#dgram_socket_address">socket.address()</a></li>
+<li><a href="#dgram_socket_bind_port_address_callback">socket.bind([port][, address][, callback])</a></li>
+<li><a href="#dgram_socket_bind_options_callback">socket.bind(options[, callback])</a></li>
+<li><a href="#dgram_socket_close_callback">socket.close([callback])</a></li>
+<li><a href="#dgram_socket_dropmembership_multicastaddress_multicastinterface">socket.dropMembership(multicastAddress[, multicastInterface])</a></li>
+<li><a href="#dgram_socket_getrecvbuffersize">socket.getRecvBufferSize()</a></li>
+<li><a href="#dgram_socket_getsendbuffersize">socket.getSendBufferSize()</a></li>
+<li><a href="#dgram_socket_ref">socket.ref()</a></li>
+<li><a href="#dgram_socket_send_msg_offset_length_port_address_callback">socket.send(msg[, offset, length], port[, address][, callback])</a></li>
+<li><a href="#dgram_socket_setbroadcast_flag">socket.setBroadcast(flag)</a></li>
+<li>
+<p><a href="#dgram_socket_setmulticastinterface_multicastinterface">socket.setMulticastInterface(multicastInterface)</a></p>
+<ul>
+<li><a href="#dgram_examples_ipv6_outgoing_multicast_interface">Examples: IPv6 Outgoing Multicast Interface</a></li>
+<li><a href="#dgram_example_ipv4_outgoing_multicast_interface">Example: IPv4 Outgoing Multicast Interface</a></li>
+<li><a href="#dgram_call_results">Call Results</a></li>
+</ul>
+</li>
+<li><a href="#dgram_socket_setmulticastloopback_flag">socket.setMulticastLoopback(flag)</a></li>
+<li><a href="#dgram_socket_setmulticastttl_ttl">socket.setMulticastTTL(ttl)</a></li>
+<li><a href="#dgram_socket_setrecvbuffersize_size">socket.setRecvBufferSize(size)</a></li>
+<li><a href="#dgram_socket_setsendbuffersize_size">socket.setSendBufferSize(size)</a></li>
+<li><a href="#dgram_socket_setttl_ttl">socket.setTTL(ttl)</a></li>
+<li><a href="#dgram_socket_unref">socket.unref()</a></li>
+<li><a href="#dgram_change_to_asynchronous_socket_bind_behavior">Change to asynchronous <code>socket.bind()</code> behavior</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#dgram_dgram_module_functions"><code>dgram</code> module functions</a></p>
+<ul>
+<li><a href="#dgram_dgram_createsocket_options_callback">dgram.createSocket(options[, callback])</a></li>
+<li><a href="#dgram_dgram_createsocket_type_callback">dgram.createSocket(type[, callback])</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>dgram&#xFF08;&#x6570;&#x636E;&#x62A5;&#xFF09;<span><a class="mark" href="#dgram_udp_datagram_sockets" id="dgram_udp_datagram_sockets" rel="nofollow">#</a></span></h1><p class="tip_wrap"><a href="udp_datagram_sockets.html" tppabs="http://nodejs.cn/api/dgram/udp_datagram_sockets.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<!--introduced_in=v0.10.0-->
+<p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p>
+<!-- name=dgram -->
+<p><code>dgram</code>&#x6A21;&#x5757;&#x63D0;&#x4F9B;&#x4E86; UDP &#x6570;&#x636E;&#x5305; socket &#x7684;&#x5B9E;&#x73B0;&#x3002;</p>
+<pre><code class="language-js">const dgram = require(&apos;dgram&apos;);
+const server = dgram.createSocket(&apos;udp4&apos;);
+
+server.on(&apos;error&apos;, (err) =&gt; {
+  console.log(`&#x670D;&#x52A1;&#x5668;&#x5F02;&#x5E38;&#xFF1A;\n${err.stack}`);
+  server.close();
+});
+
+server.on(&apos;message&apos;, (msg, rinfo) =&gt; {
+  console.log(`&#x670D;&#x52A1;&#x5668;&#x6536;&#x5230;&#xFF1A;${msg} &#x6765;&#x81EA; ${rinfo.address}:${rinfo.port}`);
+});
+
+server.on(&apos;listening&apos;, () =&gt; {
+  const address = server.address();
+  console.log(`&#x670D;&#x52A1;&#x5668;&#x76D1;&#x542C; ${address.address}:${address.port}`);
+});
+
+server.bind(41234);
+// &#x670D;&#x52A1;&#x5668;&#x76D1;&#x542C; 0.0.0.0:41234
+</code></pre>
+<h2>dgram.Socket &#x7C7B;<span><a class="mark" href="#dgram_class_dgram_socket" id="dgram_class_dgram_socket" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="class_dgram_socket.html" tppabs="http://nodejs.cn/api/dgram/class_dgram_socket.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.99</span>
+</div>
+<p><code>dgram.Socket</code>&#x5BF9;&#x8C61;&#x662F;&#x4E00;&#x4E2A;&#x5C01;&#x88C5;&#x4E86;&#x6570;&#x636E;&#x5305;&#x51FD;&#x6570;&#x529F;&#x80FD;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/7fRp3e  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/7fRp3e'" tppabs="http://nodejs.cn/s/7fRp3e" rel="nofollow"><code>EventEmitter</code></a>&#x3002;</p>
+<p><code>dgram.Socket</code>&#x5B9E;&#x4F8B;&#x662F;&#x7531;<a href="javascript:if(confirm('http://nodejs.cn/s/HecCYT  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/HecCYT'" tppabs="http://nodejs.cn/s/HecCYT" rel="nofollow"><code>dgram.createSocket()</code></a>&#x521B;&#x5EFA;&#x7684;&#x3002;&#x521B;&#x5EFA;<code>dgram.Socket</code>&#x5B9E;&#x4F8B;&#x4E0D;&#x9700;&#x8981;&#x4F7F;&#x7528;<code>new</code>&#x5173;&#x952E;&#x5B57;&#x3002;</p>
+<h3>&apos;close&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#dgram_event_close" id="dgram_event_close" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_close-1.html" tppabs="http://nodejs.cn/api/dgram/event_close.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.99</span>
+</div>
+<p><code>&apos;close&apos;</code>&#x4E8B;&#x4EF6;&#x5C06;&#x5728;&#x4F7F;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/8WHCFh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8WHCFh'" tppabs="http://nodejs.cn/s/8WHCFh" rel="nofollow"><code>close()</code></a>&#x5173;&#x95ED;&#x4E00;&#x4E2A; socket &#x4E4B;&#x540E;&#x89E6;&#x53D1;&#x3002;&#x8BE5;&#x4E8B;&#x4EF6;&#x4E00;&#x65E6;&#x89E6;&#x53D1;&#xFF0C;&#x8FD9;&#x4E2A; socket &#x4E0A;&#x5C06;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;&#x65B0;&#x7684;<code>&apos;message&apos;</code>&#x4E8B;&#x4EF6;&#x3002;</p>
+<h3>&apos;error&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#dgram_event_error" id="dgram_event_error" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_error-2.html" tppabs="http://nodejs.cn/api/dgram/event_error.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.99</span>
+</div>
+<ul>
+<li><code>exception</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+<p>&#x5F53;&#x6709;&#x4EFB;&#x4F55;&#x9519;&#x8BEF;&#x53D1;&#x751F;&#x65F6;&#xFF0C;<code>&apos;error&apos;</code>&#x4E8B;&#x4EF6;&#x5C06;&#x88AB;&#x89E6;&#x53D1;&#x3002;&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x65F6;&#xFF0C;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x51FD;&#x6570;&#x4EC5;&#x4F1A;&#x63A5;&#x6536;&#x5230;&#x4E00;&#x4E2A; Error &#x53C2;&#x6570;&#x3002;</p>
+<h3>&apos;listening&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#dgram_event_listening" id="dgram_event_listening" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_listening-1.html" tppabs="http://nodejs.cn/api/dgram/event_listening.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.99</span>
+</div>
+<p>&#x5F53;&#x4E00;&#x4E2A; socket &#x5F00;&#x59CB;&#x76D1;&#x542C;&#x6570;&#x636E;&#x5305;&#x4FE1;&#x606F;&#x65F6;&#xFF0C;<code>&apos;listening&apos;</code>&#x4E8B;&#x4EF6;&#x5C06;&#x88AB;&#x89E6;&#x53D1;&#x3002;&#x8BE5;&#x4E8B;&#x4EF6;&#x4F1A;&#x5728;&#x521B;&#x5EFA; UDP socket &#x4E4B;&#x540E;&#x88AB;&#x7ACB;&#x5373;&#x89E6;&#x53D1;&#x3002;</p>
+<h3>&apos;message&apos; &#x4E8B;&#x4EF6;<span><a class="mark" href="#dgram_event_message" id="dgram_event_message" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="event_message-2.html" tppabs="http://nodejs.cn/api/dgram/event_message.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.99</span>
+</div>
+<p>&#x5F53;&#x6709;&#x65B0;&#x7684;&#x6570;&#x636E;&#x5305;&#x88AB; socket &#x63A5;&#x6536;&#x65F6;&#xFF0C;<code>&apos;message&apos;</code>&#x4E8B;&#x4EF6;&#x4F1A;&#x88AB;&#x89E6;&#x53D1;&#x3002;<code>msg</code>&#x548C;<code>rinfo</code>&#x4F1A;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x4F20;&#x9012;&#x5230;&#x8BE5;&#x4E8B;&#x4EF6;&#x7684;&#x5904;&#x7406;&#x51FD;&#x6570;&#x4E2D;&#x3002;</p>
+<ul>
+<li><code>msg</code> <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> - &#x6D88;&#x606F;</li>
+<li>
+<p><code>rinfo</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> - &#x8FDC;&#x7A0B;&#x5730;&#x5740;&#x4FE1;&#x606F;</p>
+<ul>
+<li><code>address</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x53D1;&#x9001;&#x65B9;&#x5730;&#x5740; </li>
+<li><code>family</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5730;&#x5740;&#x7C7B;&#x578B; (<code>&apos;IPv4&apos;</code> or <code>&apos;IPv6&apos;</code>)
+&#xA0;<em> <code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x53D1;&#x9001;&#x8005;&#x7AEF;&#x53E3;
+&#xA0;</em> <code>size</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x6D88;&#x606F;&#x5927;&#x5C0F;</li>
+</ul>
+</li>
+</ul>
+<h3>socket.addMembership(multicastAddress[, multicastInterface])<span><a class="mark" href="#dgram_socket_addmembership_multicastaddress_multicastinterface" id="dgram_socket_addmembership_multicastaddress_multicastinterface" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_addmembership_multicastaddress_multicastinterface.html" tppabs="http://nodejs.cn/api/dgram/socket_addmembership_multicastaddress_multicastinterface.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.6.9</span>
+</div>
+<ul>
+<li><code>multicastAddress</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>multicastInterface</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x901A;&#x77E5;&#x5185;&#x6838;&#x5C06;<code>multicastAddress</code>&#x548C;<code>multicastInterface</code>&#x63D0;&#x4F9B;&#x7684;&#x591A;&#x8DEF;&#x4F20;&#x9001;&#x96C6;&#x5408;&#x901A;&#x8FC7;<code>IP_ADD_MEMBERSHIP</code>&#x8FD9;&#x4E2A; socket &#x9009;&#x9879;&#x7ED3;&#x5408;&#x8D77;&#x6765;&#x3002;&#x82E5;<code>multicastInterface</code>&#x53C2;&#x6570;&#x672A;&#x6307;&#x5B9A;&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5C06;&#x4F1A;&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x5E76;&#x5411;&#x5176;&#x6DFB;&#x52A0;&#x6210;&#x5458;&#x3002;&#x8981;&#x4E3A;&#x6240;&#x6709;&#x53EF;&#x7528;&#x7684;&#x63A5;&#x53E3;&#x6DFB;&#x52A0;&#x6210;&#x5458;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x6BCF;&#x4E2A;&#x63A5;&#x53E3;&#x4E0A;&#x8C03;&#x7528;&#x4E00;&#x6B21;<code>addMembership</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<h3>socket.address()<span><a class="mark" href="#dgram_socket_address" id="dgram_socket_address" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_address.html" tppabs="http://nodejs.cn/api/dgram/socket_address.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.99</span>
+</div>
+<p>&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5305;&#x542B; socket &#x5730;&#x5740;&#x4FE1;&#x606F;&#x7684;&#x5BF9;&#x8C61;&#x3002;&#x5BF9;&#x4E8E; UDP socket&#xFF0C;&#x8BE5;&#x5BF9;&#x8C61;&#x5C06;&#x5305;&#x542B;<code>address</code>&#x3001;<code>family</code>&#x548C;<code>port</code>&#x5C5E;&#x6027;&#x3002;</p>
+<h3>socket.bind([port][, address][, callback])<span><a class="mark" href="#dgram_socket_bind_port_address_callback" id="dgram_socket_bind_port_address_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_bind_port_address_callback.html" tppabs="http://nodejs.cn/api/dgram/socket_bind_port_address_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.99</span>
+</div>
+<ul>
+<li><code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x6574;&#x6570;&#x3002;</li>
+<li><code>address</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x6CA1;&#x6709;&#x53C2;&#x6570;&#x3002;&#x5F53;&#x7ED1;&#x5B9A;&#x5B8C;&#x6210;&#x65F6;&#x4F1A;&#x88AB;&#x8C03;&#x7528;&#x3002;</li>
+</ul>
+<p>&#x5BF9;&#x4E8E; UDP socket&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x4EE4;<code>dgram.Socket</code>&#x5728;&#x6307;&#x5B9A;&#x7684;<code>port</code>&#x548C;&#x53EF;&#x9009;&#x7684;<code>address</code>&#x4E0A;&#x76D1;&#x542C;&#x6570;&#x636E;&#x5305;&#x4FE1;&#x606F;&#x3002;&#x82E5;<code>port</code>&#x672A;&#x6307;&#x5B9A;&#x6216;&#x4E3A; <code>0</code>&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4F1A;&#x5C1D;&#x8BD5;&#x7ED1;&#x5B9A;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x7684;&#x7AEF;&#x53E3;&#x3002;&#x82E5;<code>address</code>&#x672A;&#x6307;&#x5B9A;&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4F1A;&#x5C1D;&#x8BD5;&#x5728;&#x6240;&#x6709;&#x5730;&#x5740;&#x4E0A;&#x76D1;&#x542C;&#x3002;&#x7ED1;&#x5B9A;&#x5B8C;&#x6210;&#x65F6;&#x4F1A;&#x89E6;&#x53D1;&#x4E00;&#x4E2A;<code>&apos;listening&apos;</code>&#x4E8B;&#x4EF6;&#xFF0C;&#x5E76;&#x4F1A;&#x8C03;&#x7528;<code>callback</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x540C;&#x65F6;&#x76D1;&#x542C;<code>&apos;listening&apos;</code>&#x4E8B;&#x4EF6;&#x548C;&#x5728;<code>socket.bind()</code>&#x65B9;&#x6CD5;&#x4E2D;&#x4F20;&#x5165;<code>callback</code>&#x53C2;&#x6570;&#x5E76;&#x4E0D;&#x4F1A;&#x5E26;&#x6765;&#x574F;&#x5904;&#xFF0C;&#x4F46;&#x4E5F;&#x4E0D;&#x662F;&#x5F88;&#x6709;&#x7528;&#x3002;</p>
+<p>&#x4E00;&#x4E2A;&#x88AB;&#x7ED1;&#x5B9A;&#x7684;&#x6570;&#x636E;&#x5305; socket &#x4F1A;&#x4EE4; Node.js &#x8FDB;&#x7A0B;&#x4FDD;&#x6301;&#x8FD0;&#x884C;&#x4EE5;&#x63A5;&#x6536;&#x6570;&#x636E;&#x5305;&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x82E5;&#x7ED1;&#x5B9A;&#x5931;&#x8D25;&#xFF0C;&#x4E00;&#x4E2A;<code>&apos;error&apos;</code>&#x4E8B;&#x4EF6;&#x4F1A;&#x88AB;&#x89E6;&#x53D1;&#x3002;&#x5728;&#x6781;&#x5C11;&#x6570;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF08;&#x4F8B;&#x5982;&#x5C1D;&#x8BD5;&#x7ED1;&#x5B9A;&#x4E00;&#x4E2A;&#x5DF2;&#x5173;&#x95ED;&#x7684; socket&#xFF09;&#xFF0C;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> &#x4F1A;&#x88AB;&#x629B;&#x51FA;&#x3002;</p>
+<p>&#x4E00;&#x4E2A;&#x76D1;&#x542C; 41234 &#x7AEF;&#x53E3;&#x7684; UDP &#x670D;&#x52A1;&#x5668;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">const dgram = require(&apos;dgram&apos;);
+const server = dgram.createSocket(&apos;udp4&apos;);
+
+server.on(&apos;error&apos;, (err) =&gt; {
+  console.log(`&#x670D;&#x52A1;&#x5668;&#x5F02;&#x5E38;&#xFF1A;\n${err.stack}`);
+  server.close();
+});
+
+server.on(&apos;message&apos;, (msg, rinfo) =&gt; {
+  console.log(`&#x670D;&#x52A1;&#x5668;&#x6536;&#x5230;&#xFF1A;${msg} &#x6765;&#x81EA; ${rinfo.address}:${rinfo.port}`);
+});
+
+server.on(&apos;listening&apos;, () =&gt; {
+  const address = server.address();
+  console.log(`&#x670D;&#x52A1;&#x5668;&#x76D1;&#x542C; ${address.address}:${address.port}`);
+});
+
+server.bind(41234);
+// &#x670D;&#x52A1;&#x5668;&#x76D1;&#x542C; 0.0.0.0:41234
+</code></pre>
+<h3>socket.bind(options[, callback])<span><a class="mark" href="#dgram_socket_bind_options_callback" id="dgram_socket_bind_options_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_bind_options_callback.html" tppabs="http://nodejs.cn/api/dgram/socket_bind_options_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.14</span>
+</div>
+<ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x5FC5;&#x8981;&#x7684;&#x3002;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x5C5E;&#x6027;</p>
+<ul>
+<li><code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+<li><code>address</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>exclusive</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a></li>
+</ul>
+</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+</ul>
+<p>&#x5BF9;&#x4E8E; UDP socket&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x4EE4;<code>dgram.Socket</code>&#x5728;&#x6307;&#x5B9A;&#x7684;<code>port</code>&#x548C;&#x53EF;&#x9009;&#x7684;<code>address</code>&#x4E0A;&#x76D1;&#x542C;&#x6570;&#x636E;&#x5305;&#x4FE1;&#x606F;&#x3002;&#x82E5;<code>port</code>&#x672A;&#x6307;&#x5B9A;&#x6216;&#x4E3A; <code>0</code>&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4F1A;&#x5C1D;&#x8BD5;&#x7ED1;&#x5B9A;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x7684;&#x7AEF;&#x53E3;&#x3002;&#x82E5;<code>address</code>&#x672A;&#x6307;&#x5B9A;&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4F1A;&#x5C1D;&#x8BD5;&#x5728;&#x6240;&#x6709;&#x5730;&#x5740;&#x4E0A;&#x76D1;&#x542C;&#x3002;&#x7ED1;&#x5B9A;&#x5B8C;&#x6210;&#x65F6;&#x4F1A;&#x89E6;&#x53D1;&#x4E00;&#x4E2A;<code>&apos;listening&apos;</code>&#x4E8B;&#x4EF6;&#xFF0C;&#x5E76;&#x4F1A;&#x8C03;&#x7528;<code>callback</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<p>Note that specifying both a <code>&apos;listening&apos;</code> event listener and passing a
+<code>callback</code> to the <code>socket.bind()</code> method is not harmful but not very
+useful.</p>
+<p>&#x5728;&#x914D;&#x5408;<a href="javascript:if(confirm('http://nodejs.cn/s/4cbAVb  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/4cbAVb'" tppabs="http://nodejs.cn/s/4cbAVb" rel="nofollow"><code>cluster</code></a>&#x6A21;&#x5757;&#x4F7F;&#x7528;<code>dgram.Socket</code>&#x5BF9;&#x8C61;&#x65F6;&#xFF0C;<code>options</code>&#x5BF9;&#x8C61;&#x53EF;&#x80FD;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x9644;&#x52A0;&#x7684;<code>exclusive</code>&#x5C5E;&#x6027;&#x3002;&#x5F53;<code>exclusive</code>&#x88AB;&#x8BBE;&#x4E3A;<code>false</code>(&#x9ED8;&#x8BA4;&#x503C;)&#x65F6;&#xFF0C;&#x96C6;&#x7FA4;&#x5DE5;&#x4F5C;&#x5355;&#x5143;&#x4F1A;&#x4F7F;&#x7528;&#x76F8;&#x540C;&#x7684; socket &#x53E5;&#x67C4;&#x6765;&#x5171;&#x4EAB;&#x8FDE;&#x63A5;&#x5904;&#x7406;&#x4F5C;&#x4E1A;&#x3002;&#x5F53;<code>exclusive</code>&#x88AB;&#x8BBE;&#x4E3A;<code>true</code>&#x65F6;&#xFF0C;&#x8BE5;&#x53E5;&#x67C4;&#x5C06;&#x4E0D;&#x4F1A;&#x88AB;&#x5171;&#x4EAB;&#xFF0C;&#x800C;&#x5C1D;&#x8BD5;&#x5171;&#x4EAB;&#x7AEF;&#x53E3;&#x5219;&#x4F1A;&#x9020;&#x6210;&#x9519;&#x8BEF;&#x3002;</p>
+<p>&#x4E00;&#x4E2A;&#x7ED1;&#x5B9A;&#x7684;&#x6570;&#x636E;&#x62A5; socket &#x4F1A;&#x4F7F; Node.js &#x8FDB;&#x7A0B;&#x6301;&#x7EED;&#x8FD0;&#x884C;&#x4EE5;&#x63A5;&#x53D7;&#x6570;&#x636E;&#x62A5;&#x6D88;&#x606F;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x7ED1;&#x5B9A;&#x5931;&#x8D25;&#xFF0C;&#x4E00;&#x4E2A; <code>&apos;error&apos;</code> &#x4E8B;&#x4EF6;&#x4F1A;&#x4EA7;&#x751F;&#x3002;&#x5728;&#x6781;&#x5C11;&#x6570;&#x60C5;&#x51B5;&#x4E0B;&#xFF08;&#x4F8B;&#x5982;&#x5C1D;&#x8BD5;&#x7ED1;&#x5B9A;&#x4E00;&#x4E2A;&#x5DF2;&#x7ECF;&#x5173;&#x95ED;&#x7684; socket&#xFF09;&#xFF0C;
+&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> &#x53EF;&#x80FD;&#x629B;&#x51FA;&#x3002;</p>
+<p>&#x4E00;&#x4E2A;&#x4E0D;&#x5171;&#x4EAB;&#x7AEF;&#x53E3;&#x7684; socket &#x7684;&#x4F8B;&#x5B50;&#x5982;&#x4E0B;&#x6587;&#x6240;&#x793A;&#x3002;</p>
+<pre><code class="language-js">socket.bind({
+  address: &apos;localhost&apos;,
+  port: 8000,
+  exclusive: true
+});
+</code></pre>
+<h3>socket.close([callback])<span><a class="mark" href="#dgram_socket_close_callback" id="dgram_socket_close_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_close_callback.html" tppabs="http://nodejs.cn/api/dgram/socket_close_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.99</span>
+</div>
+<p>&#x5173;&#x95ED;&#x8BE5; socket &#x5E76;&#x505C;&#x6B62;&#x76D1;&#x542C;&#x5176;&#x4E0A;&#x7684;&#x6570;&#x636E;&#x3002;&#x5982;&#x679C;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x4E3A;<a href="javascript:if(confirm('http://nodejs.cn/s/v9C9a9  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/v9C9a9'" tppabs="http://nodejs.cn/s/v9C9a9" rel="nofollow"><code>&apos;close&apos;</code></a>&#x4E8B;&#x4EF6;&#x6DFB;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;&#x76D1;&#x542C;&#x5668;&#x3002;</p>
+<h3>socket.dropMembership(multicastAddress[, multicastInterface])<span><a class="mark" href="#dgram_socket_dropmembership_multicastaddress_multicastinterface" id="dgram_socket_dropmembership_multicastaddress_multicastinterface" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_dropmembership_multicastaddress_multicastinterface.html" tppabs="http://nodejs.cn/api/dgram/socket_dropmembership_multicastaddress_multicastinterface.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.6.9</span>
+</div>
+<ul>
+<li><code>multicastAddress</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>multicastInterface</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x5F15;&#x5BFC;&#x5185;&#x6838;&#x901A;&#x8FC7;<code>IP_DROP_MEMBERSHIP</code>&#x8FD9;&#x4E2A; socket &#x9009;&#x9879;&#x5220;&#x9664;<code>multicastAddress</code>&#x6307;&#x5B9A;&#x7684;&#x591A;&#x8DEF;&#x4F20;&#x9001;&#x96C6;&#x5408;&#x3002;&#x5F53; socket &#x88AB;&#x5173;&#x95ED;&#x6216;&#x8FDB;&#x7A0B;&#x88AB;&#x7EC8;&#x6B62;&#x65F6;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x88AB;&#x5185;&#x6838;&#x81EA;&#x52A8;&#x8C03;&#x7528;&#xFF0C;&#x6240;&#x4EE5;&#x5927;&#x591A;&#x6570;&#x7684;&#x5E94;&#x7528;&#x90FD;&#x4E0D;&#x7528;&#x81EA;&#x884C;&#x8C03;&#x7528;&#x8BE5;&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x82E5;<code>multicastInterface</code>&#x672A;&#x6307;&#x5B9A;&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4F1A;&#x5C1D;&#x8BD5;&#x5220;&#x9664;&#x6240;&#x6709;&#x53EF;&#x7528;&#x63A5;&#x53E3;&#x4E0A;&#x7684;&#x6210;&#x5458;&#x3002;</p>
+<h3>socket.getRecvBufferSize()<span><a class="mark" href="#dgram_socket_getrecvbuffersize" id="dgram_socket_getrecvbuffersize" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_getrecvbuffersize.html" tppabs="http://nodejs.cn/api/dgram/socket_getrecvbuffersize.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.7.0</span>
+</div>
+<ul>
+<li>Returns <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> socket &#x63A5;&#x6536;&#x5230;&#x7684;&#x5B57;&#x8282;&#x5927;&#x5C0F;&#x3002;</li>
+</ul>
+<h3>socket.getSendBufferSize()<span><a class="mark" href="#dgram_socket_getsendbuffersize" id="dgram_socket_getsendbuffersize" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_getsendbuffersize.html" tppabs="http://nodejs.cn/api/dgram/socket_getsendbuffersize.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.7.0</span>
+</div>
+<ul>
+<li>Returns <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> socket &#x53D1;&#x9001;&#x7684;&#x5B57;&#x8282;&#x5927;&#x5C0F;&#x3002;</li>
+</ul>
+<h3>socket.ref()<span><a class="mark" href="#dgram_socket_ref" id="dgram_socket_ref" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_ref.html" tppabs="http://nodejs.cn/api/dgram/socket_ref.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.1</span>
+</div>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x7ED1;&#x5B9A;&#x4E00;&#x4E2A; socket &#x4F1A;&#x5728; socket &#x8FD0;&#x884C;&#x65F6;&#x963B;&#x6B62; Node.js &#x8FDB;&#x7A0B;&#x9000;&#x51FA;&#x3002;
+<code>socket.unref()</code> &#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x5C06; socket &#x4ECE;&#x7EF4;&#x6301; Node.js &#x8FDB;&#x7A0B;&#x7684;&#x5F15;&#x7528;&#x5217;&#x8868;&#x4E2D;&#x89E3;&#x9664;&#x3002;
+<code>socket.ref()</code> &#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x5C06; socket &#x91CD;&#x65B0;&#x6DFB;&#x52A0;&#x5230;&#x8FD9;&#x4E2A;&#x5F15;&#x7528;&#x5217;&#x8868;&#x4E2D;&#xFF0C;&#x5E76;&#x6062;&#x590D;&#x5176;&#x9ED8;&#x8BA4;&#x884C;&#x4E3A;&#x3002;</p>
+<p>&#x591A;&#x6B21;&#x8C03;&#x7528; <code>socket.ref()</code> &#x4E0D;&#x4F1A;&#x6709;&#x989D;&#x5916;&#x7684;&#x4F5C;&#x7528;&#x3002;</p>
+<p><code>socket.ref()</code> &#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5BF9; socket &#x7684;&#x5F15;&#x7528;&#xFF0C;&#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x3002;</p>
+<h3>socket.send(msg[, offset, length], port[, address][, callback])<span><a class="mark" href="#dgram_socket_send_msg_offset_length_port_address_callback" id="dgram_socket_send_msg_offset_length_port_address_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_send_msg_offset_length_port_address_callback.html" tppabs="http://nodejs.cn/api/dgram/socket_send_msg_offset_length_port_address_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>The <code>msg</code> parameter can be an Uint8Array now.</p></td></tr>
+<tr><td>v8.0.0</td>
+<td><p>The <code>address</code> parameter is always optional now.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>On success, <code>callback</code> will now be called with an <code>error</code> argument of <code>null</code> rather than <code>0</code>.</p></td></tr>
+<tr><td>v5.7.0</td>
+<td><p>The <code>msg</code> parameter can be an array now. Also, the <code>offset</code> and <code>length</code> parameters are optional now.</p></td></tr>
+<tr><td>v0.1.99</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.99</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>msg</code> <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Uint8Array  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Uint8Array'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Uint8Array" target="_blank" rel="nofollow" class="type">&lt;Uint8Array&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Array  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Array'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Array" target="_blank" rel="nofollow" class="type">&lt;Array&gt;</a> &#x8981;&#x53D1;&#x9001;&#x7684;&#x6D88;&#x606F;&#x3002;</li>
+<li><code>offset</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x6574;&#x6570;&#x3002;&#x6307;&#x5B9A;&#x6D88;&#x606F;&#x7684;&#x5F00;&#x5934;&#x5728; buffer &#x4E2D;&#x7684;&#x504F;&#x79FB;&#x91CF;&#x3002;</li>
+<li><code>length</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x6574;&#x6570;&#x3002;&#x6D88;&#x606F;&#x7684;&#x5B57;&#x8282;&#x6570;&#x3002;</li>
+<li><code>port</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x6574;&#x6570;&#x3002;&#x76EE;&#x6807;&#x7AEF;&#x53E3;&#x3002;</li>
+<li><code>address</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x76EE;&#x6807;&#x4E3B;&#x673A;&#x540D;&#x6216; IP &#x5730;&#x5740;&#x3002;</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x5F53;&#x6D88;&#x606F;&#x88AB;&#x53D1;&#x9001;&#x65F6;&#x4F1A;&#x88AB;&#x8C03;&#x7528;&#x3002;</li>
+</ul>
+<p>&#x5728; socket &#x4E0A;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5305;&#x3002;&#x76EE;&#x6807;<code>port</code>&#x548C;<code>address</code>&#x987B;&#x88AB;&#x6307;&#x5B9A;&#x3002;</p>
+<p><code>msg</code>&#x53C2;&#x6570;&#x5305;&#x542B;&#x4E86;&#x8981;&#x53D1;&#x9001;&#x7684;&#x6D88;&#x606F;&#x3002;&#x6839;&#x636E;&#x6D88;&#x606F;&#x7684;&#x7C7B;&#x578B;&#x53EF;&#x4EE5;&#x6709;&#x4E0D;&#x540C;&#x7684;&#x505A;&#x6CD5;&#x3002;&#x5982;&#x679C;<code>msg</code>&#x662F;&#x4E00;&#x4E2A;<code>Buffer</code> &#x6216; <code>Uint8Array</code>&#xFF0C;&#x5219;<code>offset</code>&#x548C;<code>length</code>&#x6307;&#x5B9A;&#x4E86;&#x6D88;&#x606F;&#x5728;<code>Buffer</code>&#x4E2D;&#x5BF9;&#x5E94;&#x7684;&#x504F;&#x79FB;&#x91CF;&#x548C;&#x5B57;&#x8282;&#x6570;&#x3002;&#x5982;&#x679C;<code>msg</code>&#x662F;&#x4E00;&#x4E2A;<code>String</code>&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x4F1A;&#x88AB;&#x81EA;&#x52A8;&#x5730;&#x6309;&#x7167;<code>utf8</code>&#x7F16;&#x7801;&#x8F6C;&#x6362;&#x4E3A;<code>Buffer</code>&#x3002;&#x5BF9;&#x4E8E;&#x5305;&#x542B;&#x4E86;&#x591A;&#x5B57;&#x8282;&#x5B57;&#x7B26;&#x7684;&#x6D88;&#x606F;&#xFF0C;<code>offset</code>&#x548C;<code>length</code>&#x4F1A;&#x6839;&#x636E;&#x5BF9;&#x5E94;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/J9wTov  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/J9wTov'" tppabs="http://nodejs.cn/s/J9wTov" rel="nofollow">byte length</a>&#x8FDB;&#x884C;&#x8BA1;&#x7B97;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x6839;&#x636E;&#x5B57;&#x7B26;&#x7684;&#x4F4D;&#x7F6E;&#x3002;&#x5982;&#x679C;<code>msg</code>&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x90A3;&#x4E48;<code>offset</code>&#x548C;<code>length</code>&#x5FC5;&#x987B;&#x90FD;&#x4E0D;&#x80FD;&#x88AB;&#x6307;&#x5B9A;&#x3002;</p>
+<p><code>address</code>&#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x3002;&#x82E5;<code>address</code>&#x7684;&#x503C;&#x662F;&#x4E00;&#x4E2A;&#x4E3B;&#x673A;&#x540D;&#xFF0C;&#x5219; DNS &#x4F1A;&#x88AB;&#x7528;&#x6765;&#x89E3;&#x6790;&#x4E3B;&#x673A;&#x7684;&#x5730;&#x5740;&#x3002;&#x82E5;<code>address</code>&#x672A;&#x63D0;&#x4F9B;&#x6216;&#x662F;&#x975E;&#x771F;&#x503C;&#xFF0C;&#x5219;<code>&apos;127.0.0.1&apos;</code>&#xFF08;&#x7528;&#x4E8E; <code>udp4</code> socket&#xFF09;&#x6216;<code>&apos;::1&apos;</code>&#xFF08;&#x7528;&#x4E8E; <code>udp6</code> socket&#xFF09;&#x4F1A;&#x88AB;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x82E5;&#x5728;&#x4E4B;&#x524D; socket &#x672A;&#x901A;&#x8FC7;&#x8C03;&#x7528;<code>bind</code>&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x7ED1;&#x5B9A;&#xFF0C;socket &#x5C06;&#x4F1A;&#x88AB;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x7684;&#x7AEF;&#x53E3;&#x53F7;&#x8D4B;&#x503C;&#x5E76;&#x7ED1;&#x5B9A;&#x5230;&#x201C;&#x6240;&#x6709;&#x63A5;&#x53E3;&#x201D;&#x7684;&#x5730;&#x5740;&#x4E0A;&#xFF08;&#x5BF9;&#x4E8E;<code>udp4</code> socket &#x662F;<code>&apos;0.0.0.0&apos;</code>&#xFF0C;&#x5BF9;&#x4E8E;<code>udp6</code> socket &#x662F;<code>&apos;::0&apos;</code>&#xFF09;&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x7684;<code>callback</code>&#x65B9;&#x6CD5;&#x6765;&#x6C47;&#x62A5; DNS &#x9519;&#x8BEF;&#x6216;&#x5224;&#x65AD;&#x53EF;&#x4EE5;&#x5B89;&#x5168;&#x5730;&#x91CD;&#x7528;<code>buf</code>&#x5BF9;&#x8C61;&#x7684;&#x65F6;&#x673A;&#x3002;&#x6CE8;&#x610F;&#xFF0C;&#x5728; Node.js &#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;&#x4E2D;&#xFF0C;DNS &#x67E5;&#x8BE2;&#x4F1A;&#x5BF9;&#x53D1;&#x9001;&#x9020;&#x6210;&#x81F3;&#x5C11; 1 tick &#x7684;&#x5EF6;&#x8FDF;&#x3002;</p>
+<p>&#x786E;&#x5B9A;&#x6570;&#x636E;&#x5305;&#x88AB;&#x53D1;&#x9001;&#x7684;&#x552F;&#x4E00;&#x65B9;&#x5F0F;&#x5C31;&#x662F;&#x6307;&#x5B9A;<code>callback</code>&#x3002;&#x82E5;&#x5728;<code>callback</code>&#x88AB;&#x6307;&#x5B9A;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x6709;&#x9519;&#x8BEF;&#x53D1;&#x751F;&#xFF0C;&#x8BE5;&#x9519;&#x8BEF;&#x4F1A;&#x4F5C;&#x4E3A;<code>callback</code>&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x3002;&#x82E5;<code>callback</code>&#x672A;&#x88AB;&#x6307;&#x5B9A;&#xFF0C;&#x8BE5;&#x9519;&#x8BEF;&#x4F1A;&#x4EE5;<code>&apos;error&apos;</code>&#x4E8B;&#x4EF6;&#x7684;&#x65B9;&#x5F0F;&#x6295;&#x5C04;&#x5230;<code>socket</code>&#x5BF9;&#x8C61;&#x4E0A;&#x3002;</p>
+<p>&#x504F;&#x79FB;&#x91CF;&#x548C;&#x957F;&#x5EA6;&#x662F;&#x53EF;&#x9009;&#x7684;&#xFF0C;&#x4F46;&#x5982;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x88AB;&#x6307;&#x5B9A;&#x5219;&#x53E6;&#x4E00;&#x4E2A;&#x4E5F;&#x5FC5;&#x987B;&#x88AB;&#x6307;&#x5B9A;&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x4ED6;&#x4EEC;&#x53EA;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;<code>Buffer</code> &#x6216; <code>Uint8Array</code> &#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x624D;&#x80FD;&#x88AB;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x4E00;&#x4E2A;&#x53D1;&#x9001; UDP &#x5305;&#x5230;<code>localhost</code>&#x4E0A;&#x7684;&#x67D0;&#x4E2A;&#x968F;&#x673A;&#x7AEF;&#x53E3;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">const dgram = require(&apos;dgram&apos;);
+const message = Buffer.from(&apos;Some bytes&apos;);
+const client = dgram.createSocket(&apos;udp4&apos;);
+client.send(message, 41234, &apos;localhost&apos;, (err) =&gt; {
+  client.close();
+});
+</code></pre>
+<p>&#x4E00;&#x4E2A;&#x53D1;&#x9001;&#x5305;&#x542B;&#x591A;&#x4E2A; buffer &#x7684; UDP &#x5305;&#x5230; <code>127.0.0.1</code> &#x4E0A;&#x7684;&#x67D0;&#x4E2A;&#x968F;&#x673A;&#x7AEF;&#x53E3;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code class="language-js">const dgram = require(&apos;dgram&apos;);
+const buf1 = Buffer.from(&apos;Some &apos;);
+const buf2 = Buffer.from(&apos;bytes&apos;);
+const client = dgram.createSocket(&apos;udp4&apos;);
+client.send([buf1, buf2], 41234, (err) =&gt; {
+  client.close();
+});
+</code></pre>
+<p>&#x53D1;&#x9001;&#x591A;&#x4E2A; buffer &#x7684;&#x901F;&#x5EA6;&#x53D6;&#x51B3;&#x4E8E;&#x5E94;&#x7528;&#x548C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x3002;
+&#x9010;&#x6848;&#x8FD0;&#x884C;&#x57FA;&#x51C6;&#x6765;&#x786E;&#x5B9A;&#x6700;&#x4F73;&#x7B56;&#x7565;&#x662F;&#x5F88;&#x91CD;&#x8981;&#x7684;&#x3002;&#x4F46;&#x662F;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x53D1;&#x9001;&#x591A;&#x4E2A; buffer &#x901F;&#x5EA6;&#x66F4;&#x5FEB;&#x3002;</p>
+<p><strong>&#x5173;&#x4E8E; UDP &#x5305;&#x5927;&#x5C0F;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;</strong></p>
+<p><code>IPv4/v6</code>&#x6570;&#x636E;&#x5305;&#x7684;&#x6700;&#x5927;&#x5C3A;&#x5BF8;&#x53D6;&#x51B3;&#x4E8E;<code>MTU</code>(<em>Maximum Transmission Unit</em>, &#x6700;&#x5927;&#x4F20;&#x8F93;&#x5355;&#x5143;)&#x4E0E;<code>Payload Length</code>&#x5B57;&#x6BB5;&#x5927;&#x5C0F;&#x3002;</p>
+<ul>
+<li>
+<p><code>Payload Length</code>&#x5B57;&#x6BB5;&#x6709;<code>16 &#x4F4D;</code>&#x5BBD;&#xFF0C;&#x6307;&#x4E00;&#x4E2A;&#x8D85;&#x8FC7; 64K &#x7684;<em>&#x5305;&#x542B;</em> IP &#x5934;&#x90E8;&#x548C;&#x6570;&#x636E;&#x7684;&#x8D1F;&#x8F7D; (65,507 &#x5B57;&#x8282; = 65,535 &#x2212; 8 &#x5B57;&#x8282; UDP &#x5934; &#x2212; 20 &#x5B57;&#x8282; IP &#x5934;&#x90E8;)&#xFF1B;&#x901A;&#x5E38;&#x5BF9;&#x4E8E;&#x73AF;&#x56DE;&#x5730;&#x5740;&#x6765;&#x8BF4;&#x662F;&#x8FD9;&#x6837;&#xFF0C;&#x4F46;&#x8FD9;&#x4E2A;&#x957F;&#x5EA6;&#x7684;&#x6570;&#x636E;&#x5305;&#x5BF9;&#x4E8E;&#x5927;&#x591A;&#x6570;&#x7684;&#x4E3B;&#x673A;&#x548C;&#x7F51;&#x7EDC;&#x6765;&#x8BF4;&#x4E0D;&#x5207;&#x5B9E;&#x9645;&#x3002;</p>
+</li>
+<li>
+<p><code>MTU</code>&#x6307;&#x7684;&#x662F;&#x6570;&#x636E;&#x94FE;&#x8DEF;&#x5C42;&#x4E3A;&#x6570;&#x636E;&#x5305;&#x63D0;&#x4F9B;&#x7684;&#x6700;&#x5927;&#x5927;&#x5C0F;&#x3002;&#x5BF9;&#x4E8E;&#x4EFB;&#x610F;&#x94FE;&#x8DEF;&#xFF0C;<code>IPv4</code>&#x6240;&#x6258;&#x7BA1;&#x7684;<code>MTU</code>&#x6700;&#x5C0F;&#x4E3A;<code>68</code>&#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x63A8;&#x8350;&#x4E3A;<code>576</code>&#xFF08;&#x5178;&#x578B;&#x5730;&#xFF0C;&#x4F5C;&#x4E3A;&#x62E8;&#x53F7;&#x4E0A;&#x7F51;&#x5E94;&#x7528;&#x7684;&#x63A8;&#x8350;&#x503C;&#xFF09;&#xFF0C;&#x65E0;&#x8BBA;&#x5B83;&#x4EEC;&#x662F;&#x5B8C;&#x6574;&#x5730;&#x8FD8;&#x662F;&#x5206;&#x5757;&#x5730;&#x62B5;&#x8FBE;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;<code>IPv6</code>&#xFF0C;<code>MTU</code>&#x7684;&#x6700;&#x5C0F;&#x503C;&#x662F;<code>1280</code>&#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x7136;&#x800C;&#xFF0C;&#x53D7;&#x6258;&#x7BA1;&#x7684;&#x6700;&#x5C0F;&#x7684;&#x788E;&#x7247;&#x91CD;&#x7EC4;&#x7F13;&#x51B2;&#x5927;&#x5C0F;&#x4E3A;<code>1500</code>&#x4E2A;&#x5B57;&#x8282;&#x3002;&#x73B0;&#x4ECA;&#x5927;&#x591A;&#x6570;&#x7684;&#x6570;&#x636E;&#x94FE;&#x8DEF;&#x5C42;&#x6280;&#x672F;&#xFF08;&#x5982;&#x4EE5;&#x592A;&#x7F51;&#xFF09;&#xFF0C;&#x90FD;&#x6709;<code>1500</code>&#x7684;<code>MTU</code>&#x6700;&#x5C0F;&#x503C;&#xFF0C;&#x56E0;&#x800C;<code>68</code>&#x4E2A;&#x5B57;&#x8282;&#x663E;&#x5F97;&#x975E;&#x5E38;&#x5C0F;&#x3002;</p>
+</li>
+</ul>
+<p>&#x8981;&#x63D0;&#x524D;&#x77E5;&#x9053;&#x6570;&#x636E;&#x5305;&#x53EF;&#x80FD;&#x7ECF;&#x8FC7;&#x7684;&#x6BCF;&#x4E2A;&#x94FE;&#x8DEF;&#x7684; MTU &#x662F;&#x4E0D;&#x53EF;&#x80FD;&#x7684;&#x3002;&#x53D1;&#x9001;&#x5927;&#x4E8E;&#x63A5;&#x53D7;&#x8005;<code>MTU</code>&#x5927;&#x5C0F;&#x7684;&#x6570;&#x636E;&#x5305;&#x5C06;&#x4E0D;&#x4F1A;&#x8D77;&#x4F5C;&#x7528;&#xFF0C;&#x56E0;&#x4E3A;&#x6570;&#x636E;&#x5305;&#x4F1A;&#x88AB;&#x9759;&#x9ED8;&#x5730;&#x4E22;&#x5931;&#xFF0C;&#x800C;&#x4E0D;&#x4F1A;&#x901A;&#x77E5;&#x53D1;&#x9001;&#x8005;&#x8BE5;&#x5305;&#x672A;&#x62B5;&#x8FBE;&#x76EE;&#x7684;&#x5730;&#x3002;</p>
+<h3>socket.setBroadcast(flag)<span><a class="mark" href="#dgram_socket_setbroadcast_flag" id="dgram_socket_setbroadcast_flag" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_setbroadcast_flag.html" tppabs="http://nodejs.cn/api/dgram/socket_setbroadcast_flag.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.6.9</span>
+</div>
+<ul>
+<li><code>flag</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a></li>
+</ul>
+<p>&#x8BBE;&#x7F6E;&#x6216;&#x6E05;&#x9664; <code>SO_BROADCAST</code> socket &#x9009;&#x9879;&#x3002;&#x5F53;&#x8BBE;&#x7F6E;&#x4E3A; <code>true</code>, UDP&#x5305;&#x53EF;&#x80FD;&#x4F1A;&#x88AB;&#x53D1;&#x9001;&#x5230;&#x4E00;&#x4E2A;&#x672C;&#x5730;&#x63A5;&#x53E3;&#x7684;&#x5E7F;&#x64AD;&#x5730;&#x5740;</p>
+<h3>socket.setMulticastInterface(multicastInterface)<span><a class="mark" href="#dgram_socket_setmulticastinterface_multicastinterface" id="dgram_socket_setmulticastinterface_multicastinterface" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.6.0</span>
+</div>
+<ul>
+<li><code>multicastInterface</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p><em>All references to scope in this section are referring to
+<a href="javascript:if(confirm('http://nodejs.cn/s/8e3ofa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8e3ofa'" tppabs="http://nodejs.cn/s/8e3ofa" rel="nofollow">IPv6 Zone Indices</a>, which are defined by <a href="javascript:if(confirm('http://nodejs.cn/s/NoPgna  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/NoPgna'" tppabs="http://nodejs.cn/s/NoPgna" rel="nofollow">RFC 4007</a>. In string form, an IP
+with a scope index is written as <code>&apos;IP%scope&apos;</code> where scope is an interface name
+or interface number.</em></p>
+<p>Sets the default outgoing multicast interface of the socket to a chosen
+interface or back to system interface selection. The <code>multicastInterface</code> must
+be a valid string representation of an IP from the socket&apos;s family.</p>
+<p>For IPv4 sockets, this should be the IP configured for the desired physical
+interface. All packets sent to multicast on the socket will be sent on the
+interface determined by the most recent successful use of this call.</p>
+<p>For IPv6 sockets, <code>multicastInterface</code> should include a scope to indicate the
+interface as in the examples that follow. In IPv6, individual <code>send</code> calls can
+also use explicit scope in addresses, so only packets sent to a multicast
+address without specifying an explicit scope are affected by the most recent
+successful use of this call.</p>
+<h4>Examples: IPv6 Outgoing Multicast Interface<span><a class="mark" href="#dgram_examples_ipv6_outgoing_multicast_interface" id="dgram_examples_ipv6_outgoing_multicast_interface" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>On most systems, where scope format uses the interface name:</p>
+<pre><code class="language-js">const socket = dgram.createSocket(&apos;udp6&apos;);
+
+socket.bind(1234, () =&gt; {
+  socket.setMulticastInterface(&apos;::%eth1&apos;);
+});
+</code></pre>
+<p>On Windows, where scope format uses an interface number:</p>
+<pre><code class="language-js">const socket = dgram.createSocket(&apos;udp6&apos;);
+
+socket.bind(1234, () =&gt; {
+  socket.setMulticastInterface(&apos;::%2&apos;);
+});
+</code></pre>
+<h4>Example: IPv4 Outgoing Multicast Interface<span><a class="mark" href="#dgram_example_ipv4_outgoing_multicast_interface" id="dgram_example_ipv4_outgoing_multicast_interface" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>All systems use an IP of the host on the desired physical interface:</p>
+<pre><code class="language-js">const socket = dgram.createSocket(&apos;udp4&apos;);
+
+socket.bind(1234, () =&gt; {
+  socket.setMulticastInterface(&apos;10.0.0.2&apos;);
+});
+</code></pre>
+<h4>Call Results<span><a class="mark" href="#dgram_call_results" id="dgram_call_results" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>A call on a socket that is not ready to send or no longer open may throw a <em>Not
+running</em> <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>.</p>
+<p>If <code>multicastInterface</code> can not be parsed into an IP then an <em>EINVAL</em>
+<a href="javascript:if(confirm('http://nodejs.cn/s/UDLUCx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UDLUCx'" tppabs="http://nodejs.cn/s/UDLUCx" rel="nofollow"><code>System Error</code></a> is thrown.</p>
+<p>On IPv4, if <code>multicastInterface</code> is a valid address but does not match any
+interface, or if the address does not match the family then
+a <a href="javascript:if(confirm('http://nodejs.cn/s/UDLUCx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UDLUCx'" tppabs="http://nodejs.cn/s/UDLUCx" rel="nofollow"><code>System Error</code></a> such as <code>EADDRNOTAVAIL</code> or <code>EPROTONOSUP</code> is thrown.</p>
+<p>On IPv6, most errors with specifying or omitting scope will result in the socket
+continuing to use (or returning to) the system&apos;s default interface selection.</p>
+<p>A socket&apos;s address family&apos;s ANY address (IPv4 <code>&apos;0.0.0.0&apos;</code> or IPv6 <code>&apos;::&apos;</code>) can be
+used to return control of the sockets default outgoing interface to the system
+for future multicast packets.</p>
+<h3>socket.setMulticastLoopback(flag)<span><a class="mark" href="#dgram_socket_setmulticastloopback_flag" id="dgram_socket_setmulticastloopback_flag" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_setmulticastloopback_flag.html" tppabs="http://nodejs.cn/api/dgram/socket_setmulticastloopback_flag.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.8</span>
+</div>
+<ul>
+<li><code>flag</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a></li>
+</ul>
+<p>&#x8BBE;&#x7F6E;&#x6216;&#x6E05;&#x9664; <code>IP_MULTICAST_LOOP</code> socket &#x9009;&#x9879;&#x3002;&#x5F53;&#x8BBE;&#x7F6E;&#x4E3A; <code>true</code>, &#x591A;&#x64AD;&#x6570;&#x636E;&#x5305;&#x4E5F;&#x5C06;&#x5728;&#x672C;&#x5730;&#x63A5;&#x53E3;&#x63A5;&#x6536;&#x3002;</p>
+<h3>socket.setMulticastTTL(ttl)<span><a class="mark" href="#dgram_socket_setmulticastttl_ttl" id="dgram_socket_setmulticastttl_ttl" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_setmulticastttl_ttl.html" tppabs="http://nodejs.cn/api/dgram/socket_setmulticastttl_ttl.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.8</span>
+</div>
+<ul>
+<li><code>ttl</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Integer</li>
+</ul>
+<p>&#x8BBE;&#x7F6E;<code>IP_MULTICAST_TTL</code>&#x5957;&#x63A5;&#x5B57;&#x9009;&#x9879;&#x3002;
+&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;TTL&#x8868;&#x793A;&quot;&#x751F;&#x5B58;&#x65F6;&#x95F4;&quot;&#x3002;&#x8FD9;&#x91CC;&#x7279;&#x6307;&#x4E00;&#x4E2A;IP&#x6570;&#x636E;&#x5305;&#x4F20;&#x8F93;&#x65F6;&#x5141;&#x8BB8;&#x7684;&#x6700;&#x5927;&#x8DF3;&#x6B65;&#x6570;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x5BF9;&#x591A;&#x64AD;&#x4F20;&#x8F93;&#x3002;
+&#x5F53;IP&#x6570;&#x636E;&#x5305;&#x6BCF;&#x5411;&#x524D;&#x7ECF;&#x8FC7;&#x4E00;&#x4E2A;&#x8DEF;&#x7531;&#x6216;&#x7F51;&#x5173;&#x65F6;&#xFF0C;TTL&#x503C;&#x51CF;1&#xFF0C;&#x82E5;&#x7ECF;&#x8FC7;&#x67D0;&#x4E2A;&#x8DEF;&#x7531;&#x65F6;&#xFF0C;TTL&#x503C;&#x88AB;&#x51CF;&#x81F3;0&#xFF0C;&#x4FBF;&#x4E0D;&#x518D;&#x7EE7;&#x7EED;&#x5411;&#x524D;&#x4F20;&#x8F93;&#x3002;</p>
+<p>&#x4F20;&#x7ED9; <code>socket.setMulticastTTL()</code> &#x7684;&#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E2A;&#x8303;&#x56F4;&#x4E3A;0-255&#x7684;&#x8DF3;&#x6B65;&#x6570;&#x3002;&#x5927;&#x591A;&#x6570;&#x7CFB;&#x7EDF;&#x7684;&#x9ED8;&#x8BA4;&#x503C;&#x662F; <code>1</code> &#xFF0C;&#x4F46;&#x662F;&#x53EF;&#x4EE5;&#x53D8;&#x5316;&#x3002;</p>
+<h3>socket.setRecvBufferSize(size)<span><a class="mark" href="#dgram_socket_setrecvbuffersize_size" id="dgram_socket_setrecvbuffersize_size" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_setrecvbuffersize_size.html" tppabs="http://nodejs.cn/api/dgram/socket_setrecvbuffersize_size.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.7.0</span>
+</div>
+<ul>
+<li><code>size</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Integer</li>
+</ul>
+<p>&#x8BBE;&#x7F6E; <code>SO_RCVBUF</code> &#x5957;&#x63A5;&#x5B57;&#x9009;&#x9879;&#x3002;&#x8BBE;&#x7F6E;&#x6700;&#x5927;&#x7684;&#x5957;&#x63A5;&#x5B57;&#x63A5;&#x6536;&#x7F13;&#x51B2;&#x5B57;&#x8282;&#x3002;</p>
+<h3>socket.setSendBufferSize(size)<span><a class="mark" href="#dgram_socket_setsendbuffersize_size" id="dgram_socket_setsendbuffersize_size" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_setsendbuffersize_size.html" tppabs="http://nodejs.cn/api/dgram/socket_setsendbuffersize_size.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.7.0</span>
+</div>
+<ul>
+<li><code>size</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Integer</li>
+</ul>
+<p>&#x8BBE;&#x7F6E; <code>SO_SNDBUF</code> &#x5957;&#x63A5;&#x5B57;&#x9009;&#x9879;&#x3002;&#x8BBE;&#x7F6E;&#x6700;&#x5927;&#x7684;&#x5957;&#x63A5;&#x5B57;&#x53D1;&#x9001;&#x7F13;&#x51B2;&#x5B57;&#x8282;&#x3002;</p>
+<h3>socket.setTTL(ttl)<span><a class="mark" href="#dgram_socket_setttl_ttl" id="dgram_socket_setttl_ttl" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_setttl_ttl.html" tppabs="http://nodejs.cn/api/dgram/socket_setttl_ttl.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.101</span>
+</div>
+<ul>
+<li><code>ttl</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Integer</li>
+</ul>
+<p>&#x8BBE;&#x7F6E; <code>IP_TTL</code> &#x5957;&#x63A5;&#x5B57;&#x9009;&#x9879;&#x3002;
+&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;TTL&#x8868;&#x793A;&quot;&#x751F;&#x5B58;&#x65F6;&#x95F4;&quot;&#xFF0C;&#x8FD9;&#x91CC;&#x7279;&#x6307;&#x4E00;&#x4E2A;IP&#x6570;&#x636E;&#x5305;&#x4F20;&#x8F93;&#x65F6;&#x5141;&#x8BB8;&#x7684;&#x6700;&#x5927;&#x8DF3;&#x6B65;&#x6570;&#x3002;
+&#x5F53;IP&#x6570;&#x636E;&#x5305;&#x6BCF;&#x5411;&#x524D;&#x7ECF;&#x8FC7;&#x4E00;&#x4E2A;&#x8DEF;&#x7531;&#x6216;&#x7F51;&#x5173;&#x65F6;&#xFF0C;TTL&#x503C;&#x51CF;1&#xFF0C;&#x82E5;&#x7ECF;&#x8FC7;&#x67D0;&#x4E2A;&#x8DEF;&#x7531;&#x65F6;&#xFF0C;TTL&#x503C;&#x88AB;&#x51CF;&#x81F3;0&#xFF0C;&#x4FBF;&#x4E0D;&#x518D;&#x7EE7;&#x7EED;&#x5411;&#x524D;&#x4F20;&#x8F93;&#x3002;
+&#x6BD4;&#x8F83;&#x6709;&#x4EE3;&#x8868;&#x6027;&#x7684;&#x662F;&#xFF0C;&#x4E3A;&#x4E86;&#x8FDB;&#x884C;&#x7F51;&#x7EDC;&#x60C5;&#x51B5;&#x55C5;&#x63A2;&#x6216;&#x8005;&#x591A;&#x64AD;&#x800C;&#x4FEE;&#x6539;TTL&#x503C;&#x3002;</p>
+<p>&#x4F20;&#x7ED9; <code>socket.setTTL()</code> &#x7684;&#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E2A;&#x8303;&#x56F4;&#x4E3A;0-255&#x7684;&#x8DF3;&#x6B65;&#x6570;&#x3002;&#x5927;&#x591A;&#x6570;&#x7CFB;&#x7EDF;&#x7684;&#x9ED8;&#x8BA4;&#x503C;&#x662F; <code>1</code> &#xFF0C;&#x4F46;&#x662F;&#x53EF;&#x4EE5;&#x53D8;&#x5316;&#x3002;</p>
+<h3>socket.unref()<span><a class="mark" href="#dgram_socket_unref" id="dgram_socket_unref" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="socket_unref.html" tppabs="http://nodejs.cn/api/dgram/socket_unref.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.1</span>
+</div>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x53EA;&#x8981;socket&#x662F;&#x6253;&#x5F00;&#x7684;&#xFF0C;&#x7ED1;&#x5B9A;&#x4E00;&#x4E2A;socket&#x5C06;&#x5BFC;&#x81F4;&#x5B83;&#x963B;&#x585E;Node.js&#x8FDB;&#x7A0B;&#x9000;&#x51FA;&#x3002;&#x4F7F;&#x7528;<code>socket.unref()</code>&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x4ECE;&#x4FDD;&#x6301;Node.js&#x8FDB;&#x7A0B;&#x6D3B;&#x52A8;&#x7684;&#x5F15;&#x7528;&#x8BA1;&#x6570;&#x4E2D;&#x6392;&#x9664;socket&#xFF0C;&#x4ECE;&#x800C;&#x5141;&#x8BB8;&#x8FDB;&#x7A0B;&#x9000;&#x51FA;&#xFF0C;&#x5C3D;&#x7BA1;&#x8FD9;&#x4E2A;socket&#x4ECD;&#x7136;&#x5728;&#x4FA6;&#x542C;&#x3002;</p>
+<p>&#x591A;&#x6B21;&#x8C03;&#x7528;<code>socket.unref()</code>&#x65B9;&#x6CD5;&#x5C06;&#x4E0D;&#x4F1A;&#x6709;&#x4EFB;&#x4F55;&#x65B0;&#x589E;&#x7684;&#x4F5C;&#x7528;&#x3002;</p>
+<p><code>socket.unref()</code>&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x5F53;&#x524D;socket&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x3002;</p>
+<h3>Change to asynchronous `socket.bind()` behavior<span><a class="mark" href="#dgram_change_to_asynchronous_socket_bind_behavior" id="dgram_change_to_asynchronous_socket_bind_behavior" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="change_to_asynchronous_socket_bind_behavior.html" tppabs="http://nodejs.cn/api/dgram/change_to_asynchronous_socket_bind_behavior.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x4ECE;Node.js v0.10&#x5F00;&#x59CB;&#xFF0C;[<code>dgram.Socket&#xFF03;bind&#xFF08;&#xFF09;</code>][]&#x66F4;&#x6539;&#x4E3A;&#x5F02;&#x6B65;&#x6267;&#x884C;&#x6A21;&#x578B;&#x3002;&#x65E7;&#x4EE3;&#x7801;&#x91C7;&#x7528;&#x540C;&#x6B65;&#x884C;&#x4E3A;&#xFF0C;&#x5982;&#x4E0B;&#x4F8B;&#x6240;&#x793A;&#xFF1A;</p>
+<pre><code class="language-js">const s = dgram.createSocket(&apos;udp4&apos;);
+s.bind(1234);
+s.addMembership(&apos;224.0.0.114&apos;);
+</code></pre>
+<p>&#x5FC5;&#x987B;&#x6539;&#x4E3A;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x5230;[<code>dgram.Socket&#xFF03;bind&#xFF08;&#xFF09;</code>][]&#xFF1A;</p>
+<pre><code class="language-js">const s = dgram.createSocket(&apos;udp4&apos;);
+s.bind(1234, () =&gt; {
+  s.addMembership(&apos;224.0.0.114&apos;);
+});
+</code></pre>
+<h2>`dgram` module functions<span><a class="mark" href="#dgram_dgram_module_functions" id="dgram_dgram_module_functions" rel="nofollow">#</a></span></h2>
+<h3>dgram.createSocket(options[, callback])<span><a class="mark" href="#dgram_dgram_createsocket_options_callback" id="dgram_dgram_createsocket_options_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="dgram_createsocket_options_callback.html" tppabs="http://nodejs.cn/api/dgram/dgram_createsocket_options_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.7.0</td>
+<td><p>The <code>recvBufferSize</code> and <code>sendBufferSize</code> options are supported now.</p></td></tr>
+<tr><td>v8.6.0</td>
+<td><p>The <code>lookup</code> option is supported.</p></td></tr>
+<tr><td>v0.11.13</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.11.13</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x5141;&#x8BB8;&#x7684;&#x9009;&#x9879;&#x662F;:
+&#xA0;<em> <code>type</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x5957;&#x63A5;&#x5B57;&#x65CF;. &#x5FC5;&#x987B;&#x662F;&#xA0;<code>&apos;udp4&apos;</code> &#x6216;&#xA0;<code>&apos;udp6&apos;</code>.
+&#xA0; &#xA0;&#x5FC5;&#x9700;&#x586B;.
+&#xA0;</em> <code>reuseAddr</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x82E5;&#x8BBE;&#x7F6E;&#x4E3A; <code>true</code> <a href="javascript:if(confirm('http://nodejs.cn/s/UmRzYR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UmRzYR'" tppabs="http://nodejs.cn/s/UmRzYR" rel="nofollow"><code>socket.bind()</code></a> &#xFF0C;&#x5219;&#x4F1A;
+&#xA0; &#xA0;&#x91CD;&#x7528;&#x5730;&#x5740;&#xFF0C;&#x5373;&#x65F6;&#x53E6;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5DF2;&#x7ECF;&#x5728;&#x5176;&#x4E0A;&#x9762;&#x7ED1;&#x5B9A;&#x4E86;&#x4E00;&#x4E2A;&#x5957;&#x63A5;&#x5B57;&#x3002;
+&#xA0; &#xA0;&#x9ED8;&#x8BA4;&#x662F; <code>false</code>.
+&#xA0;<em> <code>recvBufferSize</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> - &#x8BBE;&#x7F6E;&#xA0;<code>SO_RCVBUF</code> &#x5957;&#x63A5;&#x5B57;&#x503C;&#x3002;
+&#xA0;</em> <code>sendBufferSize</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> - &#x8BBE;&#x7F6E;&#xA0;<code>SO_SNDBUF</code> &#x5957;&#x63A5;&#x5B57;&#x503C;&#x3002;
+&#xA0;* <code>lookup</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x60EF;&#x5E38;&#x7684;&#x67E5;&#x8BE2;&#x51FD;&#x6570;. &#x9ED8;&#x8BA4;&#x662F;&#xA0;<a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a>&#x3002;</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x4E3A;&#xA0;<code>&apos;message&apos;</code> &#x4E8B;&#x4EF6;&#x7ED1;&#x5B9A;&#x4E00;&#x4E2A;&#x76D1;&#x542C;&#x5668;&#x3002;&#x53EF;&#x9009;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="dgram.html#dgram_class_dgram_socket" tppabs="http://nodejs.cn/api/dgram.html#dgram_class_dgram_socket" target="_blank" rel="nofollow" class="type">&lt;dgram.Socket&gt;</a></li>
+</ul>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A; <code>dgram.Socket</code> &#x5BF9;&#x8C61;. &#x4E00;&#x65E6;&#x521B;&#x5EFA;&#x4E86;&#x5957;&#x63A5;&#x5B57;&#xFF0C;&#x8C03;&#x7528;
+<a href="javascript:if(confirm('http://nodejs.cn/s/UmRzYR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UmRzYR'" tppabs="http://nodejs.cn/s/UmRzYR" rel="nofollow"><code>socket.bind()</code></a> &#x4F1A;&#x6307;&#x793A;&#x5957;&#x63A5;&#x5B57;&#x5F00;&#x59CB;&#x76D1;&#x542C;&#x6570;&#x636E;&#x62A5;&#x6D88;&#x606F;&#x3002;&#x5982;&#x679C; <code>address</code> &#x548C;&#xA0;<code>port</code> &#x6CA1;&#x4F20;&#x7ED9; &#xA0;<a href="javascript:if(confirm('http://nodejs.cn/s/UmRzYR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UmRzYR'" tppabs="http://nodejs.cn/s/UmRzYR" rel="nofollow"><code>socket.bind()</code></a>&#xFF0C;
+&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4F1A;&#x628A;&#x8FD9;&#x4E2A;&#x5957;&#x63A5;&#x5B57;&#x7ED1;&#x5B9A;&#x5230; &quot;&#x5168;&#x90E8;&#x63A5;&#x53E3;&quot; &#x5730;&#x5740;&#x7684;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x7AEF;&#x53E3;(&#x8FD9;&#x9002;&#x7528;&#x4E8E; <code>udp4</code> &#x548C;&#xA0;<code>udp6</code> &#x5957;&#x63A5;&#x5B57;)&#x3002;
+&#x7ED1;&#x5B9A;&#x7684;&#x5730;&#x5740;&#x548C;&#x7AEF;&#x53E3;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <a href="javascript:if(confirm('http://nodejs.cn/s/Y1Rqoi  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Y1Rqoi'" tppabs="http://nodejs.cn/s/Y1Rqoi" rel="nofollow"><code>socket.address().address</code></a> &#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/Y1Rqoi  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Y1Rqoi'" tppabs="http://nodejs.cn/s/Y1Rqoi" rel="nofollow"><code>socket.address().port</code></a> &#x6765;&#x83B7;&#x53D6;&#x3002;</p>
+<h3>dgram.createSocket(type[, callback])<span><a class="mark" href="#dgram_dgram_createsocket_type_callback" id="dgram_dgram_createsocket_type_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="dgram_createsocket_type_callback.html" tppabs="http://nodejs.cn/api/dgram/dgram_createsocket_type_callback.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.99</span>
+</div>
+<ul>
+<li><code>type</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> - &apos;udp4&apos; &#x6216; &apos;udp6&apos;.</li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> - &#x4E3A;&#xA0;<code>&apos;message&apos;</code> &#x4E8B;&#x4EF6;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x76D1;&#x542C;&#x5668;&#x3002;</li>
+<li>&#x8FD4;&#x56DE;: <a href="dgram.html#dgram_class_dgram_socket" tppabs="http://nodejs.cn/api/dgram.html#dgram_class_dgram_socket" target="_blank" rel="nofollow" class="type">&lt;dgram.Socket&gt;</a></li>
+</ul>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7279;&#x5B9A; <code>type</code> &#x7684;<code>dgram.Socket</code> &#x5BF9;&#x8C61;&#x3002;<code>type</code>&#x53C2;&#x6570;&#x662F;<code>udp4</code> &#x6216; <code>udp6</code>&#x3002;
+&#x53EF;&#x9009;&#x4F20;&#x4E00;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x4F5C;&#x4E3A; <code>&apos;message&apos;</code> &#x4E8B;&#x4EF6;&#x7684;&#x76D1;&#x542C;&#x5668;&#x3002;</p>
+<p>&#x4E00;&#x65E6;&#x5957;&#x63A5;&#x5B57;&#x88AB;&#x521B;&#x5EFA;&#x3002;&#x8C03;&#x7528;<a href="javascript:if(confirm('http://nodejs.cn/s/UmRzYR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UmRzYR'" tppabs="http://nodejs.cn/s/UmRzYR" rel="nofollow"><code>socket.bind()</code></a> &#x4F1A;&#x6307;&#x793A;&#x5957;&#x63A5;&#x5B57;&#x5F00;&#x59CB;&#x76D1;&#x542C;&#x6570;&#x636E;&#x62A5;&#x6D88;&#x606F;&#x3002;&#x5982;&#x679C; <code>address</code> &#x548C; <code>port</code> &#x6CA1;&#x4F20;&#x7ED9;  <a href="javascript:if(confirm('http://nodejs.cn/s/UmRzYR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UmRzYR'" tppabs="http://nodejs.cn/s/UmRzYR" rel="nofollow"><code>socket.bind()</code></a>&#xFF0C;
+&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4F1A;&#x628A;&#x8FD9;&#x4E2A;&#x5957;&#x63A5;&#x5B57;&#x7ED1;&#x5B9A;&#x5230; &quot;&#x5168;&#x90E8;&#x63A5;&#x53E3;&quot; &#x5730;&#x5740;&#x7684;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x7AEF;&#x53E3;(&#x8FD9;&#x9002;&#x7528;&#x4E8E; <code>udp4</code> &#x548C; <code>udp6</code> &#x5957;&#x63A5;&#x5B57;)&#x3002;
+&#x7ED1;&#x5B9A;&#x7684;&#x5730;&#x5740;&#x548C;&#x7AEF;&#x53E3;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <a href="javascript:if(confirm('http://nodejs.cn/s/Y1Rqoi  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Y1Rqoi'" tppabs="http://nodejs.cn/s/Y1Rqoi" rel="nofollow"><code>socket.address().address</code></a> &#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/Y1Rqoi  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Y1Rqoi'" tppabs="http://nodejs.cn/s/Y1Rqoi" rel="nofollow"><code>socket.address().port</code></a> &#x6765;&#x83B7;&#x53D6;&#x3002;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712017938"><\/script>');
+  </script>
+
+</body></html>

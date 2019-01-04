@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Buffer 与字符编码 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/buffer/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712012006" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-buffer">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>Buffer 与字符编码</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="buffer.html#buffer_buffers_and_character_encodings" tppabs="http://nodejs.cn/api/buffer.html#buffer_buffers_and_character_encodings" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.4.0</td>
+<td><p>Introduced <code>latin1</code> as an alias for <code>binary</code>.</p></td></tr>
+<tr><td>v5.0.0</td>
+<td><p>Removed the deprecated <code>raw</code> and <code>raws</code> encodings.</p></td></tr>
+</tbody></table>
+</details>
+</div><p>&#x5F53; <code>Buffer</code> &#x5B58;&#x5165;&#x6216;&#x53D6;&#x51FA;&#x5B57;&#x7B26;&#x4E32;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x5B57;&#x7B26;&#x7F16;&#x7801;&#x3002;</p><pre><code class="language-js">const buf = Buffer.from(&apos;hello world&apos;, &apos;ascii&apos;);
+
+console.log(buf.toString(&apos;hex&apos;));
+// &#x8F93;&#x51FA;: 68656c6c6f20776f726c64
+
+console.log(buf.toString(&apos;base64&apos;));
+// &#x8F93;&#x51FA;: aGVsbG8gd29ybGQ=
+
+console.log(Buffer.from(&apos;fhqwhgads&apos;, &apos;ascii&apos;));
+// &#x8F93;&#x51FA;: &lt;Buffer 66 68 71 77 68 67 61 64 73&gt;
+console.log(Buffer.from(&apos;fhqwhgads&apos;, &apos;utf16le&apos;));
+// &#x8F93;&#x51FA;: &lt;Buffer 66 00 68 00 71 00 77 00 68 00 67 00 61 00 64 00 73 00&gt;
+</code></pre><p>Node.js &#x652F;&#x6301;&#x7684;&#x5B57;&#x7B26;&#x7F16;&#x7801;&#x6709;&#xFF1A;</p><ul>
+<li>
+<p><code>&apos;ascii&apos;</code> - &#x4EC5;&#x652F;&#x6301; 7 &#x4F4D; ASCII &#x6570;&#x636E;&#x3002;</p>
+</li>
+<li>
+<p><code>&apos;utf8&apos;</code> - &#x591A;&#x5B57;&#x8282;&#x7F16;&#x7801;&#x7684; Unicode &#x5B57;&#x7B26;&#x3002;</p>
+</li>
+<li>
+<p><code>&apos;utf16le&apos;</code> - 2 &#x6216; 4 &#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x5C0F;&#x7AEF;&#x5E8F;&#x7F16;&#x7801;&#x7684; Unicode &#x5B57;&#x7B26;&#x3002;&#x652F;&#x6301;&#x4EE3;&#x7406;&#x5BF9;&#xFF08;U+10000 &#x81F3; U+10FFFF&#xFF09;&#x3002;</p>
+</li>
+<li>
+<p><code>&apos;ucs2&apos;</code> - <code>&apos;utf16le&apos;</code> &#x7684;&#x522B;&#x540D;&#x3002;</p>
+</li>
+<li>
+<p><code>&apos;base64&apos;</code> - Base64 &#x7F16;&#x7801;&#x3002;</p>
+</li>
+<li>
+<p><code>&apos;latin1&apos;</code> - &#x5C06; <code>Buffer</code> &#x7F16;&#x7801;&#x6210;&#x5355;&#x5B57;&#x8282;&#x7F16;&#x7801;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x3002;</p>
+</li>
+<li>
+<p><code>&apos;binary&apos;</code> - <code>&apos;latin1&apos;</code> &#x7684;&#x522B;&#x540D;&#x3002;</p>
+</li>
+<li>
+<p><code>&apos;hex&apos;</code> - &#x5C06;&#x6BCF;&#x4E2A;&#x5B57;&#x8282;&#x7F16;&#x7801;&#x6210;&#x4E24;&#x4E2A;&#x5341;&#x516D;&#x8FDB;&#x5236;&#x5B57;&#x7B26;&#x3002;</p>
+</li>
+</ul></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v6.4.0</td>
+<td><p>Introduced <code>latin1</code> as an alias for <code>binary</code>.</p></td></tr>
+<tr><td>v5.0.0</td>
+<td><p>Removed the deprecated <code>raw</code> and <code>raws</code> encodings.</p></td></tr>
+</tbody></table>
+</details>
+</div><p>When string data is stored in or extracted out of a <code>Buffer</code> instance, a
+character encoding may be specified.</p><pre><code class="language-js">const buf = Buffer.from(&apos;hello world&apos;, &apos;ascii&apos;);
+
+console.log(buf.toString(&apos;hex&apos;));
+// Prints: 68656c6c6f20776f726c64
+console.log(buf.toString(&apos;base64&apos;));
+// Prints: aGVsbG8gd29ybGQ=
+
+console.log(Buffer.from(&apos;fhqwhgads&apos;, &apos;ascii&apos;));
+// Prints: &lt;Buffer 66 68 71 77 68 67 61 64 73&gt;
+console.log(Buffer.from(&apos;fhqwhgads&apos;, &apos;utf16le&apos;));
+// Prints: &lt;Buffer 66 00 68 00 71 00 77 00 68 00 67 00 61 00 64 00 73 00&gt;
+</code></pre><p>The character encodings currently supported by Node.js include:</p><ul>
+<li>
+<p><code>&apos;ascii&apos;</code> - For 7-bit ASCII data only. This encoding is fast and will strip
+the high bit if set.</p>
+</li>
+<li>
+<p><code>&apos;utf8&apos;</code> - Multibyte encoded Unicode characters. Many web pages and other
+document formats use UTF-8.</p>
+</li>
+<li>
+<p><code>&apos;utf16le&apos;</code> - 2 or 4 bytes, little-endian encoded Unicode characters.
+Surrogate pairs (U+10000 to U+10FFFF) are supported.</p>
+</li>
+<li>
+<p><code>&apos;ucs2&apos;</code> - Alias of <code>&apos;utf16le&apos;</code>.</p>
+</li>
+<li>
+<p><code>&apos;base64&apos;</code> - Base64 encoding. When creating a <code>Buffer</code> from a string,
+this encoding will also correctly accept &quot;URL and Filename Safe Alphabet&quot; as
+specified in <a href="javascript:if(confirm('http://nodejs.cn/s/j8aS4R  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/j8aS4R'" tppabs="http://nodejs.cn/s/j8aS4R" rel="nofollow">RFC4648, Section 5</a>.</p>
+</li>
+<li>
+<p><code>&apos;latin1&apos;</code> - A way of encoding the <code>Buffer</code> into a one-byte encoded string
+(as defined by the IANA in <a href="javascript:if(confirm('http://nodejs.cn/s/SYWoTZ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SYWoTZ'" tppabs="http://nodejs.cn/s/SYWoTZ" rel="nofollow">RFC1345</a>,
+page 63, to be the Latin-1 supplement block and C0/C1 control codes).</p>
+</li>
+<li>
+<p><code>&apos;binary&apos;</code> - Alias for <code>&apos;latin1&apos;</code>.</p>
+</li>
+<li>
+<p><code>&apos;hex&apos;</code> - Encode each byte as two hexadecimal characters.</p>
+</li>
+</ul><p>Modern Web browsers follow the <a href="javascript:if(confirm('http://nodejs.cn/s/sasgQF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/sasgQF'" tppabs="http://nodejs.cn/s/sasgQF" rel="nofollow">WHATWG Encoding Standard</a> which aliases
+both <code>&apos;latin1&apos;</code> and <code>&apos;ISO-8859-1&apos;</code> to <code>&apos;win-1252&apos;</code>. This means that while doing
+something like <code>http.get()</code>, if the returned charset is one of those listed in
+the WHATWG specification it is possible that the server actually returned
+<code>&apos;win-1252&apos;</code>-encoded data, and using <code>&apos;latin1&apos;</code> encoding may incorrectly decode
+the characters.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712012006"><\/script>');
+  </script>
+</body>
+</html>

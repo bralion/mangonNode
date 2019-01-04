@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Buffer.from()、Buffer.alloc() 与 Buffer.allocUnsafe() | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/buffer/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712011998" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-buffer">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>Buffer.from()、Buffer.alloc() 与 Buffer.allocUnsafe()</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="buffer.html#buffer_buffer_from_buffer_alloc_and_buffer_allocunsafe" tppabs="http://nodejs.cn/api/buffer.html#buffer_buffer_from_buffer_alloc_and_buffer_allocunsafe" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p>&#x5728; Node.js v6.0.0 &#x4E4B;&#x524D;&#xFF0C;<code>Buffer</code> &#x5B9E;&#x4F8B;&#x662F;&#x901A;&#x8FC7; <code>Buffer</code> &#x6784;&#x9020;&#x51FD;&#x6570;&#x521B;&#x5EFA;&#x7684;&#xFF0C;&#x5B83;&#x6839;&#x636E;&#x53C2;&#x6570;&#x8FD4;&#x56DE;&#x4E0D;&#x540C;&#x7684; <code>Buffer</code>&#xFF1A;</p><ul>
+<li>&#x4F20;&#x5165;&#x6570;&#x503C;&#xFF08;&#x5982; <code>new Buffer(10)</code>&#xFF09;&#xFF0C;&#x5219;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x6307;&#x5B9A;&#x5927;&#x5C0F;&#x7684; <code>Buffer</code> &#x5BF9;&#x8C61;&#x3002;
+&#x5728; Node.js v8.0.0 &#x4E4B;&#x524D;&#xFF0C;&#x5206;&#x914D;&#x7ED9;&#x8FD9;&#x79CD; <code>Buffer</code> &#x5B9E;&#x4F8B;&#x7684;&#x5185;&#x5B58;&#x662F;&#x672A;&#x521D;&#x59CB;&#x5316;&#x7684;&#xFF0C;&#x53EF;&#x80FD;&#x5305;&#x542B;&#x65E7;&#x6570;&#x636E;&#x3002;
+&#x8FD9;&#x79CD; <code>Buffer</code> &#x5B9E;&#x4F8B;&#x968F;&#x540E;&#x5FC5;&#x987B;&#x88AB;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/2dLJk5  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2dLJk5'" tppabs="http://nodejs.cn/s/2dLJk5" rel="nofollow"><code>buf.fill(0)</code></a> &#x6216;&#x5199;&#x6EE1;&#x8FD9;&#x4E2A; <code>Buffer</code>&#x3002;
+&#x867D;&#x7136;&#x8FD9;&#x662F;&#x4E3A;&#x4E86;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x800C;&#x6709;&#x610F;&#x4E3A;&#x4E4B;&#x7684;&#xFF0C;&#x4F46;&#x5F00;&#x53D1;&#x7ECF;&#x9A8C;&#x8868;&#x660E;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5FEB;&#x901F;&#x4F46;&#x672A;&#x521D;&#x59CB;&#x5316;&#x7684; <code>Buffer</code> &#x4E0E;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x6162;&#x70B9;&#x4F46;&#x66F4;&#x5B89;&#x5168;&#x7684; <code>Buffer</code> &#x4E4B;&#x95F4;&#x9700;&#x8981;&#x6709;&#x66F4;&#x660E;&#x786E;&#x7684;&#x533A;&#x5206;&#x3002;
+&#x4ECE; Node.js v8.0.0 &#x5F00;&#x59CB;&#xFF0C; <code>Buffer(num)</code> &#x4E0E; <code>new Buffer(num)</code> &#x5C06;&#x8FD4;&#x56DE;&#x5DF2;&#x521D;&#x59CB;&#x5316;&#x7684; <code>Buffer</code>&#x3002;</li>
+<li>&#x4F20;&#x5165;&#x5B57;&#x7B26;&#x4E32;&#x3001;&#x6570;&#x7EC4;&#x3001;&#x6216; <code>Buffer</code>&#xFF0C;&#x5219;&#x5C06;&#x4F20;&#x5165;&#x7684;&#x6570;&#x636E;&#x62F7;&#x8D1D;&#x5230; <code>Buffer</code>&#x3002;</li>
+<li>&#x4F20;&#x5165; <a href="javascript:if(confirm('http://nodejs.cn/s/mUbfvF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mUbfvF'" tppabs="http://nodejs.cn/s/mUbfvF" rel="nofollow"><code>ArrayBuffer</code></a> &#x6216; <a href="javascript:if(confirm('http://nodejs.cn/s/6J6LBy  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/6J6LBy'" tppabs="http://nodejs.cn/s/6J6LBy" rel="nofollow"><code>SharedArrayBuffer</code></a>&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x4E0E;&#x4F20;&#x5165;&#x7684;&#x5BF9;&#x8C61;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x7684; <code>Buffer</code>&#x3002;</li>
+</ul><p>&#x56E0;&#x4E3A; <code>new Buffer()</code> &#x4F1A;&#x6839;&#x636E;&#x53C2;&#x6570;&#x7684;&#x7C7B;&#x578B;&#x800C;&#x4E0D;&#x540C;&#xFF0C;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6B63;&#x786E;&#x5730;&#x6821;&#x9A8C;&#x4F20;&#x7ED9; <code>new Buffer()</code> &#x7684;&#x53C2;&#x6570;&#x3001;&#x5C31;&#x53EF;&#x80FD;&#x5F15;&#x8D77;&#x5B89;&#x5168;&#x6027;&#x4E0E;&#x53EF;&#x9760;&#x6027;&#x95EE;&#x9898;&#x3002;</p><p>&#x4E3A;&#x4E86;&#x4F7F; <code>Buffer</code> &#x5B9E;&#x4F8B;&#x7684;&#x521B;&#x5EFA;&#x66F4;&#x53EF;&#x9760;&#xFF0C;<code>new Buffer()</code> &#x6784;&#x9020;&#x51FD;&#x6570;&#x5DF2;&#x88AB;&#x5E9F;&#x5F03;&#xFF0C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528; <code>Buffer.from()</code>&#x3001;<code>Buffer.alloc()</code>&#x3001;&#x548C; <code>Buffer.allocUnsafe()</code>&#x3002;</p><ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/F5r61t  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F5r61t'" tppabs="http://nodejs.cn/s/F5r61t" rel="nofollow"><code>Buffer.from(array)</code></a> &#x8FD4;&#x56DE;&#x4E00;&#x4E2A; <code>Buffer</code>&#xFF0C;&#x5305;&#x542B;&#x4F20;&#x5165;&#x7684;&#x5B57;&#x8282;&#x6570;&#x7EC4;&#x7684;&#x62F7;&#x8D1D;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/jGD2qK  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jGD2qK'" tppabs="http://nodejs.cn/s/jGD2qK" rel="nofollow"><code>Buffer.from(arrayBuffer[, byteOffset [, length]])</code></a> &#x8FD4;&#x56DE;&#x4E00;&#x4E2A; <code>Buffer</code>&#xFF0C;&#x4E0E;&#x4F20;&#x5165;&#x7684; <code>ArrayBuffer</code> &#x5171;&#x4EAB;&#x5185;&#x5B58;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/SPUnUK  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SPUnUK'" tppabs="http://nodejs.cn/s/SPUnUK" rel="nofollow"><code>Buffer.from(buffer)</code></a> &#x8FD4;&#x56DE;&#x4E00;&#x4E2A; <code>Buffer</code>&#xFF0C;&#x5305;&#x542B;&#x4F20;&#x5165;&#x7684; <code>Buffer</code> &#x7684;&#x5185;&#x5BB9;&#x7684;&#x62F7;&#x8D1D;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/X7oqVF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/X7oqVF'" tppabs="http://nodejs.cn/s/X7oqVF" rel="nofollow"><code>Buffer.from(string[, encoding])</code></a> &#x8FD4;&#x56DE;&#x4E00;&#x4E2A; <code>Buffer</code>&#xFF0C;&#x5305;&#x542B;&#x4F20;&#x5165;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x62F7;&#x8D1D;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/Du96og  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Du96og'" tppabs="http://nodejs.cn/s/Du96og" rel="nofollow"><code>Buffer.alloc(size[, fill[, encoding]])</code></a> &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6307;&#x5B9A;&#x5927;&#x5C0F;&#x4E14;&#x5DF2;&#x521D;&#x59CB;&#x5316;&#x7684; <code>Buffer</code>&#x3002;
+&#x8BE5;&#x65B9;&#x6CD5;&#x6BD4; <code>Buffer.allocUnsafe(size)</code> &#x6162;&#xFF0C;&#x4F46;&#x80FD;&#x786E;&#x4FDD;&#x65B0;&#x521B;&#x5EFA;&#x7684; <code>Buffer</code> &#x4E0D;&#x4F1A;&#x5305;&#x542B;&#x65E7;&#x6570;&#x636E;&#x3002;</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/TWpeWk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/TWpeWk'" tppabs="http://nodejs.cn/s/TWpeWk" rel="nofollow"><code>Buffer.allocUnsafe(size)</code></a> &#x4E0E; <a href="javascript:if(confirm('http://nodejs.cn/s/PUENLw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PUENLw'" tppabs="http://nodejs.cn/s/PUENLw" rel="nofollow"><code>Buffer.allocUnsafeSlow(size)</code></a> &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6307;&#x5B9A;&#x5927;&#x5C0F;&#x4F46;&#x672A;&#x521D;&#x59CB;&#x5316;&#x7684; <code>Buffer</code>&#x3002;
+&#x56E0;&#x4E3A; <code>Buffer</code> &#x662F;&#x672A;&#x521D;&#x59CB;&#x5316;&#x7684;&#xFF0C;&#x53EF;&#x80FD;&#x5305;&#x542B;&#x65E7;&#x6570;&#x636E;&#x3002;</li>
+</ul></div>
+          <div id="content_right"><p>In versions of Node.js prior to 6.0.0, <code>Buffer</code> instances were created using the
+<code>Buffer</code> constructor function, which allocates the returned <code>Buffer</code>
+differently based on what arguments are provided:</p><ul>
+<li>Passing a number as the first argument to <code>Buffer()</code> (e.g. <code>new Buffer(10)</code>)
+allocates a new <code>Buffer</code> object of the specified size. Prior to Node.js 8.0.0,
+the memory allocated for such <code>Buffer</code> instances is <em>not</em> initialized and
+<em>can contain sensitive data</em>. Such <code>Buffer</code> instances <em>must</em> be subsequently
+initialized by using either <a href="javascript:if(confirm('http://nodejs.cn/s/2dLJk5  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2dLJk5'" tppabs="http://nodejs.cn/s/2dLJk5" rel="nofollow"><code>buf.fill(0)</code></a> or by writing to the
+entire <code>Buffer</code>. While this behavior is <em>intentional</em> to improve performance,
+development experience has demonstrated that a more explicit distinction is
+required between creating a fast-but-uninitialized <code>Buffer</code> versus creating a
+slower-but-safer <code>Buffer</code>. Starting in Node.js 8.0.0, <code>Buffer(num)</code> and
+<code>new Buffer(num)</code> will return a <code>Buffer</code> with initialized memory.</li>
+<li>Passing a string, array, or <code>Buffer</code> as the first argument copies the
+passed object&apos;s data into the <code>Buffer</code>.</li>
+<li>Passing an <a href="javascript:if(confirm('http://nodejs.cn/s/mUbfvF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mUbfvF'" tppabs="http://nodejs.cn/s/mUbfvF" rel="nofollow"><code>ArrayBuffer</code></a> or a <a href="javascript:if(confirm('http://nodejs.cn/s/6J6LBy  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/6J6LBy'" tppabs="http://nodejs.cn/s/6J6LBy" rel="nofollow"><code>SharedArrayBuffer</code></a> returns a <code>Buffer</code> that
+shares allocated memory with the given array buffer.</li>
+</ul><p>Because the behavior of <code>new Buffer()</code> is different depending on the type of the
+first argument, security and reliability issues can be inadvertently introduced
+into applications when argument validation or <code>Buffer</code> initialization is not
+performed.</p><p>To make the creation of <code>Buffer</code> instances more reliable and less error-prone,
+the various forms of the <code>new Buffer()</code> constructor have been <strong>deprecated</strong>
+and replaced by separate <code>Buffer.from()</code>, <a href="javascript:if(confirm('http://nodejs.cn/s/Du96og  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Du96og'" tppabs="http://nodejs.cn/s/Du96og" rel="nofollow"><code>Buffer.alloc()</code></a>, and
+<a href="javascript:if(confirm('http://nodejs.cn/s/TWpeWk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/TWpeWk'" tppabs="http://nodejs.cn/s/TWpeWk" rel="nofollow"><code>Buffer.allocUnsafe()</code></a> methods.</p><p><em>Developers should migrate all existing uses of the <code>new Buffer()</code> constructors
+to one of these new APIs.</em></p><ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/F5r61t  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F5r61t'" tppabs="http://nodejs.cn/s/F5r61t" rel="nofollow"><code>Buffer.from(array)</code></a> returns a new <code>Buffer</code> that <em>contains a copy</em> of the
+provided octets.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/jGD2qK  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jGD2qK'" tppabs="http://nodejs.cn/s/jGD2qK" rel="nofollow"><code>Buffer.from(arrayBuffer[, byteOffset[, length]])</code></a>
+returns a new <code>Buffer</code> that <em>shares the same allocated memory</em> as the given
+<a href="javascript:if(confirm('http://nodejs.cn/s/mUbfvF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mUbfvF'" tppabs="http://nodejs.cn/s/mUbfvF" rel="nofollow"><code>ArrayBuffer</code></a>.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/SPUnUK  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SPUnUK'" tppabs="http://nodejs.cn/s/SPUnUK" rel="nofollow"><code>Buffer.from(buffer)</code></a> returns a new <code>Buffer</code> that <em>contains a copy</em> of the
+contents of the given <code>Buffer</code>.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/X7oqVF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/X7oqVF'" tppabs="http://nodejs.cn/s/X7oqVF" rel="nofollow"><code>Buffer.from(string[, encoding])</code></a> returns a new
+<code>Buffer</code> that <em>contains a copy</em> of the provided string.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/Du96og  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Du96og'" tppabs="http://nodejs.cn/s/Du96og" rel="nofollow"><code>Buffer.alloc(size[, fill[, encoding]])</code></a> returns a new
+initialized <code>Buffer</code> of the specified size. This method is slower than
+<a href="javascript:if(confirm('http://nodejs.cn/s/TWpeWk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/TWpeWk'" tppabs="http://nodejs.cn/s/TWpeWk" rel="nofollow"><code>Buffer.allocUnsafe(size)</code></a> but guarantees that newly
+created <code>Buffer</code> instances never contain old data that is potentially
+sensitive.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/TWpeWk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/TWpeWk'" tppabs="http://nodejs.cn/s/TWpeWk" rel="nofollow"><code>Buffer.allocUnsafe(size)</code></a> and
+<a href="javascript:if(confirm('http://nodejs.cn/s/PUENLw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PUENLw'" tppabs="http://nodejs.cn/s/PUENLw" rel="nofollow"><code>Buffer.allocUnsafeSlow(size)</code></a> each return a
+new uninitialized <code>Buffer</code> of the specified <code>size</code>. Because the <code>Buffer</code> is
+uninitialized, the allocated segment of memory might contain old data that is
+potentially sensitive.</li>
+</ul><p><code>Buffer</code> instances returned by <a href="javascript:if(confirm('http://nodejs.cn/s/TWpeWk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/TWpeWk'" tppabs="http://nodejs.cn/s/TWpeWk" rel="nofollow"><code>Buffer.allocUnsafe()</code></a> <em>may</em> be allocated off
+a shared internal memory pool if <code>size</code> is less than or equal to half
+<a href="javascript:if(confirm('http://nodejs.cn/s/dZo4K3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/dZo4K3'" tppabs="http://nodejs.cn/s/dZo4K3" rel="nofollow"><code>Buffer.poolSize</code></a>. Instances returned by <a href="javascript:if(confirm('http://nodejs.cn/s/PUENLw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PUENLw'" tppabs="http://nodejs.cn/s/PUENLw" rel="nofollow"><code>Buffer.allocUnsafeSlow()</code></a> <em>never</em>
+use the shared internal memory pool.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712011998"><\/script>');
+  </script>
+</body>
+</html>

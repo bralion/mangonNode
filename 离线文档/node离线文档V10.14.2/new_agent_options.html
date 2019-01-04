@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>new Agent([options]) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/http/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712025450" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-http">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>new Agent([options])</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="http.html#http_new_agent_options" tppabs="http://nodejs.cn/api/http.html#http_new_agent_options" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.4</span>
+</div><ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> &#x4EE3;&#x7406;&#x7684;&#x914D;&#x7F6E;&#x9009;&#x9879;&#x3002;&#x6709;&#x4EE5;&#x4E0B;&#x5B57;&#x6BB5;</p>
+<ul>
+<li><code>keepAlive</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x4FDD;&#x6301; socket &#x53EF;&#x7528;&#x5373;&#x4F7F;&#x6CA1;&#x6709;&#x8BF7;&#x6C42;&#xFF0C;&#x4EE5;&#x4FBF;&#x5B83;&#x4EEC;&#x53EF;&#x88AB;&#x5C06;&#x6765;&#x7684;&#x8BF7;&#x6C42;&#x4F7F;&#x7528;&#x800C;&#x65E0;&#x9700;&#x91CD;&#x65B0;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A; TCP &#x8FDE;&#x63A5;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; <code>false</code>&#x3002;</li>
+<li><code>keepAliveMsecs</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5F53;&#x4F7F;&#x7528;&#x4E86; <code>keepAlive</code> &#x9009;&#x9879;&#x65F6;&#xFF0C;&#x8BE5;&#x9009;&#x9879;&#x6307;&#x5B9A; TCP <code>Keep-Alive</code> &#x6570;&#x636E;&#x5305;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/api/http/net.html  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ������������ļ�δ�ҵ���  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/api/http/net.html#net_socket_setkeepalive_enable_initialdelay'" tppabs="http://nodejs.cn/api/http/net.html#net_socket_setkeepalive_enable_initialdelay" rel="nofollow">&#x521D;&#x59CB;&#x5EF6;&#x8FDF;</a>&#x3002;
+&#x5F53; <code>keepAlive</code> &#x9009;&#x9879;&#x4E3A; <code>false</code> &#x6216; <code>undefined</code> &#x65F6;&#xFF0C;&#x8BE5;&#x9009;&#x9879;&#x65E0;&#x6548;&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>1000</code>&#x3002;</li>
+<li><code>maxSockets</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x6BCF;&#x4E2A;&#x4E3B;&#x673A;&#x5141;&#x8BB8;&#x7684;&#x6700;&#x5927; socket &#x6570;&#x91CF;&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>Infinity</code>&#x3002;</li>
+<li><code>maxFreeSockets</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> &#x5728;&#x7A7A;&#x95F2;&#x72B6;&#x6001;&#x4E0B;&#x5141;&#x8BB8;&#x6253;&#x5F00;&#x7684;&#x6700;&#x5927; socket &#x6570;&#x91CF;&#x3002;
+&#x4EC5;&#x5F53; <code>keepAlive</code> &#x4E3A; <code>true</code> &#x65F6;&#x624D;&#x6709;&#x6548;&#x3002;
+&#x9ED8;&#x8BA4;&#x4E3A; <code>256</code>&#x3002;</li>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> socket &#x8D85;&#x65F6;&#x6BEB;&#x79D2;&#x6570;&#x3002;</li>
+</ul>
+</li>
+</ul><p><a href="javascript:if(confirm('http://nodejs.cn/s/d1myoL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/d1myoL'" tppabs="http://nodejs.cn/s/d1myoL" rel="nofollow"><code>http.request()</code></a> &#x9ED8;&#x8BA4;&#x4F7F;&#x7528;&#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/g7BhW2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/g7BhW2'" tppabs="http://nodejs.cn/s/g7BhW2" rel="nofollow"><code>http.globalAgent</code></a> &#x7684;&#x9009;&#x9879;&#x5747;&#x4E3A;&#x5404;&#x81EA;&#x7684;&#x9ED8;&#x8BA4;&#x503C;&#x3002;</p><p>&#x82E5;&#x8981;&#x914D;&#x7F6E;&#x5176;&#x4E2D;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x81EA;&#x5B9A;&#x4E49;&#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/HRCnER  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/HRCnER'" tppabs="http://nodejs.cn/s/HRCnER" rel="nofollow"><code>http.Agent</code></a> &#x5B9E;&#x4F8B;&#x3002;</p><pre><code class="language-js">const http = require(&apos;http&apos;);
+const keepAliveAgent = new http.Agent({ keepAlive: true });
+options.agent = keepAliveAgent;
+http.request(options, onResponseCallback);
+</code></pre></div>
+          <div id="content_right"><div class="api_metadata">
+<span>Added in: v0.3.4</span>
+</div><ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> Set of configurable options to set on the agent.
+Can have the following fields:</p>
+<ul>
+<li><code>keepAlive</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> Keep sockets around even when there are no
+outstanding requests, so they can be used for future requests without
+having to reestablish a TCP connection. <strong>Default:</strong> <code>false</code>.</li>
+<li><code>keepAliveMsecs</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> When using the <code>keepAlive</code> option, specifies
+the <a href="javascript:if(confirm('http://nodejs.cn/api/http/net.html  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ������������ļ�δ�ҵ���  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/api/http/net.html#net_socket_setkeepalive_enable_initialdelay'" tppabs="http://nodejs.cn/api/http/net.html#net_socket_setkeepalive_enable_initialdelay" rel="nofollow">initial delay</a>
+for TCP Keep-Alive packets. Ignored when the
+<code>keepAlive</code> option is <code>false</code> or <code>undefined</code>. <strong>Default:</strong> <code>1000</code>.</li>
+<li><code>maxSockets</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Maximum number of sockets to allow per
+host. <strong>Default:</strong> <code>Infinity</code>.</li>
+<li><code>maxFreeSockets</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Maximum number of sockets to leave open
+in a free state. Only relevant if <code>keepAlive</code> is set to <code>true</code>.
+<strong>Default:</strong> <code>256</code>.</li>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> Socket timeout in milliseconds.
+This will set the timeout after the socket is connected.</li>
+</ul>
+</li>
+</ul><p>The default <a href="javascript:if(confirm('http://nodejs.cn/s/g7BhW2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/g7BhW2'" tppabs="http://nodejs.cn/s/g7BhW2" rel="nofollow"><code>http.globalAgent</code></a> that is used by <a href="javascript:if(confirm('http://nodejs.cn/s/d1myoL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/d1myoL'" tppabs="http://nodejs.cn/s/d1myoL" rel="nofollow"><code>http.request()</code></a> has all
+of these values set to their respective defaults.</p><p>To configure any of them, a custom <a href="javascript:if(confirm('http://nodejs.cn/s/HRCnER  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/HRCnER'" tppabs="http://nodejs.cn/s/HRCnER" rel="nofollow"><code>http.Agent</code></a> instance must be created.</p><pre><code class="language-js">const http = require(&apos;http&apos;);
+const keepAliveAgent = new http.Agent({ keepAlive: true });
+options.agent = keepAliveAgent;
+http.request(options, onResponseCallback);
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712025450"><\/script>');
+  </script>
+</body>
+</html>

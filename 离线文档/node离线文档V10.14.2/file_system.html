@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>fs（文件系统） | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/fs/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712023499" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-fs">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>fs（文件系统）</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="fs.html#fs_file_system" tppabs="http://nodejs.cn/api/fs.html#fs_file_system" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p><p><code>fs</code> &#x6A21;&#x5757;&#x7528;&#x4E8E;&#x4EE5;&#x4E00;&#x79CD;&#x7C7B;&#x4F3C;&#x6807;&#x51C6; POSIX &#x51FD;&#x6570;&#x7684;&#x65B9;&#x5F0F;&#x4E0E;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x8FDB;&#x884C;&#x4EA4;&#x4E92;&#x3002;</p><p>&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p><pre><code class="language-js">const fs = require(&apos;fs&apos;);
+</code></pre><p>&#x6240;&#x6709;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x64CD;&#x4F5C;&#x90FD;&#x6709;&#x540C;&#x6B65;&#x548C;&#x5F02;&#x6B65;&#x4E24;&#x79CD;&#x5F62;&#x5F0F;&#x3002;</p><p>&#x5F02;&#x6B65;&#x5F62;&#x5F0F;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x5B8C;&#x6210;&#x65F6;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;
+&#x4F20;&#x7ED9;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x53D6;&#x51B3;&#x4E8E;&#x5177;&#x4F53;&#x65B9;&#x6CD5;&#xFF0C;&#x4F46;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x4F1A;&#x4FDD;&#x7559;&#x7ED9;&#x5F02;&#x5E38;&#x3002;
+&#x5982;&#x679C;&#x64CD;&#x4F5C;&#x6210;&#x529F;&#x5B8C;&#x6210;&#xFF0C;&#x5219;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x4F1A;&#x662F; <code>null</code> &#x6216; <code>undefined</code>&#x3002;</p><pre><code class="language-js">const fs = require(&apos;fs&apos;);
+
+fs.unlink(&apos;/tmp/hello&apos;, (err) =&gt; {
+  if (err) throw err;
+  console.log(&apos;&#x6210;&#x529F;&#x5220;&#x9664; /tmp/hello&apos;);
+});
+</code></pre><p>&#x5F53;&#x4F7F;&#x7528;&#x540C;&#x6B65;&#x64CD;&#x4F5C;&#x65F6;&#xFF0C;&#x4EFB;&#x4F55;&#x5F02;&#x5E38;&#x90FD;&#x4F1A;&#x7ACB;&#x5373;&#x629B;&#x51FA;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>try</code>/<code>catch</code> &#x5904;&#x7406;&#x5F02;&#x5E38;&#x3002;</p><pre><code class="language-js">const fs = require(&apos;fs&apos;);
+
+try {
+  fs.unlinkSync(&apos;/tmp/hello&apos;);
+  console.log(&apos;&#x6210;&#x529F;&#x5220;&#x9664; /tmp/hello&apos;);
+} catch (err) {
+  // &#x5904;&#x7406;&#x5F02;&#x5E38;&#x3002;
+}
+</code></pre><p>&#x5F02;&#x6B65;&#x7684;&#x65B9;&#x6CD5;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x3002;
+&#x6240;&#x4EE5;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x53EF;&#x80FD;&#x4F1A;&#x51FA;&#x9519;&#xFF0C;&#x56E0;&#x4E3A; <code>fs.stat()</code> &#x53EF;&#x80FD;&#x5728; <code>fs.rename()</code> &#x4E4B;&#x524D;&#x5B8C;&#x6210;&#xFF1A;</p><pre><code class="language-js">fs.rename(&apos;/tmp/hello&apos;, &apos;/tmp/world&apos;, (err) =&gt; {
+  if (err) throw err;
+  console.log(&apos;&#x91CD;&#x547D;&#x540D;&#x5B8C;&#x6210;&apos;);
+});
+fs.stat(&apos;/tmp/world&apos;, (err, stats) =&gt; {
+  if (err) throw err;
+  console.log(`&#x6587;&#x4EF6;&#x5C5E;&#x6027;: ${JSON.stringify(stats)}`);
+});
+</code></pre><p>&#x8981;&#x60F3;&#x6309;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x9700;&#x8981;&#x628A; <code>fs.stat()</code> &#x653E;&#x5230; <code>fs.rename()</code> &#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E2D;&#xFF1A;</p><pre><code class="language-js">fs.rename(&apos;/tmp/hello&apos;, &apos;/tmp/world&apos;, (err) =&gt; {
+  if (err) throw err;
+  fs.stat(&apos;/tmp/world&apos;, (err, stats) =&gt; {
+    if (err) throw err;
+    console.log(`&#x6587;&#x4EF6;&#x5C5E;&#x6027;: ${JSON.stringify(stats)}`);
+  });
+});
+</code></pre><p>&#x5728;&#x7E41;&#x5FD9;&#x7684;&#x8FDB;&#x7A0B;&#x4E2D;&#xFF0C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x5F02;&#x6B65;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x56E0;&#x4E3A;&#x540C;&#x6B65;&#x7684;&#x65B9;&#x6CD5;&#x4F1A;&#x963B;&#x585E;&#x6574;&#x4E2A;&#x8FDB;&#x7A0B;&#x76F4;&#x5230;&#x5B8C;&#x6210;&#x3002;</p><p>&#x5927;&#x591A;&#x6570; fs &#x7684;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x7701;&#x7565;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4F1A;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;
+&#x8981;&#x60F3;&#x8FFD;&#x8E2A;&#x6700;&#x521D;&#x7684;&#x8C03;&#x7528;&#x70B9;&#xFF0C;&#x53EF;&#x8BBE;&#x7F6E; <code>NODE_DEBUG</code> &#x73AF;&#x5883;&#x53D8;&#x91CF;&#x3002;</p><p>&#x5EFA;&#x8BAE;&#x4E0D;&#x8981;&#x7701;&#x7565;&#x5F02;&#x6B65;&#x65B9;&#x6CD5;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF0C;&#x56E0;&#x4E3A;&#x672A;&#x6765;&#x7684;&#x7248;&#x672C;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x3002;</p><pre><code class="language-txt">$ cat script.js
+function bad() {
+  require(&apos;fs&apos;).readFile(&apos;/&apos;);
+}
+bad();
+
+$ env NODE_DEBUG=fs node script.js
+fs.js:88
+        throw backtrace;
+        ^
+Error: EISDIR: illegal operation on a directory, read
+    &lt;stack trace.&gt;
+</code></pre></div>
+          <div id="content_right"><p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">Stability: 2</a> - Stable</div><p></p><p>The <code>fs</code> module provides an API for interacting with the file system in a
+manner closely modeled around standard POSIX functions.</p><p>To use this module:</p><pre><code class="language-js">const fs = require(&apos;fs&apos;);
+</code></pre><p>All file system operations have synchronous and asynchronous forms.</p><p>The asynchronous form always takes a completion callback as its last argument.
+The arguments passed to the completion callback depend on the method, but the
+first argument is always reserved for an exception. If the operation was
+completed successfully, then the first argument will be <code>null</code> or <code>undefined</code>.</p><pre><code class="language-js">const fs = require(&apos;fs&apos;);
+
+fs.unlink(&apos;/tmp/hello&apos;, (err) =&gt; {
+  if (err) throw err;
+  console.log(&apos;successfully deleted /tmp/hello&apos;);
+});
+</code></pre><p>Exceptions that occur using synchronous operations are thrown immediately and
+may be handled using <code>try</code>/<code>catch</code>, or may be allowed to bubble up.</p><pre><code class="language-js">const fs = require(&apos;fs&apos;);
+
+try {
+  fs.unlinkSync(&apos;/tmp/hello&apos;);
+  console.log(&apos;successfully deleted /tmp/hello&apos;);
+} catch (err) {
+  // handle the error
+}
+</code></pre><p>There is no guaranteed ordering when using asynchronous methods. So the
+following is prone to error because the <code>fs.stat()</code> operation may complete
+before the <code>fs.rename()</code> operation:</p><pre><code class="language-js">fs.rename(&apos;/tmp/hello&apos;, &apos;/tmp/world&apos;, (err) =&gt; {
+  if (err) throw err;
+  console.log(&apos;renamed complete&apos;);
+});
+fs.stat(&apos;/tmp/world&apos;, (err, stats) =&gt; {
+  if (err) throw err;
+  console.log(`stats: ${JSON.stringify(stats)}`);
+});
+</code></pre><p>To correctly order the operations, move the <code>fs.stat()</code> call into the callback
+of the <code>fs.rename()</code> operation:</p><pre><code class="language-js">fs.rename(&apos;/tmp/hello&apos;, &apos;/tmp/world&apos;, (err) =&gt; {
+  if (err) throw err;
+  fs.stat(&apos;/tmp/world&apos;, (err, stats) =&gt; {
+    if (err) throw err;
+    console.log(`stats: ${JSON.stringify(stats)}`);
+  });
+});
+</code></pre><p>In busy processes, the programmer is <em>strongly encouraged</em> to use the
+asynchronous versions of these calls. The synchronous versions will block
+the entire process until they complete &#x2014; halting all connections.</p><p>While it is not recommended, most fs functions allow the callback argument to
+be omitted, in which case a default callback is used that rethrows errors. To
+get a trace to the original call site, set the <code>NODE_DEBUG</code> environment
+variable:</p><p>Omitting the callback function on asynchronous fs functions is deprecated and
+may result in an error being thrown in the future.</p><pre><code class="language-txt">$ cat script.js
+function bad() {
+  require(&apos;fs&apos;).readFile(&apos;/&apos;);
+}
+bad();
+
+$ env NODE_DEBUG=fs node script.js
+fs.js:88
+        throw backtrace;
+        ^
+Error: EISDIR: illegal operation on a directory, read
+    &lt;stack trace.&gt;
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712023499"><\/script>');
+  </script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>传递包装的对象 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/addons/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712009874" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-addons">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>传递包装的对象</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="addons.html#addons_passing_wrapped_objects_around" tppabs="http://nodejs.cn/api/addons.html#addons_passing_wrapped_objects_around" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p>&#x9664;&#x4E86;&#x5305;&#x88C5;&#x548C;&#x8FD4;&#x56DE; C++ &#x5BF9;&#x8C61;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4F7F;&#x7528; Node.js &#x7684;&#x8F85;&#x52A9;&#x51FD;&#x6570; <code>node::ObjectWrap::Unwrap</code> &#x8FDB;&#x884C;&#x53BB;&#x5305;&#x88C5;&#x6765;&#x4F20;&#x9012;&#x5305;&#x88C5;&#x7684;&#x5BF9;&#x8C61;&#x3002;
+&#x4EE5;&#x4E0B;&#x4F8B;&#x5B50;&#x5C55;&#x793A;&#x4E86;&#x4E00;&#x4E2A; <code>add()</code> &#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x628A;&#x4E24;&#x4E2A; <code>MyObject</code> &#x5BF9;&#x8C61;&#x4F5C;&#x4E3A;&#x8F93;&#x5165;&#x53C2;&#x6570;&#xFF1A;</p><pre><code class="language-cpp">// addon.cc
+#include &lt;node.h&gt;
+#include &lt;node_object_wrap.h&gt;
+#include &quot;myobject.h&quot;
+
+namespace demo {
+
+using v8::FunctionCallbackInfo;
+using v8::Isolate;
+using v8::Local;
+using v8::Number;
+using v8::Object;
+using v8::String;
+using v8::Value;
+
+void CreateObject(const FunctionCallbackInfo&lt;Value&gt;&amp; args) {
+  MyObject::NewInstance(args);
+}
+
+void Add(const FunctionCallbackInfo&lt;Value&gt;&amp; args) {
+  Isolate* isolate = args.GetIsolate();
+
+  MyObject* obj1 = node::ObjectWrap::Unwrap&lt;MyObject&gt;(
+      args[0]-&gt;ToObject());
+  MyObject* obj2 = node::ObjectWrap::Unwrap&lt;MyObject&gt;(
+      args[1]-&gt;ToObject());
+
+  double sum = obj1-&gt;value() + obj2-&gt;value();
+  args.GetReturnValue().Set(Number::New(isolate, sum));
+}
+
+void InitAll(Local&lt;Object&gt; exports) {
+  MyObject::Init(exports-&gt;GetIsolate());
+
+  NODE_SET_METHOD(exports, &quot;createObject&quot;, CreateObject);
+  NODE_SET_METHOD(exports, &quot;add&quot;, Add);
+}
+
+NODE_MODULE(NODE_GYP_MODULE_NAME, InitAll)
+
+}  // namespace demo
+</code></pre><p>&#x5728; <code>myobject.h</code> &#x4E2D;&#xFF0C;&#x65B0;&#x589E;&#x4E86;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x516C;&#x5171;&#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x5728;&#x53BB;&#x5305;&#x88C5;&#x5BF9;&#x8C61;&#x540E;&#x8BBF;&#x95EE;&#x79C1;&#x6709;&#x503C;&#x3002;</p><pre><code class="language-cpp">// myobject.h
+#ifndef MYOBJECT_H
+#define MYOBJECT_H
+
+#include &lt;node.h&gt;
+#include &lt;node_object_wrap.h&gt;
+
+namespace demo {
+
+class MyObject : public node::ObjectWrap {
+ public:
+  static void Init(v8::Isolate* isolate);
+  static void NewInstance(const v8::FunctionCallbackInfo&lt;v8::Value&gt;&amp; args);
+  inline double value() const { return value_; }
+
+ private:
+  explicit MyObject(double value = 0);
+  ~MyObject();
+
+  static void New(const v8::FunctionCallbackInfo&lt;v8::Value&gt;&amp; args);
+  static v8::Persistent&lt;v8::Function&gt; constructor;
+  double value_;
+};
+
+}  // namespace demo
+
+#endif
+</code></pre><p><code>myobject.cc</code> &#x4E2D;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x4F3C;&#x4E4B;&#x524D;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p><pre><code class="language-cpp">// myobject.cc
+#include &lt;node.h&gt;
+#include &quot;myobject.h&quot;
+
+namespace demo {
+
+using v8::Context;
+using v8::Function;
+using v8::FunctionCallbackInfo;
+using v8::FunctionTemplate;
+using v8::Isolate;
+using v8::Local;
+using v8::Object;
+using v8::Persistent;
+using v8::String;
+using v8::Value;
+
+Persistent&lt;Function&gt; MyObject::constructor;
+
+MyObject::MyObject(double value) : value_(value) {
+}
+
+MyObject::~MyObject() {
+}
+
+void MyObject::Init(Isolate* isolate) {
+  // Prepare constructor template
+  Local&lt;FunctionTemplate&gt; tpl = FunctionTemplate::New(isolate, New);
+  tpl-&gt;SetClassName(String::NewFromUtf8(isolate, &quot;MyObject&quot;));
+  tpl-&gt;InstanceTemplate()-&gt;SetInternalFieldCount(1);
+
+  constructor.Reset(isolate, tpl-&gt;GetFunction());
+}
+
+void MyObject::New(const FunctionCallbackInfo&lt;Value&gt;&amp; args) {
+  Isolate* isolate = args.GetIsolate();
+
+  if (args.IsConstructCall()) {
+    // &#x50CF;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E00;&#x6837;&#x8C03;&#x7528;&#xFF1A;`new MyObject(...)`
+    double value = args[0]-&gt;IsUndefined() ? 0 : args[0]-&gt;NumberValue();
+    MyObject* obj = new MyObject(value);
+    obj-&gt;Wrap(args.This());
+    args.GetReturnValue().Set(args.This());
+  } else {
+    // &#x50CF;&#x666E;&#x901A;&#x65B9;&#x6CD5; `MyObject(...)` &#x4E00;&#x6837;&#x8C03;&#x7528;&#xFF0C;&#x8F6C;&#x4E3A;&#x6784;&#x9020;&#x8C03;&#x7528;&#x3002;
+    const int argc = 1;
+    Local&lt;Value&gt; argv[argc] = { args[0] };
+    Local&lt;Context&gt; context = isolate-&gt;GetCurrentContext();
+    Local&lt;Function&gt; cons = Local&lt;Function&gt;::New(isolate, constructor);
+    Local&lt;Object&gt; instance =
+        cons-&gt;NewInstance(context, argc, argv).ToLocalChecked();
+    args.GetReturnValue().Set(instance);
+  }
+}
+
+void MyObject::NewInstance(const FunctionCallbackInfo&lt;Value&gt;&amp; args) {
+  Isolate* isolate = args.GetIsolate();
+
+  const unsigned argc = 1;
+  Local&lt;Value&gt; argv[argc] = { args[0] };
+  Local&lt;Function&gt; cons = Local&lt;Function&gt;::New(isolate, constructor);
+  Local&lt;Context&gt; context = isolate-&gt;GetCurrentContext();
+  Local&lt;Object&gt; instance =
+      cons-&gt;NewInstance(context, argc, argv).ToLocalChecked();
+
+  args.GetReturnValue().Set(instance);
+}
+
+}  // namespace demo
+</code></pre><p>&#x6D4B;&#x8BD5;&#xFF1A;</p><pre><code class="language-js">// test.js
+const addon = require(&apos;./build/Release/addon&apos;);
+
+const obj1 = addon.createObject(10);
+const obj2 = addon.createObject(20);
+const result = addon.add(obj1, obj2);
+
+console.log(result);
+// &#x6253;&#x5370;: 30
+</code></pre></div>
+          <div id="content_right"><p>In addition to wrapping and returning C++ objects, it is possible to pass
+wrapped objects around by unwrapping them with the Node.js helper function
+<code>node::ObjectWrap::Unwrap</code>. The following examples shows a function <code>add()</code>
+that can take two <code>MyObject</code> objects as input arguments:</p><pre><code class="language-cpp">// addon.cc
+#include &lt;node.h&gt;
+#include &lt;node_object_wrap.h&gt;
+#include &quot;myobject.h&quot;
+
+namespace demo {
+
+using v8::Context;
+using v8::FunctionCallbackInfo;
+using v8::Isolate;
+using v8::Local;
+using v8::Number;
+using v8::Object;
+using v8::String;
+using v8::Value;
+
+void CreateObject(const FunctionCallbackInfo&lt;Value&gt;&amp; args) {
+  MyObject::NewInstance(args);
+}
+
+void Add(const FunctionCallbackInfo&lt;Value&gt;&amp; args) {
+  Isolate* isolate = args.GetIsolate();
+  Local&lt;Context&gt; context = isolate-&gt;GetCurrentContext();
+
+  MyObject* obj1 = node::ObjectWrap::Unwrap&lt;MyObject&gt;(
+      args[0]-&gt;ToObject(context).ToLocalChecked());
+  MyObject* obj2 = node::ObjectWrap::Unwrap&lt;MyObject&gt;(
+      args[1]-&gt;ToObject(context).ToLocalChecked());
+
+  double sum = obj1-&gt;value() + obj2-&gt;value();
+  args.GetReturnValue().Set(Number::New(isolate, sum));
+}
+
+void InitAll(Local&lt;Object&gt; exports) {
+  MyObject::Init(exports-&gt;GetIsolate());
+
+  NODE_SET_METHOD(exports, &quot;createObject&quot;, CreateObject);
+  NODE_SET_METHOD(exports, &quot;add&quot;, Add);
+}
+
+NODE_MODULE(NODE_GYP_MODULE_NAME, InitAll)
+
+}  // namespace demo
+</code></pre><p>In <code>myobject.h</code>, a new public method is added to allow access to private values
+after unwrapping the object.</p><pre><code class="language-cpp">// myobject.h
+#ifndef MYOBJECT_H
+#define MYOBJECT_H
+
+#include &lt;node.h&gt;
+#include &lt;node_object_wrap.h&gt;
+
+namespace demo {
+
+class MyObject : public node::ObjectWrap {
+ public:
+  static void Init(v8::Isolate* isolate);
+  static void NewInstance(const v8::FunctionCallbackInfo&lt;v8::Value&gt;&amp; args);
+  inline double value() const { return value_; }
+
+ private:
+  explicit MyObject(double value = 0);
+  ~MyObject();
+
+  static void New(const v8::FunctionCallbackInfo&lt;v8::Value&gt;&amp; args);
+  static v8::Persistent&lt;v8::Function&gt; constructor;
+  double value_;
+};
+
+}  // namespace demo
+
+#endif
+</code></pre><p>The implementation of <code>myobject.cc</code> is similar to before:</p><pre><code class="language-cpp">// myobject.cc
+#include &lt;node.h&gt;
+#include &quot;myobject.h&quot;
+
+namespace demo {
+
+using v8::Context;
+using v8::Function;
+using v8::FunctionCallbackInfo;
+using v8::FunctionTemplate;
+using v8::Isolate;
+using v8::Local;
+using v8::Object;
+using v8::Persistent;
+using v8::String;
+using v8::Value;
+
+Persistent&lt;Function&gt; MyObject::constructor;
+
+MyObject::MyObject(double value) : value_(value) {
+}
+
+MyObject::~MyObject() {
+}
+
+void MyObject::Init(Isolate* isolate) {
+  // Prepare constructor template
+  Local&lt;FunctionTemplate&gt; tpl = FunctionTemplate::New(isolate, New);
+  tpl-&gt;SetClassName(String::NewFromUtf8(isolate, &quot;MyObject&quot;));
+  tpl-&gt;InstanceTemplate()-&gt;SetInternalFieldCount(1);
+
+  Local&lt;Context&gt; context = isolate-&gt;GetCurrentContext();
+  constructor.Reset(isolate, tpl-&gt;GetFunction(context).ToLocalChecked());
+}
+
+void MyObject::New(const FunctionCallbackInfo&lt;Value&gt;&amp; args) {
+  Isolate* isolate = args.GetIsolate();
+  Local&lt;Context&gt; context = isolate-&gt;GetCurrentContext();
+
+  if (args.IsConstructCall()) {
+    // Invoked as constructor: `new MyObject(...)`
+    double value = args[0]-&gt;IsUndefined() ?
+        0 : args[0]-&gt;NumberValue(context).FromMaybe(0);
+    MyObject* obj = new MyObject(value);
+    obj-&gt;Wrap(args.This());
+    args.GetReturnValue().Set(args.This());
+  } else {
+    // Invoked as plain function `MyObject(...)`, turn into construct call.
+    const int argc = 1;
+    Local&lt;Value&gt; argv[argc] = { args[0] };
+    Local&lt;Function&gt; cons = Local&lt;Function&gt;::New(isolate, constructor);
+    Local&lt;Object&gt; instance =
+        cons-&gt;NewInstance(context, argc, argv).ToLocalChecked();
+    args.GetReturnValue().Set(instance);
+  }
+}
+
+void MyObject::NewInstance(const FunctionCallbackInfo&lt;Value&gt;&amp; args) {
+  Isolate* isolate = args.GetIsolate();
+
+  const unsigned argc = 1;
+  Local&lt;Value&gt; argv[argc] = { args[0] };
+  Local&lt;Function&gt; cons = Local&lt;Function&gt;::New(isolate, constructor);
+  Local&lt;Context&gt; context = isolate-&gt;GetCurrentContext();
+  Local&lt;Object&gt; instance =
+      cons-&gt;NewInstance(context, argc, argv).ToLocalChecked();
+
+  args.GetReturnValue().Set(instance);
+}
+
+}  // namespace demo
+</code></pre><p>Test it with:</p><pre><code class="language-js">// test.js
+const addon = require(&apos;./build/Release/addon&apos;);
+
+const obj1 = addon.createObject(10);
+const obj2 = addon.createObject(20);
+const result = addon.add(obj1, obj2);
+
+console.log(result);
+// Prints: 30
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712009874"><\/script>');
+  </script>
+</body>
+</html>

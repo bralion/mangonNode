@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>fs.access(path[, mode], callback) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/fs/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712023749" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-fs">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>fs.access(path[, mode], callback)</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="fs.html#fs_fs_access_path_mode_callback" tppabs="http://nodejs.cn/api/fs.html#fs_fs_access_path_mode_callback" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v7.6.0</td>
+<td><p>The <code>path</code> parameter can be a WHATWG <code>URL</code> object using <code>file:</code> protocol. Support is currently still <em>experimental</em>.</p></td></tr>
+<tr><td>v6.3.0</td>
+<td><p>The constants like <code>fs.R_OK</code>, etc which were present directly on <code>fs</code> were moved into <code>fs.constants</code> as a soft deprecation. Thus for Node.js <code>&lt; v6.3.0</code> use <code>fs</code> to access those constants, or do something like <code>(fs.constants || fs).R_OK</code> to work with all versions.</p></td></tr>
+<tr><td>v0.11.15</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.11.15</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> | <a href="url.html#url_the_whatwg_url_api" tppabs="http://nodejs.cn/api/url.html#url_the_whatwg_url_api" target="_blank" rel="nofollow" class="type">&lt;URL&gt;</a></li>
+<li><code>mode</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> &#x9ED8;&#x8BA4;&#x4E3A; <code>fs.constants.F_OK</code>&#x3002;</li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+</li>
+</ul><p>&#x68C0;&#x67E5; <code>path</code> &#x6307;&#x5B9A;&#x7684;&#x6587;&#x4EF6;&#x6216;&#x76EE;&#x5F55;&#x7684;&#x7528;&#x6237;&#x6743;&#x9650;&#x3002;
+<code>mode</code> &#x6307;&#x5B9A;&#x8981;&#x6267;&#x884C;&#x7684;&#x53EF;&#x8BBF;&#x95EE;&#x6027;&#x68C0;&#x67E5;&#x3002;
+<code>mode</code> &#x53EF;&#x9009;&#x7684;&#x503C;&#x53C2;&#x89C1;<a href="javascript:if(confirm('http://nodejs.cn/s/qZfpqk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qZfpqk'" tppabs="http://nodejs.cn/s/qZfpqk" rel="nofollow">&#x6587;&#x4EF6;&#x53EF;&#x8BBF;&#x95EE;&#x6027;&#x7684;&#x5E38;&#x91CF;</a>&#x3002;
+&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4E24;&#x4E2A;&#x6216;&#x66F4;&#x591A;&#x4E2A;&#x503C;&#x8FDB;&#x884C;&#x4F4D;&#x6216;&#x64CD;&#x4F5C;&#x6765;&#x521B;&#x5EFA;&#x63A9;&#x7801;&#xFF08;&#x4F8B;&#x5982; <code>fs.constants.W_OK | fs.constants.R_OK</code>&#xFF09;&#x3002;</p><p><code>callback</code> &#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x53C2;&#x6570; <code>err</code>&#x3002;
+&#x5982;&#x679C;&#x53EF;&#x8BBF;&#x95EE;&#x6027;&#x68C0;&#x67E5;&#x5931;&#x8D25;&#xFF0C;&#x5219; <code>err</code> &#x4F1A;&#x662F;&#x4E00;&#x4E2A; <code>Error</code>&#x3002;
+&#x4F8B;&#x5B50;&#xFF0C;&#x68C0;&#x67E5; <code>package.json</code> &#x662F;&#x5426;&#x5B58;&#x5728;&#x3001;&#x53EF;&#x8BFB;&#x6216;&#x53EF;&#x5199;&#x3002;</p><pre><code class="language-js">const file = &apos;package.json&apos;;
+
+// &#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x5B58;&#x5728;&#x3002;
+fs.access(file, fs.constants.F_OK, (err) =&gt; {
+  console.log(`${file} ${err ? &apos;&#x4E0D;&#x5B58;&#x5728;&apos; : &apos;&#x5B58;&#x5728;&apos;}`);
+});
+
+// &#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x53EF;&#x8BFB;&#x3002;
+fs.access(file, fs.constants.R_OK, (err) =&gt; {
+  console.log(`${file} ${err ? &apos;&#x4E0D;&#x53EF;&#x8BFB;&apos; : &apos;&#x53EF;&#x8BFB;&apos;}`);
+});
+
+// &#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x53EF;&#x5199;&#x3002;
+fs.access(file, fs.constants.W_OK, (err) =&gt; {
+  console.log(`${file} ${err ? &apos;&#x4E0D;&#x53EF;&#x5199;&apos; : &apos;&#x53EF;&#x5199;&apos;}`);
+});
+
+// &#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x5B58;&#x5728;&#x4E14;&#x53EF;&#x5199;&#x3002;
+fs.access(file, fs.constants.F_OK | fs.constants.W_OK, (err) =&gt; {
+  if (err) {
+    console.error(
+      `${file} ${err.code === &apos;ENOENT&apos; ? &apos;&#x4E0D;&#x5B58;&#x5728;&apos; : &apos;&#x53EA;&#x53EF;&#x8BFB;&apos;}`);
+  } else {
+    console.log(`${file} &#x5B58;&#x5728;&#x4E14;&#x53EF;&#x5199;`);
+  }
+});
+</code></pre><p>&#x4E0D;&#x5EFA;&#x8BAE;&#x5728;&#x8C03;&#x7528; <code>fs.open()</code>&#x3001;<code>fs.readFile()</code> &#x6216; <code>fs.writeFile()</code> &#x4E4B;&#x524D;&#x4F7F;&#x7528; <code>fs.access()</code> &#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x7684;&#x53EF;&#x8BBF;&#x95EE;&#x6027;&#x3002;
+&#x56E0;&#x4E3A;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x53EF;&#x80FD;&#x5728;&#x4E24;&#x4E2A;&#x8C03;&#x7528;&#x7684;&#x95F4;&#x9699;&#x6539;&#x53D8;&#x6587;&#x4EF6;&#x7684;&#x72B6;&#x6001;&#x3002;
+&#x5E94;&#x8BE5;&#x76F4;&#x63A5;&#x6253;&#x5F00;&#x3001;&#x8BFB;&#x53D6;&#x6216;&#x5199;&#x5165;&#x6587;&#x4EF6;&#xFF0C;&#x5F53;&#x6587;&#x4EF6;&#x65E0;&#x6CD5;&#x8BBF;&#x95EE;&#x65F6;&#x518D;&#x5904;&#x7406;&#x9519;&#x8BEF;&#x3002;</p><p>&#x5199;&#x5165;&#x6587;&#x4EF6;&#xFF08;&#x4E0D;&#x63A8;&#x8350;&#x7684;&#x7528;&#x6CD5;&#xFF09;&#xFF1A;</p><pre><code class="language-js">fs.access(&apos;myfile&apos;, (err) =&gt; {
+  if (!err) {
+    console.error(&apos;&#x6587;&#x4EF6;&#x5DF2;&#x5B58;&#x5728;&apos;);
+    return;
+  }
+
+  fs.open(&apos;myfile&apos;, &apos;wx&apos;, (err, fd) =&gt; {
+    if (err) throw err;
+    writeMyData(fd);
+  });
+});
+</code></pre><p>&#x5199;&#x5165;&#x6587;&#x4EF6;&#xFF08;&#x63A8;&#x8350;&#x7684;&#x7528;&#x6CD5;&#xFF09;&#xFF1A;</p><pre><code class="language-js">fs.open(&apos;myfile&apos;, &apos;wx&apos;, (err, fd) =&gt; {
+  if (err) {
+    if (err.code === &apos;EEXIST&apos;) {
+      console.error(&apos;&#x6587;&#x4EF6;&#x5DF2;&#x5B58;&#x5728;&apos;);
+      return;
+    }
+
+    throw err;
+  }
+
+  writeMyData(fd);
+});
+</code></pre><p>&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#xFF08;&#x4E0D;&#x63A8;&#x8350;&#x7684;&#x7528;&#x6CD5;&#xFF09;&#xFF1A;</p><pre><code class="language-js">fs.access(&apos;myfile&apos;, (err) =&gt; {
+  if (err) {
+    if (err.code === &apos;ENOENT&apos;) {
+      console.error(&apos;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;&apos;);
+      return;
+    }
+
+    throw err;
+  }
+
+  fs.open(&apos;myfile&apos;, &apos;r&apos;, (err, fd) =&gt; {
+    if (err) throw err;
+    readMyData(fd);
+  });
+});
+</code></pre><p>&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#xFF08;&#x63A8;&#x8350;&#x7684;&#x7528;&#x6CD5;&#xFF09;&#xFF1A;</p><pre><code class="language-js">fs.open(&apos;myfile&apos;, &apos;r&apos;, (err, fd) =&gt; {
+  if (err) {
+    if (err.code === &apos;ENOENT&apos;) {
+      console.error(&apos;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;&apos;);
+      return;
+    }
+
+    throw err;
+  }
+
+  readMyData(fd);
+});
+</code></pre><p>&#x4EE5;&#x4E0A;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x4E0D;&#x63A8;&#x8350;&#x7684;&#x7528;&#x6CD5;&#x4F1A;&#x5148;&#x68C0;&#x67E5;&#x53EF;&#x8BBF;&#x95EE;&#x6027;&#x518D;&#x4F7F;&#x7528;&#x6587;&#x4EF6;&#xFF0C;&#x800C;&#x63A8;&#x8350;&#x7684;&#x7528;&#x6CD5;&#x4F1A;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x6587;&#x4EF6;&#x5E76;&#x5904;&#x7406;&#x4EFB;&#x4F55;&#x9519;&#x8BEF;&#x3002;</p><p>&#x901A;&#x5E38;&#x4EC5;&#x5728;&#x4E0D;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x6587;&#x4EF6;&#x65F6;&#x624D;&#x68C0;&#x67E5;&#x53EF;&#x8BBF;&#x95EE;&#x6027;&#xFF0C;&#x4F8B;&#x5982;&#x6587;&#x4EF6;&#x7684;&#x53EF;&#x8BBF;&#x95EE;&#x6027;&#x662F;&#x53E6;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x4FE1;&#x53F7;&#x3002;</p></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v7.6.0</td>
+<td><p>The <code>path</code> parameter can be a WHATWG <code>URL</code> object using <code>file:</code> protocol. Support is currently still <em>experimental</em>.</p></td></tr>
+<tr><td>v6.3.0</td>
+<td><p>The constants like <code>fs.R_OK</code>, etc which were present directly on <code>fs</code> were moved into <code>fs.constants</code> as a soft deprecation. Thus for Node.js <code>&lt; v6.3.0</code> use <code>fs</code> to access those constants, or do something like <code>(fs.constants || fs).R_OK</code> to work with all versions.</p></td></tr>
+<tr><td>v0.11.15</td>
+<td><p><span>Added in: v0.11.15</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>path</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> | <a href="url.html#url_the_whatwg_url_api" tppabs="http://nodejs.cn/api/url.html#url_the_whatwg_url_api" target="_blank" rel="nofollow" class="type">&lt;URL&gt;</a></li>
+<li><code>mode</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> <strong>Default:</strong> <code>fs.constants.F_OK</code></li>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>err</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Error  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Error'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Error" target="_blank" rel="nofollow" class="type">&lt;Error&gt;</a></li>
+</ul>
+</li>
+</ul><p>Tests a user&apos;s permissions for the file or directory specified by <code>path</code>.
+The <code>mode</code> argument is an optional integer that specifies the accessibility
+checks to be performed. Check <a href="javascript:if(confirm('http://nodejs.cn/s/qZfpqk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qZfpqk'" tppabs="http://nodejs.cn/s/qZfpqk" rel="nofollow">File Access Constants</a> for possible values
+of <code>mode</code>. It is possible to create a mask consisting of the bitwise OR of
+two or more values (e.g. <code>fs.constants.W_OK | fs.constants.R_OK</code>).</p><p>The final argument, <code>callback</code>, is a callback function that is invoked with
+a possible error argument. If any of the accessibility checks fail, the error
+argument will be an <code>Error</code> object. The following examples check if
+<code>package.json</code> exists, and if it is readable or writable.</p><pre><code class="language-js">const file = &apos;package.json&apos;;
+
+// Check if the file exists in the current directory.
+fs.access(file, fs.constants.F_OK, (err) =&gt; {
+  console.log(`${file} ${err ? &apos;does not exist&apos; : &apos;exists&apos;}`);
+});
+
+// Check if the file is readable.
+fs.access(file, fs.constants.R_OK, (err) =&gt; {
+  console.log(`${file} ${err ? &apos;is not readable&apos; : &apos;is readable&apos;}`);
+});
+
+// Check if the file is writable.
+fs.access(file, fs.constants.W_OK, (err) =&gt; {
+  console.log(`${file} ${err ? &apos;is not writable&apos; : &apos;is writable&apos;}`);
+});
+
+// Check if the file exists in the current directory, and if it is writable.
+fs.access(file, fs.constants.F_OK | fs.constants.W_OK, (err) =&gt; {
+  if (err) {
+    console.error(
+      `${file} ${err.code === &apos;ENOENT&apos; ? &apos;does not exist&apos; : &apos;is read-only&apos;}`);
+  } else {
+    console.log(`${file} exists, and it is writable`);
+  }
+});
+</code></pre><p>Using <code>fs.access()</code> to check for the accessibility of a file before calling
+<code>fs.open()</code>, <code>fs.readFile()</code> or <code>fs.writeFile()</code> is not recommended. Doing
+so introduces a race condition, since other processes may change the file&apos;s
+state between the two calls. Instead, user code should open/read/write the
+file directly and handle the error raised if the file is not accessible.</p><p><strong>write (NOT RECOMMENDED)</strong></p><pre><code class="language-js">fs.access(&apos;myfile&apos;, (err) =&gt; {
+  if (!err) {
+    console.error(&apos;myfile already exists&apos;);
+    return;
+  }
+
+  fs.open(&apos;myfile&apos;, &apos;wx&apos;, (err, fd) =&gt; {
+    if (err) throw err;
+    writeMyData(fd);
+  });
+});
+</code></pre><p><strong>write (RECOMMENDED)</strong></p><pre><code class="language-js">fs.open(&apos;myfile&apos;, &apos;wx&apos;, (err, fd) =&gt; {
+  if (err) {
+    if (err.code === &apos;EEXIST&apos;) {
+      console.error(&apos;myfile already exists&apos;);
+      return;
+    }
+
+    throw err;
+  }
+
+  writeMyData(fd);
+});
+</code></pre><p><strong>read (NOT RECOMMENDED)</strong></p><pre><code class="language-js">fs.access(&apos;myfile&apos;, (err) =&gt; {
+  if (err) {
+    if (err.code === &apos;ENOENT&apos;) {
+      console.error(&apos;myfile does not exist&apos;);
+      return;
+    }
+
+    throw err;
+  }
+
+  fs.open(&apos;myfile&apos;, &apos;r&apos;, (err, fd) =&gt; {
+    if (err) throw err;
+    readMyData(fd);
+  });
+});
+</code></pre><p><strong>read (RECOMMENDED)</strong></p><pre><code class="language-js">fs.open(&apos;myfile&apos;, &apos;r&apos;, (err, fd) =&gt; {
+  if (err) {
+    if (err.code === &apos;ENOENT&apos;) {
+      console.error(&apos;myfile does not exist&apos;);
+      return;
+    }
+
+    throw err;
+  }
+
+  readMyData(fd);
+});
+</code></pre><p>The &quot;not recommended&quot; examples above check for accessibility and then use the
+file; the &quot;recommended&quot; examples are better because they use the file directly
+and handle the error, if any.</p><p>In general, check for the accessibility of a file only if the file will not be
+used directly, for example when its accessibility is a signal from another
+process.</p><p>On Windows, access-control policies (ACLs) on a directory may limit access to
+a file or directory. The <code>fs.access()</code> function, however, does not check the
+ACL and therefore may report that a path is accessible even if the ACL restricts
+the user from reading or writing to it.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712023749"><\/script>');
+  </script>
+</body>
+</html>

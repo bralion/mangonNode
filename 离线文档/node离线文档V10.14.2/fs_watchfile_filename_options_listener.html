@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>fs.watchFile(filename[, options], listener) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/fs/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712024114" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-fs">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>fs.watchFile(filename[, options], listener)</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="fs.html#fs_fs_watchfile_filename_options_listener" tppabs="http://nodejs.cn/api/fs.html#fs_fs_watchfile_filename_options_listener" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v7.6.0</td>
+<td><p>The <code>filename</code> parameter can be a WHATWG <code>URL</code> object using <code>file:</code> protocol. Support is currently still <em>experimental</em>.</p></td></tr>
+<tr><td>v0.1.31</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.31</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> | <a href="url.html#url_the_whatwg_url_api" tppabs="http://nodejs.cn/api/url.html#url_the_whatwg_url_api" target="_blank" rel="nofollow" class="type">&lt;URL&gt;</a></li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>persistent</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x9ED8;&#x8BA4;&#x4E3A; <code>true</code>&#x3002;</li>
+<li><code>interval</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> &#x9ED8;&#x8BA4;&#x4E3A; <code>5007</code>&#x3002;</li>
+</ul>
+</li>
+<li>
+<p><code>listener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>current</code> <a href="fs.html#fs_class_fs_stats" tppabs="http://nodejs.cn/api/fs.html#fs_class_fs_stats" target="_blank" rel="nofollow" class="type">&lt;fs.Stats&gt;</a></li>
+<li><code>previous</code> <a href="fs.html#fs_class_fs_stats" tppabs="http://nodejs.cn/api/fs.html#fs_class_fs_stats" target="_blank" rel="nofollow" class="type">&lt;fs.Stats&gt;</a></li>
+</ul>
+</li>
+</ul><p>&#x76D1;&#x89C6; <code>filename</code> &#x7684;&#x53D8;&#x5316;&#x3002;
+&#x6BCF;&#x5F53;&#x6587;&#x4EF6;&#x88AB;&#x8BBF;&#x95EE;&#x65F6;&#x4F1A;&#x8C03;&#x7528; <code>listener</code>&#x3002;</p><p><code>options</code> &#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x6709;&#x4E00;&#x4E2A;&#x5E03;&#x5C14;&#x503C;&#x7684; <code>persistent</code> &#x5C5E;&#x6027;&#xFF0C;&#x8868;&#x660E;&#x5F53;&#x6587;&#x4EF6;&#x6B63;&#x5728;&#x88AB;&#x76D1;&#x89C6;&#x65F6;&#xFF0C;&#x8FDB;&#x7A0B;&#x662F;&#x5426;&#x7EE7;&#x7EED;&#x8FD0;&#x884C;&#x3002;
+<code>options</code> &#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x4E00;&#x4E2A; <code>interval</code> &#x5C5E;&#x6027;&#xFF0C;&#x6307;&#x5B9A;&#x76EE;&#x6807;&#x6BCF;&#x9694;&#x591A;&#x5C11;&#x6BEB;&#x79D2;&#x88AB;&#x8F6E;&#x8BE2;&#x3002;
+&#x9ED8;&#x8BA4;&#x503C;&#x4E3A; <code>{ persistent: true, interval: 5007 }</code>&#x3002;</p><p><code>listener</code> &#x6709;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5F53;&#x524D;&#x7684;&#x72B6;&#x6001;&#x5BF9;&#x8C61;&#x548C;&#x4EE5;&#x524D;&#x7684;&#x72B6;&#x6001;&#x5BF9;&#x8C61;&#xFF1A;</p><pre><code class="language-js">fs.watchFile(&apos;&#x6587;&#x4EF6;.text&apos;, (curr, prev) =&gt; {
+  console.log(`&#x5F53;&#x524D;&#x7684;&#x6700;&#x8FD1;&#x4FEE;&#x6539;&#x65F6;&#x95F4;&#x662F;: ${curr.mtime}`);
+  console.log(`&#x4E4B;&#x524D;&#x7684;&#x6700;&#x8FD1;&#x4FEE;&#x6539;&#x65F6;&#x95F4;&#x662F;: ${prev.mtime}`);
+});
+</code></pre><p>&#x8FD9;&#x91CC;&#x7684;&#x72B6;&#x6001;&#x5BF9;&#x8C61;&#x662F; <code>fs.Stat</code> &#x5B9E;&#x4F8B;&#x3002;</p><p>&#x5982;&#x679C;&#x60F3;&#x5728;&#x6587;&#x4EF6;&#x88AB;&#x4FEE;&#x6539;&#x800C;&#x4E0D;&#x53EA;&#x662F;&#x8BBF;&#x95EE;&#x65F6;&#x5F97;&#x5230;&#x901A;&#x77E5;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x6BD4;&#x8F83; <code>curr.mtime</code> &#x548C; <code>prev.mtime</code>&#x3002;</p><p>&#x5F53; <code>fs.watchFile</code> &#x7684;&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#x662F;&#x4E00;&#x4E2A; <code>ENOENT</code> &#x9519;&#x8BEF;&#x65F6;&#xFF0C;&#x5B83;&#x4F1A;&#x8C03;&#x7528;&#x76D1;&#x542C;&#x5668;&#x4E00;&#x6B21;&#xFF0C;&#x4E14;&#x5C06;&#x6240;&#x6709;&#x5B57;&#x6BB5;&#x7F6E;&#x96F6;&#xFF08;&#x6216;&#x5C06;&#x65E5;&#x671F;&#x8BBE;&#x4E3A; Unix &#x7EAA;&#x5143;&#xFF09;&#x3002;
+&#x5728; Windows &#x4E2D;&#xFF0C;<code>blksize</code> &#x548C; <code>blocks</code> &#x5B57;&#x6BB5;&#x4F1A;&#x662F; <code>undefined</code> &#x800C;&#x4E0D;&#x662F;&#x96F6;&#x3002;
+&#x5982;&#x679C;&#x6587;&#x4EF6;&#x662F;&#x5728;&#x90A3;&#x4E4B;&#x540E;&#x521B;&#x5EFA;&#x7684;&#xFF0C;&#x5219;&#x76D1;&#x542C;&#x5668;&#x4F1A;&#x88AB;&#x518D;&#x6B21;&#x8C03;&#x7528;&#xFF0C;&#x4E14;&#x5E26;&#x4E0A;&#x6700;&#x65B0;&#x7684;&#x72B6;&#x6001;&#x5BF9;&#x8C61;&#x3002;
+&#x8FD9;&#x662F;&#x5728; v0.10 &#x7248;&#x4E4B;&#x540E;&#x5728;&#x529F;&#x80FD;&#x4E0A;&#x7684;&#x53D8;&#x5316;&#x3002;</p><p><a href="javascript:if(confirm('http://nodejs.cn/s/h2QY7Q  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/h2QY7Q'" tppabs="http://nodejs.cn/s/h2QY7Q" rel="nofollow"><code>fs.watch()</code></a> &#x6BD4; <code>fs.watchFile</code> &#x548C; <code>fs.unwatchFile</code> &#x66F4;&#x9AD8;&#x6548;&#x3002;
+&#x5EFA;&#x8BAE;&#x4F7F;&#x7528; <code>fs.watch</code> &#x800C;&#x4E0D;&#x662F; <code>fs.watchFile</code> &#x548C; <code>fs.unwatchFile</code>&#x3002;</p><p>&#x5F53; <code>fs.watchFile()</code> &#x6240;&#x76D1;&#x542C;&#x7684;&#x6587;&#x4EF6;&#x6D88;&#x5931;&#x5E76;&#x91CD;&#x65B0;&#x51FA;&#x73B0;&#x65F6;&#xFF0C;&#x56DE;&#x8C03;&#x4E8B;&#x4EF6;&#x7B2C;&#x4E8C;&#x6B21;&#x8FD4;&#x56DE;&#x7684; <code>previousStat</code>&#xFF08;&#x6587;&#x4EF6;&#x91CD;&#x65B0;&#x51FA;&#x73B0;&#xFF09;&#x4F1A;&#x4E0E;&#x7B2C;&#x4E00;&#x6B21;&#x8FD4;&#x56DE;&#x7684; <code>previousStat</code>&#xFF08;&#x6587;&#x4EF6;&#x6D88;&#x5931;&#xFF09;&#x76F8;&#x540C;&#x3002;</p><p>&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4F1A;&#x53D1;&#x751F;&#x5728;:</p><ul>
+<li>&#x6587;&#x4EF6;&#x88AB;&#x5220;&#x9664;&#xFF0C;&#x7136;&#x540E;&#x53C8;&#x6062;&#x590D;&#x3002;</li>
+<li>&#x6587;&#x4EF6;&#x88AB;&#x91CD;&#x547D;&#x540D;&#x4E24;&#x6B21;&#xFF0C;&#x4E14;&#x7B2C;&#x4E8C;&#x6B21;&#x91CD;&#x547D;&#x540D;&#x4E0E;&#x5176;&#x539F;&#x540D;&#x79F0;&#x76F8;&#x540C;&#x3002;</li>
+</ul></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v7.6.0</td>
+<td><p>The <code>filename</code> parameter can be a WHATWG <code>URL</code> object using <code>file:</code> protocol. Support is currently still <em>experimental</em>.</p></td></tr>
+<tr><td>v0.1.31</td>
+<td><p><span>Added in: v0.1.31</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>filename</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> | <a href="buffer.html#buffer_class_buffer" tppabs="http://nodejs.cn/api/buffer.html#buffer_class_buffer" target="_blank" rel="nofollow" class="type">&lt;Buffer&gt;</a> | <a href="url.html#url_the_whatwg_url_api" tppabs="http://nodejs.cn/api/url.html#url_the_whatwg_url_api" target="_blank" rel="nofollow" class="type">&lt;URL&gt;</a></li>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>persistent</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> <strong>Default:</strong> <code>true</code></li>
+<li><code>interval</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> <strong>Default:</strong> <code>5007</code></li>
+</ul>
+</li>
+<li>
+<p><code>listener</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>current</code> <a href="fs.html#fs_class_fs_stats" tppabs="http://nodejs.cn/api/fs.html#fs_class_fs_stats" target="_blank" rel="nofollow" class="type">&lt;fs.Stats&gt;</a></li>
+<li><code>previous</code> <a href="fs.html#fs_class_fs_stats" tppabs="http://nodejs.cn/api/fs.html#fs_class_fs_stats" target="_blank" rel="nofollow" class="type">&lt;fs.Stats&gt;</a></li>
+</ul>
+</li>
+</ul><p>Watch for changes on <code>filename</code>. The callback <code>listener</code> will be called each
+time the file is accessed.</p><p>The <code>options</code> argument may be omitted. If provided, it should be an object. The
+<code>options</code> object may contain a boolean named <code>persistent</code> that indicates
+whether the process should continue to run as long as files are being watched.
+The <code>options</code> object may specify an <code>interval</code> property indicating how often the
+target should be polled in milliseconds.</p><p>The <code>listener</code> gets two arguments the current stat object and the previous
+stat object:</p><pre><code class="language-js">fs.watchFile(&apos;message.text&apos;, (curr, prev) =&gt; {
+  console.log(`the current mtime is: ${curr.mtime}`);
+  console.log(`the previous mtime was: ${prev.mtime}`);
+});
+</code></pre><p>These stat objects are instances of <code>fs.Stat</code>.</p><p>To be notified when the file was modified, not just accessed, it is necessary
+to compare <code>curr.mtime</code> and <code>prev.mtime</code>.</p><p>When an <code>fs.watchFile</code> operation results in an <code>ENOENT</code> error, it
+will invoke the listener once, with all the fields zeroed (or, for dates, the
+Unix Epoch). In Windows, <code>blksize</code> and <code>blocks</code> fields will be <code>undefined</code>,
+instead of zero. If the file is created later on, the listener will be called
+again, with the latest stat objects. This is a change in functionality since
+v0.10.</p><p>Using <a href="javascript:if(confirm('http://nodejs.cn/s/h2QY7Q  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/h2QY7Q'" tppabs="http://nodejs.cn/s/h2QY7Q" rel="nofollow"><code>fs.watch()</code></a> is more efficient than <code>fs.watchFile</code> and
+<code>fs.unwatchFile</code>. <code>fs.watch</code> should be used instead of <code>fs.watchFile</code> and
+<code>fs.unwatchFile</code> when possible.</p><p>When a file being watched by <code>fs.watchFile()</code> disappears and reappears,
+then the <code>previousStat</code> reported in the second callback event (the file&apos;s
+reappearance) will be the same as the <code>previousStat</code> of the first callback
+event (its disappearance).</p><p>This happens when:</p><ul>
+<li>the file is deleted, followed by a restore</li>
+<li>the file is renamed twice - the second time back to its original name</li>
+</ul></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712024114"><\/script>');
+  </script>
+</body>
+</html>

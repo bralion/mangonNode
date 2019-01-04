@@ -1,0 +1,609 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>perf_hooks | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712033667" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-perf_hooks">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks active" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="perf_hooks" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><span class="stability_1"><a href="#perf_hooks_performance_timing_api">perf_hooks&#xFF08;&#x6027;&#x80FD;&#x94A9;&#x5B50;&#xFF09;</a></span></p>
+<ul>
+<li>
+<p><a href="#perf_hooks_class_performance">Performance &#x7C7B;</a></p>
+<ul>
+<li><a href="#perf_hooks_performance_clearmarks_name">performance.clearMarks([name])</a></li>
+<li><a href="#perf_hooks_performance_mark_name">performance.mark([name])</a></li>
+<li><a href="#perf_hooks_performance_measure_name_startmark_endmark">performance.measure(name, startMark, endMark)</a></li>
+<li><a href="#perf_hooks_performance_nodetiming">performance.nodeTiming</a></li>
+<li><a href="#perf_hooks_performance_now">performance.now()</a></li>
+<li><a href="#perf_hooks_performance_timeorigin">performance.timeOrigin</a></li>
+<li><a href="#perf_hooks_performance_timerify_fn">performance.timerify(fn)</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#perf_hooks_class_performanceentry">PerformanceEntry &#x7C7B;</a></p>
+<ul>
+<li><a href="#perf_hooks_performanceentry_duration">performanceEntry.duration</a></li>
+<li><a href="#perf_hooks_performanceentry_name">performanceEntry.name</a></li>
+<li><a href="#perf_hooks_performanceentry_starttime">performanceEntry.startTime</a></li>
+<li><a href="#perf_hooks_performanceentry_entrytype">performanceEntry.entryType</a></li>
+<li><a href="#perf_hooks_performanceentry_kind">performanceEntry.kind</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#perf_hooks_class_performancenodetiming_extends_performanceentry">PerformanceNodeTiming &#x7C7B;</a></p>
+<ul>
+<li><a href="#perf_hooks_performancenodetiming_bootstrapcomplete">performanceNodeTiming.bootstrapComplete</a></li>
+<li><a href="#perf_hooks_performancenodetiming_loopexit">performanceNodeTiming.loopExit</a></li>
+<li><a href="#perf_hooks_performancenodetiming_loopstart">performanceNodeTiming.loopStart</a></li>
+<li><a href="#perf_hooks_performancenodetiming_nodestart">performanceNodeTiming.nodeStart</a></li>
+<li><a href="#perf_hooks_performancenodetiming_v8start">performanceNodeTiming.v8Start</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#perf_hooks_class_performanceobserver">PerformanceObserver &#x7C7B;</a></p>
+<ul>
+<li><a href="#perf_hooks_new_performanceobserver_callback">new PerformanceObserver(callback)</a></li>
+<li><a href="#perf_hooks_performanceobserver_disconnect">performanceObserver.disconnect()</a></li>
+<li><a href="#perf_hooks_performanceobserver_observe_options">performanceObserver.observe(options)</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#perf_hooks_class_performanceobserverentrylist">PerformanceObserverEntryList &#x7C7B;</a></p>
+<ul>
+<li><a href="#perf_hooks_performanceobserverentrylist_getentries">performanceObserverEntryList.getEntries()</a></li>
+<li><a href="#perf_hooks_performanceobserverentrylist_getentriesbyname_name_type">performanceObserverEntryList.getEntriesByName(name[, type])</a></li>
+<li><a href="#perf_hooks_performanceobserverentrylist_getentriesbytype_type">performanceObserverEntryList.getEntriesByType(type)</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#perf_hooks_examples">&#x793A;&#x4F8B;</a></p>
+<ul>
+<li><a href="#perf_hooks_measuring_the_duration_of_async_operations">&#x6D4B;&#x91CF;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x7684;&#x65F6;&#x957F;</a></li>
+<li><a href="#perf_hooks_measuring_how_long_it_takes_to_load_dependencies">&#x6D4B;&#x91CF;&#x52A0;&#x8F7D;&#x4F9D;&#x8D56;&#x7684;&#x8017;&#x65F6;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>perf_hooks&#xFF08;&#x6027;&#x80FD;&#x94A9;&#x5B50;&#xFF09;<span><a class="mark" href="#perf_hooks_performance_timing_api" id="perf_hooks_performance_timing_api" rel="nofollow">#</a></span></h1><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<!--introduced_in=v8.5.0-->
+<p></p><div class="api_stability api_stability_1"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 1</a> - &#x8BD5;&#x9A8C;&#x7684;</div><p></p>
+<p>The Performance Timing API provides an implementation of the
+<a href="javascript:if(confirm('http://nodejs.cn/s/ds56gw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ds56gw'" tppabs="http://nodejs.cn/s/ds56gw" rel="nofollow">W3C Performance Timeline</a> specification. The purpose of the API
+is to support collection of high resolution performance metrics.
+This is the same Performance API as implemented in modern Web browsers.</p>
+<pre><code class="language-js">const { PerformanceObserver, performance } = require(&apos;perf_hooks&apos;);
+
+const obs = new PerformanceObserver((items) =&gt; {
+  console.log(items.getEntries()[0].duration);
+  performance.clearMarks();
+});
+obs.observe({ entryTypes: [&apos;measure&apos;] });
+
+performance.mark(&apos;A&apos;);
+doSomeLongRunningProcess(() =&gt; {
+  performance.mark(&apos;B&apos;);
+  performance.measure(&apos;A to B&apos;, &apos;A&apos;, &apos;B&apos;);
+});
+</code></pre>
+<h2>Performance &#x7C7B;<span><a class="mark" href="#perf_hooks_class_performance" id="perf_hooks_class_performance" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<h3>performance.clearMarks([name])<span><a class="mark" href="#perf_hooks_performance_clearmarks_name" id="perf_hooks_performance_clearmarks_name" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>If <code>name</code> is not provided, removes all <code>PerformanceMark</code> objects from the
+Performance Timeline. If <code>name</code> is provided, removes only the named mark.</p>
+<h3>performance.mark([name])<span><a class="mark" href="#perf_hooks_performance_mark_name" id="perf_hooks_performance_mark_name" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>Creates a new <code>PerformanceMark</code> entry in the Performance Timeline. A
+<code>PerformanceMark</code> is a subclass of <code>PerformanceEntry</code> whose
+<code>performanceEntry.entryType</code> is always <code>&apos;mark&apos;</code>, and whose
+<code>performanceEntry.duration</code> is always <code>0</code>. Performance marks are used
+to mark specific significant moments in the Performance Timeline.</p>
+<h3>performance.measure(name, startMark, endMark)<span><a class="mark" href="#perf_hooks_performance_measure_name_startmark_endmark" id="perf_hooks_performance_measure_name_startmark_endmark" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>startMark</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>endMark</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>Creates a new <code>PerformanceMeasure</code> entry in the Performance Timeline. A
+<code>PerformanceMeasure</code> is a subclass of <code>PerformanceEntry</code> whose
+<code>performanceEntry.entryType</code> is always <code>&apos;measure&apos;</code>, and whose
+<code>performanceEntry.duration</code> measures the number of milliseconds elapsed since
+<code>startMark</code> and <code>endMark</code>.</p>
+<p>The <code>startMark</code> argument may identify any <em>existing</em> <code>PerformanceMark</code> in the
+Performance Timeline, or <em>may</em> identify any of the timestamp properties
+provided by the <code>PerformanceNodeTiming</code> class. If the named <code>startMark</code> does
+not exist, then <code>startMark</code> is set to <a href="javascript:if(confirm('http://nodejs.cn/s/WSrFaU  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/WSrFaU'" tppabs="http://nodejs.cn/s/WSrFaU" rel="nofollow"><code>timeOrigin</code></a> by default.</p>
+<p>The <code>endMark</code> argument must identify any <em>existing</em> <code>PerformanceMark</code> in the
+Performance Timeline or any of the timestamp properties provided by the
+<code>PerformanceNodeTiming</code> class. If the named <code>endMark</code> does not exist, an
+error will be thrown.</p>
+<h3>performance.nodeTiming<span><a class="mark" href="#perf_hooks_performance_nodetiming" id="perf_hooks_performance_nodetiming" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><a href="perf_hooks.html#perf_hooks_class_performancenodetiming_extends_performanceentry" tppabs="http://nodejs.cn/api/perf_hooks.html#perf_hooks_class_performancenodetiming_extends_performanceentry" target="_blank" rel="nofollow" class="type">&lt;PerformanceNodeTiming&gt;</a></li>
+</ul>
+<p>An instance of the <code>PerformanceNodeTiming</code> class that provides performance
+metrics for specific Node.js operational milestones.</p>
+<h3>performance.now()<span><a class="mark" href="#perf_hooks_performance_now" id="perf_hooks_performance_now" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>Returns the current high resolution millisecond timestamp, where 0 represents
+the start of the current <code>node</code> process.</p>
+<h3>performance.timeOrigin<span><a class="mark" href="#perf_hooks_performance_timeorigin" id="perf_hooks_performance_timeorigin" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/WSrFaU  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/WSrFaU'" tppabs="http://nodejs.cn/s/WSrFaU" rel="nofollow"><code>timeOrigin</code></a> specifies the high resolution millisecond timestamp at
+which the current <code>node</code> process began, measured in Unix time.</p>
+<h3>performance.timerify(fn)<span><a class="mark" href="#perf_hooks_performance_timerify_fn" id="perf_hooks_performance_timerify_fn" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><code>fn</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+</ul>
+<p>Wraps a function within a new function that measures the running time of the
+wrapped function. A <code>PerformanceObserver</code> must be subscribed to the <code>&apos;function&apos;</code>
+event type in order for the timing details to be accessed.</p>
+<pre><code class="language-js">const {
+  performance,
+  PerformanceObserver
+} = require(&apos;perf_hooks&apos;);
+
+function someFunction() {
+  console.log(&apos;hello world&apos;);
+}
+
+const wrapped = performance.timerify(someFunction);
+
+const obs = new PerformanceObserver((list) =&gt; {
+  console.log(list.getEntries()[0].duration);
+  obs.disconnect();
+});
+obs.observe({ entryTypes: [&apos;function&apos;] });
+
+// A performance timeline entry will be created
+wrapped();
+</code></pre>
+<h2>PerformanceEntry &#x7C7B;<span><a class="mark" href="#perf_hooks_class_performanceentry" id="perf_hooks_class_performanceentry" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<h3>performanceEntry.duration<span><a class="mark" href="#perf_hooks_performanceentry_duration" id="perf_hooks_performanceentry_duration" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>The total number of milliseconds elapsed for this entry. This value will not
+be meaningful for all Performance Entry types.</p>
+<h3>performanceEntry.name<span><a class="mark" href="#perf_hooks_performanceentry_name" id="perf_hooks_performanceentry_name" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>The name of the performance entry.</p>
+<h3>performanceEntry.startTime<span><a class="mark" href="#perf_hooks_performanceentry_starttime" id="perf_hooks_performanceentry_starttime" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>The high resolution millisecond timestamp marking the starting time of the
+Performance Entry.</p>
+<h3>performanceEntry.entryType<span><a class="mark" href="#perf_hooks_performanceentry_entrytype" id="perf_hooks_performanceentry_entrytype" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>The type of the performance entry. Currently it may be one of: <code>&apos;node&apos;</code>,
+<code>&apos;mark&apos;</code>, <code>&apos;measure&apos;</code>, <code>&apos;gc&apos;</code>, <code>&apos;function&apos;</code>, or <code>&apos;http2&apos;</code>.</p>
+<h3>performanceEntry.kind<span><a class="mark" href="#perf_hooks_performanceentry_kind" id="perf_hooks_performanceentry_kind" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>When <code>performanceEntry.entryType</code> is equal to <code>&apos;gc&apos;</code>, the <code>performance.kind</code>
+property identifies the type of garbage collection operation that occurred.
+The value may be one of:</p>
+<ul>
+<li><code>perf_hooks.constants.NODE_PERFORMANCE_GC_MAJOR</code></li>
+<li><code>perf_hooks.constants.NODE_PERFORMANCE_GC_MINOR</code></li>
+<li><code>perf_hooks.constants.NODE_PERFORMANCE_GC_INCREMENTAL</code></li>
+<li><code>perf_hooks.constants.NODE_PERFORMANCE_GC_WEAKCB</code></li>
+</ul>
+<h2>PerformanceNodeTiming &#x7C7B;<span><a class="mark" href="#perf_hooks_class_performancenodetiming_extends_performanceentry" id="perf_hooks_class_performancenodetiming_extends_performanceentry" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<p>Provides timing details for Node.js itself.</p>
+<h3>performanceNodeTiming.bootstrapComplete<span><a class="mark" href="#perf_hooks_performancenodetiming_bootstrapcomplete" id="perf_hooks_performancenodetiming_bootstrapcomplete" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>The high resolution millisecond timestamp at which the Node.js process
+completed bootstrapping. If bootstrapping has not yet finished, the property
+has the value of -1.</p>
+<h3>performanceNodeTiming.loopExit<span><a class="mark" href="#perf_hooks_performancenodetiming_loopexit" id="perf_hooks_performancenodetiming_loopexit" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>The high resolution millisecond timestamp at which the Node.js event loop
+exited. If the event loop has not yet exited, the property has the value of -1.
+It can only have a value of not -1 in a handler of the <a href="javascript:if(confirm('http://nodejs.cn/s/YpyNLc  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YpyNLc'" tppabs="http://nodejs.cn/s/YpyNLc" rel="nofollow"><code>&apos;exit&apos;</code></a> event.</p>
+<h3>performanceNodeTiming.loopStart<span><a class="mark" href="#perf_hooks_performancenodetiming_loopstart" id="perf_hooks_performancenodetiming_loopstart" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>The high resolution millisecond timestamp at which the Node.js event loop
+started. If the event loop has not yet started (e.g., in the first tick of the
+main script), the property has the value of -1.</p>
+<h3>performanceNodeTiming.nodeStart<span><a class="mark" href="#perf_hooks_performancenodetiming_nodestart" id="perf_hooks_performancenodetiming_nodestart" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>The high resolution millisecond timestamp at which the Node.js process was
+initialized.</p>
+<h3>performanceNodeTiming.v8Start<span><a class="mark" href="#perf_hooks_performancenodetiming_v8start" id="perf_hooks_performancenodetiming_v8start" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+</ul>
+<p>The high resolution millisecond timestamp at which the V8 platform was
+initialized.</p>
+<h2>PerformanceObserver &#x7C7B;<span><a class="mark" href="#perf_hooks_class_performanceobserver" id="perf_hooks_class_performanceobserver" rel="nofollow">#</a></span></h2>
+<h3>new PerformanceObserver(callback)<span><a class="mark" href="#perf_hooks_new_performanceobserver_callback" id="perf_hooks_new_performanceobserver_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li>
+<p><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></p>
+<ul>
+<li><code>list</code> <a href="perf_hooks.html#perf_hooks_class_performanceobserverentrylist" tppabs="http://nodejs.cn/api/perf_hooks.html#perf_hooks_class_performanceobserverentrylist" target="_blank" rel="nofollow" class="type">&lt;PerformanceObserverEntryList&gt;</a></li>
+<li><code>observer</code> <a href="perf_hooks.html#perf_hooks_class_performanceobserver" tppabs="http://nodejs.cn/api/perf_hooks.html#perf_hooks_class_performanceobserver" target="_blank" rel="nofollow" class="type">&lt;PerformanceObserver&gt;</a></li>
+</ul>
+</li>
+</ul>
+<p><code>PerformanceObserver</code> objects provide notifications when new
+<code>PerformanceEntry</code> instances have been added to the Performance Timeline.</p>
+<pre><code class="language-js">const {
+  performance,
+  PerformanceObserver
+} = require(&apos;perf_hooks&apos;);
+
+const obs = new PerformanceObserver((list, observer) =&gt; {
+  console.log(list.getEntries());
+  observer.disconnect();
+});
+obs.observe({ entryTypes: [&apos;mark&apos;], buffered: true });
+
+performance.mark(&apos;test&apos;);
+</code></pre>
+<p>Because <code>PerformanceObserver</code> instances introduce their own additional
+performance overhead, instances should not be left subscribed to notifications
+indefinitely. Users should disconnect observers as soon as they are no
+longer needed.</p>
+<p>The <code>callback</code> is invoked when a <code>PerformanceObserver</code> is
+notified about new <code>PerformanceEntry</code> instances. The callback receives a
+<code>PerformanceObserverEntryList</code> instance and a reference to the
+<code>PerformanceObserver</code>.</p>
+<h3>performanceObserver.disconnect()<span><a class="mark" href="#perf_hooks_performanceobserver_disconnect" id="perf_hooks_performanceobserver_disconnect" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<p>Disconnects the <code>PerformanceObserver</code> instance from all notifications.</p>
+<h3>performanceObserver.observe(options)<span><a class="mark" href="#perf_hooks_performanceobserver_observe_options" id="perf_hooks_performanceobserver_observe_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>entryTypes</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string[]&gt;</a> An array of strings identifying the types of
+<code>PerformanceEntry</code> instances the observer is interested in. If not
+provided an error will be thrown.</li>
+<li><code>buffered</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> If true, the notification callback will be
+called using <code>setImmediate()</code> and multiple <code>PerformanceEntry</code> instance
+notifications will be buffered internally. If <code>false</code>, notifications will
+be immediate and synchronous. <strong>Default:</strong> <code>false</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Subscribes the <code>PerformanceObserver</code> instance to notifications of new
+<code>PerformanceEntry</code> instances identified by <code>options.entryTypes</code>.</p>
+<p>When <code>options.buffered</code> is <code>false</code>, the <code>callback</code> will be invoked once for
+every <code>PerformanceEntry</code> instance:</p>
+<pre><code class="language-js">const {
+  performance,
+  PerformanceObserver
+} = require(&apos;perf_hooks&apos;);
+
+const obs = new PerformanceObserver((list, observer) =&gt; {
+  // called three times synchronously. list contains one item
+});
+obs.observe({ entryTypes: [&apos;mark&apos;] });
+
+for (let n = 0; n &lt; 3; n++)
+  performance.mark(`test${n}`);
+</code></pre>
+<pre><code class="language-js">const {
+  performance,
+  PerformanceObserver
+} = require(&apos;perf_hooks&apos;);
+
+const obs = new PerformanceObserver((list, observer) =&gt; {
+  // called once. list contains three items
+});
+obs.observe({ entryTypes: [&apos;mark&apos;], buffered: true });
+
+for (let n = 0; n &lt; 3; n++)
+  performance.mark(`test${n}`);
+</code></pre>
+<h2>PerformanceObserverEntryList &#x7C7B;<span><a class="mark" href="#perf_hooks_class_performanceobserverentrylist" id="perf_hooks_class_performanceobserverentrylist" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<p>The <code>PerformanceObserverEntryList</code> class is used to provide access to the
+<code>PerformanceEntry</code> instances passed to a <code>PerformanceObserver</code>.</p>
+<h3>performanceObserverEntryList.getEntries()<span><a class="mark" href="#perf_hooks_performanceobserverentrylist_getentries" id="perf_hooks_performanceobserverentrylist_getentries" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li>Returns: <a href="perf_hooks.html#perf_hooks_class_performanceentry" tppabs="http://nodejs.cn/api/perf_hooks.html#perf_hooks_class_performanceentry" target="_blank" rel="nofollow" class="type">&lt;PerformanceEntry[]&gt;</a></li>
+</ul>
+<p>Returns a list of <code>PerformanceEntry</code> objects in chronological order
+with respect to <code>performanceEntry.startTime</code>.</p>
+<h3>performanceObserverEntryList.getEntriesByName(name[, type])<span><a class="mark" href="#perf_hooks_performanceobserverentrylist_getentriesbyname_name_type" id="perf_hooks_performanceobserverentrylist_getentriesbyname_name_type" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><code>name</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>type</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>Returns: <a href="perf_hooks.html#perf_hooks_class_performanceentry" tppabs="http://nodejs.cn/api/perf_hooks.html#perf_hooks_class_performanceentry" target="_blank" rel="nofollow" class="type">&lt;PerformanceEntry[]&gt;</a></li>
+</ul>
+<p>Returns a list of <code>PerformanceEntry</code> objects in chronological order
+with respect to <code>performanceEntry.startTime</code> whose <code>performanceEntry.name</code> is
+equal to <code>name</code>, and optionally, whose <code>performanceEntry.entryType</code> is equal to
+<code>type</code>.</p>
+<h3>performanceObserverEntryList.getEntriesByType(type)<span><a class="mark" href="#perf_hooks_performanceobserverentrylist_getentriesbytype_type" id="perf_hooks_performanceobserverentrylist_getentriesbytype_type" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<ul>
+<li><code>type</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li>Returns: <a href="perf_hooks.html#perf_hooks_class_performanceentry" tppabs="http://nodejs.cn/api/perf_hooks.html#perf_hooks_class_performanceentry" target="_blank" rel="nofollow" class="type">&lt;PerformanceEntry[]&gt;</a></li>
+</ul>
+<p>Returns a list of <code>PerformanceEntry</code> objects in chronological order
+with respect to <code>performanceEntry.startTime</code> whose <code>performanceEntry.entryType</code>
+is equal to <code>type</code>.</p>
+<h2>&#x793A;&#x4F8B;<span><a class="mark" href="#perf_hooks_examples" id="perf_hooks_examples" rel="nofollow">#</a></span></h2>
+<h3>&#x6D4B;&#x91CF;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x7684;&#x65F6;&#x957F;<span><a class="mark" href="#perf_hooks_measuring_the_duration_of_async_operations" id="perf_hooks_measuring_the_duration_of_async_operations" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>The following example uses the <a href="javascript:if(confirm('http://nodejs.cn/s/bgknEa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/bgknEa'" tppabs="http://nodejs.cn/s/bgknEa" rel="nofollow">Async Hooks</a> and Performance APIs to measure
+the actual duration of a Timeout operation (including the amount of time it
+to execute the callback).</p>
+<pre><code class="language-js">&apos;use strict&apos;;
+const async_hooks = require(&apos;async_hooks&apos;);
+const {
+  performance,
+  PerformanceObserver
+} = require(&apos;perf_hooks&apos;);
+
+const set = new Set();
+const hook = async_hooks.createHook({
+  init(id, type) {
+    if (type === &apos;Timeout&apos;) {
+      performance.mark(`Timeout-${id}-Init`);
+      set.add(id);
+    }
+  },
+  destroy(id) {
+    if (set.has(id)) {
+      set.delete(id);
+      performance.mark(`Timeout-${id}-Destroy`);
+      performance.measure(`Timeout-${id}`,
+                          `Timeout-${id}-Init`,
+                          `Timeout-${id}-Destroy`);
+    }
+  }
+});
+hook.enable();
+
+const obs = new PerformanceObserver((list, observer) =&gt; {
+  console.log(list.getEntries()[0]);
+  performance.clearMarks();
+  observer.disconnect();
+});
+obs.observe({ entryTypes: [&apos;measure&apos;], buffered: true });
+
+setTimeout(() =&gt; {}, 1000);
+</code></pre>
+<h3>&#x6D4B;&#x91CF;&#x52A0;&#x8F7D;&#x4F9D;&#x8D56;&#x7684;&#x8017;&#x65F6;<span><a class="mark" href="#perf_hooks_measuring_how_long_it_takes_to_load_dependencies" id="perf_hooks_measuring_how_long_it_takes_to_load_dependencies" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>The following example measures the duration of <code>require()</code> operations to load
+dependencies:</p>
+<!-- eslint-disable no-global-assign -->
+<pre><code class="language-js">&apos;use strict&apos;;
+const {
+  performance,
+  PerformanceObserver
+} = require(&apos;perf_hooks&apos;);
+const mod = require(&apos;module&apos;);
+
+// Monkey patch the require function
+mod.Module.prototype.require =
+  performance.timerify(mod.Module.prototype.require);
+require = performance.timerify(require);
+
+// Activate the observer
+const obs = new PerformanceObserver((list) =&gt; {
+  const entries = list.getEntries();
+  entries.forEach((entry) =&gt; {
+    console.log(`require(&apos;${entry[0]}&apos;)`, entry.duration);
+  });
+  obs.disconnect();
+});
+obs.observe({ entryTypes: [&apos;function&apos;], buffered: true });
+
+require(&apos;some-module&apos;);
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712033667"><\/script>');
+  </script>
+
+</body></html>

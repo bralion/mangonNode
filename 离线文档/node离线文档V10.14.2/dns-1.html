@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>dns（域名服务器） | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/dns/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712018627" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-dns">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>dns（域名服务器）</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="dns.html#dns_dns" tppabs="http://nodejs.cn/api/dns.html#dns_dns" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p><p><code>dns</code> &#x6A21;&#x5757;&#x5305;&#x542B;&#x4E24;&#x7C7B;&#x51FD;&#x6570;&#xFF1A;</p><p>1) &#x7B2C;&#x4E00;&#x7C7B;&#x51FD;&#x6570;&#xFF0C;&#x4F7F;&#x7528;&#x5E95;&#x5C42;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5DE5;&#x5177;&#x8FDB;&#x884C;&#x57DF;&#x540D;&#x89E3;&#x6790;&#xFF0C;&#x4E14;&#x65E0;&#x9700;&#x8FDB;&#x884C;&#x7F51;&#x7EDC;&#x901A;&#x4FE1;&#x3002;
+&#x8FD9;&#x7C7B;&#x51FD;&#x6570;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#xFF1A;<a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a>&#x3002;</p><p>&#x4F8B;&#x5B50;&#xFF0C;&#x67E5;&#x627E; <code>iana.org</code>&#xFF1A;</p><pre><code class="language-js">const dns = require(&apos;dns&apos;);
+
+dns.lookup(&apos;iana.org&apos;, (err, address, family) =&gt; {
+  console.log(&apos;IP &#x5730;&#x5740;: %j &#x5730;&#x5740;&#x65CF;: IPv%s&apos;, address, family);
+});
+// IP &#x5730;&#x5740;: &quot;192.0.43.8&quot; &#x5730;&#x5740;&#x65CF;: IPv4
+</code></pre><p>2) &#x7B2C;&#x4E8C;&#x7C7B;&#x51FD;&#x6570;&#xFF0C;&#x8FDE;&#x63A5;&#x5230;&#x4E00;&#x4E2A;&#x771F;&#x5B9E;&#x7684; DNS &#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x57DF;&#x540D;&#x89E3;&#x6790;&#xFF0C;&#x4E14;&#x59CB;&#x7EC8;&#x4F7F;&#x7528;&#x7F51;&#x7EDC;&#x8FDB;&#x884C; DNS &#x67E5;&#x8BE2;&#x3002;
+&#x8FD9;&#x7C7B;&#x51FD;&#x6570;&#x5305;&#x542B;&#x4E86; <code>dns</code> &#x6A21;&#x5757;&#x4E2D;&#x9664; <a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a> &#x4EE5;&#x5916;&#x7684;&#x6240;&#x6709;&#x51FD;&#x6570;&#x3002;
+&#x8FD9;&#x4E9B;&#x51FD;&#x6570;&#x4F7F;&#x7528;&#x4E0E; <code>dns.lookup()</code> &#x4E0D;&#x540C;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF08;&#x4F8B;&#x5982; <code>/etc/hosts</code>&#xFF09;&#x3002;
+&#x8FD9;&#x7C7B;&#x51FD;&#x6570;&#x9002;&#x5408;&#x4E8E;&#x90A3;&#x4E9B;&#x4E0D;&#x60F3;&#x4F7F;&#x7528;&#x5E95;&#x5C42;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5DE5;&#x5177;&#x8FDB;&#x884C;&#x57DF;&#x540D;&#x89E3;&#x6790;&#x3001;&#x800C;&#x662F;&#x60F3;&#x4F7F;&#x7528;&#x7F51;&#x7EDC;&#x8FDB;&#x884C; DNS &#x67E5;&#x8BE2;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x3002;</p><p>&#x4F8B;&#x5B50;&#xFF0C;&#x89E3;&#x6790; <code>&apos;archive.org&apos;</code> &#x7136;&#x540E;&#x9006;&#x5411;&#x89E3;&#x6790;&#x8FD4;&#x56DE;&#x7684; IP &#x5730;&#x5740;&#xFF1A;</p><pre><code class="language-js">const dns = require(&apos;dns&apos;);
+
+dns.resolve4(&apos;archive.org&apos;, (err, addresses) =&gt; {
+  if (err) throw err;
+
+  console.log(`IP &#x5730;&#x5740;: ${JSON.stringify(addresses)}`);
+
+  addresses.forEach((a) =&gt; {
+    dns.reverse(a, (err, hostnames) =&gt; {
+      if (err) {
+        throw err;
+      }
+      console.log(`IP &#x5730;&#x5740; ${a} &#x9006;&#x5411;&#x89E3;&#x6790;&#x5230;&#x57DF;&#x540D;: ${JSON.stringify(hostnames)}`);
+    });
+  });
+});
+</code></pre><p>&#x4E24;&#x7C7B;&#x51FD;&#x6570;&#x6709;&#x5FAE;&#x5999;&#x7684;&#x5DEE;&#x522B;&#xFF0C;&#x8BE6;&#x89C1; <a href="javascript:if(confirm('http://nodejs.cn/s/fC4ou7  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fC4ou7'" tppabs="http://nodejs.cn/s/fC4ou7" rel="nofollow">&#x5B9E;&#x73B0;&#x4E0A;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;</a>&#x3002;</p></div>
+          <div id="content_right"><p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">Stability: 2</a> - Stable</div><p></p><p>The <code>dns</code> module contains functions belonging to two different categories:</p><p>1) Functions that use the underlying operating system facilities to perform
+name resolution, and that do not necessarily perform any network communication.
+This category contains only one function: <a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a>. <strong>Developers
+looking to perform name resolution in the same way that other applications on
+the same operating system behave should use <a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a>.</strong></p><p>For example, looking up <code>iana.org</code>.</p><pre><code class="language-js">const dns = require(&apos;dns&apos;);
+
+dns.lookup(&apos;iana.org&apos;, (err, address, family) =&gt; {
+  console.log(&apos;address: %j family: IPv%s&apos;, address, family);
+});
+// address: &quot;192.0.43.8&quot; family: IPv4
+</code></pre><p>2) Functions that connect to an actual DNS server to perform name resolution,
+and that <em>always</em> use the network to perform DNS queries. This category
+contains all functions in the <code>dns</code> module <em>except</em> <a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a>. These
+functions do not use the same set of configuration files used by
+<a href="javascript:if(confirm('http://nodejs.cn/s/LJLsTL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LJLsTL'" tppabs="http://nodejs.cn/s/LJLsTL" rel="nofollow"><code>dns.lookup()</code></a> (e.g. <code>/etc/hosts</code>). These functions should be used by
+developers who do not want to use the underlying operating system&apos;s facilities
+for name resolution, and instead want to <em>always</em> perform DNS queries.</p><p>Below is an example that resolves <code>&apos;archive.org&apos;</code> then reverse resolves the IP
+addresses that are returned.</p><pre><code class="language-js">const dns = require(&apos;dns&apos;);
+
+dns.resolve4(&apos;archive.org&apos;, (err, addresses) =&gt; {
+  if (err) throw err;
+
+  console.log(`addresses: ${JSON.stringify(addresses)}`);
+
+  addresses.forEach((a) =&gt; {
+    dns.reverse(a, (err, hostnames) =&gt; {
+      if (err) {
+        throw err;
+      }
+      console.log(`reverse for ${a}: ${JSON.stringify(hostnames)}`);
+    });
+  });
+});
+</code></pre><p>There are subtle consequences in choosing one over the other, please consult
+the <a href="javascript:if(confirm('http://nodejs.cn/s/fC4ou7  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fC4ou7'" tppabs="http://nodejs.cn/s/fC4ou7" rel="nofollow">Implementation considerations section</a> for more information.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712018627"><\/script>');
+  </script>
+</body>
+</html>

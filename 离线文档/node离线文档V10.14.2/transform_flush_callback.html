@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>transform._flush(callback) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/stream/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712037227" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-stream">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>transform._flush(callback)</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="stream.html#stream_transform_flush_callback" tppabs="http://nodejs.cn/api/stream.html#stream_transform_flush_callback" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><ul>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> &#x5F53;&#x5269;&#x4F59;&#x7684;&#x6570;&#x636E;&#x88AB; flush &#x540E;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x3002;</li>
+</ul><p>&#x8BE5;&#x51FD;&#x6570;&#x4E0D;&#x80FD;&#x88AB;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4EE3;&#x7801;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x3002;
+&#x5B83;&#x5E94;&#x8BE5;&#x7531;&#x5B50;&#x7C7B;&#x5B9E;&#x73B0;&#xFF0C;&#x4E14;&#x53EA;&#x80FD;&#x88AB;&#x5185;&#x90E8;&#x7684; <code>Readable</code> &#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x3002;</p><p>&#x67D0;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x8F6C;&#x6362;&#x64CD;&#x4F5C;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x5728;&#x6D41;&#x7684;&#x672B;&#x5C3E;&#x53D1;&#x9001;&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x6570;&#x636E;&#x3002;
+&#x4F8B;&#x5982;&#xFF0C;<code>zlib</code> &#x538B;&#x7F29;&#x6D41;&#x65F6;&#x4F1A;&#x50A8;&#x5B58;&#x4E00;&#x4E9B;&#x7528;&#x4E8E;&#x4F18;&#x5316;&#x8F93;&#x51FA;&#x7684;&#x5185;&#x90E8;&#x72B6;&#x6001;&#x3002;
+&#x5F53;&#x6D41;&#x7ED3;&#x675F;&#x65F6;&#xFF0C;&#x8FD9;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x6570;&#x636E;&#x9700;&#x8981;&#x88AB; flush &#x624D;&#x7B97;&#x5B8C;&#x6210;&#x538B;&#x7F29;&#x3002;</p><p>&#x81EA;&#x5B9A;&#x4E49;&#x7684;<a href="javascript:if(confirm('http://nodejs.cn/s/fhVJQM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fhVJQM'" tppabs="http://nodejs.cn/s/fhVJQM" rel="nofollow">&#x8F6C;&#x6362;&#x6D41;</a>&#x7684; <code>transform._flush()</code> &#x65B9;&#x6CD5;&#x662F;&#x53EF;&#x9009;&#x7684;&#x3002;
+&#x5F53;&#x6CA1;&#x6709;&#x66F4;&#x591A;&#x6570;&#x636E;&#x8981;&#x88AB;&#x6D88;&#x8D39;&#x65F6;&#xFF0C;&#x5C31;&#x4F1A;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x4F46;&#x5982;&#x679C;&#x662F;&#x5728; <a href="javascript:if(confirm('http://nodejs.cn/s/ZgviqU  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ZgviqU'" tppabs="http://nodejs.cn/s/ZgviqU" rel="nofollow"><code>&apos;end&apos;</code></a> &#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x4E4B;&#x524D;&#x8C03;&#x7528;&#x5219;&#x4F1A;&#x53D1;&#x51FA;&#x53EF;&#x8BFB;&#x6D41;&#x7ED3;&#x675F;&#x7684;&#x4FE1;&#x53F7;&#x3002;</p><p>&#x5728; <code>transform._flush()</code> &#x7684;&#x5B9E;&#x73B0;&#x4E2D;&#xFF0C;<code>readable.push()</code> &#x53EF;&#x80FD;&#x4F1A;&#x88AB;&#x8C03;&#x7528;&#x96F6;&#x6B21;&#x6216;&#x591A;&#x6B21;&#x3002;
+&#x5F53; flush &#x64CD;&#x4F5C;&#x5B8C;&#x6210;&#x65F6;&#xFF0C;&#x5FC5;&#x987B;&#x8C03;&#x7528; <code>callback</code> &#x51FD;&#x6570;&#x3002;</p><p><code>transform._flush()</code> &#x65B9;&#x6CD5;&#x6709;&#x4E0B;&#x5212;&#x7EBF;&#x524D;&#x7F00;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x662F;&#x5728;&#x5B9A;&#x4E49;&#x5728;&#x7C7B;&#x7684;&#x5185;&#x90E8;&#xFF0C;&#x4E0D;&#x5E94;&#x8BE5;&#x88AB;&#x7528;&#x6237;&#x7A0B;&#x5E8F;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x3002;</p></div>
+          <div id="content_right"><ul>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a> A callback function (optionally with an error
+argument and data) to be called when remaining data has been flushed.</li>
+</ul><p>This function MUST NOT be called by application code directly. It should be
+implemented by child classes, and called by the internal <code>Readable</code> class
+methods only.</p><p>In some cases, a transform operation may need to emit an additional bit of
+data at the end of the stream. For example, a <code>zlib</code> compression stream will
+store an amount of internal state used to optimally compress the output. When
+the stream ends, however, that additional data needs to be flushed so that the
+compressed data will be complete.</p><p>Custom <a href="javascript:if(confirm('http://nodejs.cn/s/fhVJQM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fhVJQM'" tppabs="http://nodejs.cn/s/fhVJQM" rel="nofollow"><code>Transform</code></a> implementations <em>may</em> implement the <code>transform._flush()</code>
+method. This will be called when there is no more written data to be consumed,
+but before the <a href="javascript:if(confirm('http://nodejs.cn/s/ZgviqU  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ZgviqU'" tppabs="http://nodejs.cn/s/ZgviqU" rel="nofollow"><code>&apos;end&apos;</code></a> event is emitted signaling the end of the
+<a href="javascript:if(confirm('http://nodejs.cn/s/YuDKX1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YuDKX1'" tppabs="http://nodejs.cn/s/YuDKX1" rel="nofollow"><code>Readable</code></a> stream.</p><p>Within the <code>transform._flush()</code> implementation, the <code>readable.push()</code> method
+may be called zero or more times, as appropriate. The <code>callback</code> function must
+be called when the flush operation is complete.</p><p>The <code>transform._flush()</code> method is prefixed with an underscore because it is
+internal to the class that defines it, and should never be called directly by
+user programs.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712037227"><\/script>');
+  </script>
+</body>
+</html>

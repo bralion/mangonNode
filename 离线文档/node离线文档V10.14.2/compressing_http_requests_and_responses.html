@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Compressing HTTP requests and responses | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/zlib/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712043227" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-zlib">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>Compressing HTTP requests and responses</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="zlib.html#zlib_compressing_http_requests_and_responses" tppabs="http://nodejs.cn/api/zlib.html#zlib_compressing_http_requests_and_responses" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p><code>zlib</code> &#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5B9E;&#x73B0;&#x5BF9; <a href="javascript:if(confirm('https://tools.ietf.org/html/rfc7230  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://tools.ietf.org/html/rfc7230#section-4.2'" tppabs="https://tools.ietf.org/html/rfc7230#section-4.2" rel="nofollow">HTTP</a> &#x4E2D;&#x5B9A;&#x4E49;&#x7684; <code>gzip</code> &#x548C; <code>deflate</code> &#x5185;&#x5BB9;&#x7F16;&#x7801;&#x673A;&#x5236;&#x7684;&#x652F;&#x6301;&#x3002;</p><p>HTTP &#x7684; <a href="javascript:if(confirm('http://nodejs.cn/s/5V7Je1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5V7Je1'" tppabs="http://nodejs.cn/s/5V7Je1" rel="nofollow"><code>Accept-Encoding</code></a> &#x5934;&#x5B57;&#x6BB5;&#x7528;&#x6765;&#x6807;&#x8BB0;&#x5BA2;&#x6237;&#x7AEF;&#x63A5;&#x53D7;&#x7684;&#x538B;&#x7F29;&#x7F16;&#x7801;&#x3002;
+&#x3002;</p><p><code>&#x6CE8;&#x610F;</code>: &#x4E0B;&#x9762;&#x7ED9;&#x51FA;&#x7684;&#x793A;&#x4F8B;&#x5927;&#x5E45;&#x7B80;&#x5316;&#xFF0C;&#x7528;&#x4EE5;&#x5C55;&#x793A;&#x4E86;&#x57FA;&#x672C;&#x7684;&#x6982;&#x5FF5;&#x3002;&#x4F7F;&#x7528; <code>zlib</code> &#x7F16;&#x7801;&#x6210;&#x672C;&#x4F1A;&#x5F88;&#x9AD8;, &#x7ED3;&#x679C;&#x5E94;&#x8BE5;&#x88AB;&#x7F13;&#x5B58;&#x3002;&#x5173;&#x4E8E; <code>zlib</code> &#x4F7F;&#x7528;&#x4E2D;&#x6709;&#x5173;&#x901F;&#x5EA6;/&#x5185;&#x5B58;/&#x538B;&#x7F29;&#x4E92;&#x76F8;&#x6743;&#x8861;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x67E5;&#x9605; <a href="javascript:if(confirm('http://nodejs.cn/s/6LawzW  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/6LawzW'" tppabs="http://nodejs.cn/s/6LawzW" rel="nofollow">Memory Usage Tuning</a>&#x3002;</p><pre><code class="language-js">// &#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#x793A;&#x4F8B;
+const zlib = require(&apos;zlib&apos;);
+const http = require(&apos;http&apos;);
+const fs = require(&apos;fs&apos;);
+const request = http.get({ host: &apos;example.com&apos;,
+                           path: &apos;/&apos;,
+                           port: 80,
+                           headers: { &apos;Accept-Encoding&apos;: &apos;gzip,deflate&apos; } });
+request.on(&apos;response&apos;, (response) =&gt; {
+  const output = fs.createWriteStream(&apos;example.com_index.html&apos;);
+
+  switch (response.headers[&apos;content-encoding&apos;]) {
+ &#xA0; &#xA0;// &#x6216;&#x8005;, &#x53EA;&#x662F;&#x4F7F;&#x7528; zlib.createUnzip() &#x65B9;&#x6CD5;&#x53BB;&#x5904;&#x7406;&#x8FD9;&#x4E24;&#x79CD;&#x60C5;&#x51B5;
+ &#xA0; &#xA0;case &apos;gzip&apos;:
+      response.pipe(zlib.createGunzip()).pipe(output);
+      break;
+    case &apos;deflate&apos;:
+      response.pipe(zlib.createInflate()).pipe(output);
+      break;
+    default:
+      response.pipe(output);
+      break;
+  }
+});
+</code></pre><pre><code class="language-js">// &#x670D;&#x52A1;&#x7AEF;&#x793A;&#x4F8B;
+// &#x5BF9;&#x6BCF;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x8FD0;&#x884C; gzip &#x64CD;&#x4F5C;&#x7684;&#x6210;&#x672C;&#x662F;&#x5341;&#x5206;&#x9AD8;&#x6602;&#x7684;.
+// &#x7F13;&#x5B58;&#x538B;&#x7F29;&#x7F13;&#x51B2;&#x533A;&#x662F;&#x66F4;&#x52A0;&#x9AD8;&#x6548;&#x7684;&#x65B9;&#x5F0F;.
+const zlib = require(&apos;zlib&apos;);
+const http = require(&apos;http&apos;);
+const fs = require(&apos;fs&apos;);
+http.createServer((request, response) =&gt; {
+  const raw = fs.createReadStream(&apos;index.html&apos;);
+  let acceptEncoding = request.headers[&apos;accept-encoding&apos;];
+  if (!acceptEncoding) {
+    acceptEncoding = &apos;&apos;;
+  }
+
+ &#xA0;// &#x6CE8;&#x610F;&#xFF1A;&#x8FD9;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5408;&#x9002;&#x7684; accept-encoding &#x89E3;&#x6790;&#x5668;.
+ &#xA0;// &#x67E5;&#x9605; https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3
+ &#xA0;if (/\bdeflate\b/.test(acceptEncoding)) {
+    response.writeHead(200, { &apos;Content-Encoding&apos;: &apos;deflate&apos; });
+    raw.pipe(zlib.createDeflate()).pipe(response);
+  } else if (/\bgzip\b/.test(acceptEncoding)) {
+    response.writeHead(200, { &apos;Content-Encoding&apos;: &apos;gzip&apos; });
+    raw.pipe(zlib.createGzip()).pipe(response);
+  } else {
+    response.writeHead(200, {});
+    raw.pipe(response);
+  }
+}).listen(1337);
+</code></pre><p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;, &#x5F53;&#x89E3;&#x538B;&#x4E0D;&#x5B8C;&#x6574;&#x7684;&#x6570;&#x636E;&#x65F6; <code>zlib</code> &#x65B9;&#x6CD5;&#x4F1A;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;. &#x7136;&#x800C;, &#x5982;&#x679C;&#x5B83;&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#x6570;&#x636E;&#x662F;&#x4E0D;&#x5B8C;&#x6574;&#x7684;, &#x6216;&#x8005;&#x4EC5;&#x4EC5;&#x662F;&#x4E3A;&#x4E86;&#x68C0;&#x67E5;&#x5DF2;&#x538B;&#x7F29;&#x6587;&#x4EF6;&#x7684;&#x5F00;&#x5934;, &#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6539;&#x53D8;&#x7528;&#x6765;&#x89E3;&#x538B;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x7684;&#x8F93;&#x5165;&#x6570;&#x636E;&#x5757;&#x7684;&#x5237;&#x65B0;&#x65B9;&#x6CD5;&#x6765;&#x907F;&#x514D;&#x9ED8;&#x8BA4;&#x7684;&#x9519;&#x8BEF;&#x5904;&#x7406;.</p><pre><code class="language-js">// &#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x4E0A;&#x9762;&#x4F8B;&#x5B50;&#x4E2D;&#x7F13;&#x5B58;&#x533A;&#x7684;&#x4E0D;&#x5B8C;&#x6574;&#x7248;&#x672C;
+const buffer = Buffer.from(&apos;eJzT0yMA&apos;, &apos;base64&apos;);
+
+zlib.unzip(
+  buffer,
+  { finishFlush: zlib.constants.Z_SYNC_FLUSH },
+  (err, buffer) =&gt; {
+    if (!err) {
+      console.log(buffer.toString());
+    } else {
+      // &#x9519;&#x8BEF;&#x5904;&#x7406;
+    }
+  });
+</code></pre><p>&#x8FD9;&#x4E0D;&#x4F1A;&#x6539;&#x53D8;&#x5176;&#x4ED6;&#x629B;&#x51FA;&#x9519;&#x8BEF;&#x60C5;&#x51B5;&#x4E0B;&#x7684;&#x884C;&#x4E3A;, &#x4F8B;&#x5982;, &#x5F53;&#x8F93;&#x5165;&#x5185;&#x5BB9;&#x7684;&#x683C;&#x5F0F;&#x65E0;&#x6548;&#x65F6;. &#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;, &#x65E0;&#x6CD5;&#x786E;&#x5B9A;&#x8F93;&#x5165;&#x662F;&#x5426;&#x8FC7;&#x65E9;&#x7ED3;&#x675F;, &#x6216;&#x8005;&#x7F3A;&#x4E4F;&#x5B8C;&#x6574;&#x6027;&#x68C0;&#x67E5;, &#x56E0;&#x6B64;&#x6709;&#x5FC5;&#x8981;&#x4EBA;&#x5DE5;&#x68C0;&#x67E5;&#x89E3;&#x538B;&#x7ED3;&#x679C;&#x662F;&#x5426;&#x6709;&#x6548;.</p></div>
+          <div id="content_right"><p>The <code>zlib</code> module can be used to implement support for the <code>gzip</code> and <code>deflate</code>
+content-encoding mechanisms defined by
+<a href="javascript:if(confirm('https://tools.ietf.org/html/rfc7230  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://tools.ietf.org/html/rfc7230#section-4.2'" tppabs="https://tools.ietf.org/html/rfc7230#section-4.2" rel="nofollow">HTTP</a>.</p><p>The HTTP <a href="javascript:if(confirm('http://nodejs.cn/s/5V7Je1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5V7Je1'" tppabs="http://nodejs.cn/s/5V7Je1" rel="nofollow"><code>Accept-Encoding</code></a> header is used within an http request to identify
+the compression encodings accepted by the client. The <a href="javascript:if(confirm('http://nodejs.cn/s/znTJvg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/znTJvg'" tppabs="http://nodejs.cn/s/znTJvg" rel="nofollow"><code>Content-Encoding</code></a>
+header is used to identify the compression encodings actually applied to a
+message.</p><p>The examples given below are drastically simplified to show the basic concept.
+Using <code>zlib</code> encoding can be expensive, and the results ought to be cached.
+See <a href="javascript:if(confirm('http://nodejs.cn/s/6LawzW  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/6LawzW'" tppabs="http://nodejs.cn/s/6LawzW" rel="nofollow">Memory Usage Tuning</a> for more information on the speed/memory/compression
+tradeoffs involved in <code>zlib</code> usage.</p><pre><code class="language-js">// client request example
+const zlib = require(&apos;zlib&apos;);
+const http = require(&apos;http&apos;);
+const fs = require(&apos;fs&apos;);
+const request = http.get({ host: &apos;example.com&apos;,
+                           path: &apos;/&apos;,
+                           port: 80,
+                           headers: { &apos;Accept-Encoding&apos;: &apos;gzip,deflate&apos; } });
+request.on(&apos;response&apos;, (response) =&gt; {
+  const output = fs.createWriteStream(&apos;example.com_index.html&apos;);
+
+  switch (response.headers[&apos;content-encoding&apos;]) {
+    // or, just use zlib.createUnzip() to handle both cases
+    case &apos;gzip&apos;:
+      response.pipe(zlib.createGunzip()).pipe(output);
+      break;
+    case &apos;deflate&apos;:
+      response.pipe(zlib.createInflate()).pipe(output);
+      break;
+    default:
+      response.pipe(output);
+      break;
+  }
+});
+</code></pre><pre><code class="language-js">// server example
+// Running a gzip operation on every request is quite expensive.
+// It would be much more efficient to cache the compressed buffer.
+const zlib = require(&apos;zlib&apos;);
+const http = require(&apos;http&apos;);
+const fs = require(&apos;fs&apos;);
+http.createServer((request, response) =&gt; {
+  const raw = fs.createReadStream(&apos;index.html&apos;);
+  let acceptEncoding = request.headers[&apos;accept-encoding&apos;];
+  if (!acceptEncoding) {
+    acceptEncoding = &apos;&apos;;
+  }
+
+  // Note: This is not a conformant accept-encoding parser.
+  // See https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3
+  if (/\bdeflate\b/.test(acceptEncoding)) {
+    response.writeHead(200, { &apos;Content-Encoding&apos;: &apos;deflate&apos; });
+    raw.pipe(zlib.createDeflate()).pipe(response);
+  } else if (/\bgzip\b/.test(acceptEncoding)) {
+    response.writeHead(200, { &apos;Content-Encoding&apos;: &apos;gzip&apos; });
+    raw.pipe(zlib.createGzip()).pipe(response);
+  } else {
+    response.writeHead(200, {});
+    raw.pipe(response);
+  }
+}).listen(1337);
+</code></pre><p>By default, the <code>zlib</code> methods will throw an error when decompressing
+truncated data. However, if it is known that the data is incomplete, or
+the desire is to inspect only the beginning of a compressed file, it is
+possible to suppress the default error handling by changing the flushing
+method that is used to decompress the last chunk of input data:</p><pre><code class="language-js">// This is a truncated version of the buffer from the above examples
+const buffer = Buffer.from(&apos;eJzT0yMA&apos;, &apos;base64&apos;);
+
+zlib.unzip(
+  buffer,
+  { finishFlush: zlib.constants.Z_SYNC_FLUSH },
+  (err, buffer) =&gt; {
+    if (!err) {
+      console.log(buffer.toString());
+    } else {
+      // handle error
+    }
+  });
+</code></pre><p>This will not change the behavior in other error-throwing situations, e.g.
+when the input data has an invalid format. Using this method, it will not be
+possible to determine whether the input ended prematurely or lacks the
+integrity checks, making it necessary to manually check that the
+decompressed result is valid.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712043227"><\/script>');
+  </script>
+</body>
+</html>

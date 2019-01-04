@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>socket.setTimeout(timeout[, callback]) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/net/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712032352" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-net">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>socket.setTimeout(timeout[, callback])</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="net.html#net_socket_settimeout_timeout_callback" tppabs="http://nodejs.cn/api/net.html#net_socket_settimeout_timeout_callback" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.90</span>
+</div><ul>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> Socket &#x672C;&#x8EAB;&#x3002;</li>
+</ul><p>&#x5F53; socket &#x5728; <code>timeout</code> &#x6BEB;&#x79D2;&#x4E0D;&#x6D3B;&#x52A8;&#x4E4B;&#x540E;&#x5C06;&#x5176;&#x8BBE;&#x7F6E;&#x4E3A;&#x8D85;&#x65F6;&#x72B6;&#x6001;&#x3002;&#x9ED8;&#x8BA4; <code>net.Socket</code> &#x6CA1;&#x6709;&#x8D85;&#x65F6;&#x3002;</p><p>&#x5F53;&#x4E00;&#x4E2A;&#x95F2;&#x7F6E;&#x7684;&#x8D85;&#x65F6;&#x88AB;&#x89E6;&#x53D1;&#xFF0C;socket &#x5C06;&#x4F1A;&#x6536;&#x5230;&#x4E00;&#x4E2A; <a href="javascript:if(confirm('http://nodejs.cn/s/XQG4dx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/XQG4dx'" tppabs="http://nodejs.cn/s/XQG4dx" rel="nofollow"><code>&apos;timeout&apos;</code></a> &#x4E8B;&#x4EF6;&#xFF0C;&#x4F46;&#x8FDE;&#x63A5;&#x4E0D;&#x4F1A;&#x88AB;&#x65AD;&#x5F00;&#x3002;&#x7528;&#x6237;&#x5FC5;&#x987B;&#x624B;&#x52A8;&#x8C03;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/RyEJPD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RyEJPD'" tppabs="http://nodejs.cn/s/RyEJPD" rel="nofollow"><code>socket.end()</code></a> &#x6216; <a href="javascript:if(confirm('http://nodejs.cn/s/yKvnfJ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/yKvnfJ'" tppabs="http://nodejs.cn/s/yKvnfJ" rel="nofollow"><code>socket.destroy()</code></a> &#x6765;&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x3002;</p><pre><code class="language-js">socket.setTimeout(3000);
+socket.on(&apos;timeout&apos;, () =&gt; {
+  console.log(&apos;socket timeout&apos;);
+  socket.end();
+});
+</code></pre><p>&#x5982;&#x679C;&#xA0;<code>timeout</code> &#x662F; 0&#xFF0C;&#x5219;&#x5B58;&#x5728;&#x7684;&#x95F2;&#x7F6E;&#x8D85;&#x65F6;&#x5C06;&#x4F1A;&#x88AB;&#x7981;&#x6B62;&#x3002;</p><p>&#x53EF;&#x9009;&#x7684; <code>callback</code> &#x53C2;&#x6570;&#x5C06;&#x4F1A;&#x88AB;&#x5F53;&#x4F5C;&#x4E00;&#x4E2A;&#x65F6;&#x95F4;&#x76D1;&#x542C;&#x5668;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <a href="javascript:if(confirm('http://nodejs.cn/s/XQG4dx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/XQG4dx'" tppabs="http://nodejs.cn/s/XQG4dx" rel="nofollow"><code>&apos;timeout&apos;</code></a> &#x4E8B;&#x4EF6;&#x3002;</p></div>
+          <div id="content_right"><div class="api_metadata">
+<span>Added in: v0.1.90</span>
+</div><ul>
+<li><code>timeout</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a></li>
+<li><code>callback</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Function  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Function'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Function" target="_blank" rel="nofollow" class="type">&lt;Function&gt;</a></li>
+<li>Returns: <a href="net.html#net_class_net_socket" tppabs="http://nodejs.cn/api/net.html#net_class_net_socket" target="_blank" rel="nofollow" class="type">&lt;net.Socket&gt;</a> The socket itself.</li>
+</ul><p>Sets the socket to timeout after <code>timeout</code> milliseconds of inactivity on
+the socket. By default <code>net.Socket</code> do not have a timeout.</p><p>When an idle timeout is triggered the socket will receive a <a href="javascript:if(confirm('http://nodejs.cn/s/XQG4dx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/XQG4dx'" tppabs="http://nodejs.cn/s/XQG4dx" rel="nofollow"><code>&apos;timeout&apos;</code></a>
+event but the connection will not be severed. The user must manually call
+<a href="javascript:if(confirm('http://nodejs.cn/s/RyEJPD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RyEJPD'" tppabs="http://nodejs.cn/s/RyEJPD" rel="nofollow"><code>socket.end()</code></a> or <a href="javascript:if(confirm('http://nodejs.cn/s/yKvnfJ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/yKvnfJ'" tppabs="http://nodejs.cn/s/yKvnfJ" rel="nofollow"><code>socket.destroy()</code></a> to end the connection.</p><pre><code class="language-js">socket.setTimeout(3000);
+socket.on(&apos;timeout&apos;, () =&gt; {
+  console.log(&apos;socket timeout&apos;);
+  socket.end();
+});
+</code></pre><p>If <code>timeout</code> is 0, then the existing idle timeout is disabled.</p><p>The optional <code>callback</code> parameter will be added as a one-time listener for the
+<a href="javascript:if(confirm('http://nodejs.cn/s/XQG4dx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/XQG4dx'" tppabs="http://nodejs.cn/s/XQG4dx" rel="nofollow"><code>&apos;timeout&apos;</code></a> event.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712032352"><\/script>');
+  </script>
+</body>
+</html>

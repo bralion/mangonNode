@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>module.exports | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/modules/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712029457" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-modules">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>module.exports</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="modules.html#modules_module_exports" tppabs="http://nodejs.cn/api/modules.html#modules_module_exports" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.16</span>
+</div><ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+</ul><p><code>module.exports</code> &#x5BF9;&#x8C61;&#x662F;&#x7531;&#x6A21;&#x5757;&#x7CFB;&#x7EDF;&#x521B;&#x5EFA;&#x7684;&#x3002;
+&#x6709;&#x65F6;&#x8FD9;&#x662F;&#x96BE;&#x4EE5;&#x63A5;&#x53D7;&#x7684;&#xFF1B;&#x8BB8;&#x591A;&#x4EBA;&#x5E0C;&#x671B;&#x4ED6;&#x4EEC;&#x7684;&#x6A21;&#x5757;&#x6210;&#x4E3A;&#x67D0;&#x4E2A;&#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#x3002;
+&#x4E3A;&#x4E86;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#xFF0C;&#x9700;&#x8981;&#x5C06;&#x671F;&#x671B;&#x5BFC;&#x51FA;&#x7684;&#x5BF9;&#x8C61;&#x8D4B;&#x503C;&#x7ED9; <code>module.exports</code>&#x3002;
+&#x6CE8;&#x610F;&#xFF0C;&#x5C06;&#x671F;&#x671B;&#x7684;&#x5BF9;&#x8C61;&#x8D4B;&#x503C;&#x7ED9; <code>exports</code> &#x4F1A;&#x7B80;&#x5355;&#x5730;&#x91CD;&#x65B0;&#x7ED1;&#x5B9A;&#x672C;&#x5730; <code>exports</code> &#x53D8;&#x91CF;&#xFF0C;&#x8FD9;&#x53EF;&#x80FD;&#x4E0D;&#x662F;&#x671F;&#x671B;&#x7684;&#x3002;</p><p>&#x4F8B;&#x5B50;&#xFF0C;&#x5047;&#x8BBE;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x540D;&#x4E3A; <code>a.js</code> &#x7684;&#x6A21;&#x5757;&#xFF1A;</p><pre><code class="language-js">const EventEmitter = require(&apos;events&apos;);
+
+module.exports = new EventEmitter();
+
+// &#x5904;&#x7406;&#x4E00;&#x4E9B;&#x5DE5;&#x4F5C;&#xFF0C;&#x5E76;&#x5728;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x540E;&#x4ECE;&#x6A21;&#x5757;&#x81EA;&#x8EAB;&#x89E6;&#x53D1; &apos;ready&apos; &#x4E8B;&#x4EF6;&#x3002;
+setTimeout(() =&gt; {
+  module.exports.emit(&apos;ready&apos;);
+}, 1000);
+</code></pre><p>&#x7136;&#x540E;&#xFF0C;&#x5728;&#x53E6;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#x53EF;&#x4EE5;&#x8FD9;&#x4E48;&#x505A;&#xFF1A;</p><pre><code class="language-js">const a = require(&apos;./a&apos;);
+a.on(&apos;ready&apos;, () =&gt; {
+  console.log(&apos;&#x6A21;&#x5757; a &#x5DF2;&#x51C6;&#x5907;&#x597D;&apos;);
+});
+</code></pre><p>&#x6CE8;&#x610F;&#xFF0C;&#x5BF9; <code>module.exports</code> &#x7684;&#x8D4B;&#x503C;&#x5FC5;&#x987B;&#x7ACB;&#x5373;&#x5B8C;&#x6210;&#x3002;
+&#x4E0D;&#x80FD;&#x5728;&#x4EFB;&#x4F55;&#x56DE;&#x8C03;&#x4E2D;&#x5B8C;&#x6210;&#x3002;
+&#x4EE5;&#x4E0B;&#x662F;&#x65E0;&#x6548;&#x7684;&#xFF1A;</p><p>x.js:</p><pre><code class="language-js">setTimeout(() =&gt; {
+  module.exports = { a: &apos;hello&apos; };
+}, 0);
+</code></pre><p>y.js:</p><pre><code class="language-js">const x = require(&apos;./x&apos;);
+console.log(x.a);
+</code></pre></div>
+          <div id="content_right"><div class="api_metadata">
+<span>Added in: v0.1.16</span>
+</div><ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+</ul><p>The <code>module.exports</code> object is created by the <code>Module</code> system. Sometimes this is
+not acceptable; many want their module to be an instance of some class. To do
+this, assign the desired export object to <code>module.exports</code>. Note that assigning
+the desired object to <code>exports</code> will simply rebind the local <code>exports</code> variable,
+which is probably not what is desired.</p><p>For example, suppose we were making a module called <code>a.js</code>:</p><pre><code class="language-js">const EventEmitter = require(&apos;events&apos;);
+
+module.exports = new EventEmitter();
+
+// Do some work, and after some time emit
+// the &apos;ready&apos; event from the module itself.
+setTimeout(() =&gt; {
+  module.exports.emit(&apos;ready&apos;);
+}, 1000);
+</code></pre><p>Then in another file we could do:</p><pre><code class="language-js">const a = require(&apos;./a&apos;);
+a.on(&apos;ready&apos;, () =&gt; {
+  console.log(&apos;module &quot;a&quot; is ready&apos;);
+});
+</code></pre><p>Note that assignment to <code>module.exports</code> must be done immediately. It cannot be
+done in any callbacks. This does not work:</p><p><code>x.js</code>:</p><pre><code class="language-js">setTimeout(() =&gt; {
+  module.exports = { a: &apos;hello&apos; };
+}, 0);
+</code></pre><p><code>y.js</code>:</p><pre><code class="language-js">const x = require(&apos;./x&apos;);
+console.log(x.a);
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712029457"><\/script>');
+  </script>
+</body>
+</html>

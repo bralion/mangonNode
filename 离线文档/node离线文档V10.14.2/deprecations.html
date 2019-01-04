@@ -1,0 +1,2058 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>&#x5E9F;&#x5F03;&#x7684; API | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712017161" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-deprecations">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations active" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="deprecations" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><a href="#deprecations_deprecated_apis">&#x5E9F;&#x5F03;&#x7684; API</a></p>
+<ul>
+<li><a href="#deprecations_revoking_deprecations">&#x5E9F;&#x5F03;&#x72B6;&#x6001;&#x64A4;&#x9500;&#x4E2D;&#x7684; API</a></li>
+<li>
+<p><a href="#deprecations_list_of_deprecated_apis">&#x5E9F;&#x5F03;&#x7684; API &#x5217;&#x8868;</a></p>
+<ul>
+<li><a href="#deprecations_dep0001_http_outgoingmessage_prototype_flush">DEP0001: http.OutgoingMessage.prototype.flush</a></li>
+<li><a href="#deprecations_dep0002_require_linklist">DEP0002: require(&apos;_linklist&apos;)</a></li>
+<li><a href="#deprecations_dep0003_writablestate_buffer">DEP0003: _writableState.buffer</a></li>
+<li><a href="#deprecations_dep0004_cryptostream_prototype_readystate">DEP0004: CryptoStream.prototype.readyState</a></li>
+<li><a href="#deprecations_dep0005_buffer_constructor">DEP0005: Buffer() constructor</a></li>
+<li><a href="#deprecations_dep0006_child_process_options_customfds">DEP0006: child_process options.customFds</a></li>
+<li><a href="#deprecations_dep0007_replace_cluster_worker_suicide_with_worker_exitedafterdisconnect">DEP0007: Replace cluster worker.suicide with worker.exitedAfterDisconnect</a></li>
+<li><a href="#deprecations_dep0008_require_constants">DEP0008: require(&apos;constants&apos;)</a></li>
+<li><a href="#deprecations_dep0009_crypto_pbkdf2_without_digest">DEP0009: crypto.pbkdf2 without digest</a></li>
+<li><a href="#deprecations_dep0010_crypto_createcredentials">DEP0010: crypto.createCredentials</a></li>
+<li><a href="#deprecations_dep0011_crypto_credentials">DEP0011: crypto.Credentials</a></li>
+<li><a href="#deprecations_dep0012_domain_dispose">DEP0012: Domain.dispose</a></li>
+<li><a href="#deprecations_dep0013_fs_asynchronous_function_without_callback">DEP0013: fs asynchronous function without callback</a></li>
+<li><a href="#deprecations_dep0014_fs_read_legacy_string_interface">DEP0014: fs.read legacy String interface</a></li>
+<li><a href="#deprecations_dep0015_fs_readsync_legacy_string_interface">DEP0015: fs.readSync legacy String interface</a></li>
+<li><a href="#deprecations_dep0016_global_root">DEP0016: GLOBAL/root</a></li>
+<li><a href="#deprecations_dep0017_intl_v8breakiterator">DEP0017: Intl.v8BreakIterator</a></li>
+<li><a href="#deprecations_dep0018_unhandled_promise_rejections">DEP0018: Unhandled promise rejections</a></li>
+<li><a href="#deprecations_dep0019_require_resolved_outside_directory">DEP0019: require(&apos;.&apos;) resolved outside directory</a></li>
+<li><a href="#deprecations_dep0020_server_connections">DEP0020: Server.connections</a></li>
+<li><a href="#deprecations_dep0021_server_listenfd">DEP0021: Server.listenFD</a></li>
+<li><a href="#deprecations_dep0022_os_tmpdir">DEP0022: os.tmpDir()</a></li>
+<li><a href="#deprecations_dep0023_os_getnetworkinterfaces">DEP0023: os.getNetworkInterfaces()</a></li>
+<li><a href="#deprecations_dep0024_replserver_prototype_converttocontext">DEP0024: REPLServer.prototype.convertToContext()</a></li>
+<li><a href="#deprecations_dep0025_require_sys">DEP0025: require(&apos;sys&apos;)</a></li>
+<li><a href="#deprecations_dep0026_util_print">DEP0026: util.print()</a></li>
+<li><a href="#deprecations_dep0027_util_puts">DEP0027: util.puts()</a></li>
+<li><a href="#deprecations_dep0028_util_debug">DEP0028: util.debug()</a></li>
+<li><a href="#deprecations_dep0029_util_error">DEP0029: util.error()</a></li>
+<li><a href="#deprecations_dep0030_slowbuffer">DEP0030: SlowBuffer</a></li>
+<li><a href="#deprecations_dep0031_ecdh_setpublickey">DEP0031: ecdh.setPublicKey()</a></li>
+<li><a href="#deprecations_dep0032_domain_module">DEP0032: domain module</a></li>
+<li><a href="#deprecations_dep0033_eventemitter_listenercount">DEP0033: EventEmitter.listenerCount()</a></li>
+<li><a href="#deprecations_dep0034_fs_exists_path_callback">DEP0034: fs.exists(path, callback)</a></li>
+<li><a href="#deprecations_dep0035_fs_lchmod_path_mode_callback">DEP0035: fs.lchmod(path, mode, callback)</a></li>
+<li><a href="#deprecations_dep0036_fs_lchmodsync_path_mode">DEP0036: fs.lchmodSync(path, mode)</a></li>
+<li><a href="#deprecations_dep0037_fs_lchown_path_uid_gid_callback">DEP0037: fs.lchown(path, uid, gid, callback)</a></li>
+<li><a href="#deprecations_dep0038_fs_lchownsync_path_uid_gid">DEP0038: fs.lchownSync(path, uid, gid)</a></li>
+<li><a href="#deprecations_dep0039_require_extensions">DEP0039: require.extensions</a></li>
+<li><a href="#deprecations_dep0040_punycode_module">DEP0040: punycode module</a></li>
+<li><a href="#deprecations_dep0041_node_repl_history_file_environment_variable">DEP0041: NODE_REPL_HISTORY_FILE environment variable</a></li>
+<li><a href="#deprecations_dep0042_tls_cryptostream">DEP0042: tls.CryptoStream</a></li>
+<li><a href="#deprecations_dep0043_tls_securepair">DEP0043: tls.SecurePair</a></li>
+<li><a href="#deprecations_dep0044_util_isarray">DEP0044: util.isArray()</a></li>
+<li><a href="#deprecations_dep0045_util_isboolean">DEP0045: util.isBoolean()</a></li>
+<li><a href="#deprecations_dep0046_util_isbuffer">DEP0046: util.isBuffer()</a></li>
+<li><a href="#deprecations_dep0047_util_isdate">DEP0047: util.isDate()</a></li>
+<li><a href="#deprecations_dep0048_util_iserror">DEP0048: util.isError()</a></li>
+<li><a href="#deprecations_dep0049_util_isfunction">DEP0049: util.isFunction()</a></li>
+<li><a href="#deprecations_dep0050_util_isnull">DEP0050: util.isNull()</a></li>
+<li><a href="#deprecations_dep0051_util_isnullorundefined">DEP0051: util.isNullOrUndefined()</a></li>
+<li><a href="#deprecations_dep0052_util_isnumber">DEP0052: util.isNumber()</a></li>
+<li><a href="#deprecations_dep0053_util_isobject">DEP0053 util.isObject()</a></li>
+<li><a href="#deprecations_dep0054_util_isprimitive">DEP0054: util.isPrimitive()</a></li>
+<li><a href="#deprecations_dep0055_util_isregexp">DEP0055: util.isRegExp()</a></li>
+<li><a href="#deprecations_dep0056_util_isstring">DEP0056: util.isString()</a></li>
+<li><a href="#deprecations_dep0057_util_issymbol">DEP0057: util.isSymbol()</a></li>
+<li><a href="#deprecations_dep0058_util_isundefined">DEP0058: util.isUndefined()</a></li>
+<li><a href="#deprecations_dep0059_util_log">DEP0059: util.log()</a></li>
+<li><a href="#deprecations_dep0060_util_extend">DEP0060: util._extend()</a></li>
+<li><a href="#deprecations_dep0061_fs_syncwritestream">DEP0061: fs.SyncWriteStream</a></li>
+<li><a href="#deprecations_dep0062_node_debug">DEP0062: node --debug</a></li>
+<li><a href="#deprecations_dep0063_serverresponse_prototype_writeheader">DEP0063: ServerResponse.prototype.writeHeader()</a></li>
+<li><a href="#deprecations_dep0064_tls_createsecurepair">DEP0064: tls.createSecurePair()</a></li>
+<li><a href="#deprecations_dep0065_repl_repl_mode_magic_and_node_repl_mode_magic">DEP0065: repl.REPL_MODE_MAGIC and NODE_REPL_MODE=magic</a></li>
+<li><a href="#deprecations_dep0066_outgoingmessage_headers_outgoingmessage_headernames">DEP0066: outgoingMessage._headers, outgoingMessage._headerNames</a></li>
+<li><a href="#deprecations_dep0067_outgoingmessage_prototype_renderheaders">DEP0067: OutgoingMessage.prototype._renderHeaders</a></li>
+<li><a href="#deprecations_dep0068_node_debug">DEP0068: node debug</a></li>
+<li><a href="#deprecations_dep0069_vm_runindebugcontext_string">DEP0069: vm.runInDebugContext(string)</a></li>
+<li><a href="#deprecations_dep0070_async_hooks_currentid">DEP0070: async_hooks.currentId()</a></li>
+<li><a href="#deprecations_dep0071_async_hooks_triggerid">DEP0071: async_hooks.triggerId()</a></li>
+<li><a href="#deprecations_dep0072_async_hooks_asyncresource_triggerid">DEP0072: async_hooks.AsyncResource.triggerId()</a></li>
+<li><a href="#deprecations_dep0073_several_internal_properties_of_net_server">DEP0073: Several internal properties of net.Server</a></li>
+<li><a href="#deprecations_dep0074_replserver_bufferedcommand">DEP0074: REPLServer.bufferedCommand</a></li>
+<li><a href="#deprecations_dep0075_replserver_parsereplkeyword">DEP0075: REPLServer.parseREPLKeyword()</a></li>
+<li><a href="#deprecations_dep0076_tls_parsecertstring">DEP0076: tls.parseCertString()</a></li>
+<li><a href="#deprecations_dep0077_module_debug">DEP0077: Module._debug()</a></li>
+<li><a href="#deprecations_dep0078_replserver_turnoffeditormode">DEP0078: REPLServer.turnOffEditorMode()</a></li>
+<li><a href="#deprecations_dep0079_custom_inspection_function_on_objects_via_inspect">DEP0079: Custom inspection function on Objects via .inspect()</a></li>
+<li><a href="#deprecations_dep0080_path_makelong">DEP0080: path._makeLong()</a></li>
+<li><a href="#deprecations_dep0081_fs_truncate_using_a_file_descriptor">DEP0081: fs.truncate() using a file descriptor</a></li>
+<li><a href="#deprecations_dep0082_replserver_prototype_memory">DEP0082: REPLServer.prototype.memory()</a></li>
+<li><a href="#deprecations_dep0083_disabling_ecdh_by_setting_ecdhcurve_to_false">DEP0083: Disabling ECDH by setting ecdhCurve to false</a></li>
+<li><a href="#deprecations_dep0084_requiring_bundled_internal_dependencies">DEP0084: requiring bundled internal dependencies</a></li>
+<li><a href="#deprecations_dep0085_asynchooks_sensitive_api">DEP0085: AsyncHooks Sensitive API</a></li>
+<li><a href="#deprecations_dep0086_remove_runinasyncidscope">DEP0086: Remove runInAsyncIdScope</a></li>
+<li><a href="#deprecations_dep0089_require_assert">DEP0089: require(&apos;assert&apos;)</a></li>
+<li><a href="#deprecations_dep0090_invalid_gcm_authentication_tag_lengths">DEP0090: Invalid GCM authentication tag lengths</a></li>
+<li><a href="#deprecations_dep0091_crypto_default_encoding">DEP0091: crypto.DEFAULT_ENCODING</a></li>
+<li><a href="#deprecations_dep0092_top_level_this_bound_to_module_exports">DEP0092: Top-level <code>this</code> bound to <code>module.exports</code></a></li>
+<li><a href="#deprecations_dep0093_crypto_fips_is_deprecated_and_replaced">DEP0093: crypto.fips is deprecated and replaced.</a></li>
+<li><a href="#deprecations_dep0094_using_assert_fail_with_more_than_one_argument">DEP0094: Using <code>assert.fail()</code> with more than one argument.</a></li>
+<li><a href="#deprecations_dep0095_timers_enroll">DEP0095: timers.enroll()</a></li>
+<li><a href="#deprecations_dep0096_timers_unenroll">DEP0096: timers.unenroll()</a></li>
+<li><a href="#deprecations_dep0097_makecallback_with_domain_property">DEP0097: MakeCallback with domain property</a></li>
+<li><a href="#deprecations_dep0098_asynchooks_embedder_asyncresource_emitbefore_and_asyncresource_emitafter_apis">DEP0098: AsyncHooks Embedder AsyncResource.emitBefore and AsyncResource.emitAfter APIs</a></li>
+<li><a href="#deprecations_dep0099_async_context_unaware_node_makecallback_c_apis">DEP0099: async context-unaware node::MakeCallback C++ APIs</a></li>
+<li><a href="#deprecations_dep0100_process_assert">DEP0100: process.assert()</a></li>
+<li><a href="#deprecations_dep0101_with_lttng">DEP0101: --with-lttng</a></li>
+<li><a href="#deprecations_dep0102_using_noassert_in_buffer_read_write_operations">DEP0102: Using <code>noAssert</code> in Buffer#(read|write) operations.</a></li>
+<li><a href="#deprecations_dep0103_process_binding_util_is_typechecks">DEP0103: process.binding(&apos;util&apos;).is[...] typechecks</a></li>
+<li><a href="#deprecations_dep0104_process_env_string_coercion">DEP0104: process.env string coercion</a></li>
+<li><a href="#deprecations_dep0105_decipher_finaltol">DEP0105: decipher.finaltol</a></li>
+<li><a href="#deprecations_dep0106_crypto_createcipher_and_crypto_createdecipher">DEP0106: crypto.createCipher and crypto.createDecipher</a></li>
+<li><a href="#deprecations_dep0107_tls_convertnpnprotocols">DEP0107: tls.convertNPNProtocols()</a></li>
+<li><a href="#deprecations_dep0108_zlib_bytesread">DEP0108: zlib.bytesRead</a></li>
+<li><a href="#deprecations_dep0110_vm_script_cached_data">DEP0110: vm.Script cached data</a></li>
+<li><a href="#deprecations_dep0111_process_binding">DEP0111: process.binding()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>&#x5E9F;&#x5F03;&#x7684; API<span><a class="mark" href="#deprecations_deprecated_apis" id="deprecations_deprecated_apis" rel="nofollow">#</a></span></h1><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<!--introduced_in=v7.7.0-->
+<!-- type=misc -->
+<p>Node.js may deprecate APIs when either: (a) use of the API is considered to be
+unsafe, (b) an improved alternative API is available, or (c) breaking changes to
+the API are expected in a future major release.</p>
+<p>Node.js utilizes three kinds of Deprecations:</p>
+<ul>
+<li>Documentation-only</li>
+<li>Runtime</li>
+<li>End-of-Life</li>
+</ul>
+<p>A Documentation-only deprecation is one that is expressed only within the
+Node.js API docs. These generate no side-effects while running Node.js.
+Some Documentation-only deprecations trigger a runtime warning when launched
+with <a href="javascript:if(confirm('http://nodejs.cn/s/gDqtYd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gDqtYd'" tppabs="http://nodejs.cn/s/gDqtYd" rel="nofollow"><code>--pending-deprecation</code></a> flag (or its alternative,
+<code>NODE_PENDING_DEPRECATION=1</code> environment variable), similarly to Runtime
+deprecations below. Documentation-only deprecations that support that flag
+are explicitly labeled as such in the
+<a href="#deprecations_list_of_deprecated_apis" rel="nofollow">list of Deprecated APIs</a>.</p>
+<p>A Runtime deprecation will, by default, generate a process warning that will
+be printed to <code>stderr</code> the first time the deprecated API is used. When the
+<code>--throw-deprecation</code> command-line flag is used, a Runtime deprecation will
+cause an error to be thrown.</p>
+<p>An End-of-Life deprecation is used when functionality is or will soon be removed
+from Node.js.</p>
+<h2>&#x5E9F;&#x5F03;&#x72B6;&#x6001;&#x64A4;&#x9500;&#x4E2D;&#x7684; API<span><a class="mark" href="#deprecations_revoking_deprecations" id="deprecations_revoking_deprecations" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>Occasionally, the deprecation of an API may be reversed. In such situations,
+this document will be updated with information relevant to the decision.
+However, the deprecation identifier will not be modified.</p>
+<h2>&#x5E9F;&#x5F03;&#x7684; API &#x5217;&#x8868;<span><a class="mark" href="#deprecations_list_of_deprecated_apis" id="deprecations_list_of_deprecated_apis" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p><a id="DEP0001" rel="nofollow"></a></p>
+<h3>DEP0001: http.OutgoingMessage.prototype.flush<span><a class="mark" href="#deprecations_dep0001_http_outgoingmessage_prototype_flush" id="deprecations_dep0001_http_outgoingmessage_prototype_flush" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v1.6.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <code>OutgoingMessage.prototype.flush()</code> method is deprecated. Use
+<code>OutgoingMessage.prototype.flushHeaders()</code> instead.</p>
+<p><a id="DEP0002" rel="nofollow"></a></p>
+<h3>DEP0002: require(&apos;_linklist&apos;)<span><a class="mark" href="#deprecations_dep0002_require_linklist" id="deprecations_dep0002_require_linklist" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v5.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>The <code>_linklist</code> module is deprecated. Please use a userland alternative.</p>
+<p><a id="DEP0003" rel="nofollow"></a></p>
+<h3>DEP0003: _writableState.buffer<span><a class="mark" href="#deprecations_dep0003_writablestate_buffer" id="deprecations_dep0003_writablestate_buffer" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.11.15</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <code>_writableState.buffer</code> property is deprecated. Use the
+<code>_writableState.getBuffer()</code> method instead.</p>
+<p><a id="DEP0004" rel="nofollow"></a></p>
+<h3>DEP0004: CryptoStream.prototype.readyState<span><a class="mark" href="#deprecations_dep0004_cryptostream_prototype_readystate" id="deprecations_dep0004_cryptostream_prototype_readystate" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>0.4.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>The <code>CryptoStream.prototype.readyState</code> property was removed.</p>
+<p><a id="DEP0005" rel="nofollow"></a></p>
+<h3>DEP0005: Buffer() constructor<span><a class="mark" href="#deprecations_dep0005_buffer_constructor" id="deprecations_dep0005_buffer_constructor" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+<tr><td>v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime (supports <a href="javascript:if(confirm('http://nodejs.cn/s/gDqtYd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gDqtYd'" tppabs="http://nodejs.cn/s/gDqtYd" rel="nofollow"><code>--pending-deprecation</code></a>)</p>
+<p>The <code>Buffer()</code> function and <code>new Buffer()</code> constructor are deprecated due to
+API usability issues that can potentially lead to accidental security issues.</p>
+<p>As an alternative, use of the following methods of constructing <code>Buffer</code> objects
+is strongly recommended:</p>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/Du96og  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Du96og'" tppabs="http://nodejs.cn/s/Du96og" rel="nofollow"><code>Buffer.alloc(size[, fill[, encoding]])</code></a> - Create a <code>Buffer</code> with
+<em>initialized</em> memory.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/TWpeWk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/TWpeWk'" tppabs="http://nodejs.cn/s/TWpeWk" rel="nofollow"><code>Buffer.allocUnsafe(size)</code></a> - Create a <code>Buffer</code> with
+<em>uninitialized</em> memory.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/PUENLw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PUENLw'" tppabs="http://nodejs.cn/s/PUENLw" rel="nofollow"><code>Buffer.allocUnsafeSlow(size)</code></a> - Create a <code>Buffer</code> with <em>uninitialized</em>
+memory.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/F5r61t  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/F5r61t'" tppabs="http://nodejs.cn/s/F5r61t" rel="nofollow"><code>Buffer.from(array)</code></a> - Create a <code>Buffer</code> with a copy of <code>array</code></li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/jGD2qK  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jGD2qK'" tppabs="http://nodejs.cn/s/jGD2qK" rel="nofollow"><code>Buffer.from(arrayBuffer[, byteOffset[, length]])</code></a> -
+Create a <code>Buffer</code> that wraps the given <code>arrayBuffer</code>.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/SPUnUK  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SPUnUK'" tppabs="http://nodejs.cn/s/SPUnUK" rel="nofollow"><code>Buffer.from(buffer)</code></a> - Create a <code>Buffer</code> that copies <code>buffer</code>.</li>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/X7oqVF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/X7oqVF'" tppabs="http://nodejs.cn/s/X7oqVF" rel="nofollow"><code>Buffer.from(string[, encoding])</code></a> - Create a <code>Buffer</code>
+that copies <code>string</code>.</li>
+</ul>
+<p>As of v10.0.0, a deprecation warning is printed at runtime when
+<code>--pending-deprecation</code> is used or when the calling code is
+outside <code>node_modules</code> in order to better target developers, rather than users.</p>
+<p><a id="DEP0006" rel="nofollow"></a></p>
+<h3>DEP0006: child_process options.customFds<span><a class="mark" href="#deprecations_dep0006_child_process_options_customfds" id="deprecations_dep0006_child_process_options_customfds" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.11.14</td>
+<td><p>Runtime deprecation.</p></td></tr>
+<tr><td>v0.5.11</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>Within the <a href="javascript:if(confirm('http://nodejs.cn/s/73VVnB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/73VVnB'" tppabs="http://nodejs.cn/s/73VVnB" rel="nofollow"><code>child_process</code></a> module&apos;s <code>spawn()</code>, <code>fork()</code>, and <code>exec()</code>
+methods, the <code>options.customFds</code> option is deprecated. The <code>options.stdio</code>
+option should be used instead.</p>
+<p><a id="DEP0007" rel="nofollow"></a></p>
+<h3>DEP0007: Replace cluster worker.suicide with worker.exitedAfterDisconnect<span><a class="mark" href="#deprecations_dep0007_replace_cluster_worker_suicide_with_worker_exitedafterdisconnect" id="deprecations_dep0007_replace_cluster_worker_suicide_with_worker_exitedafterdisconnect" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v7.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+<tr><td>v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>In an earlier version of the Node.js <code>cluster</code>, a boolean property with the name
+<code>suicide</code> was added to the <code>Worker</code> object. The intent of this property was to
+provide an indication of how and why the <code>Worker</code> instance exited. In Node.js
+6.0.0, the old property was deprecated and replaced with a new
+<a href="javascript:if(confirm('http://nodejs.cn/s/536ZWv  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/536ZWv'" tppabs="http://nodejs.cn/s/536ZWv" rel="nofollow"><code>worker.exitedAfterDisconnect</code></a> property. The old property name did not
+precisely describe the actual semantics and was unnecessarily emotion-laden.</p>
+<p><a id="DEP0008" rel="nofollow"></a></p>
+<h3>DEP0008: require(&apos;constants&apos;)<span><a class="mark" href="#deprecations_dep0008_require_constants" id="deprecations_dep0008_require_constants" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v6.3.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <code>constants</code> module is deprecated. When requiring access to constants
+relevant to specific Node.js builtin modules, developers should instead refer
+to the <code>constants</code> property exposed by the relevant module. For instance,
+<code>require(&apos;fs&apos;).constants</code> and <code>require(&apos;os&apos;).constants</code>.</p>
+<p><a id="DEP0009" rel="nofollow"></a></p>
+<h3>DEP0009: crypto.pbkdf2 without digest<span><a class="mark" href="#deprecations_dep0009_crypto_pbkdf2_without_digest" id="deprecations_dep0009_crypto_pbkdf2_without_digest" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>Use of the <a href="javascript:if(confirm('http://nodejs.cn/s/8BZNUZ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8BZNUZ'" tppabs="http://nodejs.cn/s/8BZNUZ" rel="nofollow"><code>crypto.pbkdf2()</code></a> API without specifying a digest was deprecated
+in Node.js 6.0 because the method defaulted to using the non-recommended
+<code>&apos;SHA1&apos;</code> digest. Previously, a deprecation warning was printed. Starting in
+Node.js 8.0.0, calling <code>crypto.pbkdf2()</code> or <code>crypto.pbkdf2Sync()</code> with an
+undefined <code>digest</code> will throw a <code>TypeError</code>.</p>
+<p><a id="DEP0010" rel="nofollow"></a></p>
+<h3>DEP0010: crypto.createCredentials<span><a class="mark" href="#deprecations_dep0010_crypto_createcredentials" id="deprecations_dep0010_crypto_createcredentials" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.11.13</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/FiG6qb  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FiG6qb'" tppabs="http://nodejs.cn/s/FiG6qb" rel="nofollow"><code>crypto.createCredentials()</code></a> API is deprecated. Please use
+<a href="javascript:if(confirm('http://nodejs.cn/s/Di4SrM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Di4SrM'" tppabs="http://nodejs.cn/s/Di4SrM" rel="nofollow"><code>tls.createSecureContext()</code></a> instead.</p>
+<p><a id="DEP0011" rel="nofollow"></a></p>
+<h3>DEP0011: crypto.Credentials<span><a class="mark" href="#deprecations_dep0011_crypto_credentials" id="deprecations_dep0011_crypto_credentials" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.11.13</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <code>crypto.Credentials</code> class is deprecated. Please use <a href="javascript:if(confirm('http://nodejs.cn/s/Di4SrM  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Di4SrM'" tppabs="http://nodejs.cn/s/Di4SrM" rel="nofollow"><code>tls.SecureContext</code></a>
+instead.</p>
+<p><a id="DEP0012" rel="nofollow"></a></p>
+<h3>DEP0012: Domain.dispose<span><a class="mark" href="#deprecations_dep0012_domain_dispose" id="deprecations_dep0012_domain_dispose" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.11.7</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p><code>Domain.dispose()</code> has been removed. Recover from failed I/O actions
+explicitly via error event handlers set on the domain instead.</p>
+<p><a id="DEP0013" rel="nofollow"></a></p>
+<h3>DEP0013: fs asynchronous function without callback<span><a class="mark" href="#deprecations_dep0013_fs_asynchronous_function_without_callback" id="deprecations_dep0013_fs_asynchronous_function_without_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v7.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>Calling an asynchronous function without a callback throws a <code>TypeError</code>
+in Node.js 10.0.0 onwards. (See <a href="javascript:if(confirm('https://github.com/nodejs/node/pull/12562  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://github.com/nodejs/node/pull/12562'" tppabs="https://github.com/nodejs/node/pull/12562" rel="nofollow">https://github.com/nodejs/node/pull/12562</a>.)</p>
+<p><a id="DEP0014" rel="nofollow"></a></p>
+<h3>DEP0014: fs.read legacy String interface<span><a class="mark" href="#deprecations_dep0014_fs_read_legacy_string_interface" id="deprecations_dep0014_fs_read_legacy_string_interface" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.1.96</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/XF12iY  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/XF12iY'" tppabs="http://nodejs.cn/s/XF12iY" rel="nofollow"><code>fs.read()</code></a> legacy <code>String</code> interface is deprecated. Use the <code>Buffer</code>
+API as mentioned in the documentation instead.</p>
+<p><a id="DEP0015" rel="nofollow"></a></p>
+<h3>DEP0015: fs.readSync legacy String interface<span><a class="mark" href="#deprecations_dep0015_fs_readsync_legacy_string_interface" id="deprecations_dep0015_fs_readsync_legacy_string_interface" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.1.96</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/oSgzGx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/oSgzGx'" tppabs="http://nodejs.cn/s/oSgzGx" rel="nofollow"><code>fs.readSync()</code></a> legacy <code>String</code> interface is deprecated. Use the
+<code>Buffer</code> API as mentioned in the documentation instead.</p>
+<p><a id="DEP0016" rel="nofollow"></a></p>
+<h3>DEP0016: GLOBAL/root<span><a class="mark" href="#deprecations_dep0016_global_root" id="deprecations_dep0016_global_root" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <code>GLOBAL</code> and <code>root</code> aliases for the <code>global</code> property are deprecated
+and should no longer be used.</p>
+<p><a id="DEP0017" rel="nofollow"></a></p>
+<h3>DEP0017: Intl.v8BreakIterator<span><a class="mark" href="#deprecations_dep0017_intl_v8breakiterator" id="deprecations_dep0017_intl_v8breakiterator" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v7.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p><code>Intl.v8BreakIterator</code> was a non-standard extension and has been removed.
+See <a href="javascript:if(confirm('https://github.com/tc39/proposal-intl-segmenter  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://github.com/tc39/proposal-intl-segmenter'" tppabs="https://github.com/tc39/proposal-intl-segmenter" rel="nofollow"><code>Intl.Segmenter</code></a>.</p>
+<p><a id="DEP0018" rel="nofollow"></a></p>
+<h3>DEP0018: Unhandled promise rejections<span><a class="mark" href="#deprecations_dep0018_unhandled_promise_rejections" id="deprecations_dep0018_unhandled_promise_rejections" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v7.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>Unhandled promise rejections are deprecated. In the future, promise rejections
+that are not handled will terminate the Node.js process with a non-zero exit
+code.</p>
+<p><a id="DEP0019" rel="nofollow"></a></p>
+<h3>DEP0019: require(&apos;.&apos;) resolved outside directory<span><a class="mark" href="#deprecations_dep0019_require_resolved_outside_directory" id="deprecations_dep0019_require_resolved_outside_directory" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v1.8.1</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>In certain cases, <code>require(&apos;.&apos;)</code> may resolve outside the package directory.
+This behavior is deprecated and will be removed in a future major Node.js
+release.</p>
+<p><a id="DEP0020" rel="nofollow"></a></p>
+<h3>DEP0020: Server.connections<span><a class="mark" href="#deprecations_dep0020_server_connections" id="deprecations_dep0020_server_connections" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.9.7</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/HBpL4H  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/HBpL4H'" tppabs="http://nodejs.cn/s/HBpL4H" rel="nofollow"><code>Server.connections</code></a> property is deprecated. Please use the
+<a href="javascript:if(confirm('http://nodejs.cn/s/9mG95C  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/9mG95C'" tppabs="http://nodejs.cn/s/9mG95C" rel="nofollow"><code>Server.getConnections()</code></a> method instead.</p>
+<p><a id="DEP0021" rel="nofollow"></a></p>
+<h3>DEP0021: Server.listenFD<span><a class="mark" href="#deprecations_dep0021_server_listenfd" id="deprecations_dep0021_server_listenfd" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.7.12</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <code>Server.listenFD()</code> method is deprecated. Please use
+<a href="javascript:if(confirm('http://nodejs.cn/s/mHsAku  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mHsAku'" tppabs="http://nodejs.cn/s/mHsAku" rel="nofollow"><code>Server.listen({fd: &lt;number&gt;})</code></a> instead.</p>
+<p><a id="DEP0022" rel="nofollow"></a></p>
+<h3>DEP0022: os.tmpDir()<span><a class="mark" href="#deprecations_dep0022_os_tmpdir" id="deprecations_dep0022_os_tmpdir" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v7.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <code>os.tmpDir()</code> API is deprecated. Please use <a href="javascript:if(confirm('http://nodejs.cn/s/Ee33U1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Ee33U1'" tppabs="http://nodejs.cn/s/Ee33U1" rel="nofollow"><code>os.tmpdir()</code></a> instead.</p>
+<p><a id="DEP0023" rel="nofollow"></a></p>
+<h3>DEP0023: os.getNetworkInterfaces()<span><a class="mark" href="#deprecations_dep0023_os_getnetworkinterfaces" id="deprecations_dep0023_os_getnetworkinterfaces" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.6.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <code>os.getNetworkInterfaces()</code> method is deprecated. Please use the
+<a href="javascript:if(confirm('http://nodejs.cn/s/jRofjk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jRofjk'" tppabs="http://nodejs.cn/s/jRofjk" rel="nofollow"><code>os.networkInterfaces</code></a> property instead.</p>
+<p><a id="DEP0024" rel="nofollow"></a></p>
+<h3>DEP0024: REPLServer.prototype.convertToContext()<span><a class="mark" href="#deprecations_dep0024_replserver_prototype_converttocontext" id="deprecations_dep0024_replserver_prototype_converttocontext" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v7.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>The <code>REPLServer.prototype.convertToContext()</code> API has been removed.</p>
+<p><a id="DEP0025" rel="nofollow"></a></p>
+<h3>DEP0025: require(&apos;sys&apos;)<span><a class="mark" href="#deprecations_dep0025_require_sys" id="deprecations_dep0025_require_sys" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v1.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <code>sys</code> module is deprecated. Please use the <a href="javascript:if(confirm('http://nodejs.cn/s/KMnvxU  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/KMnvxU'" tppabs="http://nodejs.cn/s/KMnvxU" rel="nofollow"><code>util</code></a> module instead.</p>
+<p><a id="DEP0026" rel="nofollow"></a></p>
+<h3>DEP0026: util.print()<span><a class="mark" href="#deprecations_dep0026_util_print" id="deprecations_dep0026_util_print" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.11.3</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/oMKRBw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/oMKRBw'" tppabs="http://nodejs.cn/s/oMKRBw" rel="nofollow"><code>util.print()</code></a> API is deprecated. Please use <a href="javascript:if(confirm('http://nodejs.cn/s/sUaBgC  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/sUaBgC'" tppabs="http://nodejs.cn/s/sUaBgC" rel="nofollow"><code>console.log()</code></a>
+instead.</p>
+<p><a id="DEP0027" rel="nofollow"></a></p>
+<h3>DEP0027: util.puts()<span><a class="mark" href="#deprecations_dep0027_util_puts" id="deprecations_dep0027_util_puts" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.11.3</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/LAqPGr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/LAqPGr'" tppabs="http://nodejs.cn/s/LAqPGr" rel="nofollow"><code>util.puts()</code></a> API is deprecated. Please use <a href="javascript:if(confirm('http://nodejs.cn/s/sUaBgC  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/sUaBgC'" tppabs="http://nodejs.cn/s/sUaBgC" rel="nofollow"><code>console.log()</code></a> instead.</p>
+<p><a id="DEP0028" rel="nofollow"></a></p>
+<h3>DEP0028: util.debug()<span><a class="mark" href="#deprecations_dep0028_util_debug" id="deprecations_dep0028_util_debug" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.11.3</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/ytZZjF  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ytZZjF'" tppabs="http://nodejs.cn/s/ytZZjF" rel="nofollow"><code>util.debug()</code></a> API is deprecated. Please use <a href="javascript:if(confirm('http://nodejs.cn/s/Xcs7Ni  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Xcs7Ni'" tppabs="http://nodejs.cn/s/Xcs7Ni" rel="nofollow"><code>console.error()</code></a>
+instead.</p>
+<p><a id="DEP0029" rel="nofollow"></a></p>
+<h3>DEP0029: util.error()<span><a class="mark" href="#deprecations_dep0029_util_error" id="deprecations_dep0029_util_error" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.11.3</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/xrPdgr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/xrPdgr'" tppabs="http://nodejs.cn/s/xrPdgr" rel="nofollow"><code>util.error()</code></a> API is deprecated. Please use <a href="javascript:if(confirm('http://nodejs.cn/s/Xcs7Ni  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Xcs7Ni'" tppabs="http://nodejs.cn/s/Xcs7Ni" rel="nofollow"><code>console.error()</code></a>
+instead.</p>
+<p><a id="DEP0030" rel="nofollow"></a></p>
+<h3>DEP0030: SlowBuffer<span><a class="mark" href="#deprecations_dep0030_slowbuffer" id="deprecations_dep0030_slowbuffer" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/4e26NB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/4e26NB'" tppabs="http://nodejs.cn/s/4e26NB" rel="nofollow"><code>SlowBuffer</code></a> class is deprecated. Please use
+<a href="javascript:if(confirm('http://nodejs.cn/s/PUENLw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PUENLw'" tppabs="http://nodejs.cn/s/PUENLw" rel="nofollow"><code>Buffer.allocUnsafeSlow(size)</code></a> instead.</p>
+<p><a id="DEP0031" rel="nofollow"></a></p>
+<h3>DEP0031: ecdh.setPublicKey()<span><a class="mark" href="#deprecations_dep0031_ecdh_setpublickey" id="deprecations_dep0031_ecdh_setpublickey" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v5.2.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/2aEEBG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/2aEEBG'" tppabs="http://nodejs.cn/s/2aEEBG" rel="nofollow"><code>ecdh.setPublicKey()</code></a> method is now deprecated as its inclusion in the
+API is not useful.</p>
+<p><a id="DEP0032" rel="nofollow"></a></p>
+<h3>DEP0032: domain module<span><a class="mark" href="#deprecations_dep0032_domain_module" id="deprecations_dep0032_domain_module" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v1.4.2</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/cnfQ9s  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/cnfQ9s'" tppabs="http://nodejs.cn/s/cnfQ9s" rel="nofollow"><code>domain</code></a> module is deprecated and should not be used.</p>
+<p><a id="DEP0033" rel="nofollow"></a></p>
+<h3>DEP0033: EventEmitter.listenerCount()<span><a class="mark" href="#deprecations_dep0033_eventemitter_listenercount" id="deprecations_dep0033_eventemitter_listenercount" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.2.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/tGFmBZ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tGFmBZ'" tppabs="http://nodejs.cn/s/tGFmBZ" rel="nofollow"><code>EventEmitter.listenerCount(emitter, eventName)</code></a> API is
+deprecated. Please use <a href="javascript:if(confirm('http://nodejs.cn/s/Xa1Jfm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Xa1Jfm'" tppabs="http://nodejs.cn/s/Xa1Jfm" rel="nofollow"><code>emitter.listenerCount(eventName)</code></a> instead.</p>
+<p><a id="DEP0034" rel="nofollow"></a></p>
+<h3>DEP0034: fs.exists(path, callback)<span><a class="mark" href="#deprecations_dep0034_fs_exists_path_callback" id="deprecations_dep0034_fs_exists_path_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v1.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/udxWhD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/udxWhD'" tppabs="http://nodejs.cn/s/udxWhD" rel="nofollow"><code>fs.exists(path, callback)</code></a> API is deprecated. Please use
+<a href="javascript:if(confirm('http://nodejs.cn/s/fdrjxj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fdrjxj'" tppabs="http://nodejs.cn/s/fdrjxj" rel="nofollow"><code>fs.stat()</code></a> or <a href="javascript:if(confirm('http://nodejs.cn/s/NCPsM3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/NCPsM3'" tppabs="http://nodejs.cn/s/NCPsM3" rel="nofollow"><code>fs.access()</code></a> instead.</p>
+<p><a id="DEP0035" rel="nofollow"></a></p>
+<h3>DEP0035: fs.lchmod(path, mode, callback)<span><a class="mark" href="#deprecations_dep0035_fs_lchmod_path_mode_callback" id="deprecations_dep0035_fs_lchmod_path_mode_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.4.7</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/wLWgT2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wLWgT2'" tppabs="http://nodejs.cn/s/wLWgT2" rel="nofollow"><code>fs.lchmod(path, mode, callback)</code></a> API is deprecated.</p>
+<p><a id="DEP0036" rel="nofollow"></a></p>
+<h3>DEP0036: fs.lchmodSync(path, mode)<span><a class="mark" href="#deprecations_dep0036_fs_lchmodsync_path_mode" id="deprecations_dep0036_fs_lchmodsync_path_mode" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.4.7</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/ifUz8B  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ifUz8B'" tppabs="http://nodejs.cn/s/ifUz8B" rel="nofollow"><code>fs.lchmodSync(path, mode)</code></a> API is deprecated.</p>
+<p><a id="DEP0037" rel="nofollow"></a></p>
+<h3>DEP0037: fs.lchown(path, uid, gid, callback)<span><a class="mark" href="#deprecations_dep0037_fs_lchown_path_uid_gid_callback" id="deprecations_dep0037_fs_lchown_path_uid_gid_callback" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.6.0</td>
+<td><p>Deprecation revoked.</p></td></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.4.7</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Deprecation revoked</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/DW4Fpd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/DW4Fpd'" tppabs="http://nodejs.cn/s/DW4Fpd" rel="nofollow"><code>fs.lchown(path, uid, gid, callback)</code></a> API is deprecated.</p>
+<p><a id="DEP0038" rel="nofollow"></a></p>
+<h3>DEP0038: fs.lchownSync(path, uid, gid)<span><a class="mark" href="#deprecations_dep0038_fs_lchownsync_path_uid_gid" id="deprecations_dep0038_fs_lchownsync_path_uid_gid" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.6.0</td>
+<td><p>Deprecation revoked.</p></td></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.4.7</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Deprecation revoked</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/RAifFx  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/RAifFx'" tppabs="http://nodejs.cn/s/RAifFx" rel="nofollow"><code>fs.lchownSync(path, uid, gid)</code></a> API is deprecated.</p>
+<p><a id="DEP0039" rel="nofollow"></a></p>
+<h3>DEP0039: require.extensions<span><a class="mark" href="#deprecations_dep0039_require_extensions" id="deprecations_dep0039_require_extensions" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.10.6</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/8jMPcU  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8jMPcU'" tppabs="http://nodejs.cn/s/8jMPcU" rel="nofollow"><code>require.extensions</code></a> property is deprecated.</p>
+<p><a id="DEP0040" rel="nofollow"></a></p>
+<h3>DEP0040: punycode module<span><a class="mark" href="#deprecations_dep0040_punycode_module" id="deprecations_dep0040_punycode_module" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v7.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/S4o5Hp  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/S4o5Hp'" tppabs="http://nodejs.cn/s/S4o5Hp" rel="nofollow"><code>punycode</code></a> module is deprecated. Please use a userland alternative
+instead.</p>
+<p><a id="DEP0041" rel="nofollow"></a></p>
+<h3>DEP0041: NODE_REPL_HISTORY_FILE environment variable<span><a class="mark" href="#deprecations_dep0041_node_repl_history_file_environment_variable" id="deprecations_dep0041_node_repl_history_file_environment_variable" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>The <code>NODE_REPL_HISTORY_FILE</code> environment variable was removed. Please use
+<code>NODE_REPL_HISTORY</code> instead.</p>
+<p><a id="DEP0042" rel="nofollow"></a></p>
+<h3>DEP0042: tls.CryptoStream<span><a class="mark" href="#deprecations_dep0042_tls_cryptostream" id="deprecations_dep0042_tls_cryptostream" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v0.11.3</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/gyytMk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gyytMk'" tppabs="http://nodejs.cn/s/gyytMk" rel="nofollow"><code>tls.CryptoStream</code></a> class was removed. Please use
+<a href="javascript:if(confirm('http://nodejs.cn/s/dLcPX8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/dLcPX8'" tppabs="http://nodejs.cn/s/dLcPX8" rel="nofollow"><code>tls.TLSSocket</code></a> instead.</p>
+<p><a id="DEP0043" rel="nofollow"></a></p>
+<h3>DEP0043: tls.SecurePair<span><a class="mark" href="#deprecations_dep0043_tls_securepair" id="deprecations_dep0043_tls_securepair" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+<tr><td>v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+<tr><td>v0.11.15</td>
+<td><p>Deprecation revoked.</p></td></tr>
+<tr><td>v0.11.3</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/Rf76be  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Rf76be'" tppabs="http://nodejs.cn/s/Rf76be" rel="nofollow"><code>tls.SecurePair</code></a> class is deprecated. Please use
+<a href="javascript:if(confirm('http://nodejs.cn/s/dLcPX8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/dLcPX8'" tppabs="http://nodejs.cn/s/dLcPX8" rel="nofollow"><code>tls.TLSSocket</code></a> instead.</p>
+<p><a id="DEP0044" rel="nofollow"></a></p>
+<h3>DEP0044: util.isArray()<span><a class="mark" href="#deprecations_dep0044_util_isarray" id="deprecations_dep0044_util_isarray" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/qxs6ro  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qxs6ro'" tppabs="http://nodejs.cn/s/qxs6ro" rel="nofollow"><code>util.isArray()</code></a> API is deprecated. Please use <code>Array.isArray()</code>
+instead.</p>
+<p><a id="DEP0045" rel="nofollow"></a></p>
+<h3>DEP0045: util.isBoolean()<span><a class="mark" href="#deprecations_dep0045_util_isboolean" id="deprecations_dep0045_util_isboolean" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/ea3mJ8  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ea3mJ8'" tppabs="http://nodejs.cn/s/ea3mJ8" rel="nofollow"><code>util.isBoolean()</code></a> API is deprecated.</p>
+<p><a id="DEP0046" rel="nofollow"></a></p>
+<h3>DEP0046: util.isBuffer()<span><a class="mark" href="#deprecations_dep0046_util_isbuffer" id="deprecations_dep0046_util_isbuffer" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/SZ4X43  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SZ4X43'" tppabs="http://nodejs.cn/s/SZ4X43" rel="nofollow"><code>util.isBuffer()</code></a> API is deprecated. Please use
+<a href="javascript:if(confirm('http://nodejs.cn/s/6M5qy2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/6M5qy2'" tppabs="http://nodejs.cn/s/6M5qy2" rel="nofollow"><code>Buffer.isBuffer()</code></a> instead.</p>
+<p><a id="DEP0047" rel="nofollow"></a></p>
+<h3>DEP0047: util.isDate()<span><a class="mark" href="#deprecations_dep0047_util_isdate" id="deprecations_dep0047_util_isdate" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/j1kGnQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/j1kGnQ'" tppabs="http://nodejs.cn/s/j1kGnQ" rel="nofollow"><code>util.isDate()</code></a> API is deprecated.</p>
+<p><a id="DEP0048" rel="nofollow"></a></p>
+<h3>DEP0048: util.isError()<span><a class="mark" href="#deprecations_dep0048_util_iserror" id="deprecations_dep0048_util_iserror" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/ZC2DtT  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ZC2DtT'" tppabs="http://nodejs.cn/s/ZC2DtT" rel="nofollow"><code>util.isError()</code></a> API is deprecated.</p>
+<p><a id="DEP0049" rel="nofollow"></a></p>
+<h3>DEP0049: util.isFunction()<span><a class="mark" href="#deprecations_dep0049_util_isfunction" id="deprecations_dep0049_util_isfunction" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/gbR6L6  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gbR6L6'" tppabs="http://nodejs.cn/s/gbR6L6" rel="nofollow"><code>util.isFunction()</code></a> API is deprecated.</p>
+<p><a id="DEP0050" rel="nofollow"></a></p>
+<h3>DEP0050: util.isNull()<span><a class="mark" href="#deprecations_dep0050_util_isnull" id="deprecations_dep0050_util_isnull" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/PhACq9  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PhACq9'" tppabs="http://nodejs.cn/s/PhACq9" rel="nofollow"><code>util.isNull()</code></a> API is deprecated.</p>
+<p><a id="DEP0051" rel="nofollow"></a></p>
+<h3>DEP0051: util.isNullOrUndefined()<span><a class="mark" href="#deprecations_dep0051_util_isnullorundefined" id="deprecations_dep0051_util_isnullorundefined" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/ufCozB  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/ufCozB'" tppabs="http://nodejs.cn/s/ufCozB" rel="nofollow"><code>util.isNullOrUndefined()</code></a> API is deprecated.</p>
+<p><a id="DEP0052" rel="nofollow"></a></p>
+<h3>DEP0052: util.isNumber()<span><a class="mark" href="#deprecations_dep0052_util_isnumber" id="deprecations_dep0052_util_isnumber" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/b7jA8q  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/b7jA8q'" tppabs="http://nodejs.cn/s/b7jA8q" rel="nofollow"><code>util.isNumber()</code></a> API is deprecated.</p>
+<p><a id="DEP0053" rel="nofollow"></a></p>
+<h3>DEP0053 util.isObject()<span><a class="mark" href="#deprecations_dep0053_util_isobject" id="deprecations_dep0053_util_isobject" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/Lu6qT1  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Lu6qT1'" tppabs="http://nodejs.cn/s/Lu6qT1" rel="nofollow"><code>util.isObject()</code></a> API is deprecated.</p>
+<p><a id="DEP0054" rel="nofollow"></a></p>
+<h3>DEP0054: util.isPrimitive()<span><a class="mark" href="#deprecations_dep0054_util_isprimitive" id="deprecations_dep0054_util_isprimitive" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/TkRbyR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/TkRbyR'" tppabs="http://nodejs.cn/s/TkRbyR" rel="nofollow"><code>util.isPrimitive()</code></a> API is deprecated.</p>
+<p><a id="DEP0055" rel="nofollow"></a></p>
+<h3>DEP0055: util.isRegExp()<span><a class="mark" href="#deprecations_dep0055_util_isregexp" id="deprecations_dep0055_util_isregexp" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/Kse8yN  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Kse8yN'" tppabs="http://nodejs.cn/s/Kse8yN" rel="nofollow"><code>util.isRegExp()</code></a> API is deprecated.</p>
+<p><a id="DEP0056" rel="nofollow"></a></p>
+<h3>DEP0056: util.isString()<span><a class="mark" href="#deprecations_dep0056_util_isstring" id="deprecations_dep0056_util_isstring" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/W6EW85  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/W6EW85'" tppabs="http://nodejs.cn/s/W6EW85" rel="nofollow"><code>util.isString()</code></a> API is deprecated.</p>
+<p><a id="DEP0057" rel="nofollow"></a></p>
+<h3>DEP0057: util.isSymbol()<span><a class="mark" href="#deprecations_dep0057_util_issymbol" id="deprecations_dep0057_util_issymbol" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/byHEvD  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/byHEvD'" tppabs="http://nodejs.cn/s/byHEvD" rel="nofollow"><code>util.isSymbol()</code></a> API is deprecated.</p>
+<p><a id="DEP0058" rel="nofollow"></a></p>
+<h3>DEP0058: util.isUndefined()<span><a class="mark" href="#deprecations_dep0058_util_isundefined" id="deprecations_dep0058_util_isundefined" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v4.8.6, v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v3.3.1, v4.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/u6cWGN  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/u6cWGN'" tppabs="http://nodejs.cn/s/u6cWGN" rel="nofollow"><code>util.isUndefined()</code></a> API is deprecated.</p>
+<p><a id="DEP0059" rel="nofollow"></a></p>
+<h3>DEP0059: util.log()<span><a class="mark" href="#deprecations_dep0059_util_log" id="deprecations_dep0059_util_log" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/UXGxMY  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UXGxMY'" tppabs="http://nodejs.cn/s/UXGxMY" rel="nofollow"><code>util.log()</code></a> API is deprecated.</p>
+<p><a id="DEP0060" rel="nofollow"></a></p>
+<h3>DEP0060: util._extend()<span><a class="mark" href="#deprecations_dep0060_util_extend" id="deprecations_dep0060_util_extend" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/jbNd9A  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/jbNd9A'" tppabs="http://nodejs.cn/s/jbNd9A" rel="nofollow"><code>util._extend()</code></a> API is deprecated.</p>
+<p><a id="DEP0061" rel="nofollow"></a></p>
+<h3>DEP0061: fs.SyncWriteStream<span><a class="mark" href="#deprecations_dep0061_fs_syncwritestream" id="deprecations_dep0061_fs_syncwritestream" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+<tr><td>v7.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <code>fs.SyncWriteStream</code> class was never intended to be a publicly accessible
+API. No alternative API is available. Please use a userland alternative.</p>
+<p><a id="DEP0062" rel="nofollow"></a></p>
+<h3>DEP0062: node --debug<span><a class="mark" href="#deprecations_dep0062_node_debug" id="deprecations_dep0062_node_debug" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p><code>--debug</code> activates the legacy V8 debugger interface, which was removed as
+of V8 5.8. It is replaced by Inspector which is activated with <code>--inspect</code>
+instead.</p>
+<p><a id="DEP0063" rel="nofollow"></a></p>
+<h3>DEP0063: ServerResponse.prototype.writeHeader()<span><a class="mark" href="#deprecations_dep0063_serverresponse_prototype_writeheader" id="deprecations_dep0063_serverresponse_prototype_writeheader" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <code>http</code> module <code>ServerResponse.prototype.writeHeader()</code> API is
+deprecated. Please use <code>ServerResponse.prototype.writeHead()</code> instead.</p>
+<p>The <code>ServerResponse.prototype.writeHeader()</code> method was never documented as an
+officially supported API.</p>
+<p><a id="DEP0064" rel="nofollow"></a></p>
+<h3>DEP0064: tls.createSecurePair()<span><a class="mark" href="#deprecations_dep0064_tls_createsecurepair" id="deprecations_dep0064_tls_createsecurepair" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+<tr><td>v6.12.0</td>
+<td><p>A deprecation code has been assigned.</p></td></tr>
+<tr><td>v6.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+<tr><td>v0.11.15</td>
+<td><p>Deprecation revoked.</p></td></tr>
+<tr><td>v0.11.3</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <code>tls.createSecurePair()</code> API was deprecated in documentation in Node.js
+0.11.3. Users should use <code>tls.Socket</code> instead.</p>
+<p><a id="DEP0065" rel="nofollow"></a></p>
+<h3>DEP0065: repl.REPL_MODE_MAGIC and NODE_REPL_MODE=magic<span><a class="mark" href="#deprecations_dep0065_repl_repl_mode_magic_and_node_repl_mode_magic" id="deprecations_dep0065_repl_repl_mode_magic_and_node_repl_mode_magic" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v8.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>The <code>repl</code> module&apos;s <code>REPL_MODE_MAGIC</code> constant, used for <code>replMode</code> option, has
+been removed. Its behavior has been functionally identical to that of
+<code>REPL_MODE_SLOPPY</code> since Node.js 6.0.0, when V8 5.0 was imported. Please use
+<code>REPL_MODE_SLOPPY</code> instead.</p>
+<p>The <code>NODE_REPL_MODE</code> environment variable is used to set the underlying
+<code>replMode</code> of an interactive <code>node</code> session. Its value, <code>magic</code>, is also
+removed. Please use <code>sloppy</code> instead.</p>
+<p><a id="DEP0066" rel="nofollow"></a></p>
+<h3>DEP0066: outgoingMessage._headers, outgoingMessage._headerNames<span><a class="mark" href="#deprecations_dep0066_outgoingmessage_headers_outgoingmessage_headernames" id="deprecations_dep0066_outgoingmessage_headers_outgoingmessage_headernames" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <code>http</code> module <code>outgoingMessage._headers</code> and <code>outgoingMessage._headerNames</code>
+properties are deprecated. Use one of the public methods
+(e.g. <code>outgoingMessage.getHeader()</code>, <code>outgoingMessage.getHeaders()</code>,
+<code>outgoingMessage.getHeaderNames()</code>, <code>outgoingMessage.hasHeader()</code>,
+<code>outgoingMessage.removeHeader()</code>, <code>outgoingMessage.setHeader()</code>) for working
+with outgoing headers.</p>
+<p>The <code>outgoingMessage._headers</code> and <code>outgoingMessage._headerNames</code> properties
+were never documented as officially supported properties.</p>
+<p><a id="DEP0067" rel="nofollow"></a></p>
+<h3>DEP0067: OutgoingMessage.prototype._renderHeaders<span><a class="mark" href="#deprecations_dep0067_outgoingmessage_prototype_renderheaders" id="deprecations_dep0067_outgoingmessage_prototype_renderheaders" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <code>http</code> module <code>OutgoingMessage.prototype._renderHeaders()</code> API is
+deprecated.</p>
+<p>The <code>OutgoingMessage.prototype._renderHeaders</code> property was never documented as
+an officially supported API.</p>
+<p><a id="DEP0068" rel="nofollow"></a></p>
+<h3>DEP0068: node debug<span><a class="mark" href="#deprecations_dep0068_node_debug" id="deprecations_dep0068_node_debug" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p><code>node debug</code> corresponds to the legacy CLI debugger which has been replaced with
+a V8-inspector based CLI debugger available through <code>node inspect</code>.</p>
+<p><a id="DEP0069" rel="nofollow"></a></p>
+<h3>DEP0069: vm.runInDebugContext(string)<span><a class="mark" href="#deprecations_dep0069_vm_runindebugcontext_string" id="deprecations_dep0069_vm_runindebugcontext_string" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v9.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+<tr><td>v8.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>DebugContext has been removed in V8 and is not available in Node.js 10+.</p>
+<p>DebugContext was an experimental API.</p>
+<p><a id="DEP0070" rel="nofollow"></a></p>
+<h3>DEP0070: async_hooks.currentId()<span><a class="mark" href="#deprecations_dep0070_async_hooks_currentid" id="deprecations_dep0070_async_hooks_currentid" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v8.2.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p><code>async_hooks.currentId()</code> was renamed to <code>async_hooks.executionAsyncId()</code> for
+clarity.</p>
+<p>This change was made while <code>async_hooks</code> was an experimental API.</p>
+<p><a id="DEP0071" rel="nofollow"></a></p>
+<h3>DEP0071: async_hooks.triggerId()<span><a class="mark" href="#deprecations_dep0071_async_hooks_triggerid" id="deprecations_dep0071_async_hooks_triggerid" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v8.2.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p><code>async_hooks.triggerId()</code> was renamed to <code>async_hooks.triggerAsyncId()</code> for
+clarity.</p>
+<p>This change was made while <code>async_hooks</code> was an experimental API.</p>
+<p><a id="DEP0072" rel="nofollow"></a></p>
+<h3>DEP0072: async_hooks.AsyncResource.triggerId()<span><a class="mark" href="#deprecations_dep0072_async_hooks_asyncresource_triggerid" id="deprecations_dep0072_async_hooks_asyncresource_triggerid" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v8.2.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p><code>async_hooks.AsyncResource.triggerId()</code> was renamed to
+<code>async_hooks.AsyncResource.triggerAsyncId()</code> for clarity.</p>
+<p>This change was made while <code>async_hooks</code> was an experimental API.</p>
+<p><a id="DEP0073" rel="nofollow"></a></p>
+<h3>DEP0073: Several internal properties of net.Server<span><a class="mark" href="#deprecations_dep0073_several_internal_properties_of_net_server" id="deprecations_dep0073_several_internal_properties_of_net_server" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v9.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>Accessing several internal, undocumented properties of <code>net.Server</code> instances
+with inappropriate names is deprecated.</p>
+<p>As the original API was undocumented and not generally useful for non-internal
+code, no replacement API is provided.</p>
+<p><a id="DEP0074" rel="nofollow"></a></p>
+<h3>DEP0074: REPLServer.bufferedCommand<span><a class="mark" href="#deprecations_dep0074_replserver_bufferedcommand" id="deprecations_dep0074_replserver_bufferedcommand" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <code>REPLServer.bufferedCommand</code> property was deprecated in favor of
+<a href="javascript:if(confirm('http://nodejs.cn/s/5afryk  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5afryk'" tppabs="http://nodejs.cn/s/5afryk" rel="nofollow"><code>REPLServer.clearBufferedCommand()</code></a>.</p>
+<p><a id="DEP0075" rel="nofollow"></a></p>
+<h3>DEP0075: REPLServer.parseREPLKeyword()<span><a class="mark" href="#deprecations_dep0075_replserver_parsereplkeyword" id="deprecations_dep0075_replserver_parsereplkeyword" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p><code>REPLServer.parseREPLKeyword()</code> was removed from userland visibility.</p>
+<p><a id="DEP0076" rel="nofollow"></a></p>
+<h3>DEP0076: tls.parseCertString()<span><a class="mark" href="#deprecations_dep0076_tls_parsecertstring" id="deprecations_dep0076_tls_parsecertstring" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="dep0076_tls_parsecertstring.html" tppabs="http://nodejs.cn/api/deprecations/dep0076_tls_parsecertstring.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+<tr><td>v8.6.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p><code>tls.parseCertString()</code> is a trivial parsing helper that was made public by
+mistake. This function can usually be replaced with:</p>
+<pre><code class="language-js">const querystring = require(&apos;querystring&apos;);
+querystring.parse(str, &apos;\n&apos;, &apos;=&apos;);
+</code></pre>
+<p>This function is not completely equivalent to <code>querystring.parse()</code>. One
+difference is that <code>querystring.parse()</code> does url decoding:</p>
+<pre><code class="language-sh">&gt; querystring.parse(&apos;%E5%A5%BD=1&apos;, &apos;\n&apos;, &apos;=&apos;);
+{ &apos;&#x597D;&apos;: &apos;1&apos; }
+&gt; tls.parseCertString(&apos;%E5%A5%BD=1&apos;);
+{ &apos;%E5%A5%BD&apos;: &apos;1&apos; }
+</code></pre>
+<p><a id="DEP0077" rel="nofollow"></a></p>
+<h3>DEP0077: Module._debug()<span><a class="mark" href="#deprecations_dep0077_module_debug" id="deprecations_dep0077_module_debug" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p><code>Module._debug()</code> is deprecated.</p>
+<p>The <code>Module._debug()</code> function was never documented as an officially
+supported API.</p>
+<p><a id="DEP0078" rel="nofollow"></a></p>
+<h3>DEP0078: REPLServer.turnOffEditorMode()<span><a class="mark" href="#deprecations_dep0078_replserver_turnoffeditormode" id="deprecations_dep0078_replserver_turnoffeditormode" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p><code>REPLServer.turnOffEditorMode()</code> was removed from userland visibility.</p>
+<p><a id="DEP0079" rel="nofollow"></a></p>
+<h3>DEP0079: Custom inspection function on Objects via .inspect()<span><a class="mark" href="#deprecations_dep0079_custom_inspection_function_on_objects_via_inspect" id="deprecations_dep0079_custom_inspection_function_on_objects_via_inspect" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+<tr><td>v8.7.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>Using a property named <code>inspect</code> on an object to specify a custom inspection
+function for <a href="javascript:if(confirm('http://nodejs.cn/s/fHaJzA  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fHaJzA'" tppabs="http://nodejs.cn/s/fHaJzA" rel="nofollow"><code>util.inspect()</code></a> is deprecated. Use <a href="javascript:if(confirm('http://nodejs.cn/s/huEmpd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/huEmpd'" tppabs="http://nodejs.cn/s/huEmpd" rel="nofollow"><code>util.inspect.custom</code></a>
+instead. For backward compatibility with Node.js prior to version 6.4.0, both
+may be specified.</p>
+<p><a id="DEP0080" rel="nofollow"></a></p>
+<h3>DEP0080: path._makeLong()<span><a class="mark" href="#deprecations_dep0080_path_makelong" id="deprecations_dep0080_path_makelong" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The internal <code>path._makeLong()</code> was not intended for public use. However,
+userland modules have found it useful. The internal API is deprecated
+and replaced with an identical, public <code>path.toNamespacedPath()</code> method.</p>
+<p><a id="DEP0081" rel="nofollow"></a></p>
+<h3>DEP0081: fs.truncate() using a file descriptor<span><a class="mark" href="#deprecations_dep0081_fs_truncate_using_a_file_descriptor" id="deprecations_dep0081_fs_truncate_using_a_file_descriptor" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p><code>fs.truncate()</code> <code>fs.truncateSync()</code> usage with a file descriptor is
+deprecated. Please use <code>fs.ftruncate()</code> or <code>fs.ftruncateSync()</code> to work with
+file descriptors.</p>
+<p><a id="DEP0082" rel="nofollow"></a></p>
+<h3>DEP0082: REPLServer.prototype.memory()<span><a class="mark" href="#deprecations_dep0082_replserver_prototype_memory" id="deprecations_dep0082_replserver_prototype_memory" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p><code>REPLServer.prototype.memory()</code> is only necessary for the internal mechanics of
+the <code>REPLServer</code> itself. Do not use this function.</p>
+<p><a id="DEP0083" rel="nofollow"></a></p>
+<h3>DEP0083: Disabling ECDH by setting ecdhCurve to false<span><a class="mark" href="#deprecations_dep0083_disabling_ecdh_by_setting_ecdhcurve_to_false" id="deprecations_dep0083_disabling_ecdh_by_setting_ecdhcurve_to_false" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v9.2.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life.</p>
+<p>The <code>ecdhCurve</code> option to <code>tls.createSecureContext()</code> and <code>tls.TLSSocket</code> could
+be set to <code>false</code> to disable ECDH entirely on the server only. This mode was
+deprecated in preparation for migrating to OpenSSL 1.1.0 and consistency with
+the client and is now unsupported. Use the <code>ciphers</code> parameter instead.</p>
+<p><a id="DEP0084" rel="nofollow"></a></p>
+<h3>DEP0084: requiring bundled internal dependencies<span><a class="mark" href="#deprecations_dep0084_requiring_bundled_internal_dependencies" id="deprecations_dep0084_requiring_bundled_internal_dependencies" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>Since Node.js versions 4.4.0 and 5.2.0, several modules only intended for
+internal usage are mistakenly exposed to user code through <code>require()</code>. These
+modules are:</p>
+<ul>
+<li><code>v8/tools/codemap</code></li>
+<li><code>v8/tools/consarray</code></li>
+<li><code>v8/tools/csvparser</code></li>
+<li><code>v8/tools/logreader</code></li>
+<li><code>v8/tools/profile_view</code></li>
+<li><code>v8/tools/profile</code></li>
+<li><code>v8/tools/SourceMap</code></li>
+<li><code>v8/tools/splaytree</code></li>
+<li><code>v8/tools/tickprocessor-driver</code></li>
+<li><code>v8/tools/tickprocessor</code></li>
+<li><code>node-inspect/lib/_inspect</code> (from 7.6.0)</li>
+<li><code>node-inspect/lib/internal/inspect_client</code> (from 7.6.0)</li>
+<li><code>node-inspect/lib/internal/inspect_repl</code> (from 7.6.0)</li>
+</ul>
+<p>The <code>v8/*</code> modules do not have any exports, and if not imported in a specific
+order would in fact throw errors. As such there are virtually no legitimate use
+cases for importing them through <code>require()</code>.</p>
+<p>On the other hand, <code>node-inspect</code> may be installed locally through a package
+manager, as it is published on the npm registry under the same name. No source
+code modification is necessary if that is done.</p>
+<p><a id="DEP0085" rel="nofollow"></a></p>
+<h3>DEP0085: AsyncHooks Sensitive API<span><a class="mark" href="#deprecations_dep0085_asynchooks_sensitive_api" id="deprecations_dep0085_asynchooks_sensitive_api" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>10.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v8.10.0, v9.4.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>The AsyncHooks Sensitive API was never documented and had various minor issues.
+(See <a href="javascript:if(confirm('https://github.com/nodejs/node/issues/15572  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://github.com/nodejs/node/issues/15572'" tppabs="https://github.com/nodejs/node/issues/15572" rel="nofollow">https://github.com/nodejs/node/issues/15572</a>.) Use the <code>AsyncResource</code>
+API instead.</p>
+<p><a id="DEP0086" rel="nofollow"></a></p>
+<h3>DEP0086: Remove runInAsyncIdScope<span><a class="mark" href="#deprecations_dep0086_remove_runinasyncidscope" id="deprecations_dep0086_remove_runinasyncidscope" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>10.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+<tr><td>v8.10.0, v9.4.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p><code>runInAsyncIdScope</code> doesn&apos;t emit the <code>&apos;before&apos;</code> or <code>&apos;after&apos;</code> event and can thus
+cause a lot of issues. See <a href="javascript:if(confirm('https://github.com/nodejs/node/issues/14328  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://github.com/nodejs/node/issues/14328'" tppabs="https://github.com/nodejs/node/issues/14328" rel="nofollow">https://github.com/nodejs/node/issues/14328</a> for
+more details.</p>
+<p><a id="DEP0089" rel="nofollow"></a></p>
+<h3>DEP0089: require(&apos;assert&apos;)<span><a class="mark" href="#deprecations_dep0089_require_assert" id="deprecations_dep0089_require_assert" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v9.9.0, v10.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>Importing assert directly is not recommended as the exposed functions will use
+loose equality checks. Use <code>require(&apos;assert&apos;).strict</code> instead. The API is the
+same as the legacy assert but it will always use strict equality checks.</p>
+<p><a id="DEP0090" rel="nofollow"></a></p>
+<h3>DEP0090: Invalid GCM authentication tag lengths<span><a class="mark" href="#deprecations_dep0090_invalid_gcm_authentication_tag_lengths" id="deprecations_dep0090_invalid_gcm_authentication_tag_lengths" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>Node.js supports all GCM authentication tag lengths which are accepted by
+OpenSSL when calling <a href="javascript:if(confirm('http://nodejs.cn/s/vWQHdC  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vWQHdC'" tppabs="http://nodejs.cn/s/vWQHdC" rel="nofollow"><code>decipher.setAuthTag()</code></a>. This behavior will change in
+a future version at which point only authentication tag lengths of 128, 120,
+112, 104, 96, 64, and 32 bits will be allowed. Authentication tags whose length
+is not included in this list will be considered invalid in compliance with
+<a href="javascript:if(confirm('http://nodejs.cn/s/G26eau  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/G26eau'" tppabs="http://nodejs.cn/s/G26eau" rel="nofollow">NIST SP 800-38D</a>.</p>
+<p><a id="DEP0091" rel="nofollow"></a></p>
+<h3>DEP0091: crypto.DEFAULT_ENCODING<span><a class="mark" href="#deprecations_dep0091_crypto_default_encoding" id="deprecations_dep0091_crypto_default_encoding" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/f9dWkv  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/f9dWkv'" tppabs="http://nodejs.cn/s/f9dWkv" rel="nofollow"><code>crypto.DEFAULT_ENCODING</code></a> property is deprecated.</p>
+<p><a id="DEP0092" rel="nofollow"></a></p>
+<h3>DEP0092: Top-level `this` bound to `module.exports`<span><a class="mark" href="#deprecations_dep0092_top_level_this_bound_to_module_exports" id="deprecations_dep0092_top_level_this_bound_to_module_exports" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>Assigning properties to the top-level <code>this</code> as an alternative
+to <code>module.exports</code> is deprecated. Developers should use <code>exports</code>
+or <code>module.exports</code> instead.</p>
+<p><a id="DEP0093" rel="nofollow"></a></p>
+<h3>DEP0093: crypto.fips is deprecated and replaced.<span><a class="mark" href="#deprecations_dep0093_crypto_fips_is_deprecated_and_replaced" id="deprecations_dep0093_crypto_fips_is_deprecated_and_replaced" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <a href="javascript:if(confirm('http://nodejs.cn/s/bvudz7  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/bvudz7'" tppabs="http://nodejs.cn/s/bvudz7" rel="nofollow"><code>crypto.fips</code></a> property is deprecated. Please use <code>crypto.setFips()</code>
+and <code>crypto.getFips()</code> instead.</p>
+<p><a id="DEP0094" rel="nofollow"></a></p>
+<h3>DEP0094: Using `assert.fail()` with more than one argument.<span><a class="mark" href="#deprecations_dep0094_using_assert_fail_with_more_than_one_argument" id="deprecations_dep0094_using_assert_fail_with_more_than_one_argument" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>Using <code>assert.fail()</code> with more than one argument is deprecated. Use
+<code>assert.fail()</code> with only one argument or use a different <code>assert</code> module
+method.</p>
+<p><a id="DEP0095" rel="nofollow"></a></p>
+<h3>DEP0095: timers.enroll()<span><a class="mark" href="#deprecations_dep0095_timers_enroll" id="deprecations_dep0095_timers_enroll" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p><code>timers.enroll()</code> is deprecated. Please use the publicly documented
+<a href="javascript:if(confirm('http://nodejs.cn/s/UxXb1y  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/UxXb1y'" tppabs="http://nodejs.cn/s/UxXb1y" rel="nofollow"><code>setTimeout()</code></a> or <a href="javascript:if(confirm('http://nodejs.cn/s/hWCq4X  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/hWCq4X'" tppabs="http://nodejs.cn/s/hWCq4X" rel="nofollow"><code>setInterval()</code></a> instead.</p>
+<p><a id="DEP0096" rel="nofollow"></a></p>
+<h3>DEP0096: timers.unenroll()<span><a class="mark" href="#deprecations_dep0096_timers_unenroll" id="deprecations_dep0096_timers_unenroll" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p><code>timers.unenroll()</code> is deprecated. Please use the publicly documented
+<a href="javascript:if(confirm('http://nodejs.cn/s/L4L2Xr  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/L4L2Xr'" tppabs="http://nodejs.cn/s/L4L2Xr" rel="nofollow"><code>clearTimeout()</code></a> or <a href="javascript:if(confirm('http://nodejs.cn/s/zRW98q  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/zRW98q'" tppabs="http://nodejs.cn/s/zRW98q" rel="nofollow"><code>clearInterval()</code></a> instead.</p>
+<p><a id="DEP0097" rel="nofollow"></a></p>
+<h3>DEP0097: MakeCallback with domain property<span><a class="mark" href="#deprecations_dep0097_makecallback_with_domain_property" id="deprecations_dep0097_makecallback_with_domain_property" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>Users of <code>MakeCallback</code> that add the <code>domain</code> property to carry context,
+should start using the <code>async_context</code> variant of <code>MakeCallback</code> or
+<code>CallbackScope</code>, or the high-level <code>AsyncResource</code> class.</p>
+<p><a id="DEP0098" rel="nofollow"></a></p>
+<h3>DEP0098: AsyncHooks Embedder AsyncResource.emitBefore and AsyncResource.emitAfter APIs<span><a class="mark" href="#deprecations_dep0098_asynchooks_embedder_asyncresource_emitbefore_and_asyncresource_emitafter_apis" id="deprecations_dep0098_asynchooks_embedder_asyncresource_emitbefore_and_asyncresource_emitafter_apis" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v8.12.0, v9.6.0, v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>The embedded API provided by AsyncHooks exposes <code>.emitBefore()</code> and
+<code>.emitAfter()</code> methods which are very easy to use incorrectly which can lead
+to unrecoverable errors.</p>
+<p>Use <a href="javascript:if(confirm('http://nodejs.cn/s/veEqQh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/veEqQh'" tppabs="http://nodejs.cn/s/veEqQh" rel="nofollow"><code>asyncResource.runInAsyncScope()</code></a> API instead which provides a much
+safer, and more convenient, alternative. See
+<a href="javascript:if(confirm('https://github.com/nodejs/node/pull/18513  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://github.com/nodejs/node/pull/18513'" tppabs="https://github.com/nodejs/node/pull/18513" rel="nofollow">https://github.com/nodejs/node/pull/18513</a> for more details.</p>
+<p><a id="DEP0099" rel="nofollow"></a></p>
+<h3>DEP0099: async context-unaware node::MakeCallback C++ APIs<span><a class="mark" href="#deprecations_dep0099_async_context_unaware_node_makecallback_c_apis" id="deprecations_dep0099_async_context_unaware_node_makecallback_c_apis" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Compile-time deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Compile-time</p>
+<p>Certain versions of <code>node::MakeCallback</code> APIs available to native modules are
+deprecated. Please use the versions of the API that accept an <code>async_context</code>
+parameter.</p>
+<p><a id="DEP0100" rel="nofollow"></a></p>
+<h3>DEP0100: process.assert()<span><a class="mark" href="#deprecations_dep0100_process_assert" id="deprecations_dep0100_process_assert" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+<tr><td>v0.3.7</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p><code>process.assert()</code> is deprecated. Please use the <a href="javascript:if(confirm('http://nodejs.cn/s/rLJz41  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rLJz41'" tppabs="http://nodejs.cn/s/rLJz41" rel="nofollow"><code>assert</code></a> module instead.</p>
+<p>This was never a documented feature.</p>
+<p><a id="DEP0101" rel="nofollow"></a></p>
+<h3>DEP0101: --with-lttng<span><a class="mark" href="#deprecations_dep0101_with_lttng" id="deprecations_dep0101_with_lttng" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>The <code>--with-lttng</code> compile-time option has been removed.</p>
+<p><a id="DEP0102" rel="nofollow"></a></p>
+<h3>DEP0102: Using `noAssert` in Buffer#(read|write) operations.<span><a class="mark" href="#deprecations_dep0102_using_noassert_in_buffer_read_write_operations" id="deprecations_dep0102_using_noassert_in_buffer_read_write_operations" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>End-of-Life.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: End-of-Life</p>
+<p>Using the <code>noAssert</code> argument has no functionality anymore. All input is going
+to be verified, no matter if it is set to true or not. Skipping the verification
+could lead to hard to find errors and crashes.</p>
+<p><a id="DEP0103" rel="nofollow"></a></p>
+<h3>DEP0103: process.binding(&apos;util&apos;).is[...] typechecks<span><a class="mark" href="#deprecations_dep0103_process_binding_util_is_typechecks" id="deprecations_dep0103_process_binding_util_is_typechecks" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.9.0</td>
+<td><p>Superseded by <a href="#DEP0111" rel="nofollow">DEP0111</a>.</p></td></tr>
+<tr><td>v10.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only (supports <a href="javascript:if(confirm('http://nodejs.cn/s/gDqtYd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gDqtYd'" tppabs="http://nodejs.cn/s/gDqtYd" rel="nofollow"><code>--pending-deprecation</code></a>)</p>
+<p>Using <code>process.binding()</code> in general should be avoided. The type checking
+methods in particular can be replaced by using <a href="javascript:if(confirm('http://nodejs.cn/s/wzFtpw  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wzFtpw'" tppabs="http://nodejs.cn/s/wzFtpw" rel="nofollow"><code>util.types</code></a>.</p>
+<p>This deprecation has been superseded by the deprecation of the
+<code>process.binding()</code> API (<a href="#DEP0111" rel="nofollow">DEP0111</a>).</p>
+<p><a id="DEP0104" rel="nofollow"></a></p>
+<h3>DEP0104: process.env string coercion<span><a class="mark" href="#deprecations_dep0104_process_env_string_coercion" id="deprecations_dep0104_process_env_string_coercion" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only (supports <a href="javascript:if(confirm('http://nodejs.cn/s/gDqtYd  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/gDqtYd'" tppabs="http://nodejs.cn/s/gDqtYd" rel="nofollow"><code>--pending-deprecation</code></a>)</p>
+<p>When assigning a non-string property to <a href="javascript:if(confirm('http://nodejs.cn/s/vFJ6HL  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/vFJ6HL'" tppabs="http://nodejs.cn/s/vFJ6HL" rel="nofollow"><code>process.env</code></a>, the assigned value is
+implicitly converted to a string. This behavior is deprecated if the assigned
+value is not a string, boolean, or number. In the future, such assignment may
+result in a thrown error. Please convert the property to a string before
+assigning it to <code>process.env</code>.</p>
+<p><a id="DEP0105" rel="nofollow"></a></p>
+<h3>DEP0105: decipher.finaltol<span><a class="mark" href="#deprecations_dep0105_decipher_finaltol" id="deprecations_dep0105_decipher_finaltol" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p><code>decipher.finaltol()</code> has never been documented and is currently an alias for
+<a href="javascript:if(confirm('http://nodejs.cn/s/Bjv3UK  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Bjv3UK'" tppabs="http://nodejs.cn/s/Bjv3UK" rel="nofollow"><code>decipher.final()</code></a>. In the future, this API will likely be removed, and it
+is recommended to use <a href="javascript:if(confirm('http://nodejs.cn/s/Bjv3UK  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Bjv3UK'" tppabs="http://nodejs.cn/s/Bjv3UK" rel="nofollow"><code>decipher.final()</code></a> instead.</p>
+<p><a id="DEP0106" rel="nofollow"></a></p>
+<h3>DEP0106: crypto.createCipher and crypto.createDecipher<span><a class="mark" href="#deprecations_dep0106_crypto_createcipher_and_crypto_createdecipher" id="deprecations_dep0106_crypto_createcipher_and_crypto_createdecipher" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>Using <a href="javascript:if(confirm('http://nodejs.cn/s/W8sk1d  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/W8sk1d'" tppabs="http://nodejs.cn/s/W8sk1d" rel="nofollow"><code>crypto.createCipher()</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/DAreUR  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/DAreUR'" tppabs="http://nodejs.cn/s/DAreUR" rel="nofollow"><code>crypto.createDecipher()</code></a> should be
+avoided as they use a weak key derivation function (MD5 with no salt) and static
+initialization vectors. It is recommended to derive a key using
+<a href="javascript:if(confirm('http://nodejs.cn/s/8BZNUZ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8BZNUZ'" tppabs="http://nodejs.cn/s/8BZNUZ" rel="nofollow"><code>crypto.pbkdf2()</code></a> or <a href="javascript:if(confirm('http://nodejs.cn/s/cjFTLU  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/cjFTLU'" tppabs="http://nodejs.cn/s/cjFTLU" rel="nofollow"><code>crypto.scrypt()</code></a> and to use
+<a href="javascript:if(confirm('http://nodejs.cn/s/YMP9nQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YMP9nQ'" tppabs="http://nodejs.cn/s/YMP9nQ" rel="nofollow"><code>crypto.createCipheriv()</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/mVUr1H  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/mVUr1H'" tppabs="http://nodejs.cn/s/mVUr1H" rel="nofollow"><code>crypto.createDecipheriv()</code></a> to obtain the
+<a href="javascript:if(confirm('http://nodejs.cn/s/Dc8Lz2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Dc8Lz2'" tppabs="http://nodejs.cn/s/Dc8Lz2" rel="nofollow"><code>Cipher</code></a> and <a href="javascript:if(confirm('http://nodejs.cn/s/8sszWa  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/8sszWa'" tppabs="http://nodejs.cn/s/8sszWa" rel="nofollow"><code>Decipher</code></a> objects respectively.</p>
+<p><a id="DEP0107" rel="nofollow"></a></p>
+<h3>DEP0107: tls.convertNPNProtocols()<span><a class="mark" href="#deprecations_dep0107_tls_convertnpnprotocols" id="deprecations_dep0107_tls_convertnpnprotocols" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Runtime deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Runtime</p>
+<p>This was an undocumented helper function not intended for use outside Node.js
+core and obsoleted by the removal of NPN (Next Protocol Negotiation) support.</p>
+<p><a id="DEP0108" rel="nofollow"></a></p>
+<h3>DEP0108: zlib.bytesRead<span><a class="mark" href="#deprecations_dep0108_zlib_bytesread" id="deprecations_dep0108_zlib_bytesread" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>Deprecated alias for <a href="javascript:if(confirm('http://nodejs.cn/s/VybGHz  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/VybGHz'" tppabs="http://nodejs.cn/s/VybGHz" rel="nofollow"><code>zlib.bytesWritten</code></a>. This original name was chosen
+because it also made sense to interpret the value as the number of bytes
+read by the engine, but is inconsistent with other streams in Node.js that
+expose values under these names.</p>
+<p><a id="DEP0110" rel="nofollow"></a></p>
+<h3>DEP0110: vm.Script cached data<span><a class="mark" href="#deprecations_dep0110_vm_script_cached_data" id="deprecations_dep0110_vm_script_cached_data" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.6.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <code>produceCachedData</code> option is deprecated. Use
+<a href="javascript:if(confirm('http://nodejs.cn/s/foXcnQ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/foXcnQ'" tppabs="http://nodejs.cn/s/foXcnQ" rel="nofollow"><code>script.createCachedData()</code></a> instead.</p>
+<p><a id="DEP0111" rel="nofollow"></a></p>
+<h3>DEP0111: process.binding()<span><a class="mark" href="#deprecations_dep0111_process_binding" id="deprecations_dep0111_process_binding" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.9.0</td>
+<td><p>Documentation-only deprecation.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>Type: Documentation-only</p>
+<p>The <code>process.binding()</code> API is intended for use by Node.js internal code
+only. Use of <code>process.binding()</code> by userland code is unsupported.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712017161"><\/script>');
+  </script>
+
+</body></html>

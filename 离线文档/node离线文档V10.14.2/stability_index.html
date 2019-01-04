@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>稳定性指数 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/documentation/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712019001" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-documentation">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>稳定性指数</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p>&#x6587;&#x6863;&#x4E2D;&#x6BCF;&#x4E2A;&#x7AE0;&#x8282;&#x90FD;&#x6709;&#x7A33;&#x5B9A;&#x6027;&#x6307;&#x6570;&#x3002;
+Node.js &#x7684; API &#x4ECD;&#x4F1A;&#x6709;&#x5C11;&#x91CF;&#x53D8;&#x5316;&#xFF0C;&#x4F46;&#x968F;&#x7740;&#x53D1;&#x5C55;&#xFF0C;API &#x4F1A;&#x8D8A;&#x6765;&#x8D8A;&#x7A33;&#x5B9A;&#x53EF;&#x9760;&#x3002;
+&#x6709;&#x4E9B; API &#x4E45;&#x7ECF;&#x9A8C;&#x8BC1;&#x3001;&#x4E14;&#x88AB;&#x5927;&#x91CF;&#x4F9D;&#x8D56;&#xFF0C;&#x5B83;&#x4EEC;&#x51E0;&#x4E4E;&#x4E0D;&#x4F1A;&#x518D;&#x53D8;&#x5316;&#x3002;
+&#x4E5F;&#x6709;&#x4E9B; API &#x662F;&#x65B0;&#x589E;&#x7684;&#x3001;&#x6216;&#x8BD5;&#x9A8C;&#x7684;&#x3001;&#x6216;&#x88AB;&#x8BA4;&#x5B9A;&#x4E3A;&#x6709;&#x98CE;&#x9669;&#x4E14;&#x6B63;&#x5728;&#x91CD;&#x65B0;&#x8BBE;&#x8BA1;&#x4E2D;&#x3002;</p><p>&#x7A33;&#x5B9A;&#x6027;&#x6307;&#x6570;&#x5982;&#x4E0B;&#xFF1A;</p><p></p><div class="api_stability api_stability_0"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 0</a> - &#x5E9F;&#x5F03;&#x7684;&#x3002;
+&#x4F7F;&#x7528;&#x8BE5;&#x7279;&#x6027;&#x4F1A;&#x4EA7;&#x751F;&#x8B66;&#x544A;&#x4FE1;&#x606F;&#x3002;
+&#x8BE5;&#x7279;&#x6027;&#x4E0D;&#x4FDD;&#x8BC1;&#x5411;&#x540E;&#x517C;&#x5BB9;&#x3002;</div><p></p><p></p><div class="api_stability api_stability_1"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 1</a> - &#x8BD5;&#x9A8C;&#x7684;&#x3002;
+&#x8BE5;&#x7279;&#x6027;&#x4ECD;&#x5904;&#x4E8E;&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x4E14;&#x5728;&#x672A;&#x6765;&#x7684;&#x7248;&#x672C;&#x4E2D;&#xFF0C;&#x53D8;&#x52A8;&#x6216;&#x5220;&#x9664;&#x65F6;&#x4E0D;&#x505A;&#x5411;&#x540E;&#x517C;&#x5BB9;&#x3002;
+&#x4E0D;&#x5EFA;&#x8BAE;&#x5728;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x4E2D;&#x4F7F;&#x7528;&#x8BE5;&#x7279;&#x6027;&#x3002;
+&#x8BE5;&#x7279;&#x6027;&#x4E0D;&#x53D7;&#x5236;&#x4E8E; Node.js &#x7684;&#x8BED;&#x4E49;&#x7248;&#x672C;&#x6A21;&#x578B;&#x3002;</div><p></p><p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;&#x3002;
+&#x4E0E; npm &#x751F;&#x6001;&#x7CFB;&#x7EDF;&#x7684;&#x517C;&#x5BB9;&#x6027;&#x662F;&#x6700;&#x9AD8;&#x4F18;&#x5148;&#x7EA7;&#x3002;</div><p></p></div>
+          <div id="content_right"><p>Throughout the documentation are indications of a section&apos;s
+stability. The Node.js API is still somewhat changing, and as it
+matures, certain parts are more reliable than others. Some are so
+proven, and so relied upon, that they are unlikely to ever change at
+all. Others are brand new and experimental, or known to be hazardous
+and in the process of being redesigned.</p><p>The stability indices are as follows:</p><p></p><div class="api_stability api_stability_0"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">Stability: 0</a> - Deprecated. The feature may emit warnings. Backward
+compatibility is not guaranteed.</div><p></p><p></p><div class="api_stability api_stability_1"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">Stability: 1</a> - Experimental. This feature is still under active development
+and subject to non-backward compatible changes or removal in any future
+version. Use of the feature is not recommended in production environments.
+Experimental features are not subject to the Node.js Semantic Versioning
+model.</div><p></p><p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">Stability: 2</a> - Stable. Compatibility with the npm ecosystem is a high
+priority.</div><p></p><p>Caution must be used when making use of <code>Experimental</code> features, particularly
+within modules that may be used as dependencies (or dependencies of
+dependencies) within a Node.js application. End users may not be aware that
+experimental features are being used, and therefore may experience unexpected
+failures or behavior changes when API modifications occur. To help avoid such
+surprises, <code>Experimental</code> features may require a command-line flag to
+explicitly enable them, or may cause a process warning to be emitted.
+By default, such warnings are printed to <a href="javascript:if(confirm('http://nodejs.cn/s/wPv5zY  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wPv5zY'" tppabs="http://nodejs.cn/s/wPv5zY" rel="nofollow"><code>stderr</code></a> and may be handled by
+attaching a listener to the <a href="javascript:if(confirm('http://nodejs.cn/s/YXSqii  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/YXSqii'" tppabs="http://nodejs.cn/s/YXSqii" rel="nofollow"><code>&apos;warning&apos;</code></a> event.</p></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712019001"><\/script>');
+  </script>
+</body>
+</html>

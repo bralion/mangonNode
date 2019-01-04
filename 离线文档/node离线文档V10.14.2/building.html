@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>构建 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/addons/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712009827" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-addons">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>构建</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="addons.html#addons_building" tppabs="http://nodejs.cn/api/addons.html#addons_building" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p>&#x5F53;&#x6E90;&#x4EE3;&#x7801;&#x5DF2;&#x88AB;&#x7F16;&#x5199;&#xFF0C;&#x5B83;&#x5FC5;&#x987B;&#x88AB;&#x7F16;&#x8BD1;&#x6210;&#x4E8C;&#x8FDB;&#x5236; <code>addon.node</code> &#x6587;&#x4EF6;&#x3002;
+&#x8981;&#x505A;&#x5230;&#x8FD9;&#x70B9;&#xFF0C;&#x9700;&#x5728;&#x9879;&#x76EE;&#x7684;&#x9876;&#x5C42;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x540D;&#x4E3A; <code>binding.gyp</code> &#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x5B83;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x7C7B;&#x4F3C; JSON &#x7684;&#x683C;&#x5F0F;&#x6765;&#x63CF;&#x8FF0;&#x6A21;&#x5757;&#x7684;&#x6784;&#x5EFA;&#x914D;&#x7F6E;&#x3002;
+&#x8BE5;&#x6587;&#x4EF6;&#x4F1A;&#x88AB; <a href="javascript:if(confirm('http://nodejs.cn/s/kLHA2r  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/kLHA2r'" tppabs="http://nodejs.cn/s/kLHA2r" rel="nofollow">node-gyp</a>&#xFF08;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x7F16;&#x8BD1; Node.js &#x63D2;&#x4EF6;&#x7684;&#x5DE5;&#x5177;&#xFF09;&#x4F7F;&#x7528;&#x3002;</p><pre><code class="language-json">{
+  &quot;targets&quot;: [
+    {
+      &quot;target_name&quot;: &quot;addon&quot;,
+      &quot;sources&quot;: [ &quot;hello.cc&quot; ]
+    }
+  ]
+}
+</code></pre><p>&#x6CE8;&#x610F;&#xFF1A;Node.js &#x4F1A;&#x6346;&#x7ED1;&#x4E0E;&#x53D1;&#x5E03;&#x4E00;&#x4E2A;&#x7248;&#x672C;&#x7684; <code>node-gyp</code> &#x5DE5;&#x5177;&#x4F5C;&#x4E3A; <code>npm</code> &#x7684;&#x4E00;&#x90E8;&#x5206;&#x3002;
+&#x8BE5;&#x7248;&#x672C;&#x4E0D;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x88AB;&#x5F00;&#x53D1;&#x8005;&#x4F7F;&#x7528;&#xFF0C;&#x4EC5;&#x4E3A;&#x4E86;&#x652F;&#x6301;&#x4F7F;&#x7528; <code>npm install</code> &#x547D;&#x4EE4;&#x7F16;&#x8BD1;&#x4E0E;&#x5B89;&#x88C5;&#x63D2;&#x4EF6;&#x7684;&#x80FD;&#x529B;&#x3002;
+&#x9700;&#x8981;&#x76F4;&#x63A5;&#x4F7F;&#x7528; <code>node-gyp</code> &#x7684;&#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>npm install -g node-gyp</code> &#x547D;&#x4EE4;&#x8FDB;&#x884C;&#x5B89;&#x88C5;&#x3002;
+&#x67E5;&#x770B; <code>node-gyp</code> <a href="javascript:if(confirm('http://nodejs.cn/s/QTF5Te  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/QTF5Te'" tppabs="http://nodejs.cn/s/QTF5Te" rel="nofollow">&#x5B89;&#x88C5;&#x8BF4;&#x660E;</a>&#x4E86;&#x89E3;&#x66F4;&#x591A;&#x4FE1;&#x606F;&#xFF0C;&#x5305;&#x62EC;&#x5E73;&#x53F0;&#x7279;&#x5B9A;&#x7684;&#x8981;&#x6C42;&#x3002;</p><p>&#x4F46; <code>binding.gyp</code> &#x6587;&#x4EF6;&#x5DF2;&#x88AB;&#x521B;&#x5EFA;&#xFF0C;&#x4F7F;&#x7528; <code>node-gyp configure</code> &#x4E3A;&#x5F53;&#x524D;&#x5E73;&#x53F0;&#x751F;&#x6210;&#x76F8;&#x5E94;&#x7684;&#x9879;&#x76EE;&#x6784;&#x5EFA;&#x6587;&#x4EF6;&#x3002;
+&#x8FD9;&#x4F1A;&#x5728; <code>build/</code> &#x76EE;&#x5F55;&#x4E0B;&#x751F;&#x6210;&#x4E00;&#x4E2A; <code>Makefile</code> &#x6587;&#x4EF6;&#xFF08;&#x5728; Unix &#x5E73;&#x53F0;&#x4E0A;&#xFF09;&#x6216; <code>vcxproj</code> &#x6587;&#x4EF6;&#xFF08;&#x5728; Windows &#x4E0A;&#xFF09;&#x3002;</p><p>&#x4E0B;&#x4E00;&#x6B65;&#xFF0C;&#x8C03;&#x7528; <code>node-gyp build</code> &#x547D;&#x4EE4;&#x751F;&#x6210;&#x7F16;&#x8BD1;&#x540E;&#x7684; <code>addon.node</code> &#x7684;&#x6587;&#x4EF6;&#x3002;
+&#x5B83;&#x4F1A;&#x88AB;&#x653E;&#x8FDB; <code>build/Release/</code> &#x76EE;&#x5F55;&#x3002;</p><p>&#x5F53;&#x4F7F;&#x7528; <code>npm install</code> &#x5B89;&#x88C5;&#x4E00;&#x4E2A; Node.js &#x63D2;&#x4EF6;&#x65F6;&#xFF0C;npm &#x4F1A;&#x4F7F;&#x7528;&#x81EA;&#x8EAB;&#x6346;&#x7ED1;&#x7684; <code>node-gyp</code> &#x7248;&#x672C;&#x6765;&#x6267;&#x884C;&#x540C;&#x6837;&#x7684;&#x4E00;&#x5957;&#x52A8;&#x4F5C;&#xFF0C;&#x4E3A;&#x7528;&#x6237;&#x8981;&#x6C42;&#x7684;&#x5E73;&#x53F0;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x63D2;&#x4EF6;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x7248;&#x672C;&#x3002;</p><p>&#x5F53;&#x6784;&#x5EFA;&#x5B8C;&#x6210;&#x65F6;&#xFF0C;&#x4E8C;&#x8FDB;&#x5236;&#x63D2;&#x4EF6;&#x5C31;&#x53EF;&#x4EE5;&#x5728; Node.js &#x4E2D;&#x88AB;&#x4F7F;&#x7528;&#xFF0C;&#x901A;&#x8FC7; <a href="javascript:if(confirm('http://nodejs.cn/s/Hig9sg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Hig9sg'" tppabs="http://nodejs.cn/s/Hig9sg" rel="nofollow"><code>require()</code></a> &#x6784;&#x5EFA;&#x540E;&#x7684; <code>addon.node</code> &#x6A21;&#x5757;&#xFF1A;</p><pre><code class="language-js">// hello.js
+const addon = require(&apos;./build/Release/addon&apos;);
+
+console.log(addon.hello());
+// &#x6253;&#x5370;: &apos;world&apos;
+</code></pre><p>&#x8BF7;&#x67E5;&#x770B; <a href="javascript:if(confirm('https://github.com/arturadib/node-qt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://github.com/arturadib/node-qt'" tppabs="https://github.com/arturadib/node-qt" rel="nofollow">https://github.com/arturadib/node-qt</a> &#x4E86;&#x89E3;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x4E2D;&#x7684;&#x4F8B;&#x5B50;&#x3002;</p><p>&#x56E0;&#x4E3A;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x63D2;&#x4EF6;&#x7684;&#x786E;&#x5207;&#x8DEF;&#x5F84;&#x53D6;&#x51B3;&#x4E8E;&#x5B83;&#x5982;&#x4F55;&#x88AB;&#x7F16;&#x8BD1;&#xFF08;&#x6BD4;&#x5982;&#x6709;&#x65F6;&#x5B83;&#x53EF;&#x80FD;&#x5728; <code>./build/Debug/</code> &#x4E2D;&#xFF09;&#xFF0C;&#x6240;&#x4EE5;&#x63D2;&#x4EF6;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/WHKP77  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/WHKP77'" tppabs="http://nodejs.cn/s/WHKP77" rel="nofollow">bindings</a> &#x5305;&#x52A0;&#x8F7D;&#x7F16;&#x8BD1;&#x540E;&#x7684;&#x6A21;&#x5757;&#x3002;</p><p>&#x6CE8;&#x610F;&#xFF0C;&#x867D;&#x7136; <code>bindings</code> &#x5305;&#x5728;&#x5982;&#x4F55;&#x5B9A;&#x4F4D;&#x63D2;&#x4EF6;&#x6A21;&#x5757;&#x7684;&#x5B9E;&#x73B0;&#x4E0A;&#x66F4;&#x590D;&#x6742;&#xFF0C;&#x4F46;&#x5B83;&#x672C;&#x8D28;&#x4E0A;&#x4F7F;&#x7528;&#x4E86;&#x4E00;&#x4E2A; <code>try-catch</code> &#x6A21;&#x5F0F;&#xFF0C;&#x7C7B;&#x4F3C;&#x5982;&#x4E0B;&#xFF1A;</p><pre><code class="language-js">try {
+  return require(&apos;./build/Release/addon.node&apos;);
+} catch (err) {
+  return require(&apos;./build/Debug/addon.node&apos;);
+}
+</code></pre></div>
+          <div id="content_right"><p>Once the source code has been written, it must be compiled into the binary
+<code>addon.node</code> file. To do so, create a file called <code>binding.gyp</code> in the
+top-level of the project describing the build configuration of the module
+using a JSON-like format. This file is used by <a href="javascript:if(confirm('http://nodejs.cn/s/kLHA2r  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/kLHA2r'" tppabs="http://nodejs.cn/s/kLHA2r" rel="nofollow">node-gyp</a> &#x2014; a tool written
+specifically to compile Node.js Addons.</p><pre><code class="language-json">{
+  &quot;targets&quot;: [
+    {
+      &quot;target_name&quot;: &quot;addon&quot;,
+      &quot;sources&quot;: [ &quot;hello.cc&quot; ]
+    }
+  ]
+}
+</code></pre><p>A version of the <code>node-gyp</code> utility is bundled and distributed with
+Node.js as part of <code>npm</code>. This version is not made directly available for
+developers to use and is intended only to support the ability to use the
+<code>npm install</code> command to compile and install Addons. Developers who wish to
+use <code>node-gyp</code> directly can install it using the command
+<code>npm install -g node-gyp</code>. See the <code>node-gyp</code> <a href="javascript:if(confirm('http://nodejs.cn/s/QTF5Te  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/QTF5Te'" tppabs="http://nodejs.cn/s/QTF5Te" rel="nofollow">installation instructions</a> for
+more information, including platform-specific requirements.</p><p>Once the <code>binding.gyp</code> file has been created, use <code>node-gyp configure</code> to
+generate the appropriate project build files for the current platform. This
+will generate either a <code>Makefile</code> (on Unix platforms) or a <code>vcxproj</code> file
+(on Windows) in the <code>build/</code> directory.</p><p>Next, invoke the <code>node-gyp build</code> command to generate the compiled <code>addon.node</code>
+file. This will be put into the <code>build/Release/</code> directory.</p><p>When using <code>npm install</code> to install a Node.js Addon, npm uses its own bundled
+version of <code>node-gyp</code> to perform this same set of actions, generating a
+compiled version of the Addon for the user&apos;s platform on demand.</p><p>Once built, the binary Addon can be used from within Node.js by pointing
+<a href="javascript:if(confirm('http://nodejs.cn/s/Hig9sg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Hig9sg'" tppabs="http://nodejs.cn/s/Hig9sg" rel="nofollow"><code>require()</code></a> to the built <code>addon.node</code> module:</p><pre><code class="language-js">// hello.js
+const addon = require(&apos;./build/Release/addon&apos;);
+
+console.log(addon.hello());
+// Prints: &apos;world&apos;
+</code></pre><p>Please see the examples below for further information or
+<a href="javascript:if(confirm('https://github.com/arturadib/node-qt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://github.com/arturadib/node-qt'" tppabs="https://github.com/arturadib/node-qt" rel="nofollow">https://github.com/arturadib/node-qt</a> for an example in production.</p><p>Because the exact path to the compiled Addon binary can vary depending on how
+it is compiled (i.e. sometimes it may be in <code>./build/Debug/</code>), Addons can use
+the <a href="javascript:if(confirm('http://nodejs.cn/s/WHKP77  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/WHKP77'" tppabs="http://nodejs.cn/s/WHKP77" rel="nofollow">bindings</a> package to load the compiled module.</p><p>Note that while the <code>bindings</code> package implementation is more sophisticated
+in how it locates Addon modules, it is essentially using a try-catch pattern
+similar to:</p><pre><code class="language-js">try {
+  return require(&apos;./build/Release/addon.node&apos;);
+} catch (err) {
+  return require(&apos;./build/Debug/addon.node&apos;);
+}
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712009827"><\/script>');
+  </script>
+</body>
+</html>

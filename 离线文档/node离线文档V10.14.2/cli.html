@@ -1,0 +1,761 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879; | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712013395" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-cli">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli active" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="cli" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><a href="#cli_command_line_options">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></p>
+<ul>
+<li><a href="#cli_synopsis">&#x6982;&#x8981;</a></li>
+<li>
+<p><a href="#cli_options">&#x9009;&#x9879;</a></p>
+<ul>
+<li><a href="#cli"><code>-</code></a></li>
+<li><a href="#cli_1"><code>--</code></a></li>
+<li><a href="#cli_abort_on_uncaught_exception"><code>--abort-on-uncaught-exception</code></a></li>
+<li><a href="#cli_completion_bash"><code>--completion-bash</code></a></li>
+<li><a href="#cli_enable_fips"><code>--enable-fips</code></a></li>
+<li><a href="#cli_experimental_modules"><code>--experimental-modules</code></a></li>
+<li><a href="#cli_experimental_repl_await"><code>--experimental-repl-await</code></a></li>
+<li><a href="#cli_experimental_vm_modules"><code>--experimental-vm-modules</code></a></li>
+<li><a href="#cli_experimental_worker"><code>--experimental-worker</code></a></li>
+<li><a href="#cli_force_fips"><code>--force-fips</code></a></li>
+<li><a href="#cli_icu_data_dir_file"><code>--icu-data-dir=file</code></a></li>
+<li><a href="#cli_inspect_brk_host_port"><code>--inspect-brk[=[host:]port]</code></a></li>
+<li><a href="#cli_inspect_port_host_port"><code>--inspect-port=[host:]port</code></a></li>
+<li>
+<p><a href="#cli_inspect_host_port"><code>--inspect[=[host:]port]</code></a></p>
+<ul>
+<li><a href="#cli_warning_binding_inspector_to_a_public_ip_port_combination_is_insecure">Warning: binding inspector to a public IP:port combination is insecure</a></li>
+</ul>
+</li>
+<li><a href="#cli_loader_file"><code>--loader=file</code></a></li>
+<li><a href="#cli_napi_modules"><code>--napi-modules</code></a></li>
+<li><a href="#cli_no_deprecation"><code>--no-deprecation</code></a></li>
+<li><a href="#cli_no_force_async_hooks_checks"><code>--no-force-async-hooks-checks</code></a></li>
+<li><a href="#cli_no_warnings"><code>--no-warnings</code></a></li>
+<li><a href="#cli_openssl_config_file"><code>--openssl-config=file</code></a></li>
+<li><a href="#cli_pending_deprecation"><code>--pending-deprecation</code></a></li>
+<li><a href="#cli_preserve_symlinks"><code>--preserve-symlinks</code></a></li>
+<li><a href="#cli_preserve_symlinks_main"><code>--preserve-symlinks-main</code></a></li>
+<li><a href="#cli_prof"><code>--prof</code></a></li>
+<li><a href="#cli_prof_process"><code>--prof-process</code></a></li>
+<li><a href="#cli_redirect_warnings_file"><code>--redirect-warnings=file</code></a></li>
+<li><a href="#cli_throw_deprecation"><code>--throw-deprecation</code></a></li>
+<li><a href="#cli_title_title"><code>--title=title</code></a></li>
+<li><a href="#cli_tls_cipher_list_list"><code>--tls-cipher-list=list</code></a></li>
+<li><a href="#cli_trace_deprecation"><code>--trace-deprecation</code></a></li>
+<li><a href="#cli_trace_event_categories"><code>--trace-event-categories</code></a></li>
+<li><a href="#cli_trace_event_file_pattern"><code>--trace-event-file-pattern</code></a></li>
+<li><a href="#cli_trace_events_enabled"><code>--trace-events-enabled</code></a></li>
+<li><a href="#cli_trace_sync_io"><code>--trace-sync-io</code></a></li>
+<li><a href="#cli_trace_warnings"><code>--trace-warnings</code></a></li>
+<li><a href="#cli_track_heap_objects"><code>--track-heap-objects</code></a></li>
+<li><a href="#cli_use_bundled_ca_use_openssl_ca"><code>--use-bundled-ca</code>, <code>--use-openssl-ca</code></a></li>
+<li><a href="#cli_v8_options"><code>--v8-options</code></a></li>
+<li><a href="#cli_v8_pool_size_num"><code>--v8-pool-size=num</code></a></li>
+<li><a href="#cli_zero_fill_buffers"><code>--zero-fill-buffers</code></a></li>
+<li><a href="#cli_c_check"><code>-c</code>, <code>--check</code></a></li>
+<li><a href="#cli_e_eval_script"><code>-e</code>, <code>--eval &quot;script&quot;</code></a></li>
+<li><a href="#cli_h_help"><code>-h</code>, <code>--help</code></a></li>
+<li><a href="#cli_i_interactive"><code>-i</code>, <code>--interactive</code></a></li>
+<li><a href="#cli_p_print_script"><code>-p</code>, <code>--print &quot;script&quot;</code></a></li>
+<li><a href="#cli_r_require_module"><code>-r</code>, <code>--require module</code></a></li>
+<li><a href="#cli_v_version"><code>-v</code>, <code>--version</code></a></li>
+</ul>
+</li>
+<li>
+<p><a href="#cli_environment_variables">&#x73AF;&#x5883;&#x53D8;&#x91CF;</a></p>
+<ul>
+<li><a href="#cli_node_debug_module"><code>NODE_DEBUG=module[,&#x2026;]</code></a></li>
+<li><a href="#cli_node_disable_colors_1"><code>NODE_DISABLE_COLORS=1</code></a></li>
+<li><a href="#cli_node_extra_ca_certs_file"><code>NODE_EXTRA_CA_CERTS=file</code></a></li>
+<li><a href="#cli_node_icu_data_file"><code>NODE_ICU_DATA=file</code></a></li>
+<li><a href="#cli_node_no_warnings_1"><code>NODE_NO_WARNINGS=1</code></a></li>
+<li><a href="#cli_node_options_options"><code>NODE_OPTIONS=options...</code></a></li>
+<li><a href="#cli_node_path_path"><code>NODE_PATH=path[:&#x2026;]</code></a></li>
+<li><a href="#cli_node_pending_deprecation_1"><code>NODE_PENDING_DEPRECATION=1</code></a></li>
+<li><a href="#cli_node_preserve_symlinks_1"><code>NODE_PRESERVE_SYMLINKS=1</code></a></li>
+<li><a href="#cli_node_redirect_warnings_file"><code>NODE_REDIRECT_WARNINGS=file</code></a></li>
+<li><a href="#cli_node_repl_history_file"><code>NODE_REPL_HISTORY=file</code></a></li>
+<li><a href="#cli_node_v8_coverage_dir"><code>NODE_V8_COVERAGE=dir</code></a></li>
+<li><a href="#cli_openssl_conf_file"><code>OPENSSL_CONF=file</code></a></li>
+<li><a href="#cli_ssl_cert_dir_dir"><code>SSL_CERT_DIR=dir</code></a></li>
+<li><a href="#cli_ssl_cert_file_file"><code>SSL_CERT_FILE=file</code></a></li>
+<li><a href="#cli_uv_threadpool_size_size"><code>UV_THREADPOOL_SIZE=size</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;<span><a class="mark" href="#cli_command_line_options" id="cli_command_line_options" rel="nofollow">#</a></span></h1><p class="tip_wrap"><a href="command_line_options.html" tppabs="http://nodejs.cn/api/cli/command_line_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<!--introduced_in=v5.9.1-->
+<!--type=misc-->
+<p>Node.js &#x81EA;&#x5E26;&#x4E86;&#x5404;&#x79CD;&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;&#x3002;
+&#x8FD9;&#x4E9B;&#x9009;&#x9879;&#x5F00;&#x653E;&#x4E86;&#x5185;&#x7F6E;&#x7684;&#x8C03;&#x8BD5;&#x3001;&#x6267;&#x884C;&#x811A;&#x672C;&#x7684;&#x591A;&#x79CD;&#x65B9;&#x5F0F;&#x3001;&#x4EE5;&#x53CA;&#x5176;&#x4ED6;&#x6709;&#x7528;&#x7684;&#x8FD0;&#x884C;&#x65F6;&#x9009;&#x9879;&#x3002;</p>
+<p>&#x8FD0;&#x884C; <code>man node</code> &#x53EF;&#x5728;&#x4E00;&#x4E2A;&#x7EC8;&#x7AEF;&#x4E2D;&#x67E5;&#x770B;&#x64CD;&#x4F5C;&#x624B;&#x518C;&#x3002;</p>
+<h2>&#x6982;&#x8981;<span><a class="mark" href="#cli_synopsis" id="cli_synopsis" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="synopsis-1.html" tppabs="http://nodejs.cn/api/cli/synopsis.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p><code>node [options] [V8 options] [script.js | -e &quot;script&quot; | -] [--] [arguments]</code></p>
+<p><code>node debug [script.js | -e &quot;script&quot; | &lt;host&gt;:&lt;port&gt;] &#x2026;</code></p>
+<p><code>node --v8-options</code></p>
+<p>&#x6267;&#x884C;&#x65F6;&#x4E0D;&#x5E26;&#x53C2;&#x6570;&#xFF0C;&#x4F1A;&#x542F;&#x52A8; <a href="javascript:if(confirm('http://nodejs.cn/s/rgdfDX  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/rgdfDX'" tppabs="http://nodejs.cn/s/rgdfDX" rel="nofollow">REPL</a>&#x3002;</p>
+<p>&#x5173;&#x4E8E; <code>node debug</code> &#x7684;&#x66F4;&#x591A;&#x4FE1;&#x606F;&#xFF0C;&#x8BE6;&#x89C1;<a href="javascript:if(confirm('http://nodejs.cn/s/wQkjGZ  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wQkjGZ'" tppabs="http://nodejs.cn/s/wQkjGZ" rel="nofollow">&#x8C03;&#x8BD5;&#x5668;</a>&#x6587;&#x6863;&#x3002;</p>
+<h2>&#x9009;&#x9879;<span><a class="mark" href="#cli_options" id="cli_options" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v10.12.0</td>
+<td><p>Underscores instead of dashes are now allowed for Node.js options as well, in addition to V8 options.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>All options, including V8 options, allow words to be separated by both
+dashes (<code>-</code>) or underscores (<code>_</code>).</p>
+<p>For example, <code>--pending-deprecation</code> is equivalent to <code>--pending_deprecation</code>.</p>
+<h3><code>-</code><span><a class="mark" href="#cli" id="cli" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.0.0</span>
+</div>
+<p>Alias for stdin, analogous to the use of - in other command line utilities,
+meaning that the script will be read from stdin, and the rest of the options
+are passed to that script.</p>
+<h3><code>--</code><span><a class="mark" href="#cli_1" id="cli_1" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.11.0</span>
+</div>
+<p>Indicate the end of node options. Pass the rest of the arguments to the script.
+If no script filename or eval/print script is supplied prior to this, then
+the next argument will be used as a script filename.</p>
+<h3><code>--abort-on-uncaught-exception</code><span><a class="mark" href="#cli_abort_on_uncaught_exception" id="cli_abort_on_uncaught_exception" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.10</span>
+</div>
+<p>Aborting instead of exiting causes a core file to be generated for post-mortem
+analysis using a debugger (such as <code>lldb</code>, <code>gdb</code>, and <code>mdb</code>).</p>
+<p>If this flag is passed, the behavior can still be set to not abort through
+<a href="javascript:if(confirm('http://nodejs.cn/s/4yit6t  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/4yit6t'" tppabs="http://nodejs.cn/s/4yit6t" rel="nofollow"><code>process.setUncaughtExceptionCaptureCallback()</code></a> (and through usage of the
+<code>domain</code> module that uses it).</p>
+<h3><code>--completion-bash</code><span><a class="mark" href="#cli_completion_bash" id="cli_completion_bash" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.12.0</span>
+</div>
+<p>Print source-able bash completion script for Node.js.</p>
+<pre><code class="language-console">$ node --completion-bash &gt; node_bash_completion
+$ source node_bash_completion
+</code></pre>
+<h3><code>--enable-fips</code><span><a class="mark" href="#cli_enable_fips" id="cli_enable_fips" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="enable_fips.html" tppabs="http://nodejs.cn/api/cli/enable_fips.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.0.0</span>
+</div>
+<p>&#x542F;&#x52A8;&#x65F6;&#x542F;&#x7528;&#x7B26;&#x5408; FIPS &#x6807;&#x51C6;&#x7684;&#x52A0;&#x5BC6;&#x3002;
+&#xFF08;&#x9700;&#x8981; Node.js &#x4F7F;&#x7528; <code>./configure --openssl-fips</code> &#x6784;&#x5EFA;&#xFF09;</p>
+<h3><code>--experimental-modules</code><span><a class="mark" href="#cli_experimental_modules" id="cli_experimental_modules" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.5.0</span>
+</div>
+<p>Enable experimental ES module support and caching modules.</p>
+<h3><code>--experimental-repl-await</code><span><a class="mark" href="#cli_experimental_repl_await" id="cli_experimental_repl_await" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.0.0</span>
+</div>
+<p>Enable experimental top-level <code>await</code> keyword support in REPL.</p>
+<h3><code>--experimental-vm-modules</code><span><a class="mark" href="#cli_experimental_vm_modules" id="cli_experimental_vm_modules" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v9.6.0</span>
+</div>
+<p>Enable experimental ES Module support in the <code>vm</code> module.</p>
+<h3><code>--experimental-worker</code><span><a class="mark" href="#cli_experimental_worker" id="cli_experimental_worker" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.5.0</span>
+</div>
+<p>Enable experimental worker threads using the <code>worker_threads</code> module.</p>
+<h3><code>--force-fips</code><span><a class="mark" href="#cli_force_fips" id="cli_force_fips" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="force_fips.html" tppabs="http://nodejs.cn/api/cli/force_fips.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.0.0</span>
+</div>
+<p>&#x542F;&#x52A8;&#x65F6;&#x5F3A;&#x5236;&#x4F7F;&#x7528;&#x7B26;&#x5408; FIPS &#x6807;&#x51C6;&#x7684;&#x52A0;&#x5BC6;&#x3002;
+&#xFF08;&#x65E0;&#x6CD5;&#x901A;&#x8FC7;&#x811A;&#x672C;&#x4EE3;&#x7801;&#x7981;&#x7528;&#x3002;&#xFF09;
+&#xFF08;&#x8981;&#x6C42;&#x540C; <code>--enable-fips</code>&#xFF09;</p>
+<h3><code>--icu-data-dir=file</code><span><a class="mark" href="#cli_icu_data_dir_file" id="cli_icu_data_dir_file" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="icu_data_dir_file.html" tppabs="http://nodejs.cn/api/cli/icu_data_dir_file.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.15</span>
+</div>
+<p>&#x6307;&#x5B9A; ICU &#x6570;&#x636E;&#x7684;&#x52A0;&#x8F7D;&#x8DEF;&#x5F84;&#x3002;
+&#xFF08;&#x8986;&#x76D6; <code>NODE_ICU_DATA</code>&#xFF09;</p>
+<h3><code>--inspect-brk[=[host:]port]</code><span><a class="mark" href="#cli_inspect_brk_host_port" id="cli_inspect_brk_host_port" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.6.0</span>
+</div>
+<p>Activate inspector on <code>host:port</code> and break at start of user script.
+Default <code>host:port</code> is <code>127.0.0.1:9229</code>.</p>
+<h3><code>--inspect-port=[host:]port</code><span><a class="mark" href="#cli_inspect_port_host_port" id="cli_inspect_port_host_port" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.6.0</span>
+</div>
+<p>Set the <code>host:port</code> to be used when the inspector is activated.
+Useful when activating the inspector by sending the <code>SIGUSR1</code> signal.</p>
+<p>Default host is <code>127.0.0.1</code>.</p>
+<p>See the <a href="#inspector_security" rel="nofollow">security warning</a> below regarding the <code>host</code>
+parameter usage.</p>
+<h3><code>--inspect[=[host:]port]</code><span><a class="mark" href="#cli_inspect_host_port" id="cli_inspect_host_port" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="inspect_host_port.html" tppabs="http://nodejs.cn/api/cli/inspect_host_port.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.3.0</span>
+</div>
+<p>&#x5728;&#x4E3B;&#x673A;&#x7AEF;&#x53E3;&#x4E0A;&#x6FC0;&#x6D3B;&#x68C0;&#x67E5;&#x5668;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A;127.0.0.1:9229&#x3002;</p>
+<p>V8&#x68C0;&#x67E5;&#x5668;&#x96C6;&#x6210;&#x5141;&#x8BB8;Chrome DevTools&#x548C;IDE&#x7B49;&#x5DE5;&#x5177;&#x8C03;&#x8BD5;&#x548C;&#x914D;&#x7F6E;Node.js&#x5B9E;&#x4F8B;&#x3002; &#x8FD9;&#x4E9B;&#x5DE5;&#x5177;&#x901A;&#x8FC7;tcp&#x7AEF;&#x53E3;&#x9644;&#x52A0;&#x5230;Node.js&#x5B9E;&#x4F8B;&#xFF0C;&#x5E76;&#x4F7F;&#x7528;[Chrome Debugging Protocol][]&#x8C03;&#x8BD5;&#x534F;&#x8BAE;&#x8FDB;&#x884C;&#x901A;&#x4FE1;.</p>
+<h4>Warning: binding inspector to a public IP:port combination is insecure<span><a class="mark" href="#cli_warning_binding_inspector_to_a_public_ip_port_combination_is_insecure" id="cli_warning_binding_inspector_to_a_public_ip_port_combination_is_insecure" rel="nofollow">#</a></span></h4><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>Binding the inspector to a public IP (including <code>0.0.0.0</code>) with an open port is
+insecure, as it allows external hosts to connect to the inspector and perform
+a <a href="javascript:if(confirm('http://nodejs.cn/s/JswVrV  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JswVrV'" tppabs="http://nodejs.cn/s/JswVrV" rel="nofollow">remote code execution</a> attack.</p>
+<p>If you specify a host, make sure that at least one of the following is true:
+either the host is not public, or the port is properly firewalled to disallow
+unwanted connections.</p>
+<p><strong>More specifically, <code>--inspect=0.0.0.0</code> is insecure if the port (<code>9229</code> by
+default) is not firewall-protected.</strong></p>
+<p>See the <a href="javascript:if(confirm('http://nodejs.cn/s/TAYzUg  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/TAYzUg'" tppabs="http://nodejs.cn/s/TAYzUg" rel="nofollow">debugging security implications</a> section for more information.</p>
+<h3><code>--loader=file</code><span><a class="mark" href="#cli_loader_file" id="cli_loader_file" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v9.0.0</span>
+</div>
+<p>Specify the <code>file</code> of the custom <a href="javascript:if(confirm('http://nodejs.cn/s/PFVVy2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/PFVVy2'" tppabs="http://nodejs.cn/s/PFVVy2" rel="nofollow">experimental ECMAScript Module</a> loader.</p>
+<h3><code>--napi-modules</code><span><a class="mark" href="#cli_napi_modules" id="cli_napi_modules" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.10.0</span>
+</div>
+<p>This option is a no-op. It is kept for compatibility.</p>
+<h3><code>--no-deprecation</code><span><a class="mark" href="#cli_no_deprecation" id="cli_no_deprecation" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="no_deprecation.html" tppabs="http://nodejs.cn/api/cli/no_deprecation.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.8.0</span>
+</div>
+<p>&#x9759;&#x9ED8;&#x5E9F;&#x5F03;&#x7684;&#x8B66;&#x544A;&#x3002;</p>
+<h3><code>--no-force-async-hooks-checks</code><span><a class="mark" href="#cli_no_force_async_hooks_checks" id="cli_no_force_async_hooks_checks" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v9.0.0</span>
+</div>
+<p>Disables runtime checks for <code>async_hooks</code>. These will still be enabled
+dynamically when <code>async_hooks</code> is enabled.</p>
+<h3><code>--no-warnings</code><span><a class="mark" href="#cli_no_warnings" id="cli_no_warnings" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="no_warnings.html" tppabs="http://nodejs.cn/api/cli/no_warnings.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.0.0</span>
+</div>
+<p>&#x9759;&#x9ED8;&#x4E00;&#x5207;&#x8FDB;&#x7A0B;&#x8B66;&#x544A;&#xFF08;&#x5305;&#x62EC;&#x5E9F;&#x5F03;&#x8B66;&#x544A;&#xFF09;&#x3002;</p>
+<h3><code>--openssl-config=file</code><span><a class="mark" href="#cli_openssl_config_file" id="cli_openssl_config_file" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="openssl_config_file.html" tppabs="http://nodejs.cn/api/cli/openssl_config_file.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.9.0</span>
+</div>
+<p>&#x542F;&#x52A8;&#x65F6;&#x52A0;&#x8F7D; OpenSSL &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;
+&#x5728;&#x5176;&#x4ED6;&#x7528;&#x9014;&#x4E2D;&#xFF0C;&#x5982;&#x679C; Node.js &#x4F7F;&#x7528; <code>./configure --openssl-fips</code> &#x6784;&#x5EFA;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x542F;&#x7528;&#x7B26;&#x5408; FIPS &#x6807;&#x51C6;&#x7684;&#x52A0;&#x5BC6;&#x3002;</p>
+<h3><code>--pending-deprecation</code><span><a class="mark" href="#cli_pending_deprecation" id="cli_pending_deprecation" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.0.0</span>
+</div>
+<p>Emit pending deprecation warnings.</p>
+<p>Pending deprecations are generally identical to a runtime deprecation with the
+notable exception that they are turned <em>off</em> by default and will not be emitted
+unless either the <code>--pending-deprecation</code> command line flag, or the
+<code>NODE_PENDING_DEPRECATION=1</code> environment variable, is set. Pending deprecations
+are used to provide a kind of selective &quot;early warning&quot; mechanism that
+developers may leverage to detect deprecated API usage.</p>
+<h3><code>--preserve-symlinks</code><span><a class="mark" href="#cli_preserve_symlinks" id="cli_preserve_symlinks" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="preserve_symlinks.html" tppabs="http://nodejs.cn/api/cli/preserve_symlinks.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.3.0</span>
+</div>
+<p>&#x5F53;&#x89E3;&#x6790;&#x548C;&#x7F13;&#x5B58;&#x6A21;&#x5757;&#x65F6;&#xFF0C;&#x547D;&#x4EE4;&#x6A21;&#x5757;&#x52A0;&#x8F7D;&#x5668;&#x4FDD;&#x6301;&#x7B26;&#x53F7;&#x8FDE;&#x63A5;&#x3002;</p>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5F53; Node.js &#x4ECE;&#x4E00;&#x4E2A;&#x88AB;&#x7B26;&#x53F7;&#x8FDE;&#x63A5;&#x5230;&#x53E6;&#x4E00;&#x5757;&#x78C1;&#x76D8;&#x4F4D;&#x7F6E;&#x7684;&#x8DEF;&#x5F84;&#x52A0;&#x8F7D;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#x65F6;&#xFF0C;Node.js &#x4F1A;&#x89E3;&#x5F15;&#x7528;&#x8BE5;&#x8FDE;&#x63A5;&#xFF0C;&#x5E76;&#x4F7F;&#x7528;&#x6A21;&#x5757;&#x7684;&#x771F;&#x5B9E;&#x78C1;&#x76D8;&#x7684;&#x5B9E;&#x9645;&#x8DEF;&#x5F84;&#xFF0C;&#x4F5C;&#x4E3A;&#x5B9A;&#x4F4D;&#x5176;&#x4ED6;&#x4F9D;&#x8D56;&#x6A21;&#x5757;&#x7684;&#x6807;&#x8BC6;&#x7B26;&#x548C;&#x6839;&#x8DEF;&#x5F84;&#x3002;
+&#x5927;&#x591A;&#x6570;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x9ED8;&#x8BA4;&#x884C;&#x4E3A;&#x662F;&#x53EF;&#x63A5;&#x53D7;&#x7684;&#x3002;
+&#x4F46;&#x662F;&#xFF0C;&#x5F53;&#x4F7F;&#x7528;&#x7B26;&#x53F7;&#x8FDE;&#x63A5;&#x7684;&#x540C;&#x884C;&#x4F9D;&#x8D56;&#xFF0C;&#x5982;&#x4E0B;&#x4F8B;&#x5B50;&#x6240;&#x63CF;&#x8FF0;&#x7684;&#xFF0C;&#x5982;&#x679C; <code>moduleA</code> &#x8BD5;&#x56FE;&#x5F15;&#x5165; <code>moduleB</code> &#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x540C;&#x884C;&#x4F9D;&#x8D56;&#xFF0C;&#x9ED8;&#x8BA4;&#x884C;&#x4E3A;&#x5C31;&#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#xFF1A;</p>
+<pre><code class="language-text">{appDir}
+ &#x251C;&#x2500;&#x2500; app
+ &#x2502;   &#x251C;&#x2500;&#x2500; index.js
+ &#x2502;   &#x2514;&#x2500;&#x2500; node_modules
+ &#x2502;       &#x251C;&#x2500;&#x2500; moduleA -&gt; {appDir}/moduleA
+ &#x2502;       &#x2514;&#x2500;&#x2500; moduleB
+ &#x2502;           &#x251C;&#x2500;&#x2500; index.js
+ &#x2502;           &#x2514;&#x2500;&#x2500; package.json
+ &#x2514;&#x2500;&#x2500; moduleA
+     &#x251C;&#x2500;&#x2500; index.js
+     &#x2514;&#x2500;&#x2500; package.json
+</code></pre>
+<p><code>--preserve-symlinks</code> &#x547D;&#x4EE4;&#x884C;&#x6807;&#x5FD7;&#x547D;&#x4EE4; Node.js &#x4F7F;&#x7528;&#x6A21;&#x5757;&#x7684;&#x7B26;&#x53F7;&#x8DEF;&#x5F84;&#x800C;&#x4E0D;&#x662F;&#x771F;&#x5B9E;&#x8DEF;&#x5F84;&#xFF0C;&#x662F;&#x7B26;&#x53F7;&#x8FDE;&#x63A5;&#x7684;&#x540C;&#x884C;&#x4F9D;&#x8D56;&#x80FD;&#x88AB;&#x627E;&#x5230;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x4F7F;&#x7528; <code>--preserve-symlinks</code> &#x4F1A;&#x6709;&#x5176;&#x4ED6;&#x65B9;&#x9762;&#x7684;&#x5F71;&#x54CD;&#x3002;
+&#x6BD4;&#x5982;&#xFF0C;&#x5982;&#x679C;&#x7B26;&#x53F7;&#x8FDE;&#x63A5;&#x7684;&#x539F;&#x751F;&#x6A21;&#x5757;&#x5728;&#x4F9D;&#x8D56;&#x6811;&#x91CC;&#x6765;&#x81EA;&#x8D85;&#x8FC7;&#x4E00;&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x5B83;&#x4EEC;&#x4F1A;&#x52A0;&#x8F7D;&#x5931;&#x8D25;&#x3002;
+&#xFF08;Node.js &#x4F1A;&#x5C06;&#x5B83;&#x4EEC;&#x89C6;&#x4E3A;&#x4E24;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;&#x6A21;&#x5757;&#xFF0C;&#x4E14;&#x4F1A;&#x8BD5;&#x56FE;&#x591A;&#x6B21;&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#xFF0C;&#x9020;&#x6210;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x3002;&#xFF09;</p>
+<h3><code>--preserve-symlinks-main</code><span><a class="mark" href="#cli_preserve_symlinks_main" id="cli_preserve_symlinks_main" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.2.0</span>
+</div>
+<p>Instructs the module loader to preserve symbolic links when resolving and
+caching the main module (<code>require.main</code>).</p>
+<p>This flag exists so that the main module can be opted-in to the same behavior
+that <code>--preserve-symlinks</code> gives to all other imports; they are separate flags,
+however, for backward compatibility with older Node.js versions.</p>
+<p>Note that <code>--preserve-symlinks-main</code> does not imply <code>--preserve-symlinks</code>; it
+is expected that <code>--preserve-symlinks-main</code> will be used in addition to
+<code>--preserve-symlinks</code> when it is not desirable to follow symlinks before
+resolving relative paths.</p>
+<p>See <code>--preserve-symlinks</code> for more information.</p>
+<h3><code>--prof</code><span><a class="mark" href="#cli_prof" id="cli_prof" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v2.0.0</span>
+</div>
+<p>Generate V8 profiler output.</p>
+<h3><code>--prof-process</code><span><a class="mark" href="#cli_prof_process" id="cli_prof_process" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="prof_process.html" tppabs="http://nodejs.cn/api/cli/prof_process.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v5.2.0</span>
+</div>
+<p>&#x5904;&#x7406; V8 &#x5206;&#x6790;&#x5668;&#x7684;&#x8F93;&#x51FA;&#xFF0C;&#x901A;&#x8FC7;&#x4F7F;&#x7528; V8 &#x9009;&#x9879; <code>--prof</code> &#x751F;&#x6210;&#x3002;</p>
+<h3><code>--redirect-warnings=file</code><span><a class="mark" href="#cli_redirect_warnings_file" id="cli_redirect_warnings_file" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.0.0</span>
+</div>
+<p>Write process warnings to the given file instead of printing to stderr. The
+file will be created if it does not exist, and will be appended to if it does.
+If an error occurs while attempting to write the warning to the file, the
+warning will be written to stderr instead.</p>
+<h3><code>--throw-deprecation</code><span><a class="mark" href="#cli_throw_deprecation" id="cli_throw_deprecation" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="throw_deprecation.html" tppabs="http://nodejs.cn/api/cli/throw_deprecation.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.14</span>
+</div>
+<p>&#x629B;&#x51FA;&#x5E9F;&#x5F03;&#x7684;&#x9519;&#x8BEF;&#x3002;</p>
+<h3><code>--title=title</code><span><a class="mark" href="#cli_title_title" id="cli_title_title" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.7.0</span>
+</div>
+<p>Set <code>process.title</code> on startup.</p>
+<h3><code>--tls-cipher-list=list</code><span><a class="mark" href="#cli_tls_cipher_list_list" id="cli_tls_cipher_list_list" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="tls_cipher_list_list.html" tppabs="http://nodejs.cn/api/cli/tls_cipher_list_list.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v4.0.0</span>
+</div>
+<p>&#x6307;&#x5B9A;&#x5907;&#x7528;&#x7684;&#x9ED8;&#x8BA4; TLS &#x52A0;&#x5BC6;&#x5217;&#x8868;&#x3002;
+&#xFF08;&#x9700;&#x8981; Node.js &#x88AB;&#x6784;&#x5EFA;&#x4E3A;&#x652F;&#x6301;&#x52A0;&#x5BC6;&#x3002;&#xFF08;&#x9ED8;&#x8BA4;&#xFF09;&#xFF09;</p>
+<h3><code>--trace-deprecation</code><span><a class="mark" href="#cli_trace_deprecation" id="cli_trace_deprecation" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="trace_deprecation.html" tppabs="http://nodejs.cn/api/cli/trace_deprecation.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.8.0</span>
+</div>
+<p>&#x6253;&#x5370;&#x5E9F;&#x5F03;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x3002;</p>
+<h3><code>--trace-event-categories</code><span><a class="mark" href="#cli_trace_event_categories" id="cli_trace_event_categories" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.7.0</span>
+</div>
+<p>A comma separated list of categories that should be traced when trace event
+tracing is enabled using <code>--trace-events-enabled</code>.</p>
+<h3><code>--trace-event-file-pattern</code><span><a class="mark" href="#cli_trace_event_file_pattern" id="cli_trace_event_file_pattern" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v9.8.0</span>
+</div>
+<p>Template string specifying the filepath for the trace event data, it
+supports <code>${rotation}</code> and <code>${pid}</code>.</p>
+<h3><code>--trace-events-enabled</code><span><a class="mark" href="#cli_trace_events_enabled" id="cli_trace_events_enabled" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.7.0</span>
+</div>
+<p>Enables the collection of trace event tracing information.</p>
+<h3><code>--trace-sync-io</code><span><a class="mark" href="#cli_trace_sync_io" id="cli_trace_sync_io" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="trace_sync_io.html" tppabs="http://nodejs.cn/api/cli/trace_sync_io.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v2.1.0</span>
+</div>
+<p>&#x6BCF;&#x5F53;&#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;&#x7684;&#x7B2C;&#x4E00;&#x5E27;&#x4E4B;&#x540E;&#x68C0;&#x6D4B;&#x5230;&#x540C;&#x6B65; I/O &#x65F6;&#xFF0C;&#x6253;&#x5370;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#x3002;</p>
+<h3><code>--trace-warnings</code><span><a class="mark" href="#cli_trace_warnings" id="cli_trace_warnings" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="trace_warnings.html" tppabs="http://nodejs.cn/api/cli/trace_warnings.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.0.0</span>
+</div>
+<p>&#x6253;&#x5370;&#x8FDB;&#x7A0B;&#x8B66;&#x544A;&#x7684;&#x5806;&#x6808;&#x8DDF;&#x8E2A;&#xFF08;&#x5305;&#x62EC;&#x5E9F;&#x5F03;&#x8B66;&#x544A;&#xFF09;&#x3002;</p>
+<h3><code>--track-heap-objects</code><span><a class="mark" href="#cli_track_heap_objects" id="cli_track_heap_objects" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="track_heap_objects.html" tppabs="http://nodejs.cn/api/cli/track_heap_objects.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v2.4.0</span>
+</div>
+<p>&#x4E3A;&#x5806;&#x5FEB;&#x7167;&#x8FFD;&#x8E2A;&#x5806;&#x6808;&#x5BF9;&#x8C61;&#x7684;&#x5206;&#x914D;&#x3002;</p>
+<h3>`--use-bundled-ca`, `--use-openssl-ca`<span><a class="mark" href="#cli_use_bundled_ca_use_openssl_ca" id="cli_use_bundled_ca_use_openssl_ca" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.11.0</span>
+</div>
+<p>Use bundled Mozilla CA store as supplied by current Node.js version
+or use OpenSSL&apos;s default CA store. The default store is selectable
+at build-time.</p>
+<p>The bundled CA store, as supplied by Node.js, is a snapshot of Mozilla CA store
+that is fixed at release time. It is identical on all supported platforms.</p>
+<p>Using OpenSSL store allows for external modifications of the store. For most
+Linux and BSD distributions, this store is maintained by the distribution
+maintainers and system administrators. OpenSSL CA store location is dependent on
+configuration of the OpenSSL library but this can be altered at runtime using
+environment variables.</p>
+<p>See <code>SSL_CERT_DIR</code> and <code>SSL_CERT_FILE</code>.</p>
+<h3><code>--v8-options</code><span><a class="mark" href="#cli_v8_options" id="cli_v8_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="v8_options.html" tppabs="http://nodejs.cn/api/cli/v8_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.3</span>
+</div>
+<p>&#x6253;&#x5370; V8 &#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF0C;V8 &#x9009;&#x9879;&#x5141;&#x8BB8;&#x5355;&#x8BCD;&#x4F7F;&#x7528;&#x7834;&#x6298;&#x53F7;&#xFF08;<code>-</code>&#xFF09;&#x6216;&#x4E0B;&#x5212;&#x7EBF;&#xFF08;<code>_</code>&#xFF09;&#x5206;&#x9694;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;<code>--stack-trace-limit</code> &#x7B49;&#x540C;&#x4E8E; <code>--stack_trace_limit</code>&#x3002;</p>
+<h3><code>--v8-pool-size=num</code><span><a class="mark" href="#cli_v8_pool_size_num" id="cli_v8_pool_size_num" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v5.10.0</span>
+</div>
+<p>Set V8&apos;s thread pool size which will be used to allocate background jobs.</p>
+<p>If set to <code>0</code> then V8 will choose an appropriate size of the thread pool based
+on the number of online processors.</p>
+<p>If the value provided is larger than V8&apos;s maximum, then the largest value
+will be chosen.</p>
+<h3><code>--zero-fill-buffers</code><span><a class="mark" href="#cli_zero_fill_buffers" id="cli_zero_fill_buffers" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="zero_fill_buffers.html" tppabs="http://nodejs.cn/api/cli/zero_fill_buffers.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.0.0</span>
+</div>
+<p>&#x81EA;&#x52A8;&#x7528; 0 &#x586B;&#x5145;&#x6240;&#x6709;&#x65B0;&#x5206;&#x914D;&#x7684; [Buffer] &#x548C; [SlowBuffer] &#x5B9E;&#x4F8B;&#x3002;</p>
+<h3>`-c`, `--check`<span><a class="mark" href="#cli_c_check" id="cli_c_check" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="c_check.html" tppabs="http://nodejs.cn/api/cli/c_check.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v5.0.0, v4.2.0</span>
+</div>
+<p>&#x5728;&#x4E0D;&#x6267;&#x884C;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5BF9;&#x811A;&#x672C;&#x8FDB;&#x884C;&#x8BED;&#x6CD5;&#x68C0;&#x67E5;&#x3002;</p>
+<h3>`-e`, `--eval &quot;script&quot;`<span><a class="mark" href="#cli_e_eval_script" id="cli_e_eval_script" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="e_eval_script.html" tppabs="http://nodejs.cn/api/cli/e_eval_script.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v5.11.0</td>
+<td><p>Built-in libraries are now available as predefined variables.</p></td></tr>
+<tr><td>v0.5.2</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.5.2</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>&#x628A;&#x8DDF;&#x968F;&#x7684;&#x53C2;&#x6570;&#x4F5C;&#x4E3A; JavaScript &#x6765;&#x6267;&#x884C;&#x3002;
+&#x5728; REPL &#x4E2D;&#x9884;&#x5B9A;&#x4E49;&#x7684;&#x6A21;&#x5757;&#x4E5F;&#x53EF;&#x4EE5;&#x5728; <code>script</code> &#x4E2D;&#x4F7F;&#x7528;&#x3002;</p>
+<p><em>Note</em>: On Windows, using <code>cmd.exe</code> a single quote will not work correctly
+because it only recognizes double <code>&quot;</code> for quoting. In Powershell or
+Git bash, both <code>&apos;</code> and <code>&quot;</code> are usable.</p>
+<h3>`-h`, `--help`<span><a class="mark" href="#cli_h_help" id="cli_h_help" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="h_help.html" tppabs="http://nodejs.cn/api/cli/h_help.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.3</span>
+</div>
+<p>&#x6253;&#x5370; node &#x7684;&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;&#x3002;
+&#x6B64;&#x9009;&#x9879;&#x7684;&#x8F93;&#x51FA;&#x4E0D;&#x5982;&#x672C;&#x6587;&#x6863;&#x8BE6;&#x7EC6;&#x3002;</p>
+<h3>`-i`, `--interactive`<span><a class="mark" href="#cli_i_interactive" id="cli_i_interactive" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="i_interactive.html" tppabs="http://nodejs.cn/api/cli/i_interactive.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.7</span>
+</div>
+<p>&#x6253;&#x5F00; REPL&#xFF0C;&#x5373;&#x4F7F; stdin &#x770B;&#x8D77;&#x6765;&#x4E0D;&#x50CF;&#x7EC8;&#x7AEF;&#x3002;</p>
+<h3>`-p`, `--print &quot;script&quot;`<span><a class="mark" href="#cli_p_print_script" id="cli_p_print_script" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="p_print_script.html" tppabs="http://nodejs.cn/api/cli/p_print_script.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v5.11.0</td>
+<td><p>Built-in libraries are now available as predefined variables.</p></td></tr>
+<tr><td>v0.6.4</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.6.4</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>&#x4E0E; <code>-e</code> &#x76F8;&#x540C;&#xFF0C;&#x4F46;&#x4F1A;&#x6253;&#x5370;&#x7ED3;&#x679C;&#x3002;</p>
+<h3>`-r`, `--require module`<span><a class="mark" href="#cli_r_require_module" id="cli_r_require_module" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="r_require_module.html" tppabs="http://nodejs.cn/api/cli/r_require_module.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v1.6.0</span>
+</div>
+<p>&#x5728;&#x542F;&#x52A8;&#x65F6;&#x9884;&#x52A0;&#x8F7D;&#x6307;&#x5B9A;&#x7684;&#x6A21;&#x5757;&#x3002;</p>
+<p>&#x9075;&#x5FAA; <code>require()</code> &#x7684;&#x6A21;&#x5757;&#x89E3;&#x6790;&#x89C4;&#x5219;&#x3002;
+<code>module</code> &#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x8DEF;&#x5F84;&#xFF0C;&#x6216;&#x4E00;&#x4E2A; node &#x6A21;&#x5757;&#x540D;&#x79F0;&#x3002;</p>
+<h3>`-v`, `--version`<span><a class="mark" href="#cli_v_version" id="cli_v_version" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="v_version.html" tppabs="http://nodejs.cn/api/cli/v_version.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.3</span>
+</div>
+<p>&#x6253;&#x5370; node &#x7684;&#x7248;&#x672C;&#x53F7;&#x3002;</p>
+<h2>&#x73AF;&#x5883;&#x53D8;&#x91CF;<span><a class="mark" href="#cli_environment_variables" id="cli_environment_variables" rel="nofollow">#</a></span></h2>
+<h3><code>NODE_DEBUG=module[,&#x2026;]</code><span><a class="mark" href="#cli_node_debug_module" id="cli_node_debug_module" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="node_debug_module.html" tppabs="http://nodejs.cn/api/cli/node_debug_module.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.32</span>
+</div>
+<p>&#x4EE5; <code>&apos;,&apos;</code> &#x5206;&#x9694;&#x7684;&#x5E94;&#x8BE5;&#x6253;&#x5370;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x7684;&#x6838;&#x5FC3;&#x6A21;&#x5757;&#x5217;&#x8868;&#x3002;</p>
+<h3><code>NODE_DISABLE_COLORS=1</code><span><a class="mark" href="#cli_node_disable_colors_1" id="cli_node_disable_colors_1" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="node_disable_colors_1.html" tppabs="http://nodejs.cn/api/cli/node_disable_colors_1.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.0</span>
+</div>
+<p>&#x5F53;&#x8BBE;&#x4E3A; <code>1</code> &#x65F6;&#xFF0C;&#x4E0D;&#x4F1A;&#x5728; REPL &#x4E2D;&#x4F7F;&#x7528;&#x989C;&#x8272;&#x3002;</p>
+<h3><code>NODE_EXTRA_CA_CERTS=file</code><span><a class="mark" href="#cli_node_extra_ca_certs_file" id="cli_node_extra_ca_certs_file" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="node_extra_ca_certs_file.html" tppabs="http://nodejs.cn/api/cli/node_extra_ca_certs_file.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.3.0</span>
+</div>
+<p>&#x5F53;&#x8BBE;&#x7F6E;&#x4E86;&#x6B64;&#x9009;&#x9879;&#x65F6;&#xFF0C;&#x6839; CA &#x8BC1;&#x4E66;&#xFF08;&#x5982; VeriSign&#xFF09;&#x4F1A;&#x88AB; <code>file</code> &#x6307;&#x5B9A;&#x7684;&#x8BC1;&#x4E66;&#x6269;&#x5C55;&#x3002;
+&#x6587;&#x4EF6;&#x5E94;&#x8BE5;&#x5305;&#x62EC;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x53EF;&#x4FE1;&#x7684; PEM &#x683C;&#x5F0F;&#x7684;&#x8BC1;&#x4E66;&#x3002;
+&#x5982;&#x679C;&#x6587;&#x4EF6;&#x4E22;&#x5931;&#x6216;&#x6709;&#x7F3A;&#x9677;&#xFF0C;&#x5219; <a href="javascript:if(confirm('http://nodejs.cn/s/3jLPtt  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/3jLPtt'" tppabs="http://nodejs.cn/s/3jLPtt" rel="nofollow"><code>process.emitWarning()</code></a> &#x4F1A;&#x89E6;&#x53D1;&#x4E00;&#x4E2A;&#x6D88;&#x606F;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x5F53;&#x4E00;&#x4E2A; TLS &#x6216; HTTPS &#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x6216;&#x670D;&#x52A1;&#x5668;&#x7684; <code>ca</code> &#x9009;&#x9879;&#x7684;&#x5C5E;&#x6027;&#x88AB;&#x663E;&#x5F0F;&#x5730;&#x6307;&#x5B9A;&#x65F6;&#xFF0C;&#x5219;&#x6307;&#x5B9A;&#x7684;&#x8BC1;&#x4E66;&#x4E0D;&#x4F1A;&#x88AB;&#x4F7F;&#x7528;&#x3002;</p>
+<h3><code>NODE_ICU_DATA=file</code><span><a class="mark" href="#cli_node_icu_data_file" id="cli_node_icu_data_file" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="node_icu_data_file.html" tppabs="http://nodejs.cn/api/cli/node_icu_data_file.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.11.15</span>
+</div>
+<p>ICU&#xFF08;Intl &#x5BF9;&#x8C61;&#xFF09;&#x6570;&#x636E;&#x7684;&#x6570;&#x636E;&#x8DEF;&#x5F84;&#x3002;
+&#x5F53;&#x4F7F;&#x7528; <code>small-icu</code> &#x7F16;&#x8BD1;&#x65F6;&#xFF0C;&#x6269;&#x5C55;&#x94FE;&#x63A5;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<h3><code>NODE_NO_WARNINGS=1</code><span><a class="mark" href="#cli_node_no_warnings_1" id="cli_node_no_warnings_1" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.11.0</span>
+</div>
+<p>When set to <code>1</code>, process warnings are silenced.</p>
+<h3><code>NODE_OPTIONS=options...</code><span><a class="mark" href="#cli_node_options_options" id="cli_node_options_options" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.0.0</span>
+</div>
+<p>A space-separated list of command line options. <code>options...</code> are interpreted as
+if they had been specified on the command line before the actual command line
+(so they can be overridden). Node.js will exit with an error if an option
+that is not allowed in the environment is used, such as <code>-p</code> or a script file.</p>
+<p>Node.js options that are allowed are:</p>
+<ul>
+<li><code>--enable-fips</code></li>
+<li><code>--experimental-modules</code></li>
+<li><code>--experimental-repl-await</code></li>
+<li><code>--experimental-vm-modules</code></li>
+<li><code>--experimental-worker</code></li>
+<li><code>--force-fips</code></li>
+<li><code>--icu-data-dir</code></li>
+<li><code>--inspect</code></li>
+<li><code>--inspect-brk</code></li>
+<li><code>--inspect-port</code></li>
+<li><code>--loader</code></li>
+<li><code>--napi-modules</code></li>
+<li><code>--no-deprecation</code></li>
+<li><code>--no-force-async-hooks-checks</code></li>
+<li><code>--no-warnings</code></li>
+<li><code>--openssl-config</code></li>
+<li><code>--pending-deprecation</code></li>
+<li><code>--redirect-warnings</code></li>
+<li><code>--require</code>, <code>-r</code></li>
+<li><code>--throw-deprecation</code></li>
+<li><code>--title</code></li>
+<li><code>--tls-cipher-list</code></li>
+<li><code>--trace-deprecation</code></li>
+<li><code>--trace-event-categories</code></li>
+<li><code>--trace-event-file-pattern</code></li>
+<li><code>--trace-events-enabled</code></li>
+<li><code>--trace-sync-io</code></li>
+<li><code>--trace-warnings</code></li>
+<li><code>--track-heap-objects</code></li>
+<li><code>--use-bundled-ca</code></li>
+<li><code>--use-openssl-ca</code></li>
+<li><code>--v8-pool-size</code></li>
+<li><code>--zero-fill-buffers</code></li>
+</ul>
+<p>V8 options that are allowed are:</p>
+<ul>
+<li><code>--abort-on-uncaught-exception</code></li>
+<li><code>--max-old-space-size</code></li>
+<li><code>--perf-basic-prof</code></li>
+<li><code>--perf-prof</code></li>
+<li><code>--stack-trace-limit</code></li>
+</ul>
+<h3><code>NODE_PATH=path[:&#x2026;]</code><span><a class="mark" href="#cli_node_path_path" id="cli_node_path_path" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="node_path_path.html" tppabs="http://nodejs.cn/api/cli/node_path_path.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.1.32</span>
+</div>
+<p>&#x4EE5; <code>&apos;:&apos;</code> &#x5206;&#x9694;&#x7684;&#x6709;&#x6A21;&#x5757;&#x641C;&#x7D22;&#x8DEF;&#x5F84;&#x4F5C;&#x524D;&#x7F00;&#x7684;&#x76EE;&#x5F55;&#x5217;&#x8868;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x5728; Windows &#x4E2D;&#xFF0C;&#x5217;&#x8868;&#x662F;&#x7528; <code>&apos;;&apos;</code> &#x5206;&#x9694;&#x7684;&#x3002;</p>
+<h3><code>NODE_PENDING_DEPRECATION=1</code><span><a class="mark" href="#cli_node_pending_deprecation_1" id="cli_node_pending_deprecation_1" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.0.0</span>
+</div>
+<p>When set to <code>1</code>, emit pending deprecation warnings.</p>
+<p>Pending deprecations are generally identical to a runtime deprecation with the
+notable exception that they are turned <em>off</em> by default and will not be emitted
+unless either the <code>--pending-deprecation</code> command line flag, or the
+<code>NODE_PENDING_DEPRECATION=1</code> environment variable, is set. Pending deprecations
+are used to provide a kind of selective &quot;early warning&quot; mechanism that
+developers may leverage to detect deprecated API usage.</p>
+<h3><code>NODE_PRESERVE_SYMLINKS=1</code><span><a class="mark" href="#cli_node_preserve_symlinks_1" id="cli_node_preserve_symlinks_1" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.1.0</span>
+</div>
+<p>When set to <code>1</code>, instructs the module loader to preserve symbolic links when
+resolving and caching modules.</p>
+<h3><code>NODE_REDIRECT_WARNINGS=file</code><span><a class="mark" href="#cli_node_redirect_warnings_file" id="cli_node_redirect_warnings_file" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v8.0.0</span>
+</div>
+<p>When set, process warnings will be emitted to the given file instead of
+printing to stderr. The file will be created if it does not exist, and will be
+appended to if it does. If an error occurs while attempting to write the
+warning to the file, the warning will be written to stderr instead. This is
+equivalent to using the <code>--redirect-warnings=file</code> command-line flag.</p>
+<h3><code>NODE_REPL_HISTORY=file</code><span><a class="mark" href="#cli_node_repl_history_file" id="cli_node_repl_history_file" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="node_repl_history_file.html" tppabs="http://nodejs.cn/api/cli/node_repl_history_file.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v3.0.0</span>
+</div>
+<p>&#x7528;&#x4E8E;&#x5B58;&#x50A8;&#x6301;&#x4E45;&#x6027;&#x7684; REPL &#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x7684;&#x6587;&#x4EF6;&#x7684;&#x8DEF;&#x5F84;&#x3002;
+&#x9ED8;&#x8BA4;&#x8DEF;&#x5F84;&#x662F; <code>~/.node_repl_history</code>&#xFF0C;&#x53EF;&#x88AB;&#x8BE5;&#x53D8;&#x91CF;&#x8986;&#x76D6;&#x3002;
+&#x5C06;&#x503C;&#x8BBE;&#x4E3A;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#xFF08;<code>&quot;&quot;</code> &#x6216; <code>&quot; &quot;</code>&#xFF09;&#x4F1A;&#x7981;&#x7528;&#x6301;&#x4E45;&#x6027;&#x7684; REPL &#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x3002;</p>
+<h3><code>NODE_V8_COVERAGE=dir</code><span><a class="mark" href="#cli_node_v8_coverage_dir" id="cli_node_v8_coverage_dir" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>When set, Node.js will begin outputting <a href="javascript:if(confirm('http://nodejs.cn/s/fXHha2  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/fXHha2'" tppabs="http://nodejs.cn/s/fXHha2" rel="nofollow">V8 JavaScript code coverage</a> to the
+directory provided as an argument. Coverage is output as an array of</p>
+<pre><code class="language-json">{
+  &quot;result&quot;: [
+    {
+      &quot;scriptId&quot;: &quot;67&quot;,
+      &quot;url&quot;: &quot;internal/tty.js&quot;,
+      &quot;functions&quot;: []
+    }
+  ]
+}
+</code></pre>
+<p><code>NODE_V8_COVERAGE</code> will automatically propagate to subprocesses, making it
+easier to instrument applications that call the <code>child_process.spawn()</code> family
+of functions. <code>NODE_V8_COVERAGE</code> can be set to an empty string, to prevent
+propagation.</p>
+<p>At this time coverage is only collected in the main thread and will not be
+output for code executed by worker threads.</p>
+<h3><code>OPENSSL_CONF=file</code><span><a class="mark" href="#cli_openssl_conf_file" id="cli_openssl_conf_file" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.11.0</span>
+</div>
+<p>Load an OpenSSL configuration file on startup. Among other uses, this can be
+used to enable FIPS-compliant crypto if Node.js is built with <code>./configure --openssl-fips</code>.</p>
+<p>If the <a href="javascript:if(confirm('http://nodejs.cn/s/SxGi8X  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/SxGi8X'" tppabs="http://nodejs.cn/s/SxGi8X" rel="nofollow"><code>--openssl-config</code></a> command line option is used, the environment
+variable is ignored.</p>
+<h3><code>SSL_CERT_DIR=dir</code><span><a class="mark" href="#cli_ssl_cert_dir_dir" id="cli_ssl_cert_dir_dir" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.7.0</span>
+</div>
+<p>If <code>--use-openssl-ca</code> is enabled, this overrides and sets OpenSSL&apos;s directory
+containing trusted certificates.</p>
+<p>Be aware that unless the child environment is explicitly set, this environment
+variable will be inherited by any child processes, and if they use OpenSSL, it
+may cause them to trust the same CAs as node.</p>
+<h3><code>SSL_CERT_FILE=file</code><span><a class="mark" href="#cli_ssl_cert_file_file" id="cli_ssl_cert_file_file" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v7.7.0</span>
+</div>
+<p>If <code>--use-openssl-ca</code> is enabled, this overrides and sets OpenSSL&apos;s file
+containing trusted certificates.</p>
+<p>Be aware that unless the child environment is explicitly set, this environment
+variable will be inherited by any child processes, and if they use OpenSSL, it
+may cause them to trust the same CAs as node.</p>
+<h3><code>UV_THREADPOOL_SIZE=size</code><span><a class="mark" href="#cli_uv_threadpool_size_size" id="cli_uv_threadpool_size_size" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<p>Set the number of threads used in libuv&apos;s threadpool to <code>size</code> threads.</p>
+<p>Asynchronous system APIs are used by Node.js whenever possible, but where they
+do not exist, libuv&apos;s threadpool is used to create asynchronous node APIs based
+on synchronous system APIs. Node.js APIs that use the threadpool are:</p>
+<ul>
+<li>all <code>fs</code> APIs, other than the file watcher APIs and those that are explicitly
+synchronous</li>
+<li><code>crypto.pbkdf2()</code></li>
+<li><code>crypto.randomBytes()</code>, unless it is used without a callback</li>
+<li><code>crypto.randomFill()</code></li>
+<li><code>dns.lookup()</code></li>
+<li>all <code>zlib</code> APIs, other than those that are explicitly synchronous</li>
+</ul>
+<p>Because libuv&apos;s threadpool has a fixed size, it means that if for whatever
+reason any of these APIs takes a long time, other (seemingly unrelated) APIs
+that run in libuv&apos;s threadpool will experience degraded performance. In order to
+mitigate this issue, one potential solution is to increase the size of libuv&apos;s
+threadpool by setting the <code>&apos;UV_THREADPOOL_SIZE&apos;</code> environment variable to a value
+greater than <code>4</code> (its current default value). For more information, see the
+<a href="javascript:if(confirm('http://nodejs.cn/s/qnnxK6  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/qnnxK6'" tppabs="http://nodejs.cn/s/qnnxK6" rel="nofollow">libuv threadpool documentation</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712013395"><\/script>');
+  </script>
+
+</body></html>

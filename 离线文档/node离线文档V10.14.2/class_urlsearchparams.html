@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>URLSearchParams 类 | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/url/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712040311" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-url">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>URLSearchParams 类</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="url.html#url_class_urlsearchparams" tppabs="http://nodejs.cn/api/url.html#url_class_urlsearchparams" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+
+</div><p><code>URLSearchParams</code>API&#x63A5;&#x53E3;&#x63D0;&#x4F9B;&#x5BF9;<code>URL</code>query&#x90E8;&#x5206;&#x7684;&#x8BFB;&#x5199;&#x6743;&#x9650;&#x3002;<code>URLSearchParams</code>&#x7C7B;&#x4E5F;&#x80FD;&#x591F;&#x4E0E;&#x4EE5;&#x4E0B;&#x56DB;&#x4E2A;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E2D;&#x7684;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x4F7F;&#x7528;&#x3002;</p><p>WHATWG <code>URLSearchParams</code>&#x63A5;&#x53E3;&#x548C;<a href="javascript:if(confirm('http://nodejs.cn/s/i23Gdh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/i23Gdh'" tppabs="http://nodejs.cn/s/i23Gdh" rel="nofollow"><code>querystring</code></a>&#x6A21;&#x5757;&#x6709;&#x76F8;&#x4F3C;&#x7684;&#x76EE;&#x7684;&#xFF0C;&#x4F46;&#x662F;<a href="javascript:if(confirm('http://nodejs.cn/s/i23Gdh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/i23Gdh'" tppabs="http://nodejs.cn/s/i23Gdh" rel="nofollow"><code>querystring</code></a>&#x6A21;&#x5757;&#x7684;&#x76EE;&#x7684;&#x66F4;&#x52A0;&#x901A;&#x7528;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x53EF;&#x4EE5;&#x5B9A;&#x5236;&#x5206;&#x9694;&#x7B26;&#xFF08;<code>&#xFF06;</code>&#x548C;<code>=</code>&#xFF09;&#x3002;&#x4F46;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x8FD9;&#x4E2A;API&#x662F;&#x4E13;&#x95E8;&#x4E3A;URL&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#x800C;&#x8BBE;&#x8BA1;&#x7684;&#x3002;</p><pre><code class="language-js">const { URL, URLSearchParams } = require(&apos;url&apos;);
+
+const myURL = new URL(&apos;https://example.org/?abc=123&apos;);
+console.log(myURL.searchParams.get(&apos;abc&apos;));
+// &#x8F93;&#x51FA; 123
+
+myURL.searchParams.append(&apos;abc&apos;, &apos;xyz&apos;);
+console.log(myURL.href);
+// &#x8F93;&#x51FA; https://example.org/?abc=123&amp;abc=xyz
+
+myURL.searchParams.delete(&apos;abc&apos;);
+myURL.searchParams.set(&apos;a&apos;, &apos;b&apos;);
+console.log(myURL.href);
+// &#x8F93;&#x51FA; https://example.org/?a=b
+
+const newSearchParams = new URLSearchParams(myURL.searchParams);
+// &#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x7B49;&#x540C;&#x4E8E;
+// const newSearchParams = new URLSearchParams(myURL.search);
+
+newSearchParams.append(&apos;a&apos;, &apos;c&apos;);
+console.log(myURL.href);
+// &#x8F93;&#x51FA; https://example.org/?a=b
+console.log(newSearchParams.toString());
+// &#x8F93;&#x51FA; a=b&amp;a=c
+
+// newSearchParams.toString() &#x88AB;&#x9690;&#x5F0F;&#x8C03;&#x7528;
+myURL.search = newSearchParams;
+console.log(myURL.href);
+// &#x8F93;&#x51FA; https://example.org/?a=b&amp;a=c
+newSearchParams.delete(&apos;a&apos;);
+console.log(myURL.href);
+// &#x8F93;&#x51FA; https://example.org/?a=b&amp;a=c
+</code></pre></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v10.0.0</td>
+<td><p>The class is now available on the global object.</p></td></tr>
+<tr><td>v7.5.0</td>
+<td><p><span>Added in: v7.5.0</span></p></td></tr>
+</tbody></table>
+</details>
+</div><p>The <code>URLSearchParams</code> API provides read and write access to the query of a
+<code>URL</code>. The <code>URLSearchParams</code> class can also be used standalone with one of the
+four following constructors.
+The <code>URLSearchParams</code> class is also available on the global object.</p><p>The WHATWG <code>URLSearchParams</code> interface and the <a href="javascript:if(confirm('http://nodejs.cn/s/i23Gdh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/i23Gdh'" tppabs="http://nodejs.cn/s/i23Gdh" rel="nofollow"><code>querystring</code></a> module have
+similar purpose, but the purpose of the <a href="javascript:if(confirm('http://nodejs.cn/s/i23Gdh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/i23Gdh'" tppabs="http://nodejs.cn/s/i23Gdh" rel="nofollow"><code>querystring</code></a> module is more
+general, as it allows the customization of delimiter characters (<code>&amp;</code> and <code>=</code>).
+On the other hand, this API is designed purely for URL query strings.</p><pre><code class="language-js">const myURL = new URL(&apos;https://example.org/?abc=123&apos;);
+console.log(myURL.searchParams.get(&apos;abc&apos;));
+// Prints 123
+
+myURL.searchParams.append(&apos;abc&apos;, &apos;xyz&apos;);
+console.log(myURL.href);
+// Prints https://example.org/?abc=123&amp;abc=xyz
+
+myURL.searchParams.delete(&apos;abc&apos;);
+myURL.searchParams.set(&apos;a&apos;, &apos;b&apos;);
+console.log(myURL.href);
+// Prints https://example.org/?a=b
+
+const newSearchParams = new URLSearchParams(myURL.searchParams);
+// The above is equivalent to
+// const newSearchParams = new URLSearchParams(myURL.search);
+
+newSearchParams.append(&apos;a&apos;, &apos;c&apos;);
+console.log(myURL.href);
+// Prints https://example.org/?a=b
+console.log(newSearchParams.toString());
+// Prints a=b&amp;a=c
+
+// newSearchParams.toString() is implicitly called
+myURL.search = newSearchParams;
+console.log(myURL.href);
+// Prints https://example.org/?a=b&amp;a=c
+newSearchParams.delete(&apos;a&apos;);
+console.log(myURL.href);
+// Prints https://example.org/?a=b&amp;a=c
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712040311"><\/script>');
+  </script>
+</body>
+</html>

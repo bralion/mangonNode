@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>url.format(urlObject) | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/url/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712040386" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-url">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>url.format(urlObject)</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="url.html#url_url_format_urlobject" tppabs="http://nodejs.cn/api/url.html#url_url_format_urlobject" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v7.0.0</td>
+<td><p>URLs with a <code>file:</code> scheme will now always use the correct number of slashes regardless of <code>slashes</code> option. A false-y <code>slashes</code> option with no protocol is now also respected at all times.</p></td></tr>
+<tr><td>v0.1.25</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.1.25</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>urlObject</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x4E00;&#x4E2A; URL &#x5BF9;&#x8C61;&#xFF08;&#x5C31;&#x50CF; <code>url.parse()</code> &#x8FD4;&#x56DE;&#x7684;&#xFF09;&#x3002;
+&#x5982;&#x679C;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x901A;&#x8FC7; <code>url.parse()</code> &#x8F6C;&#x6362;&#x4E3A;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x3002;</li>
+</ul><p><code>url.format()</code> &#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x4ECE; <code>urlObject</code> &#x683C;&#x5F0F;&#x5316;&#x540E;&#x7684; URL &#x5B57;&#x7B26;&#x4E32;&#x3002;</p><p>&#x5982;&#x679C; <code>urlObject</code> &#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x6216;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219; <code>url.format()</code> &#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/Z7Lqyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Z7Lqyj'" tppabs="http://nodejs.cn/s/Z7Lqyj" rel="nofollow"><code>TypeError</code></a>&#x3002;</p><p>&#x683C;&#x5F0F;&#x5316;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p><ul>
+<li>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7A7A;&#x5B57;&#x7B26;&#x4E32; <code>result</code>&#x3002;</li>
+<li>&#x5982;&#x679C; <code>urlObject.protocol</code> &#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x5B83;&#x4F1A;&#x88AB;&#x539F;&#x6837;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.protocol</code> &#x4E0D;&#x662F; <code>undefined</code> &#x4E5F;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+<li>&#x5BF9;&#x4E8E;&#x4E0D;&#x662F;&#x4EE5; <code>:</code> &#x7ED3;&#x675F;&#x7684; <code>urlObject.protocol</code>&#xFF0C;<code>:</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li>
+<p>&#x5982;&#x679C;&#x4EE5;&#x4E0B;&#x6761;&#x4EF6;&#x4E4B;&#x4E00;&#x4E3A;&#x771F;&#xFF0C;&#x5219; <code>//</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#xFF1A;</p>
+<ul>
+<li><code>urlObject.slashes</code> &#x5C5E;&#x6027;&#x4E3A;&#x771F;&#xFF1B;</li>
+<li><code>urlObject.protocol</code> &#x4EE5; <code>http</code>&#x3001;<code>https</code>&#x3001;<code>ftp</code>&#x3001;<code>gopher</code> &#x6216; <code>file</code> &#x5F00;&#x5934;&#xFF1B;</li>
+</ul>
+</li>
+<li>&#x5982;&#x679C; <code>urlObject.auth</code> &#x5C5E;&#x6027;&#x7684;&#x503C;&#x4E3A;&#x771F;&#xFF0C;&#x4E14; <code>urlObject.host</code> &#x6216; <code>urlObject.hostname</code> &#x4E0D;&#x4E3A; <code>undefined</code>&#xFF0C;&#x5219; <code>urlObject.auth</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#xFF0C;&#x4E14;&#x540E;&#x9762;&#x5E26;&#x4E0A; <code>@</code>&#x3002;</li>
+<li>
+<p>&#x5982;&#x679C; <code>urlObject.host</code> &#x5C5E;&#x6027;&#x4E3A; <code>undefined</code>&#xFF0C;&#x5219;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C; <code>urlObject.hostname</code> &#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x5B83;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.hostname</code> &#x4E0D;&#x662F; <code>undefined</code> &#x4E5F;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+<li>
+<p>&#x5982;&#x679C; <code>urlObject.port</code> &#x5C5E;&#x6027;&#x7684;&#x503C;&#x4E3A;&#x771F;&#xFF0C;&#x4E14; <code>urlObject.hostname</code> &#x4E0D;&#x4E3A; <code>undefined</code>&#xFF1A;</p>
+<ul>
+<li><code>:</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li><code>urlObject.port</code> &#x7684;&#x503C;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.host</code> &#x5C5E;&#x6027;&#x7684;&#x503C;&#x4E3A;&#x771F;&#xFF0C;&#x5219; <code>urlObject.host</code> &#x7684;&#x503C;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li>
+<p>&#x5982;&#x679C; <code>urlObject.pathname</code> &#x5C5E;&#x6027;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x4E14;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C; <code>urlObject.pathname</code> &#x4E0D;&#x662F;&#x4EE5; <code>/</code> &#x5F00;&#x5934;&#xFF0C;&#x5219; <code>/</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li><code>urlObject.pathname</code> &#x7684;&#x503C;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+</ul>
+</li>
+<li>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.pathname</code> &#x4E0D;&#x662F; <code>undefined</code> &#x4E5F;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+<li>&#x5982;&#x679C; <code>urlObject.search</code> &#x5C5E;&#x6027;&#x4E3A; <code>undefined</code> &#x4E14; <code>urlObject.query</code> &#x5C5E;&#x6027;&#x662F;&#x4E00;&#x4E2A; <code>Object</code>&#xFF0C;&#x5219; <code>?</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#xFF0C;&#x540E;&#x9762;&#x8DDF;&#x4E0A;&#x628A; <code>urlObject.query</code> &#x7684;&#x503C;&#x4F20;&#x5165; <a href="javascript:if(confirm('http://nodejs.cn/s/i23Gdh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/i23Gdh'" tppabs="http://nodejs.cn/s/i23Gdh" rel="nofollow"><code>querystring</code></a> &#x6A21;&#x5757;&#x7684; <code>stringify()</code> &#x65B9;&#x6CD5;&#x7684;&#x8C03;&#x7528;&#x7ED3;&#x679C;&#x3002;</li>
+<li>
+<p>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.search</code> &#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C; <code>urlObject.search</code> &#x7684;&#x503C;&#x4E0D;&#x662F;&#x4EE5; <code>?</code> &#x5F00;&#x5934;&#xFF0C;&#x5219; <code>?</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li><code>urlObject.search</code> &#x7684;&#x503C;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+</ul>
+</li>
+<li>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.search</code> &#x4E0D;&#x662F; <code>undefined</code> &#x4E5F;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+<li>
+<p>&#x5982;&#x679C; <code>urlObject.hash</code> &#x5C5E;&#x6027;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C; <code>urlObject.hash</code> &#x7684;&#x503C;&#x4E0D;&#x662F;&#x4EE5; <code>#</code> &#x5F00;&#x5934;&#xFF0C;&#x5219; <code>#</code> &#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+<li><code>urlObject.hash</code> &#x7684;&#x503C;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230; <code>result</code>&#x3002;</li>
+</ul>
+</li>
+<li>&#x5426;&#x5219;&#xFF0C;&#x5982;&#x679C; <code>urlObject.hash</code> &#x5C5E;&#x6027;&#x4E0D;&#x662F; <code>undefined</code> &#x4E5F;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5219;&#x629B;&#x51FA; <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a>&#x3002;</li>
+<li>&#x8FD4;&#x56DE; <code>result</code>&#x3002;</li>
+</ul></div>
+          <div id="content_right"><div class="api_metadata">
+<details class="changelog"><summary>History</summary>
+<table>
+<tbody><tr><th>Version</th><th>Changes</th></tr>
+<tr><td>v7.0.0</td>
+<td><p>URLs with a <code>file:</code> scheme will now always use the correct number of slashes regardless of <code>slashes</code> option. A false-y <code>slashes</code> option with no protocol is now also respected at all times.</p></td></tr>
+<tr><td>v0.1.25</td>
+<td><p><span>Added in: v0.1.25</span></p></td></tr>
+</tbody></table>
+</details>
+</div><ul>
+<li><code>urlObject</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a> | <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> A URL object (as returned by <code>url.parse()</code> or
+constructed otherwise). If a string, it is converted to an object by passing
+it to <code>url.parse()</code>.</li>
+</ul><p>The <code>url.format()</code> method returns a formatted URL string derived from
+<code>urlObject</code>.</p><pre><code class="language-js">url.format({
+  protocol: &apos;https&apos;,
+  hostname: &apos;example.com&apos;,
+  pathname: &apos;/some/path&apos;,
+  query: {
+    page: 1,
+    format: &apos;json&apos;
+  }
+});
+
+// =&gt; &apos;https://example.com/some/path?page=1&amp;format=json&apos;
+</code></pre><p>If <code>urlObject</code> is not an object or a string, <code>url.format()</code> will throw a
+<a href="javascript:if(confirm('http://nodejs.cn/s/Z7Lqyj  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/Z7Lqyj'" tppabs="http://nodejs.cn/s/Z7Lqyj" rel="nofollow"><code>TypeError</code></a>.</p><p>The formatting process operates as follows:</p><ul>
+<li>A new empty string <code>result</code> is created.</li>
+<li>If <code>urlObject.protocol</code> is a string, it is appended as-is to <code>result</code>.</li>
+<li>Otherwise, if <code>urlObject.protocol</code> is not <code>undefined</code> and is not a string, an
+<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> is thrown.</li>
+<li>For all string values of <code>urlObject.protocol</code> that <em>do not end</em> with an ASCII
+colon (<code>:</code>) character, the literal string <code>:</code> will be appended to <code>result</code>.</li>
+<li>
+<p>If either of the following conditions is true, then the literal string <code>//</code>
+will be appended to <code>result</code>:</p>
+<ul>
+<li><code>urlObject.slashes</code> property is true;</li>
+<li><code>urlObject.protocol</code> begins with <code>http</code>, <code>https</code>, <code>ftp</code>, <code>gopher</code>, or
+<code>file</code>;</li>
+</ul>
+</li>
+<li>If the value of the <code>urlObject.auth</code> property is truthy, and either
+<code>urlObject.host</code> or <code>urlObject.hostname</code> are not <code>undefined</code>, the value of
+<code>urlObject.auth</code> will be coerced into a string and appended to <code>result</code>
+followed by the literal string <code>@</code>.</li>
+<li>
+<p>If the <code>urlObject.host</code> property is <code>undefined</code> then:</p>
+<ul>
+<li>If the <code>urlObject.hostname</code> is a string, it is appended to <code>result</code>.</li>
+<li>Otherwise, if <code>urlObject.hostname</code> is not <code>undefined</code> and is not a string,
+an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> is thrown.</li>
+<li>
+<p>If the <code>urlObject.port</code> property value is truthy, and <code>urlObject.hostname</code>
+is not <code>undefined</code>:</p>
+<ul>
+<li>The literal string <code>:</code> is appended to <code>result</code>, and</li>
+<li>The value of <code>urlObject.port</code> is coerced to a string and appended to
+<code>result</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Otherwise, if the <code>urlObject.host</code> property value is truthy, the value of
+<code>urlObject.host</code> is coerced to a string and appended to <code>result</code>.</li>
+<li>
+<p>If the <code>urlObject.pathname</code> property is a string that is not an empty string:</p>
+<ul>
+<li>If the <code>urlObject.pathname</code> <em>does not start</em> with an ASCII forward slash
+(<code>/</code>), then the literal string <code>&apos;/&apos;</code> is appended to <code>result</code>.</li>
+<li>The value of <code>urlObject.pathname</code> is appended to <code>result</code>.</li>
+</ul>
+</li>
+<li>Otherwise, if <code>urlObject.pathname</code> is not <code>undefined</code> and is not a string, an
+<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> is thrown.</li>
+<li>If the <code>urlObject.search</code> property is <code>undefined</code> and if the <code>urlObject.query</code>
+property is an <code>Object</code>, the literal string <code>?</code> is appended to <code>result</code>
+followed by the output of calling the <a href="javascript:if(confirm('http://nodejs.cn/s/i23Gdh  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/i23Gdh'" tppabs="http://nodejs.cn/s/i23Gdh" rel="nofollow"><code>querystring</code></a> module&apos;s <code>stringify()</code>
+method passing the value of <code>urlObject.query</code>.</li>
+<li>
+<p>Otherwise, if <code>urlObject.search</code> is a string:</p>
+<ul>
+<li>If the value of <code>urlObject.search</code> <em>does not start</em> with the ASCII question
+mark (<code>?</code>) character, the literal string <code>?</code> is appended to <code>result</code>.</li>
+<li>The value of <code>urlObject.search</code> is appended to <code>result</code>.</li>
+</ul>
+</li>
+<li>Otherwise, if <code>urlObject.search</code> is not <code>undefined</code> and is not a string, an
+<a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> is thrown.</li>
+<li>
+<p>If the <code>urlObject.hash</code> property is a string:</p>
+<ul>
+<li>If the value of <code>urlObject.hash</code> <em>does not start</em> with the ASCII hash (<code>#</code>)
+character, the literal string <code>#</code> is appended to <code>result</code>.</li>
+<li>The value of <code>urlObject.hash</code> is appended to <code>result</code>.</li>
+</ul>
+</li>
+<li>Otherwise, if the <code>urlObject.hash</code> property is not <code>undefined</code> and is not a
+string, an <a href="javascript:if(confirm('http://nodejs.cn/s/FLTm19  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/FLTm19'" tppabs="http://nodejs.cn/s/FLTm19" rel="nofollow"><code>Error</code></a> is thrown.</li>
+<li><code>result</code> is returned.</li>
+</ul></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712040386"><\/script>');
+  </script>
+</body>
+</html>

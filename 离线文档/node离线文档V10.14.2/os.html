@@ -1,0 +1,1382 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>os | Node.js API &#x6587;&#x6863;</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712032765" rel="stylesheet">')
+  </script>
+  
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api">
+  <div id="api-section-os">
+    <div id="content" class="clearfix">
+      <div id="column2" class="interior">
+        <div id="intro" class="interior">
+          <a href="javascript:if(confirm('http://nodejs.cn/  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/'" tppabs="http://nodejs.cn/" rel="nofollow">
+            Node.js &#x4E2D;&#x6587;&#x7F51;
+          </a>
+          <!-- <div>
+            <input placeholder="API 快速搜索" id="modal_search_trigger">
+          </div> -->
+        </div>
+        <div class="line"></div>
+        <ul>
+<li><a href="assert.html" tppabs="http://nodejs.cn/api/assert.html" class="nav-assert" rel="nofollow">assert - &#x65AD;&#x8A00;</a></li>
+<li><a href="async_hooks.html" tppabs="http://nodejs.cn/api/async_hooks.html" class="nav-async_hooks" rel="nofollow">async_hooks - &#x5F02;&#x6B65;&#x94A9;&#x5B50;</a></li>
+<li><a href="buffer.html" tppabs="http://nodejs.cn/api/buffer.html" class="nav-buffer" rel="nofollow">Buffer - &#x7F13;&#x51B2;&#x5668;</a></li>
+<li><a href="child_process.html" tppabs="http://nodejs.cn/api/child_process.html" class="nav-child_process" rel="nofollow">child_process - &#x5B50;&#x8FDB;&#x7A0B;</a></li>
+<li><a href="cluster.html" tppabs="http://nodejs.cn/api/cluster.html" class="nav-cluster" rel="nofollow">cluster - &#x96C6;&#x7FA4;</a></li>
+<li><a href="console.html" tppabs="http://nodejs.cn/api/console.html" class="nav-console" rel="nofollow">console - &#x63A7;&#x5236;&#x53F0;</a></li>
+<li><a href="crypto.html" tppabs="http://nodejs.cn/api/crypto.html" class="nav-crypto" rel="nofollow">crypto - &#x52A0;&#x5BC6;</a></li>
+<li><a href="dgram.html" tppabs="http://nodejs.cn/api/dgram.html" class="nav-dgram" rel="nofollow">dgram - &#x6570;&#x636E;&#x62A5;</a></li>
+<li><a href="dns.html" tppabs="http://nodejs.cn/api/dns.html" class="nav-dns" rel="nofollow">dns - &#x57DF;&#x540D;&#x670D;&#x52A1;&#x5668;</a></li>
+<li><a href="domain.html" tppabs="http://nodejs.cn/api/domain.html" class="nav-domain" rel="nofollow">domain - &#x57DF;</a></li>
+<li><a href="errors.html" tppabs="http://nodejs.cn/api/errors.html" class="nav-errors" rel="nofollow">Error - &#x5F02;&#x5E38;</a></li>
+<li><a href="events.html" tppabs="http://nodejs.cn/api/events.html" class="nav-events" rel="nofollow">events - &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5668;</a></li>
+<li><a href="fs.html" tppabs="http://nodejs.cn/api/fs.html" class="nav-fs" rel="nofollow">fs - &#x6587;&#x4EF6;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="globals.html" tppabs="http://nodejs.cn/api/globals.html" class="nav-globals" rel="nofollow">global - &#x5168;&#x5C40;&#x53D8;&#x91CF;</a></li>
+<li><a href="http.html" tppabs="http://nodejs.cn/api/http.html" class="nav-http" rel="nofollow">http - HTTP</a></li>
+<li><a href="http2.html" tppabs="http://nodejs.cn/api/http2.html" class="nav-http2" rel="nofollow">http2 - HTTP/2</a></li>
+<li><a href="https.html" tppabs="http://nodejs.cn/api/https.html" class="nav-https" rel="nofollow">https - HTTPS</a></li>
+<li><a href="inspector.html" tppabs="http://nodejs.cn/api/inspector.html" class="nav-inspector" rel="nofollow">inspector - &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="modules.html" tppabs="http://nodejs.cn/api/modules.html" class="nav-modules" rel="nofollow">module - &#x6A21;&#x5757;</a></li>
+<li><a href="net.html" tppabs="http://nodejs.cn/api/net.html" class="nav-net" rel="nofollow">net - &#x7F51;&#x7EDC;</a></li>
+<li><a href="os.html" tppabs="http://nodejs.cn/api/os.html" class="nav-os active" rel="nofollow">os - &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="path.html" tppabs="http://nodejs.cn/api/path.html" class="nav-path" rel="nofollow">path - &#x8DEF;&#x5F84;</a></li>
+<li><a href="perf_hooks.html" tppabs="http://nodejs.cn/api/perf_hooks.html" class="nav-perf_hooks" rel="nofollow">perf_hooks - &#x6027;&#x80FD;&#x94A9;&#x5B50;</a></li>
+<li><a href="process.html" tppabs="http://nodejs.cn/api/process.html" class="nav-process" rel="nofollow">process - &#x8FDB;&#x7A0B;</a></li>
+<li><a href="punycode.html" tppabs="http://nodejs.cn/api/punycode.html" class="nav-punycode" rel="nofollow">punycode - &#x57DF;&#x540D;&#x4EE3;&#x7801;</a></li>
+<li><a href="querystring.html" tppabs="http://nodejs.cn/api/querystring.html" class="nav-querystring" rel="nofollow">querystring - &#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;</a></li>
+<li><a href="readline.html" tppabs="http://nodejs.cn/api/readline.html" class="nav-readline" rel="nofollow">readline - &#x9010;&#x884C;&#x8BFB;&#x53D6;</a></li>
+<li><a href="repl.html" tppabs="http://nodejs.cn/api/repl.html" class="nav-repl" rel="nofollow">repl - &#x4EA4;&#x4E92;&#x5F0F;&#x89E3;&#x91CA;&#x5668;</a></li>
+<li><a href="stream.html" tppabs="http://nodejs.cn/api/stream.html" class="nav-stream" rel="nofollow">stream - &#x6D41;</a></li>
+<li><a href="string_decoder.html" tppabs="http://nodejs.cn/api/string_decoder.html" class="nav-string_decoder" rel="nofollow">string_decoder - &#x5B57;&#x7B26;&#x4E32;&#x89E3;&#x7801;&#x5668;</a></li>
+<li><a href="timers.html" tppabs="http://nodejs.cn/api/timers.html" class="nav-timers" rel="nofollow">timer - &#x5B9A;&#x65F6;&#x5668;</a></li>
+<li><a href="tls.html" tppabs="http://nodejs.cn/api/tls.html" class="nav-tls" rel="nofollow">tls - &#x5B89;&#x5168;&#x4F20;&#x8F93;&#x5C42;</a></li>
+<li><a href="tracing.html" tppabs="http://nodejs.cn/api/tracing.html" class="nav-tracing" rel="nofollow">trace_events - &#x8DDF;&#x8E2A;&#x4E8B;&#x4EF6;</a></li>
+<li><a href="tty.html" tppabs="http://nodejs.cn/api/tty.html" class="nav-tty" rel="nofollow">tty - &#x7EC8;&#x7AEF;</a></li>
+<li><a href="url.html" tppabs="http://nodejs.cn/api/url.html" class="nav-url" rel="nofollow">url - URL</a></li>
+<li><a href="util.html" tppabs="http://nodejs.cn/api/util.html" class="nav-util" rel="nofollow">util - &#x5B9E;&#x7528;&#x5DE5;&#x5177;</a></li>
+<li><a href="v8.html" tppabs="http://nodejs.cn/api/v8.html" class="nav-v8" rel="nofollow">v8 - V8&#x5F15;&#x64CE;</a></li>
+<li><a href="vm.html" tppabs="http://nodejs.cn/api/vm.html" class="nav-vm" rel="nofollow">vm - &#x865A;&#x62DF;&#x673A;</a></li>
+<li><a href="worker_threads.html" tppabs="http://nodejs.cn/api/worker_threads.html" class="nav-worker_threads" rel="nofollow">worker_threads - &#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;</a></li>
+<li><a href="zlib.html" tppabs="http://nodejs.cn/api/zlib.html" class="nav-zlib" rel="nofollow">zlib - &#x538B;&#x7F29;</a></li>
+</ul>
+<div class="line"></div>
+<ul>
+<li><a href="documentation.html" tppabs="http://nodejs.cn/api/documentation.html" class="nav-documentation" rel="nofollow">&#x5173;&#x4E8E;&#x672C;&#x6587;&#x6863;</a></li>
+<li><a href="synopsis.html" tppabs="http://nodejs.cn/api/synopsis.html" class="nav-synopsis" rel="nofollow">&#x7528;&#x6CD5;&#x4E0E;&#x4F8B;&#x5B50;</a></li>
+<li><a href="addons.html" tppabs="http://nodejs.cn/api/addons.html" class="nav-addons" rel="nofollow">C++&#x63D2;&#x4EF6;</a></li>
+<li><a href="n-api.html" tppabs="http://nodejs.cn/api/n-api.html" class="nav-n-api" rel="nofollow">N-API</a></li>
+<li><a href="cli.html" tppabs="http://nodejs.cn/api/cli.html" class="nav-cli" rel="nofollow">&#x547D;&#x4EE4;&#x884C;&#x9009;&#x9879;</a></li>
+<li><a href="debugger.html" tppabs="http://nodejs.cn/api/debugger.html" class="nav-debugger" rel="nofollow">debugger &#x8C03;&#x8BD5;&#x5668;</a></li>
+<li><a href="esm.html" tppabs="http://nodejs.cn/api/esm.html" class="nav-esm" rel="nofollow">ECMAScript &#x6A21;&#x5757;</a></li>
+<li><a href="intl.html" tppabs="http://nodejs.cn/api/intl.html" class="nav-intl" rel="nofollow">&#x56FD;&#x9645;&#x5316;&#x652F;&#x6301;</a></li>
+<li><a href="deprecations.html" tppabs="http://nodejs.cn/api/deprecations.html" class="nav-deprecations" rel="nofollow">&#x5E9F;&#x5F03;&#x7684; API</a></li>
+</ul>
+      </div>
+  
+      <div id="column1" data-id="os" class="interior">
+        <header>
+          <h1>Node.js v10.14.2 &#x6587;&#x6863;</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="index.htm" tppabs="http://nodejs.cn/api/" name="toc">&#x8FD4;&#x56DE;&#x6587;&#x6863;&#x9996;&#x9875;</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">&#x641C;&#x7D22;</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+
+        <div id="adWrap"></div>
+  
+        <div id="toc">
+          <h2>&#x76EE;&#x5F55;</h2>
+          <ul>
+<li>
+<p><span class="stability_2"><a href="#os_os">os&#xFF08;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF09;</a></span></p>
+<ul>
+<li><a href="#os_os_eol">os.EOL</a></li>
+<li><a href="#os_os_arch">os.arch()</a></li>
+<li><a href="#os_os_constants">os.constants</a></li>
+<li><a href="#os_os_cpus">os.cpus()</a></li>
+<li><a href="#os_os_endianness">os.endianness()</a></li>
+<li><a href="#os_os_freemem">os.freemem()</a></li>
+<li><a href="#os_os_getpriority_pid">os.getPriority([pid])</a></li>
+<li><a href="#os_os_homedir">os.homedir()</a></li>
+<li><a href="#os_os_hostname">os.hostname()</a></li>
+<li><a href="#os_os_loadavg">os.loadavg()</a></li>
+<li><a href="#os_os_networkinterfaces">os.networkInterfaces()</a></li>
+<li><a href="#os_os_platform">os.platform()</a></li>
+<li><a href="#os_os_release">os.release()</a></li>
+<li><a href="#os_os_setpriority_pid_priority">os.setPriority([pid, ]priority)</a></li>
+<li><a href="#os_os_tmpdir">os.tmpdir()</a></li>
+<li><a href="#os_os_totalmem">os.totalmem()</a></li>
+<li><a href="#os_os_type">os.type()</a></li>
+<li><a href="#os_os_uptime">os.uptime()</a></li>
+<li><a href="#os_os_userinfo_options">os.userInfo([options])</a></li>
+<li>
+<p><a href="#os_os_constants_1">OS &#x5E38;&#x91CF;</a></p>
+<ul>
+<li><a href="#os_signal_constants">&#x4FE1;&#x53F7;&#x5E38;&#x91CF;</a></li>
+<li>
+<p><a href="#os_error_constants">&#x9519;&#x8BEF;&#x5E38;&#x91CF;</a></p>
+<ul>
+<li><a href="#os_posix_error_constants">POSIX &#x9519;&#x8BEF;&#x5E38;&#x91CF;</a></li>
+<li><a href="#os_windows_specific_error_constants">Windows &#x7CFB;&#x7EDF;&#x7279;&#x6709;&#x7684;&#x9519;&#x8BEF;&#x5E38;&#x91CF;</a></li>
+</ul>
+</li>
+<li><a href="#os_dlopen_constants">dlopen Constants</a></li>
+<li><a href="#os_priority_constants">Priority Constants</a></li>
+<li><a href="#os_libuv_constants">libuv &#x5E38;&#x91CF;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+        </div>
+  
+        <div id="apicontent">
+          <h1>os&#xFF08;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF09;<span><a class="mark" href="#os_os" id="os_os" rel="nofollow">#</a></span></h1><p class="tip_wrap"><a href="os-1.html" tppabs="http://nodejs.cn/api/os/os.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<!--introduced_in=v0.10.0-->
+<p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p>
+<p><code>os</code> &#x6A21;&#x5757;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E9B;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x76F8;&#x5173;&#x7684;&#x5B9E;&#x7528;&#x65B9;&#x6CD5;&#x3002;&#x53EF;&#x4EE5;&#x8FD9;&#x4E48;&#x5F15;&#x7528;&#x5B83;:</p>
+<pre><code class="language-js">const os = require(&apos;os&apos;);
+</code></pre>
+<h2>os.EOL<span><a class="mark" href="#os_os_eol" id="os_os_eol" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_eol.html" tppabs="http://nodejs.cn/api/os/os_eol.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.7.8</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p>&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x5E38;&#x91CF;,&#x5B9A;&#x4E49;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x76F8;&#x5173;&#x7684;&#x884C;&#x672B;&#x6807;&#x5FD7;:</p>
+<ul>
+<li><code>\n</code> &#x5728; POSIX &#x7CFB;&#x7EDF;&#x4E0A;</li>
+<li><code>\r\n</code> &#x5728; Windows&#x7CFB;&#x7EDF;&#x4E0A;</li>
+</ul>
+<h2>os.arch()<span><a class="mark" href="#os_os_arch" id="os_os_arch" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_arch.html" tppabs="http://nodejs.cn/api/os/os_arch.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.5.0</span>
+</div>
+<ul>
+<li>&#x8FD4;&#x56DE;: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p><code>os.arch()</code>&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;, &#x8868;&#x660E; Node.js &#x4E8C;&#x8FDB;&#x5236;&#x7F16;&#x8BD1;&#x6240;&#x7528;&#x7684;
+&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;CPU&#x67B6;&#x6784;.</p>
+<p>&#x73B0;&#x5728;&#x53EF;&#x80FD;&#x7684;&#x503C;&#x6709;: <code>&apos;arm&apos;</code>, <code>&apos;arm64&apos;</code>, <code>&apos;ia32&apos;</code>, <code>&apos;mips&apos;</code>,
+<code>&apos;mipsel&apos;</code>, <code>&apos;ppc&apos;</code>, <code>&apos;ppc64&apos;</code>, <code>&apos;s390&apos;</code>, <code>&apos;s390x&apos;</code>, <code>&apos;x32&apos;</code>, <code>&apos;x64&apos;</code>&#x3002;</p>
+<p>&#x7B49;&#x4EF7;&#x4E8E; <a href="javascript:if(confirm('http://nodejs.cn/s/5Ez77R  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/5Ez77R'" tppabs="http://nodejs.cn/s/5Ez77R" rel="nofollow"><code>process.arch</code></a>.</p>
+<h2>os.constants<span><a class="mark" href="#os_os_constants" id="os_os_constants" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_constants.html" tppabs="http://nodejs.cn/api/os/os_constants.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.3.0</span>
+</div>
+<ul>
+<li><a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+</ul>
+<p>&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x9519;&#x8BEF;&#x7801;,&#x5904;&#x7406;&#x4FE1;&#x53F7;&#x7B49;&#x901A;&#x7528;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7279;&#x5B9A;&#x5E38;&#x91CF;&#x7684;&#x5BF9;&#x8C61;.
+&#x73B0;&#x5728;, &#x8FD9;&#x4E9B;&#x7279;&#x5B9A;&#x7684;&#x5E38;&#x91CF;&#x7684;&#x5B9A;&#x4E49;&#x88AB;&#x63CF;&#x8FF0;&#x5728;<a href="#os_os_constants_1" rel="nofollow">OS Constants</a>&#x3002;</p>
+<h2>os.cpus()<span><a class="mark" href="#os_os_cpus" id="os_os_cpus" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_cpus.html" tppabs="http://nodejs.cn/api/os/os_cpus.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.3</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Array  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Array'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Array" target="_blank" rel="nofollow" class="type">&lt;Array&gt;</a></li>
+</ul>
+<p><code>os.cpus()</code> &#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x6570;&#x7EC4;, &#x5305;&#x542B;&#x6BCF;&#x4E2A;&#x903B;&#x8F91; CPU &#x5185;&#x6838;&#x7684;&#x4FE1;&#x606F;. </p>
+<p>&#x4E0B;&#x9762;&#x7684;&#x5C5E;&#x6027;&#x5305;&#x542B;&#x5728;&#x6BCF;&#x4E2A;&#x5BF9;&#x8C61;&#x4E2D;:</p>
+<ul>
+<li><code>model</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+<li><code>speed</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> (&#x5146;&#x8D6B;&#x5179;&#x4E3A;&#x5355;&#x4F4D;)</li>
+<li>
+<p><code>times</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>user</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> CPU&#x82B1;&#x8D39;&#x5728;&#x7528;&#x6237;&#x6A21;&#x5F0F;&#x4E0B;&#x7684;&#x6BEB;&#x79D2;&#x65F6;&#x95F4;&#x6570;.</li>
+<li><code>nice</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> CPU&#x82B1;&#x8D39;&#x5728;&#x826F;&#x597D;&#x6A21;&#x5F0F;&#x4E0B;&#x7684;&#x6BEB;&#x79D2;&#x65F6;&#x95F4;&#x6570;.</li>
+<li><code>sys</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> CPU&#x82B1;&#x8D39;&#x5728;&#x7CFB;&#x7EDF;&#x6A21;&#x5F0F;&#x4E0B;&#x7684;&#x6BEB;&#x79D2;&#x65F6;&#x95F4;&#x6570;.</li>
+<li><code>idle</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> CPU&#x82B1;&#x8D39;&#x5728;&#x7A7A;&#x95F2;&#x6A21;&#x5F0F;&#x4E0B;&#x7684;&#x6BEB;&#x79D2;&#x65F6;&#x95F4;&#x6570;.</li>
+<li><code>irq</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> CPU&#x82B1;&#x8D39;&#x5728;&#x4E2D;&#x65AD;&#x8BF7;&#x6C42;&#x6A21;&#x5F0F;&#x4E0B;&#x7684;&#x6BEB;&#x79D2;&#x65F6;&#x95F4;&#x6570;.</li>
+</ul>
+</li>
+</ul>
+<p>For example:</p>
+<!-- eslint-disable semi -->
+<pre><code class="language-js">[
+  {
+    model: &apos;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&apos;,
+    speed: 2926,
+    times: {
+      user: 252020,
+      nice: 0,
+      sys: 30340,
+      idle: 1070356870,
+      irq: 0
+    }
+  },
+  {
+    model: &apos;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&apos;,
+    speed: 2926,
+    times: {
+      user: 306960,
+      nice: 0,
+      sys: 26980,
+      idle: 1071569080,
+      irq: 0
+    }
+  },
+  {
+    model: &apos;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&apos;,
+    speed: 2926,
+    times: {
+      user: 248450,
+      nice: 0,
+      sys: 21750,
+      idle: 1070919370,
+      irq: 0
+    }
+  },
+  {
+    model: &apos;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&apos;,
+    speed: 2926,
+    times: {
+      user: 256880,
+      nice: 0,
+      sys: 19430,
+      idle: 1070905480,
+      irq: 20
+    }
+  },
+  {
+    model: &apos;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&apos;,
+    speed: 2926,
+    times: {
+      user: 511580,
+      nice: 20,
+      sys: 40900,
+      idle: 1070842510,
+      irq: 0
+    }
+  },
+  {
+    model: &apos;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&apos;,
+    speed: 2926,
+    times: {
+      user: 291660,
+      nice: 0,
+      sys: 34360,
+      idle: 1070888000,
+      irq: 10
+    }
+  },
+  {
+    model: &apos;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&apos;,
+    speed: 2926,
+    times: {
+      user: 308260,
+      nice: 0,
+      sys: 55410,
+      idle: 1071129970,
+      irq: 880
+    }
+  },
+  {
+    model: &apos;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&apos;,
+    speed: 2926,
+    times: {
+      user: 266450,
+      nice: 1480,
+      sys: 34920,
+      idle: 1072572010,
+      irq: 30
+    }
+  }
+]
+</code></pre>
+<p><em>&#x6CE8;&#x610F;</em>: &#x56E0;&#x4E3A;<code>nice</code>&#x7684;&#x503C;&#x662F;UNIX&#x76F8;&#x5173;&#x7684;, &#x5728;Windows&#x7CFB;&#x7EDF;&#x4E0A;,
+&#x6240;&#x6709;&#x5904;&#x7406;&#x5668;&#x7684; <code>nice</code> &#x503C;&#x603B;&#x662F;0.</p>
+<h2>os.endianness()<span><a class="mark" href="#os_os_endianness" id="os_os_endianness" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_endianness.html" tppabs="http://nodejs.cn/api/os/os_endianness.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.9.4</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p><code>os.endianness()</code>&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;,&#x8868;&#x660E;<em>Node.js&#x4E8C;&#x8FDB;&#x5236;&#x7F16;&#x8BD1;&#x73AF;&#x5883;&#x7684;</em>&#x5B57;&#x8282;&#x987A;&#x5E8F;.</p>
+<p>&#x53EF;&#x80FD;&#x7684;&#x503C;:</p>
+<ul>
+<li><code>&apos;BE&apos;</code> &#x5927;&#x7AEF;&#x6A21;&#x5F0F;</li>
+<li><code>&apos;LE&apos;</code> &#x5C0F;&#x7AEF;&#x6A21;&#x5F0F;</li>
+</ul>
+<h2>os.freemem()<span><a class="mark" href="#os_os_freemem" id="os_os_freemem" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_freemem.html" tppabs="http://nodejs.cn/api/os/os_freemem.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.3</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+</ul>
+<p><code>os.freemem()</code> &#x65B9;&#x6CD5;&#x4EE5;&#x6574;&#x6570;&#x7684;&#x5F62;&#x5F0F;&#x56DE;&#x7A7A;&#x95F2;&#x7CFB;&#x7EDF;&#x5185;&#x5B58;
+&#x7684;&#x5B57;&#x8282;&#x6570;.</p>
+<h2>os.getPriority([pid])<span><a class="mark" href="#os_os_getpriority_pid" id="os_os_getpriority_pid" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.10.0</span>
+</div>
+<ul>
+<li><code>pid</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> The process ID to retrieve scheduling priority for.
+<strong>Default</strong> <code>0</code>.</li>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+</ul>
+<p>The <code>os.getPriority()</code> method returns the scheduling priority for the process
+specified by <code>pid</code>. If <code>pid</code> is not provided, or is <code>0</code>, the priority of the
+current process is returned.</p>
+<h2>os.homedir()<span><a class="mark" href="#os_os_homedir" id="os_os_homedir" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_homedir.html" tppabs="http://nodejs.cn/api/os/os_homedir.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v2.3.0</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p><code>os.homedir()</code> &#x65B9;&#x6CD5;&#x4EE5;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5F62;&#x5F0F;&#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x7528;&#x6237;&#x7684;home&#x76EE;&#x5F55;.</p>
+<h2>os.hostname()<span><a class="mark" href="#os_os_hostname" id="os_os_hostname" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_hostname.html" tppabs="http://nodejs.cn/api/os/os_hostname.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.3</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p><code>os.hostname()</code>&#x65B9;&#x6CD5;&#x4EE5;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5F62;&#x5F0F;&#x8FD4;&#x56DE;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x4E3B;&#x673A;&#x540D;.</p>
+<h2>os.loadavg()<span><a class="mark" href="#os_os_loadavg" id="os_os_loadavg" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_loadavg.html" tppabs="http://nodejs.cn/api/os/os_loadavg.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.3</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Array  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Array'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Array" target="_blank" rel="nofollow" class="type">&lt;Array&gt;</a></li>
+</ul>
+<p><code>os.loadavg()</code>&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;,&#x5305;&#x542B;1, 5, 15&#x5206;&#x949F;&#x5E73;&#x5747;&#x8D1F;&#x8F7D;.</p>
+<p>&#x5E73;&#x5747;&#x8D1F;&#x8F7D;&#x662F;&#x7CFB;&#x7EDF;&#x6D3B;&#x52A8;&#x7684;&#x6D4B;&#x91CF;,&#x7531;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x8BA1;&#x7B97;&#x5F97;&#x51FA;,&#x8868;&#x8FBE;&#x4E3A;&#x4E00;&#x4E2A;&#x5206;&#x6570;.
+&#x4E00;&#x822C;&#x6765;&#x8BF4;,&#x5E73;&#x5747;&#x8D1F;&#x8F7D;&#x5E94;&#x8BE5;&#x7406;&#x60F3;&#x5730;&#x6BD4;&#x7CFB;&#x7EDF;&#x7684;&#x903B;&#x8F91;CPU&#x7684;&#x6570;&#x76EE;&#x8981;&#x5C11;.
+&#x5E73;&#x5747;&#x8D1F;&#x8F7D;&#x662F;UNIX&#x76F8;&#x5173;&#x7684;&#x6982;&#x5FF5;,&#x5728;Windows&#x5E73;&#x53F0;&#x4E0A;&#x6CA1;&#x6709;&#x5BF9;&#x5E94;&#x7684;&#x6982;&#x5FF5;.
+&#x5728;Windows&#x4E0A;,&#x5176;&#x8FD4;&#x56DE;&#x503C;&#x603B;&#x662F;<code>[0, 0, 0]</code>.</p>
+<h2>os.networkInterfaces()<span><a class="mark" href="#os_os_networkinterfaces" id="os_os_networkinterfaces" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_networkinterfaces.html" tppabs="http://nodejs.cn/api/os/os_networkinterfaces.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.6.0</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+</ul>
+<p><code>os.networkInterfaces()</code>&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;,&#x5305;&#x542B;&#x53EA;&#x6709;&#x88AB;&#x8D4B;&#x4E88;&#x7F51;&#x7EDC;&#x5730;&#x5740;&#x7684;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;. </p>
+<p>&#x5728;&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x7684;&#x6BCF;&#x4E2A;&#x5173;&#x952E;&#x8BCD;&#x90FD;&#x6307;&#x660E;&#x4E86;&#x4E00;&#x4E2A;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;.</p>
+<p>&#x8FD4;&#x56DE;&#x7684;&#x503C;&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x6570;&#x7EC4;, &#x6BCF;&#x4E2A;&#x90FD;&#x63CF;&#x8FF0;&#x4E86;&#x8D4B;&#x4E88;&#x7684;&#x7F51;&#x7EDC;&#x5730;&#x5740;.</p>
+<p>&#x88AB;&#x8D4B;&#x4E88;&#x7F51;&#x7EDC;&#x5730;&#x5740;&#x7684;&#x5BF9;&#x8C61;&#x5305;&#x542B;&#x7684;&#x5C5E;&#x6027;:</p>
+<ul>
+<li><code>address</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x88AB;&#x8D4B;&#x4E88;&#x7684; IPv4 &#x6216; IPv6 &#x5730;&#x5740;</li>
+<li><code>netmask</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a>  IPv4 &#x6216; IPv6 &#x5B50;&#x7F51;&#x63A9;&#x7801;</li>
+<li><code>family</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a>  <code>IPv4</code> &#x6216; <code>IPv6</code></li>
+<li><code>mac</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x7684;MAC&#x5730;&#x5740;</li>
+<li><code>internal</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Boolean_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Boolean_type" target="_blank" rel="nofollow" class="type">&lt;boolean&gt;</a> &#x5982;&#x679C; &#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x662F;loopback&#x6216;&#x76F8;&#x4F3C;&#x7684;&#x8FDC;&#x7A0B;&#x4E0D;&#x80FD;&#x7528;&#x7684;&#x63A5;&#x53E3;&#x65F6;,
+&#x503C;&#x4E3A;<code>true</code>,&#x5426;&#x5219;&#x4E3A;<code>false</code></li>
+<li><code>scopeid</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;number&gt;</a> IPv6 &#x6570;&#x5B57;&#x9886;&#x57DF;&#x8BC6;&#x522B;&#x7801; (&#x53EA;&#x6709;&#x5F53; <code>family</code>
+&#x662F;<code>IPv6</code>&#x65F6;&#x53EF;&#x7528;)</li>
+<li><code>cidr</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x4EE5; CIDR &#x8868;&#x793A;&#x6CD5;&#x5206;&#x914D;&#x7684;&#x5E26;&#x6709;&#x8DEF;&#x7531;&#x524D;&#x7F00;&#x7684; IPv4 &#x6216; IPv6 &#x5730;&#x5740;&#x3002;&#x5982;&#x679C; <code>netmask</code> &#x53C2;&#x6570;&#x4E0D;&#x53EF;&#x7528;&#xFF0C;&#x5219;&#x8BE5;&#x5C5E;&#x6027;&#x662F; <code>null</code>&#x3002;</li>
+</ul>
+<!-- eslint-skip -->
+<pre><code class="language-js">{
+  lo: [
+    {
+      address: &apos;127.0.0.1&apos;,
+      netmask: &apos;255.0.0.0&apos;,
+      family: &apos;IPv4&apos;,
+      mac: &apos;00:00:00:00:00:00&apos;,
+      internal: true,
+      cidr: &apos;127.0.0.1/8&apos;
+    },
+    {
+      address: &apos;::1&apos;,
+      netmask: &apos;ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff&apos;,
+      family: &apos;IPv6&apos;,
+      mac: &apos;00:00:00:00:00:00&apos;,
+      internal: true,
+      cidr: &apos;::1/128&apos;
+    }
+  ],
+  eth0: [
+    {
+      address: &apos;192.168.1.108&apos;,
+      netmask: &apos;255.255.255.0&apos;,
+      family: &apos;IPv4&apos;,
+      mac: &apos;01:02:03:0a:0b:0c&apos;,
+      internal: false,
+      cidr: &apos;192.168.1.108/24&apos;
+    },
+    {
+      address: &apos;fe80::a00:27ff:fe4e:66a1&apos;,
+      netmask: &apos;ffff:ffff:ffff:ffff::&apos;,
+      family: &apos;IPv6&apos;,
+      mac: &apos;01:02:03:0a:0b:0c&apos;,
+      internal: false,
+      cidr: &apos;fe80::a00:27ff:fe4e:66a1/64&apos;
+    }
+  ]
+}
+</code></pre>
+<h2>os.platform()<span><a class="mark" href="#os_os_platform" id="os_os_platform" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_platform.html" tppabs="http://nodejs.cn/api/os/os_platform.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.5.0</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p><code>os.platform()</code> &#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;, &#x6307;&#x5B9A;Node.js&#x7F16;&#x8BD1;&#x65F6;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5E73;&#x53F0;</p>
+<p>&#x5F53;&#x524D;&#x53EF;&#x80FD;&#x7684;&#x503C;&#x6709;:</p>
+<ul>
+<li><code>&apos;aix&apos;</code></li>
+<li><code>&apos;darwin&apos;</code></li>
+<li><code>&apos;freebsd&apos;</code></li>
+<li><code>&apos;linux&apos;</code></li>
+<li><code>&apos;openbsd&apos;</code></li>
+<li><code>&apos;sunos&apos;</code></li>
+<li><code>&apos;win32&apos;</code></li>
+</ul>
+<p>&#x7B49;&#x4EF7;&#x4E8E; <a href="javascript:if(confirm('http://nodejs.cn/s/wxcquH  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wxcquH'" tppabs="http://nodejs.cn/s/wxcquH" rel="nofollow"><code>process.platform</code></a>.</p>
+<p><em>&#x6CE8;&#x610F;</em>: &#x5982;&#x679C;Node.js &#x5728;Android&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E0A;&#x6784;&#x5EFA;, <code>&apos;android&apos;</code>&#x503C;
+&#x53EF;&#x80FD;&#x88AB;&#x8FD4;&#x56DE;. &#x7136;&#x800C;, Android&#x652F;&#x6301;Node.js&#x5728;&#x5F53;&#x524D;&#x88AB;&#x8BA4;&#x4E3A;&#x662F;&#x5B9E;&#x9A8C;&#x671F;.</p>
+<h2>os.release()<span><a class="mark" href="#os_os_release" id="os_os_release" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_release.html" tppabs="http://nodejs.cn/api/os/os_release.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.3</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p><code>os.release()</code>&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;, &#x6307;&#x5B9A;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x53D1;&#x884C;&#x7248;.</p>
+<p><em>&#x6CE8;&#x610F;</em>: &#x5728;POSIX&#x7CFB;&#x7EDF;&#x4E0A;, &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x53D1;&#x884C;&#x7248;&#x662F;&#x901A;&#x8FC7;
+&#x8C03;&#x7528; <a href="javascript:if(confirm('http://nodejs.cn/s/JL5KHm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JL5KHm'" tppabs="http://nodejs.cn/s/JL5KHm" rel="nofollow"></a><a href="javascript:if(confirm('http://nodejs.cn/s/_man/3/uname.3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_man/3/uname.3'" tppabs="http://nodejs.cn/s/_man/3/uname.3" rel="nofollow"><code>uname(3)</code></a> &#x5F97;&#x5230;&#x7684;. &#x5728; Windows&#x7CFB;&#x7EDF;&#x4E0A;, &#x7528;<code>GetVersionExW()</code> . &#x8BF7;&#x67E5;&#x770B;
+<a href="javascript:if(confirm('https://en.wikipedia.org/wiki/Uname  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://en.wikipedia.org/wiki/Uname#Examples'" tppabs="https://en.wikipedia.org/wiki/Uname#Examples" rel="nofollow">https://en.wikipedia.org/wiki/Uname#Examples</a> &#x83B7;&#x53D6;&#x66F4;&#x591A;&#x4FE1;&#x606F;.</p>
+<h2>os.setPriority([pid, ]priority)<span><a class="mark" href="#os_os_setpriority_pid_priority" id="os_os_setpriority_pid_priority" rel="nofollow">#</a></span></h2><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.10.0</span>
+</div>
+<ul>
+<li><code>pid</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> The process ID to set scheduling priority for.
+<strong>Default</strong> <code>0</code>.</li>
+<li><code>priority</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a> The scheduling priority to assign to the process.</li>
+</ul>
+<p>The <code>os.setPriority()</code> method attempts to set the scheduling priority for the
+process specified by <code>pid</code>. If <code>pid</code> is not provided, or is <code>0</code>, the priority
+of the current process is used.</p>
+<p>The <code>priority</code> input must be an integer between <code>-20</code> (high priority) and <code>19</code>
+(low priority). Due to differences between Unix priority levels and Windows
+priority classes, <code>priority</code> is mapped to one of six priority constants in
+<code>os.constants.priority</code>. When retrieving a process priority level, this range
+mapping may cause the return value to be slightly different on Windows. To avoid
+confusion, it is recommended to set <code>priority</code> to one of the priority constants.</p>
+<p>On Windows setting priority to <code>PRIORITY_HIGHEST</code> requires elevated user,
+otherwise the set priority will be silently reduced to <code>PRIORITY_HIGH</code>.</p>
+<h2>os.tmpdir()<span><a class="mark" href="#os_os_tmpdir" id="os_os_tmpdir" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_tmpdir.html" tppabs="http://nodejs.cn/api/os/os_tmpdir.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v2.0.0</td>
+<td><p>This function is now cross-platform consistent and no longer returns a path with a trailing slash on any platform</p></td></tr>
+<tr><td>v0.9.9</td>
+<td><p><span>&#x65B0;&#x589E;&#x4E8E;: v0.9.9</span></p></td></tr>
+</tbody></table>
+</details>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p><code>os.tmpdir()</code>&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;, &#x8868;&#x660E;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;
+&#x9ED8;&#x8BA4;&#x4E34;&#x65F6;&#x6587;&#x4EF6;&#x76EE;&#x5F55;.</p>
+<h2>os.totalmem()<span><a class="mark" href="#os_os_totalmem" id="os_os_totalmem" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_totalmem.html" tppabs="http://nodejs.cn/api/os/os_totalmem.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.3</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+</ul>
+<p><code>os.totalmem()</code>&#x65B9;&#x6CD5;&#x4EE5;&#x6574;&#x6570;&#x7684;&#x5F62;&#x5F0F;&#x8FD4;&#x56DE;&#x6240;&#x6709;&#x7CFB;&#x7EDF;&#x5185;&#x5B58;&#x7684;&#x5B57;&#x8282;&#x6570;.</p>
+<h2>os.type()<span><a class="mark" href="#os_os_type" id="os_os_type" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_type.html" tppabs="http://nodejs.cn/api/os/os_type.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.3</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a></li>
+</ul>
+<p><code>os.type()</code>&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;,&#x8868;&#x660E;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x540D;&#x5B57;,
+&#x7531; <a href="javascript:if(confirm('http://nodejs.cn/s/JL5KHm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JL5KHm'" tppabs="http://nodejs.cn/s/JL5KHm" rel="nofollow"></a><a href="javascript:if(confirm('http://nodejs.cn/s/_man/3/uname.3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_man/3/uname.3'" tppabs="http://nodejs.cn/s/_man/3/uname.3" rel="nofollow"><code>uname(3)</code></a> &#x8FD4;&#x56DE;.&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;, <code>&apos;Linux&apos;</code> &#x5728; Linux&#x7CFB;&#x7EDF;&#x4E0A;, <code>&apos;Darwin&apos;</code> &#x5728; macOS &#x7CFB;&#x7EDF;&#x4E0A;,<code>&apos;Windows_NT&apos;</code> &#x5728; Windows&#x7CFB;&#x7EDF;&#x4E0A;.</p>
+<p>&#x8BF7;&#x67E5;&#x770B;<a href="javascript:if(confirm('https://en.wikipedia.org/wiki/Uname  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='https://en.wikipedia.org/wiki/Uname#Examples'" tppabs="https://en.wikipedia.org/wiki/Uname#Examples" rel="nofollow">https://en.wikipedia.org/wiki/Uname#Examples</a> &#x83B7;&#x53D6;&#x5176;&#x4ED6;&#x5173;&#x4E8E;&#x5728;&#x4E0D;&#x540C;
+&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E0A;&#x6267;&#x884C; <a href="javascript:if(confirm('http://nodejs.cn/s/JL5KHm  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/JL5KHm'" tppabs="http://nodejs.cn/s/JL5KHm" rel="nofollow"></a><a href="javascript:if(confirm('http://nodejs.cn/s/_man/3/uname.3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_man/3/uname.3'" tppabs="http://nodejs.cn/s/_man/3/uname.3" rel="nofollow"><code>uname(3)</code></a>,&#x5F97;&#x5230;&#x8F93;&#x51FA;&#x7684;&#x4FE1;&#x606F;.</p>
+<h2>os.uptime()<span><a class="mark" href="#os_os_uptime" id="os_os_uptime" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_uptime.html" tppabs="http://nodejs.cn/api/os/os_uptime.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v0.3.3</span>
+</div>
+<ul>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#Number_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#Number_type" target="_blank" rel="nofollow" class="type">&lt;integer&gt;</a></li>
+</ul>
+<p><code>os.uptime()</code> &#x65B9;&#x6CD5;&#x5728;&#x51E0;&#x79D2;&#x5185;&#x8FD4;&#x56DE;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x4E0A;&#x7EBF;&#x65F6;&#x95F4;.</p>
+<p><em>&#x6CE8;&#x610F;</em>&#xFF1A;&#x5728;Windows&#x5E73;&#x53F0;&#x4E0A;&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x79D2;&#x503C;&#x5305;&#x542B;&#x5206;&#x6570;&#xFF0C;&#x8BF7;&#x7528;<code>Math.floor()</code>&#x83B7;&#x53D6;&#x6574;&#x6570;&#x503C;</p>
+<h2>os.userInfo([options])<span><a class="mark" href="#os_os_userinfo_options" id="os_os_userinfo_options" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_userinfo_options.html" tppabs="http://nodejs.cn/api/os/os_userinfo_options.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v6.0.0</span>
+</div>
+<ul>
+<li>
+<p><code>options</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></p>
+<ul>
+<li><code>encoding</code> <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Data_structures  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Data_structures#String_type'" tppabs="http://nodejs.cn/s/_moz/Data_structures#String_type" target="_blank" rel="nofollow" class="type">&lt;string&gt;</a> &#x7528;&#x4E8E;&#x89E3;&#x91CA;&#x7ED3;&#x679C;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5B57;&#x7B26;&#x7F16;&#x7801;.
+&#x5982;&#x679C;<code>encoding</code> &#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;<code>&apos;buffer&apos;</code>, <code>username</code>, <code>shell</code>, &#x548C; <code>homedir</code>
+&#x7684;&#x503C;&#x5C06;&#x6210;&#x4E3A; <code>Buffer</code>&#x7684;&#x5B9E;&#x4F8B;. (&#x9ED8;&#x8BA4;&#x662F;: &apos;utf8&apos;)</li>
+</ul>
+</li>
+<li>Returns: <a href="javascript:if(confirm('http://nodejs.cn/s/_moz/Reference/Global_Objects/Object  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/_moz/Reference/Global_Objects/Object'" tppabs="http://nodejs.cn/s/_moz/Reference/Global_Objects/Object" target="_blank" rel="nofollow" class="type">&lt;Object&gt;</a></li>
+</ul>
+<p><code>os.userInfo()</code>&#x65B9;&#x6CD5;&#x5F53;&#x524D;&#x6709;&#x6548;&#x7528;&#x6237;&#x7684;&#x4FE1;&#x606F; -- &#x5728; POSIX&#x5E73;&#x53F0;&#x4E0A;, &#x8FD9;&#x901A;&#x5E38;&#x662F;password &#x6587;&#x4EF6;&#x7684;&#x5B50;&#x96C6;. &#x8FD4;&#x56DE;&#x7684;&#x5BF9;&#x8C61;&#x5305;&#x62EC; <code>username</code>, <code>uid</code>, <code>gid</code>, <code>shell</code>, &#x548C; <code>homedir</code>.
+&#x5728;Windows&#x7CFB;&#x7EDF;&#x4E0A;, <code>uid</code> &#x548C; <code>gid</code> &#x57DF;&#x662F; <code>-1</code>, and <code>shell</code>&#x662F; <code>null</code>.</p>
+<p><code>homedir</code>&#x7684;&#x503C;&#x7531;<code>os.userInfo()</code>&#x8FD4;&#x56DE;, &#x7531;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;.
+&#x8FD9;&#x533A;&#x522B;&#x4E86;<code>os.homedir()</code>&#x7684;&#x7ED3;&#x679C;, &#x5B83;&#x5728;&#x6C42;&#x52A9;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x54CD;&#x5E94;&#x4E4B;&#x524D;,
+&#x4E3A;home&#x76EE;&#x5F55;&#x8BF7;&#x6C42;&#x51E0;&#x4E2A;&#x73AF;&#x5883;&#x53D8;&#x91CF;.</p>
+<h2>OS &#x5E38;&#x91CF;<span><a class="mark" href="#os_os_constants_1" id="os_os_constants_1" rel="nofollow">#</a></span></h2><p class="tip_wrap"><a href="os_constants_1.html" tppabs="http://nodejs.cn/api/os/os_constants_1.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x4E0B;&#x9762;&#x7684;&#x5E38;&#x91CF;&#x88AB;<code>os.constants</code> &#x6240;&#x8F93;&#x51FA;. </p>
+<p><strong>&#x6CE8;&#x610F;:</strong> &#x5E76;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x7684;&#x5E38;&#x91CF;&#x5728;&#x6BCF;&#x4E00;&#x4E2A;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E0A;&#x90FD;&#x662F;&#x53EF;&#x7528;&#x7684;.</p>
+<h3>&#x4FE1;&#x53F7;&#x5E38;&#x91CF;<span><a class="mark" href="#os_signal_constants" id="os_signal_constants" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="signal_constants.html" tppabs="http://nodejs.cn/api/os/signal_constants.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<div class="api_metadata">
+<details class="changelog"><summary>&#x7248;&#x672C;&#x5386;&#x53F2;</summary>
+<table>
+<tbody><tr><th>&#x7248;&#x672C;</th><th>&#x53D8;&#x66F4;</th></tr>
+<tr><td>v5.11.0</td>
+<td><p>Added support for <code>SIGINFO</code>.</p></td></tr>
+</tbody></table>
+</details>
+</div>
+<p>&#x4E0B;&#x9762;&#x7684;&#x4FE1;&#x53F7;&#x5E38;&#x91CF;&#x7531; <code>os.constants.signals</code> &#x7ED9;&#x51FA;:</p>
+
+ &#xA0; &#xA0;<table>
+  <tbody><tr>
+    <th>&#x5E38;&#x91CF;</th>
+    <th>&#x63CF;&#x8FF0;</th>
+  </tr>
+  <tr>
+    <td><code>SIGHUP</code></td>
+    <td>&#x53D1;&#x9001;&#x6765;&#x8868;&#x660E;&#x5F53;&#x4E00;&#x4E2A;&#x63A7;&#x5236;&#x7EC8;&#x7AEF;&#x5173;&#x95ED;&#x6216;&#x8005;&#x662F;&#x7236;&#x8FDB;&#x7A0B;&#x9000;&#x51FA;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGINT</code></td><td>&#x53D1;&#x9001;&#x6765;&#x8868;&#x660E;&#x5F53;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x671F;&#x671B;&#x4E2D;&#x65AD;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x65F6;.
+    (`(Ctrl+C)`).</td>
+  </tr>
+  <tr>
+    <td><code>SIGQUIT</code></td>
+    <td>&#x53D1;&#x9001;&#x6765;&#x8868;&#x660E;&#x5F53;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x5E0C;&#x671B;&#x7EC8;&#x6B62;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5E76;&#x4E14;&#x6267;&#x884C;&#x6838;&#x5FC3;&#x8F6C;&#x50A8;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGILL</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x901A;&#x77E5;&#x5B83;&#x5DF2;&#x7ECF;&#x8BD5;&#x56FE;&#x6267;&#x884C;&#x4E00;&#x4E2A;&#x975E;&#x6CD5;&#x7684;,&#x7578;&#x5F62;&#x7684;,&#x672A;&#x77E5;&#x7684;&#x6216;&#x7279;&#x6743;&#x7684;&#x6307;&#x4EE4;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTRAP</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x5F02;&#x5E38;&#x5DF2;&#x7ECF;&#x53D1;&#x751F;&#x4E86;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGABRT</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x8BF7;&#x6C42;&#x7EC8;&#x6B62;</td>
+  </tr>
+  <tr>
+    <td><code>SIGIOT</code></td>
+    <td><code>SIGABRT</code>&#x7684;&#x540C;&#x4E49;&#x8BCD;</td>
+  </tr>
+  <tr>
+    <td><code>SIGBUS</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x901A;&#x77E5;&#x5B83;&#x5DF2;&#x7ECF;&#x9020;&#x6210;&#x4E86;&#x603B;&#x7EBF;&#x9519;&#x8BEF;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGFPE</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x901A;&#x77E5;&#x5B83;&#x5DF2;&#x7ECF;&#x6267;&#x884C;&#x4E86;&#x4E00;&#x4E2A;&#x975E;&#x6CD5;&#x7684;&#x7B97;&#x672F;&#x64CD;&#x4F5C;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGKILL</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x7ACB;&#x5373;&#x7EC8;&#x6B62;&#x5B83;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGUSR1</code> <code>SIGUSR2</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x786E;&#x5B9A;&#x5B83;&#x7684;&#x7528;&#x6237;&#x5B9A;&#x4E49;&#x60C5;&#x51B5;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGSEGV</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x901A;&#x77E5;&#x6BB5;&#x9519;&#x8BEF;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGPIPE</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x5B83;&#x8BD5;&#x56FE;&#x5199;&#x5165;&#x4E00;&#x4E2A;&#x975E;&#x8FDE;&#x63A5;&#x7684;&#x7BA1;&#x9053;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGALRM</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x7CFB;&#x7EDF;&#x65F6;&#x949F;&#x6D88;&#x901D;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTERM</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x8BF7;&#x6C42;&#x7EC8;&#x6B62;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGCHLD</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x4E00;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x7EC8;&#x6B62;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGSTKFLT</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x534F;&#x5904;&#x7406;&#x5668;&#x7684;&#x6808;&#x9519;&#x8BEF;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGCONT</code></td>
+    <td>&#x53D1;&#x9001;&#x6765;&#x901A;&#x77E5;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7EE7;&#x7EED;&#x4E00;&#x4E2A;&#x6682;&#x505C;&#x7684;&#x8FDB;&#x7A0B;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGSTOP</code></td>
+    <td>&#x53D1;&#x9001;&#x6765;&#x901A;&#x77E5;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x6682;&#x505C;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTSTP</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x8BF7;&#x6C42;&#x5B83;&#x505C;&#x6B62;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGBREAK</code></td>
+    <td>&#x53D1;&#x9001;&#x6765;&#x8868;&#x660E;&#x5F53;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x5E0C;&#x671B;&#x7EC8;&#x6B62;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTTIN</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x5B83;&#x5728;&#x540E;&#x53F0;&#x8BFB;&#x53D6;TTY&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGTTOU</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x5B83;&#x5728;&#x540E;&#x53F0;&#x5199;&#x5165;TTY&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGURG</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;socket&#x7531;&#x7D27;&#x6025;&#x7684;&#x6570;&#x636E;&#x9700;&#x8981;&#x8BFB;&#x53D6;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGXCPU</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x5B83;&#x8D85;&#x8FC7;&#x4ED6;&#x5728;CPU&#x4F7F;&#x7528;&#x4E0A;&#x7684;&#x9650;&#x5236;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGXFSZ</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x5B83;&#x6587;&#x4EF6;&#x6210;&#x957F;&#x7684;&#x6BD4;&#x6700;&#x5927;&#x5141;&#x8BB8;&#x7684;&#x503C;&#x8FD8;&#x5927;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGVTALRM</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x4E00;&#x4E2A;&#x865A;&#x62DF;&#x65F6;&#x949F;&#x6D88;&#x901D;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGPROF</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#x65F6;&#x949F;&#x6D88;&#x901D;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGWINCH</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x63A7;&#x5236;&#x7EC8;&#x7AEF;&#x6539;&#x53D8;&#x5B83;&#x7684;&#x5927;&#x5C0F;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGIO</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;I/O&#x53EF;&#x7528;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGPOLL</code></td>
+    <td><code>SIGIO</code>&#x540C;&#x4E49;&#x8BCD;</td>
+  </tr>
+  <tr>
+    <td><code>SIGLOST</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x5F53;&#x6587;&#x4EF6;&#x9501;&#x4E22;&#x5931;&#x65F6;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGPWR</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x901A;&#x77E5;&#x529F;&#x7387;&#x9519;&#x8BEF;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGINFO</code></td>
+    <td><code>SIGPWR</code>&#x540C;&#x4E49;&#x8BCD;</td>
+  </tr>
+  <tr>
+    <td><code>SIGSYS</code></td>
+    <td>&#x53D1;&#x9001;&#x7ED9;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x6765;&#x901A;&#x77E5;&#x6709;&#x9519;&#x8BEF;&#x7684;&#x53C2;&#x6570;.</td>
+  </tr>
+  <tr>
+    <td><code>SIGUNUSED</code></td>
+    <td><code>SIGSYS</code>&#x7684;&#x540C;&#x4E49;&#x8BCD;</td>
+  </tr>
+</tbody></table>
+<h3>&#x9519;&#x8BEF;&#x5E38;&#x91CF;<span><a class="mark" href="#os_error_constants" id="os_error_constants" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="error_constants.html" tppabs="http://nodejs.cn/api/os/error_constants.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x4E0B;&#x9762;&#x7684;&#x9519;&#x8BEF;&#x5E38;&#x91CF;&#x7531; <code>os.constants.errno</code> &#x7ED9;&#x51FA;:</p>
+<h4>POSIX &#x9519;&#x8BEF;&#x5E38;&#x91CF;<span><a class="mark" href="#os_posix_error_constants" id="os_posix_error_constants" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="posix_error_constants.html" tppabs="http://nodejs.cn/api/os/posix_error_constants.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<table>
+  <tbody><tr>
+    <th>&#x5E38;&#x91CF;</th>
+    <th>&#x63CF;&#x8FF0;</th>
+  </tr>
+  <tr>
+    <td><code>E2BIG</code></td>
+    <td>&#x8868;&#x660E;&#x53C2;&#x6570;&#x5217;&#x8868;&#x6BD4;&#x671F;&#x671B;&#x7684;&#x8981;&#x957F;.</td>
+  </tr>
+  <tr>
+    <td><code>EACCES</code></td>
+    <td>&#x8868;&#x660E;&#x64CD;&#x4F5C;&#x6CA1;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x6743;&#x9650;.</td>
+  </tr>
+  <tr>
+    <td><code>EADDRINUSE</code></td>
+    <td>&#x8868;&#x660E;&#x8BE5;&#x7F51;&#x7EDC;&#x5730;&#x5740;&#x5DF2;&#x7ECF;&#x5728;&#x4F7F;&#x7528;.</td>
+  </tr>
+  <tr>
+    <td><code>EADDRNOTAVAIL</code></td>
+    <td>&#x8868;&#x660E;&#x8BE5;&#x7F51;&#x7EDC;&#x5730;&#x5740;&#x5F53;&#x524D;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;.</td>
+  </tr>
+  <tr>
+    <td><code>EAFNOSUPPORT</code></td>
+    <td>&#x8868;&#x660E;&#x8BE5;&#x7F51;&#x7EDC;&#x5730;&#x5740;&#x7C07;&#x4E0D;&#x88AB;&#x652F;&#x6301;.</td>
+  </tr>
+  <tr>
+    <td><code>EAGAIN</code></td>
+    <td>&#x8868;&#x660E;&#x5F53;&#x524D;&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x6570;&#x636E;,&#x7A0D;&#x540E;&#x518D;&#x6B21;&#x5C1D;&#x8BD5;&#x64CD;&#x4F5C;.</td>
+  </tr>
+  <tr>
+    <td><code>EALREADY</code></td>
+    <td>&#x8868;&#x660E;socket&#x6709;&#x4E00;&#x4E2A;&#x5373;&#x5C06;&#x53D1;&#x751F;&#x7684;&#x8FDE;&#x63A5;&#x5728;&#x8FDB;&#x884C;&#x4E2D;.</td>
+  </tr>
+  <tr>
+    <td><code>EBADF</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x4E0D;&#x53EF;&#x7528;.</td>
+  </tr>
+  <tr>
+    <td><code>EBADMSG</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x65E0;&#x6548;&#x7684;&#x6570;&#x636E;&#x4FE1;&#x606F;.</td>
+  </tr>
+  <tr>
+    <td><code>EBUSY</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x8BBE;&#x5907;&#x6216;&#x8D44;&#x6E90;&#x5904;&#x4E8E;&#x5FD9;&#x788C;&#x4E2D;.</td>
+  </tr>
+  <tr>
+    <td><code>ECANCELED</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x64CD;&#x4F5C;&#x88AB;&#x53D6;&#x6D88;.</td>
+  </tr>
+  <tr>
+    <td><code>ECHILD</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x5B50;&#x8FDB;&#x7A0B;.</td>
+  </tr>
+  <tr>
+    <td><code>ECONNABORTED</code></td>
+    <td>&#x8868;&#x660E;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x5DF2;&#x7ECF;&#x88AB;&#x7EC8;&#x6B62;.</td>
+  </tr>
+  <tr>
+    <td><code>ECONNREFUSED</code></td>
+    <td>&#x8868;&#x660E;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x88AB;&#x62D2;&#x7EDD;.</td>
+  </tr>
+  <tr>
+    <td><code>ECONNRESET</code></td>
+    <td>&#x8868;&#x660E;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x88AB;&#x91CD;&#x7F6E; .</td>
+  </tr>
+  <tr>
+    <td><code>EDEADLK</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x8D44;&#x6E90;&#x6B7B;&#x9501;&#x5DF2;&#x7ECF;&#x88AB;&#x907F;&#x514D; .</td>
+  </tr>
+  <tr>
+    <td><code>EDESTADDRREQ</code></td>
+    <td>&#x8868;&#x660E;&#x9700;&#x8981;&#x76EE;&#x7684;&#x5730;&#x5740; .</td>
+  </tr>
+  <tr>
+    <td><code>EDOM</code></td>
+    <td>&#x8868;&#x660E;&#x53C2;&#x6570;&#x8D85;&#x8FC7;&#x4E86;&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x57DF; .</td>
+  </tr>
+  <tr>
+    <td><code>EDQUOT</code></td>
+    <td>&#x8868;&#x660E;&#x5DF2;&#x7ECF;&#x8D85;&#x8FC7;&#x78C1;&#x76D8;&#x6307;&#x6807; .</td>
+  </tr>
+  <tr>
+    <td><code>EEXIST</code></td>
+    <td>&#x8868;&#x660E;&#x6587;&#x4EF6;&#x5DF2;&#x7ECF;&#x5B58;&#x5728; .</td>
+  </tr>
+  <tr>
+    <td><code>EFAULT</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x65E0;&#x6548;&#x7684;&#x6307;&#x9488;&#x5730;&#x5740; .</td>
+  </tr>
+  <tr>
+    <td><code>EFBIG</code></td>
+    <td>&#x8868;&#x660E;&#x6587;&#x4EF6;&#x592A;&#x5927; .</td>
+  </tr>
+  <tr>
+    <td><code>EHOSTUNREACH</code></td>
+    <td>&#x8868;&#x660E;&#x4E3B;&#x673A;&#x4E0D;&#x53EF;&#x8FBE; .</td>
+  </tr>
+  <tr>
+    <td><code>EIDRM</code></td>
+    <td>&#x8868;&#x660E;&#x8BC6;&#x522B;&#x7801;&#x5DF2;&#x7ECF;&#x88AB;&#x79FB;&#x9664; .</td>
+  </tr>
+  <tr>
+    <td><code>EILSEQ</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x975E;&#x6CD5;&#x7684;&#x5B57;&#x8282;&#x5E8F; .</td>
+  </tr>
+  <tr>
+    <td><code>EINPROGRESS</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x64CD;&#x4F5C;&#x5DF2;&#x7ECF;&#x5728;&#x8FDB;&#x884C;&#x4E2D; .</td>
+  </tr>
+  <tr>
+    <td><code>EINTR</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x88AB;&#x4E2D;&#x65AD; .</td>
+  </tr>
+  <tr>
+    <td><code>EINVAL</code></td>
+    <td>&#x8868;&#x660E;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x65E0;&#x6548;&#x7684;&#x53C2;&#x6570; .</td>
+  </tr>
+  <tr>
+    <td><code>EIO</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x5176;&#x4ED6;&#x7684;&#x4E0D;&#x786E;&#x5B9A;&#x7684; I/O &#x9519;&#x8BEF;.</td>
+  </tr>
+  <tr>
+    <td><code>EISCONN</code></td>
+    <td>&#x8868;&#x660E;socket&#x5DF2;&#x7ECF;&#x8FDE;&#x63A5; .</td>
+  </tr>
+  <tr>
+    <td><code>EISDIR</code></td>
+    <td>&#x8868;&#x660E;&#x8DEF;&#x5F84;&#x662F;&#x76EE;&#x5F55; .</td>
+  </tr>
+  <tr>
+    <td><code>ELOOP</code></td>
+    <td>&#x8868;&#x660E;&#x8DEF;&#x5F84;&#x4E0A;&#x6709;&#x592A;&#x591A;&#x5C42;&#x6B21;&#x7684;&#x7B26;&#x53F7;&#x8FDE;&#x63A5; .</td>
+  </tr>
+  <tr>
+    <td><code>EMFILE</code></td>
+    <td>&#x8868;&#x660E;&#x6709;&#x592A;&#x591A;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6; .</td>
+  </tr>
+  <tr>
+    <td><code>EMLINK</code></td>
+    <td>&#x8868;&#x660E;&#x6587;&#x4EF6;&#x4E0A;&#x6709;&#x592A;&#x591A;&#x7684;&#x786C;&#x8FDE;&#x63A5; .</td>
+  </tr>
+  <tr>
+    <td><code>EMSGSIZE</code></td>
+    <td>&#x8868;&#x660E;&#x63D0;&#x4F9B;&#x7684;&#x4FE1;&#x606F;&#x592A;&#x957F; .</td>
+  </tr>
+  <tr>
+    <td><code>EMULTIHOP</code></td>
+    <td>&#x8868;&#x660E;&#x591A;&#x8DF3;&#x88AB;&#x5C1D;&#x8BD5; .</td>
+  </tr>
+  <tr>
+    <td><code>ENAMETOOLONG</code></td>
+    <td>&#x8868;&#x660E;&#x6587;&#x4EF6;&#x540D;&#x592A;&#x957F; .</td>
+  </tr>
+  <tr>
+    <td><code>ENETDOWN</code></td>
+    <td>&#x8868;&#x660E;&#x7F51;&#x7EDC;&#x5173;&#x95ED; .</td>
+  </tr>
+  <tr>
+    <td><code>ENETRESET</code></td>
+    <td>&#x8868;&#x660E;&#x8FDE;&#x63A5;&#x88AB;&#x7F51;&#x7EDC;&#x7EC8;&#x6B62; .</td>
+  </tr>
+  <tr>
+    <td><code>ENETUNREACH</code></td>
+    <td>&#x8868;&#x660E;&#x7F51;&#x7EDC;&#x4E0D;&#x53EF;&#x8FBE; .</td>
+  </tr>
+  <tr>
+    <td><code>ENFILE</code></td>
+    <td>&#x8868;&#x660E;&#x7CFB;&#x7EDF;&#x4E2D;&#x6253;&#x5F00;&#x4E86;&#x592A;&#x591A;&#x7684;&#x6587;&#x4EF6; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOBUFS</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x6709;&#x6548;&#x7684;&#x7F13;&#x5B58;&#x7A7A;&#x95F4; .</td>
+  </tr>
+  <tr>
+    <td><code>ENODATA</code></td>
+    <td>&#x8868;&#x660E;&#x5728;&#x6D41;&#x5934;&#x8BFB;&#x53D6;&#x961F;&#x5217;&#x4E0A;&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;&#x4FE1;&#x606F; .</td>
+  </tr>
+  <tr>
+    <td><code>ENODEV</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x8FD9;&#x6837;&#x7684;&#x8BBE;&#x5907; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOENT</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x8FD9;&#x6837;&#x7684;&#x6587;&#x4EF6;&#x6216;&#x76EE;&#x5F55; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOEXEC</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x6267;&#x884C;&#x683C;&#x5F0F;&#x9519;&#x8BEF; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOLCK</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;&#x9501; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOLINK</code></td>
+    <td>&#x8868;&#x660E;&#x94FE;&#x63A5;&#x5728;&#x670D;&#x52A1; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOMEM</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x7A7A;&#x95F4; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOMSG</code></td>
+    <td>&#x8868;&#x660E;&#x60F3;&#x8981;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x6CA1;&#x6709;&#x4FE1;&#x606F; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOPROTOOPT</code></td>
+    <td>&#x8868;&#x660E;&#x7ED9;&#x5B9A;&#x7684;&#x534F;&#x8BAE;&#x4E0D;&#x53EF;&#x7528; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOSPC</code></td>
+    <td>&#x8868;&#x660E;&#x8BE5;&#x8BBE;&#x5907;&#x4E0A;&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;&#x7A7A;&#x95F4; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOSR</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;&#x6D41;&#x8D44;&#x6E90; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOSTR</code></td>
+    <td>&#x8868;&#x660E;&#x7ED9;&#x5B9A;&#x7684;&#x8D44;&#x6E90;&#x4E0D;&#x662F;&#x6D41; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOSYS</code></td>
+    <td>&#x8868;&#x660E;&#x529F;&#x80FD;&#x6CA1;&#x6709;&#x88AB;&#x5B9E;&#x73B0; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOTCONN</code></td>
+    <td>&#x8868;&#x660E;socket&#x6CA1;&#x6709;&#x8FDE;&#x63A5; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOTDIR</code></td>
+    <td>&#x8868;&#x660E;&#x8DEF;&#x5F84;&#x4E0D;&#x662F;&#x76EE;&#x5F55; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOTEMPTY</code></td>
+    <td>&#x8868;&#x660E;&#x76EE;&#x5F55;&#x662F;&#x975E;&#x7A7A;&#x7684; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOTSOCK</code></td>
+    <td>&#x8868;&#x660E;&#x7ED9;&#x5B9A;&#x7684;&#x9879;&#x76EE;&#x4E0D;&#x662F;socket .</td>
+  </tr>
+  <tr>
+    <td><code>ENOTSUP</code></td>
+    <td>&#x8868;&#x660E;&#x7ED9;&#x5B9A;&#x7684;&#x64CD;&#x4F5C;&#x4E0D;&#x53D7;&#x652F;&#x6301; .</td>
+  </tr>
+  <tr>
+    <td><code>ENOTTY</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x4E0D;&#x9002;&#x5F53;&#x7684; I/O &#x63A7;&#x5236;&#x64CD;&#x4F5C;.</td>
+  </tr>
+  <tr>
+    <td><code>ENXIO</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x8BE5;&#x8BBE;&#x5907;&#x6216;&#x5730;&#x5740; .</td>
+  </tr>
+  <tr>
+    <td><code>EOPNOTSUPP</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x64CD;&#x4F5C;&#x4E0D;&#x88AB;socket&#x6240;&#x652F;&#x6301;.
+    &#x6CE8;&#x610F;&#x5C3D;&#x7BA1;`ENOTSUP` &#x548C; `EOPNOTSUPP` &#x5728;Linux&#x4E0A;&#x6709;&#x76F8;&#x540C;&#x7684;&#x503C;&#x65F6;,
+    &#x6839;&#x636E; POSIX.1 &#x89C4;&#x8303;,&#x8FD9;&#x4E9B;&#x9519;&#x8BEF;&#x503C;&#x5E94;&#x8BE5;&#x4E0D;&#x540C;.)</td>
+  </tr>
+  <tr>
+    <td><code>EOVERFLOW</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x503C;&#x592A;&#x5927;&#x4EE5;&#x81F3;&#x4E8E;&#x96BE;&#x4EE5;&#x7528;&#x7ED9;&#x5B9A;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5B58;&#x50A8;.</td>
+  </tr>
+  <tr>
+    <td><code>EPERM</code></td>
+    <td>&#x8868;&#x660E;&#x64CD;&#x4F5C;&#x6CA1;&#x6709;&#x88AB;&#x8BB8;&#x53EF;.</td>
+  </tr>
+  <tr>
+    <td><code>EPIPE</code></td>
+    <td>&#x8868;&#x660E;&#x7834;&#x88C2;&#x7684;&#x7BA1;&#x9053; .</td>
+  </tr>
+  <tr>
+    <td><code>EPROTO</code></td>
+    <td>&#x8868;&#x660E;&#x534F;&#x8BAE;&#x9519;&#x8BEF; .</td>
+  </tr>
+  <tr>
+    <td><code>EPROTONOSUPPORT</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x534F;&#x8BAE;&#x4E0D;&#x88AB;&#x652F;&#x6301; .</td>
+  </tr>
+  <tr>
+    <td><code>EPROTOTYPE</code></td>
+    <td>&#x8868;&#x660E;socket&#x9519;&#x8BEF;&#x7684;&#x534F;&#x8BAE;&#x7C7B;&#x578B; .</td>
+  </tr>
+  <tr>
+    <td><code>ERANGE</code></td>
+    <td>&#x8868;&#x660E;&#x7ED3;&#x679C;&#x592A;&#x5927;&#x4E86; .</td>
+  </tr>
+  <tr>
+    <td><code>EROFS</code></td>
+    <td>&#x8868;&#x660E;&#x8BE5;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x662F;&#x53EA;&#x8BFB;&#x7684; .</td>
+  </tr>
+  <tr>
+    <td><code>ESPIPE</code></td>
+    <td>&#x8868;&#x660E;&#x65E0;&#x6548;&#x7684;&#x67E5;&#x8BE2;&#x64CD;&#x4F5C; .</td>
+  </tr>
+  <tr>
+    <td><code>ESRCH</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x8FD9;&#x6837;&#x7684;&#x8FDB;&#x7A0B;.</td>
+  </tr>
+  <tr>
+    <td><code>ESTALE</code></td>
+    <td>&#x8868;&#x660E;&#x8BE5;&#x6587;&#x4EF6;&#x5904;&#x7406;&#x662F;&#x7A33;&#x5B9A;&#x7684; .</td>
+  </tr>
+  <tr>
+    <td><code>ETIME</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x8FC7;&#x671F;&#x7684;&#x65F6;&#x949F; .</td>
+  </tr>
+  <tr>
+    <td><code>ETIMEDOUT</code></td>
+    <td>&#x8868;&#x660E;&#x8BE5;&#x8FDE;&#x63A5;&#x8D85;&#x65F6; .</td>
+  </tr>
+  <tr>
+    <td><code>ETXTBSY</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x6587;&#x672C;&#x6587;&#x4EF6;&#x5904;&#x4E8E;&#x5FD9;&#x788C; .</td>
+  </tr>
+  <tr>
+    <td><code>EWOULDBLOCK</code></td>
+    <td>&#x8868;&#x660E;&#x8BE5;&#x64CD;&#x4F5C;&#x88AB;&#x5C4F;&#x853D; .</td>
+  </tr>
+  <tr>
+    <td><code>EXDEV</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x4E0D;&#x5408;&#x9002;&#x7684;&#x8FDE;&#x63A5; .
+  </td></tr>
+</tbody></table>
+<h4>Windows &#x7CFB;&#x7EDF;&#x7279;&#x6709;&#x7684;&#x9519;&#x8BEF;&#x5E38;&#x91CF;<span><a class="mark" href="#os_windows_specific_error_constants" id="os_windows_specific_error_constants" rel="nofollow">#</a></span></h4><p class="tip_wrap"><a href="windows_specific_error_constants.html" tppabs="http://nodejs.cn/api/os/windows_specific_error_constants.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x4E0B;&#x9762;&#x7684;&#x9519;&#x8BEF;&#x7801;&#x4E0E;Windows&#x7CFB;&#x7EDF;&#x76F8;&#x5173;:</p>
+<table>
+  <tbody><tr>
+    <th>&#x5E38;&#x91CF;</th>
+    <th>&#x63CF;&#x8FF0;</th>
+  </tr>
+  <tr>
+    <td><code>WSAEINTR</code></td>
+    <td>&#x8868;&#x660E;&#x4E2D;&#x65AD;&#x7684;&#x51FD;&#x6570;&#x8C03;&#x7528; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEBADF</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x65E0;&#x6548;&#x7684;&#x6587;&#x4EF6;&#x53E5;&#x67C4; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEACCES</code></td>
+    <td>&#x8868;&#x660E;&#x6743;&#x9650;&#x4E0D;&#x591F;&#x5B8C;&#x6210;&#x64CD;&#x4F5C; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEFAULT</code></td>
+    <td>&#x8868;&#x660E;&#x65E0;&#x6548;&#x7684;&#x6307;&#x9488;&#x5730;&#x5740; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEINVAL</code></td>
+    <td>&#x8868;&#x660E;&#x65E0;&#x6548;&#x7684;&#x53C2;&#x6570;&#x88AB;&#x4F20;&#x9012; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEMFILE</code></td>
+    <td>&#x8868;&#x660E;&#x6709;&#x592A;&#x591A;&#x6253;&#x5F00;&#x7684;&#x6587;&#x4EF6; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEWOULDBLOCK</code></td>
+    <td>&#x8868;&#x660E;&#x8D44;&#x6E90;&#x6682;&#x65F6;&#x4E0D;&#x53EF;&#x7528; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEINPROGRESS</code></td>
+    <td>&#x8868;&#x660E;&#x64CD;&#x4F5C;&#x5F53;&#x524D;&#x6B63;&#x5728;&#x8FDB;&#x884C;&#x4E2D; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEALREADY</code></td>
+    <td>&#x8868;&#x660E;&#x64CD;&#x4F5C;&#x5DF2;&#x7ECF;&#x5728;&#x8FDB;&#x884C;&#x4E2D; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAENOTSOCK</code></td>
+    <td>&#x8868;&#x660E;&#x8D44;&#x6E90;&#x4E0D;&#x662F; socket.</td>
+  </tr>
+  <tr>
+    <td><code>WSAEDESTADDRREQ</code></td>
+    <td>&#x8868;&#x660E;&#x9700;&#x8981;&#x76EE;&#x7684;&#x5730;&#x5740; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEMSGSIZE</code></td>
+    <td>&#x8868;&#x660E;&#x6D88;&#x606F;&#x592A;&#x957F; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEPROTOTYPE</code></td>
+    <td>&#x8868;&#x660E;socket&#x534F;&#x8BAE;&#x7C7B;&#x578B;&#x9519;&#x8BEF; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAENOPROTOOPT</code></td>
+    <td>&#x8868;&#x660E;&#x9519;&#x8BEF;&#x7684;&#x534F;&#x8BAE;&#x9009;&#x9879; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEPROTONOSUPPORT</code></td>
+    <td>&#x8868;&#x660E;&#x534F;&#x8BAE;&#x4E0D;&#x88AB;&#x652F;&#x6301; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAESOCKTNOSUPPORT</code></td>
+    <td>&#x8868;&#x660E;socket&#x7C7B;&#x578B;&#x4E0D;&#x88AB;&#x652F;&#x6301; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEOPNOTSUPP</code></td>
+    <td>&#x8868;&#x660E;&#x64CD;&#x4F5C;&#x4E0D;&#x88AB;&#x652F;&#x6301; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEPFNOSUPPORT</code></td>
+    <td>&#x8868;&#x660E;&#x534F;&#x8BAE;&#x7C07;&#x4E0D;&#x88AB;&#x652F;&#x6301; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEAFNOSUPPORT</code></td>
+    <td>&#x8868;&#x660E;&#x5730;&#x5740;&#x7C07;&#x4E0D;&#x88AB;&#x652F;&#x6301; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEADDRINUSE</code></td>
+    <td>&#x8868;&#x660E;&#x7F51;&#x7EDC;&#x5730;&#x5740;&#x5DF2;&#x7ECF;&#x5728;&#x4F7F;&#x7528; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEADDRNOTAVAIL</code></td>
+    <td>&#x8868;&#x660E;&#x7F51;&#x7EDC;&#x5730;&#x5740;&#x4E0D;&#x53EF;&#x7528;.</td>
+  </tr>
+  <tr>
+    <td><code>WSAENETDOWN</code></td>
+    <td>&#x8868;&#x660E;&#x7F51;&#x7EDC;&#x5173;&#x95ED; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAENETUNREACH</code></td>
+    <td>&#x8868;&#x660E;&#x7F51;&#x7EDC;&#x4E0D;&#x53EF;&#x8FBE; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAENETRESET</code></td>
+    <td>&#x8868;&#x660E;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x88AB;&#x91CD;&#x7F6E; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAECONNABORTED</code></td>
+    <td>&#x8868;&#x660E;&#x8FDE;&#x63A5;&#x88AB;&#x7EC8;&#x6B62; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAECONNRESET</code></td>
+    <td>&#x8868;&#x660E;&#x8FDE;&#x63A5;&#x88AB;&#x540C;&#x4F34;&#x91CD;&#x7F6E; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAENOBUFS</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;&#x7F13;&#x5B58;&#x7A7A;&#x95F4; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEISCONN</code></td>
+    <td>&#x8868;&#x660E;socket&#x5DF2;&#x7ECF;&#x8FDE;&#x63A5; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAENOTCONN</code></td>
+    <td>&#x8868;&#x660E;socket&#x6CA1;&#x6709;&#x8FDE;&#x63A5; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAESHUTDOWN</code></td>
+    <td>&#x8868;&#x660E;&#x6570;&#x636E;&#x5728;socket&#x5173;&#x95ED;&#x4E4B;&#x540E;,&#x4E0D;&#x80FD;&#x88AB;&#x53D1;&#x9001; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAETOOMANYREFS</code></td>
+    <td>&#x8868;&#x660E;&#x6709;&#x592A;&#x591A;&#x7684;&#x5F15;&#x7528; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAETIMEDOUT</code></td>
+    <td>&#x8868;&#x660E;&#x8FDE;&#x63A5;&#x8D85;&#x65F6; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAECONNREFUSED</code></td>
+    <td>&#x8868;&#x660E;&#x8FDE;&#x63A5;&#x88AB;&#x62D2;&#x7EDD; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAELOOP</code></td>
+    <td>&#x8868;&#x660E;&#x540D;&#x5B57;&#x4E0D;&#x80FD;&#x88AB;&#x7FFB;&#x8BD1; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAENAMETOOLONG</code></td>
+    <td>&#x8868;&#x660E;&#x540D;&#x5B57;&#x592A;&#x957F; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEHOSTDOWN</code></td>
+    <td>&#x8868;&#x660E;&#x7F51;&#x7EDC;&#x4E3B;&#x673A;&#x5173;&#x95ED; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEHOSTUNREACH</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x5230;&#x7F51;&#x7EDC;&#x4E3B;&#x673A;&#x7684;&#x8DEF;&#x7531; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAENOTEMPTY</code></td>
+    <td>&#x8868;&#x660E;&#x76EE;&#x5F55;&#x975E;&#x7A7A; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEPROCLIM</code></td>
+    <td>&#x8868;&#x660E;&#x6709;&#x592A;&#x591A;&#x7684;&#x8FDB;&#x7A0B; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEUSERS</code></td>
+    <td>&#x8868;&#x660E;&#x5DF2;&#x7ECF;&#x8D85;&#x8FC7;&#x7528;&#x6237;&#x6307;&#x6807; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEDQUOT</code></td>
+    <td>&#x8868;&#x660E;&#x5DF2;&#x7ECF;&#x8D85;&#x8FC7;&#x78C1;&#x76D8;&#x6307;&#x6807; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAESTALE</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x7A33;&#x5B9A;&#x7684;&#x6587;&#x4EF6;&#x53E5;&#x67C4;&#x5F15;&#x7528; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEREMOTE</code></td>
+    <td>&#x8868;&#x660E;&#x9879;&#x76EE;&#x662F;&#x8FDC;&#x7A0B;&#x7684; .</td>
+  </tr>
+  <tr>
+    <td><code>WSASYSNOTREADY</code></td>
+    <td>&#x8868;&#x660E;&#x7F51;&#x7EDC;&#x5B50;&#x7CFB;&#x7EDF;&#x5C1A;&#x672A;&#x51C6;&#x5907;&#x597D; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAVERNOTSUPPORTED</code></td>
+    <td>&#x8868;&#x660E; winsock.dll &#x7248;&#x672C;&#x5728;&#x8303;&#x56F4;&#x4E4B;&#x5916;.</td>
+  </tr>
+  <tr>
+    <td><code>WSANOTINITIALISED</code></td>
+    <td>&#x8868;&#x660E;&#x6210;&#x529F;&#x7684; WSAStartup(Windows&#x5F02;&#x6B65;socket)&#x8FD8;&#x6CA1;&#x6709;&#x88AB;&#x6267;&#x884C; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEDISCON</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x4F18;&#x96C5;&#x7684;&#x5173;&#x673A;&#x6B63;&#x5728;&#x8FDB;&#x884C; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAENOMORE</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x66F4;&#x591A;&#x7684;&#x7ED3;&#x679C; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAECANCELLED</code></td>
+    <td>&#x8868;&#x660E;&#x4E00;&#x4E2A;&#x64CD;&#x4F5C;&#x5DF2;&#x7ECF;&#x88AB;&#x53D6;&#x6D88; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEINVALIDPROCTABLE</code></td>
+    <td>&#x8868;&#x660E;&#x8FC7;&#x7A0B;&#x8C03;&#x7528;&#x8868;&#x662F;&#x65E0;&#x6548;&#x7684; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEINVALIDPROVIDER</code></td>
+    <td>&#x8868;&#x660E;&#x65E0;&#x6548;&#x7684;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEPROVIDERFAILEDINIT</code></td>
+    <td>&#x8868;&#x660E;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005;&#x521D;&#x59CB;&#x5316;&#x5931;&#x8D25; .</td>
+  </tr>
+  <tr>
+    <td><code>WSASYSCALLFAILURE</code></td>
+    <td>&#x8868;&#x660E;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x5931;&#x8D25; .</td>
+  </tr>
+  <tr>
+    <td><code>WSASERVICE_NOT_FOUND</code></td>
+    <td>&#x8868;&#x660E;&#x670D;&#x52A1;&#x6CA1;&#x6709;&#x88AB;&#x627E;&#x5230; .</td>
+  </tr>
+  <tr>
+    <td><code>WSATYPE_NOT_FOUND</code></td>
+    <td>&#x8868;&#x660E;&#x7C7B;&#x7C7B;&#x578B;&#x6CA1;&#x6709;&#x88AB;&#x627E;&#x5230; .</td>
+  </tr>
+  <tr>
+    <td><code>WSA_E_NO_MORE</code></td>
+    <td>&#x8868;&#x660E;&#x6CA1;&#x6709;&#x66F4;&#x591A;&#x7684;&#x7ED3;&#x679C; .</td>
+  </tr>
+  <tr>
+    <td><code>WSA_E_CANCELLED</code></td>
+    <td>&#x8868;&#x660E;&#x8C03;&#x7528;&#x88AB;&#x53D6;&#x6D88; .</td>
+  </tr>
+  <tr>
+    <td><code>WSAEREFUSED</code></td>
+    <td>&#x8868;&#x660E;&#x6570;&#x636E;&#x5E93;&#x8BF7;&#x6C42;&#x88AB;&#x62D2;&#x7EDD; .</td>
+  </tr>
+</tbody></table>
+<h3>dlopen Constants<span><a class="mark" href="#os_dlopen_constants" id="os_dlopen_constants" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="dlopen_constants.html" tppabs="http://nodejs.cn/api/os/dlopen_constants.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<p>&#x5982;&#x679C;&#x5728;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E0A;&#x53EF;&#x7528;&#xFF0C;&#x5219;&#x4EE5;&#x4E0B;&#x5E38;&#x91CF;&#x5728;<code>os.constants.dlopen</code>&#x4E2D;&#x5BFC;&#x51FA;&#x3002; &#x6709;&#x5173;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;&#xFF0C;&#x8BF7;&#x53C2;&#x9605;dlopen&#xFF08;3&#xFF09;&#x4FE1;&#x606F;&#x3002;</p>
+<table>
+  <tbody><tr>
+    <th>Constant</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>RTLD_LAZY</code></td>
+    <td>Perform lazy binding. Node.js sets this flag by default.</td>
+  </tr>
+  <tr>
+    <td><code>RTLD_NOW</code></td>
+    <td>Resolve all undefined symbols in the library before dlopen(3)
+    returns.</td>
+  </tr>
+  <tr>
+    <td><code>RTLD_GLOBAL</code></td>
+    <td>Symbols defined by the library will be made available for symbol
+    resolution of subsequently loaded libraries.</td>
+  </tr>
+  <tr>
+    <td><code>RTLD_LOCAL</code></td>
+    <td>The converse of `RTLD_GLOBAL`. This is the default behavior if neither
+    flag is specified.</td>
+  </tr>
+  <tr>
+    <td><code>RTLD_DEEPBIND</code></td>
+    <td>Make a self-contained library use its own symbols in preference to
+    symbols from previously loaded libraries.</td>
+  </tr>
+</tbody></table>
+<h3>Priority Constants<span><a class="mark" href="#os_priority_constants" id="os_priority_constants" rel="nofollow">#</a></span></h3><p class="tip_wrap"><span class="tip_no_trans">&#x6682;&#x65E0;&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</span></p>
+<div class="api_metadata">
+<span>&#x65B0;&#x589E;&#x4E8E;: v10.10.0</span>
+</div>
+<p>The following process scheduling constants are exported by
+<code>os.constants.priority</code>:</p>
+<table>
+  <tbody><tr>
+    <th>Constant</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>PRIORITY_LOW</code></td>
+    <td>The lowest process scheduling priority. This corresponds to
+    <code>IDLE_PRIORITY_CLASS</code> on Windows, and a nice value of
+    <code>19</code> on all other platforms.</td>
+  </tr>
+  <tr>
+    <td><code>PRIORITY_BELOW_NORMAL</code></td>
+    <td>The process scheduling priority above <code>PRIORITY_LOW</code> and
+    below <code>PRIORITY_NORMAL</code>. This corresponds to
+    <code>BELOW_NORMAL_PRIORITY_CLASS</code> on Windows, and a nice value of
+    <code>10</code> on all other platforms.</td>
+  </tr>
+  <tr>
+    <td><code>PRIORITY_NORMAL</code></td>
+    <td>The default process scheduling priority. This corresponds to
+    <code>NORMAL_PRIORITY_CLASS</code> on Windows, and a nice value of
+    <code>0</code> on all other platforms.</td>
+  </tr>
+  <tr>
+    <td><code>PRIORITY_ABOVE_NORMAL</code></td>
+    <td>The process scheduling priority above <code>PRIORITY_NORMAL</code> and
+    below <code>PRIORITY_HIGH</code>. This corresponds to
+    <code>ABOVE_NORMAL_PRIORITY_CLASS</code> on Windows, and a nice value of
+    <code>-7</code> on all other platforms.</td>
+  </tr>
+  <tr>
+    <td><code>PRIORITY_HIGH</code></td>
+    <td>The process scheduling priority above <code>PRIORITY_ABOVE_NORMAL</code>
+    and below <code>PRIORITY_HIGHEST</code>. This corresponds to
+    <code>HIGH_PRIORITY_CLASS</code> on Windows, and a nice value of
+    <code>-14</code> on all other platforms.</td>
+  </tr>
+  <tr>
+    <td><code>PRIORITY_HIGHEST</code></td>
+    <td>The highest process scheduling priority. This corresponds to
+    <code>REALTIME_PRIORITY_CLASS</code> on Windows, and a nice value of
+    <code>-20</code> on all other platforms.</td>
+  </tr>
+</tbody></table>
+<h3>libuv &#x5E38;&#x91CF;<span><a class="mark" href="#os_libuv_constants" id="os_libuv_constants" rel="nofollow">#</a></span></h3><p class="tip_wrap"><a href="libuv_constants.html" tppabs="http://nodejs.cn/api/os/libuv_constants.html" class="tip_trans">&#x4E2D;&#x82F1;&#x5BF9;&#x7167;</a></p>
+<table>
+  <tbody><tr>
+    <th>&#x5E38;&#x91CF;</th>
+    <th>&#x63CF;&#x8FF0;</th>
+  </tr>
+  <tr>
+    <td><code>UV_UDP_REUSEADDR</code></td>
+    <td></td>
+  </tr>
+</tbody></table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 搜索弹窗 -->
+  <!-- <div id="search_modal"></div> -->
+  <!-- js -->
+  <!--[if lt IE 10]><script src="placeholders.js-20170426" tppabs="http://nodejs.cn/static/lib/placeholders.js?20170426"></script><![endif]-->
+  
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712032765"><\/script>');
+  </script>
+
+</body></html>

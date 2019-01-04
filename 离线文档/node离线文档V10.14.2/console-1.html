@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>console（控制台） | Node.js API 文档</title>
+  <link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">
+  <script>
+    document.write('<link href="http://nodejs.cn/api/console/' + (location.port?'':'//static.nodejs.cn') + '/_static/css/api.css?1544712014493" rel="stylesheet">')
+  </script>
+<link rel="icon" sizes="32x32" type="image/png" href="//static.nodejs.cn/_static/img/favicon.png">    <link href="index.css" rel="stylesheet">    <style>        html #hm_t_undefined .hm-t-go-top {position:fixed;right:2px;bottom:2px;z-index:99998;cursor:pointer;width:40px;height:37px!important;text-align:center;white-space:normal;font-size:14px;line-height:17px;padding-top:3px;color:#fff;background:#404040;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAAXCAYAAABH92JbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjgwMTE3NDA3MjA2ODExODA4M0UyNDA4ODdDRTZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBQjc5RkRFNkI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBQjc5RkRFNUI5ODMxMUUzQkZGNDhENEJFQjM2OTcyRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4MDExNzQwNzIwNjgxMTgwODNFMjQwODg3Q0U2QUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5HPYM5AAACC0lEQVR42uyZTSgEYRjH90NoqaVcpDblvKW2XOSkNh8H5Yac9sBBDqQokiJKSMpNTi5OPo6Ktsgu67JcUHIXWfK1u3b8Xx6Zxuzu+64dM83uv34zNfu8b8/8Z+d5P8YqSZLFJNLsRmyWvIRMKgVD4AhEwA3YAV0pzGwEqyAEwmAddIICHe7FqhnsdQM14FxKLj+ooFiGE2ykiD8GVbJ4I1ELAnTmasMODnAhpVcIFIMicMgRH6Z4IxnUAh4pP3Zu5TVpUOLXDJgWiB8wkEF9IK7IL07X05oUFLjpZ4JXQQOYYwfzafJcoDjVPqw43KE4lWtUTF+AQ8eBqQSsgTaO2E0apJ7URrdCDZOM62hQJfBzGmShOD+1+2XSiYaJ7utkkBsEgEewnYfauZUmzWmU6DuY0sEgLzgArgzbu6i992cu/1WclqXsa1iHIt0DYlnKP0b9fRZu5pWdZs7dWXqa7B80+s//oF5aMSjflGqBPq5BQnFtVv4UmGHjIPEH96PAZ6C5kVMwf6daPzbFKnqCqvx9Bk/yFjSBFTMvcL+1DerAmUA/p9Rm1+y7AHJdgnqwx9EHm1s0gKtc2CpR6gE00/ZHMm3RKxbJlf0kNb2BDrCk8hsbDdvBay5tuiUTGxL7waTs2iLw0YTR9BLZQRwDUVqwjuTS9q3VRB8C1OQUnM6UqdXX/IcADn0IMADs2AqDOPSutQAAAABJRU5ErkJggg==) no-repeat -42px center #666;*background-image:url(http://ecma.bdimg.com/holmes/t-popup-icons-png8.png);_position:absolute;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight-2));}    </style></head>
+<body class="alt apidoc" id="page_api_item">
+  <div id="api-section-console">
+    <div id="content" class="clearfix">
+  
+      <div id="column1" data-id="__ID__" class="interior">
+        <header>
+          <h1>console（控制台）</h1>
+          <div id="gtoc">
+            <ul>
+              <li>
+                <a href="console.html#console_console" tppabs="http://nodejs.cn/api/console.html#console_console" name="toc">返回上层文档</a>
+              </li>
+              <li>
+                <a href="javascript:if(confirm('http://nodejs.cn/search  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/search'" tppabs="http://nodejs.cn/search" name="toc">搜索</a>
+              </li>
+            </ul>
+          </div>
+          <hr>
+        </header>
+  
+        <div id="apicontent">
+          <div id="content_left"><p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">&#x7A33;&#x5B9A;&#x6027;: 2</a> - &#x7A33;&#x5B9A;&#x7684;</div><p></p><p><code>console</code> &#x6A21;&#x5757;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x8C03;&#x8BD5;&#x63A7;&#x5236;&#x53F0;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E8E; Web &#x6D4F;&#x89C8;&#x5668;&#x63D0;&#x4F9B;&#x7684; JavaScript &#x63A7;&#x5236;&#x53F0;&#x3002;</p><p>&#x8BE5;&#x6A21;&#x5757;&#x5BFC;&#x51FA;&#x4E86;&#x4E24;&#x4E2A;&#x7279;&#x5B9A;&#x7684;&#x7EC4;&#x4EF6;&#xFF1A;</p><ul>
+<li>&#x4E00;&#x4E2A; <code>Console</code> &#x7C7B;&#xFF0C;&#x5305;&#x542B; <code>console.log()</code> &#x3001; <code>console.error()</code> &#x548C; <code>console.warn()</code> &#x7B49;&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x88AB;&#x7528;&#x4E8E;&#x5199;&#x5165;&#x5230;&#x4EFB;&#x4F55; Node.js &#x6D41;&#x3002;</li>
+<li>&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x7684; <code>console</code> &#x5B9E;&#x4F8B;&#xFF0C;&#x53EF;&#x88AB;&#x7528;&#x4E8E;&#x5199;&#x5165;&#x5230; <a href="javascript:if(confirm('http://nodejs.cn/s/tQWUzG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tQWUzG'" tppabs="http://nodejs.cn/s/tQWUzG" rel="nofollow"><code>process.stdout</code></a> &#x548C; <a href="javascript:if(confirm('http://nodejs.cn/s/wPv5zY  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wPv5zY'" tppabs="http://nodejs.cn/s/wPv5zY" rel="nofollow"><code>process.stderr</code></a>&#x3002;
+&#x5168;&#x5C40;&#x7684; <code>console</code> &#x4F7F;&#x7528;&#x65F6;&#x65E0;&#x9700;&#x8C03;&#x7528; <code>require(&apos;console&apos;)</code>&#x3002;</li>
+</ul><p>&#x6CE8;&#x610F;&#xFF1A;&#x5168;&#x5C40;&#x7684; console &#x5BF9;&#x8C61;&#x7684;&#x65B9;&#x6CD5;&#x65E2;&#x4E0D;&#x603B;&#x662F;&#x540C;&#x6B65;&#x7684;&#xFF08;&#x5982;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x7C7B;&#x4F3C;&#x7684; API&#xFF09;&#xFF0C;&#x4E5F;&#x4E0D;&#x603B;&#x662F;&#x5F02;&#x6B65;&#x7684;&#xFF08;&#x5982;&#x5176;&#x4ED6; Node.js &#x6D41;&#xFF09;&#x3002;
+&#x8BE6;&#x89C1; <a href="javascript:if(confirm('http://nodejs.cn/s/u5R9ap  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/u5R9ap'" tppabs="http://nodejs.cn/s/u5R9ap" rel="nofollow">&#x8FDB;&#x7A0B; I/O</a>&#x3002;</p><p>&#x4F8B;&#x5B50;&#xFF0C;&#x4F7F;&#x7528;&#x5168;&#x5C40;&#x7684; <code>console</code>&#xFF1A;</p><pre><code class="language-js">console.log(&apos;&#x4F60;&#x597D;&#x4E16;&#x754C;&apos;);
+// &#x6253;&#x5370;: &apos;&#x4F60;&#x597D;&#x4E16;&#x754C;&apos;&#x5230; stdout&#x3002;
+console.log(&apos;&#x4F60;&#x597D;%s&apos;, &apos;&#x4E16;&#x754C;&apos;);
+// &#x6253;&#x5370;: &apos;&#x4F60;&#x597D;&#x4E16;&#x754C;&apos;&#x5230; stdout&#x3002;
+console.error(new Error(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;));
+// &#x6253;&#x5370;: [Error: &#x9519;&#x8BEF;&#x4FE1;&#x606F;]&#x5230; stderr&#x3002;
+
+const name = &apos;&#x63CF;&#x8FF0;&apos;;
+console.warn(`&#x8B66;&#x544A;${name}`);
+// &#x6253;&#x5370;: &apos;&#x8B66;&#x544A;&#x63CF;&#x8FF0;&apos;&#x5230; stderr&#x3002;
+</code></pre><p>&#x4F8B;&#x5B50;&#xFF0C;&#x4F7F;&#x7528; <code>Console</code> &#x7C7B;&#xFF1A;</p><pre><code class="language-js">const out = getStreamSomehow();
+const err = getStreamSomehow();
+const myConsole = new console.Console(out, err);
+
+myConsole.log(&apos;&#x4F60;&#x597D;&#x4E16;&#x754C;&apos;);
+// &#x6253;&#x5370;: &apos;&#x4F60;&#x597D;&#x4E16;&#x754C;&apos;&#x5230; out&#x3002;
+myConsole.log(&apos;&#x4F60;&#x597D;%s&apos;, &apos;&#x4E16;&#x754C;&apos;);
+// &#x6253;&#x5370;: &apos;&#x4F60;&#x597D;&#x4E16;&#x754C;&apos;&#x5230; out&#x3002;
+myConsole.error(new Error(&apos;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&apos;));
+// &#x6253;&#x5370;: [Error: &#x9519;&#x8BEF;&#x4FE1;&#x606F;]&#x5230; err&#x3002;
+
+const name = &apos;&#x63CF;&#x8FF0;&apos;;
+myConsole.warn(`&#x8B66;&#x544A;${name}`);
+// &#x6253;&#x5370;: &apos;&#x8B66;&#x544A;&#x63CF;&#x8FF0;&apos;&#x5230; err&#x3002;
+</code></pre></div>
+          <div id="content_right"><p></p><div class="api_stability api_stability_2"><a target="_blank" rel="nofollow" href="documentation.html#documentation_stability_index" tppabs="http://nodejs.cn/api/documentation.html#documentation_stability_index">Stability: 2</a> - Stable</div><p></p><p>The <code>console</code> module provides a simple debugging console that is similar to the
+JavaScript console mechanism provided by web browsers.</p><p>The module exports two specific components:</p><ul>
+<li>A <code>Console</code> class with methods such as <code>console.log()</code>, <code>console.error()</code> and
+<code>console.warn()</code> that can be used to write to any Node.js stream.</li>
+<li>A global <code>console</code> instance configured to write to <a href="javascript:if(confirm('http://nodejs.cn/s/tQWUzG  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/tQWUzG'" tppabs="http://nodejs.cn/s/tQWUzG" rel="nofollow"><code>process.stdout</code></a> and
+<a href="javascript:if(confirm('http://nodejs.cn/s/wPv5zY  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/wPv5zY'" tppabs="http://nodejs.cn/s/wPv5zY" rel="nofollow"><code>process.stderr</code></a>. The global <code>console</code> can be used without calling
+<code>require(&apos;console&apos;)</code>.</li>
+</ul><p><strong><em>Warning</em></strong>: The global console object&apos;s methods are neither consistently
+synchronous like the browser APIs they resemble, nor are they consistently
+asynchronous like all other Node.js streams. See the <a href="javascript:if(confirm('http://nodejs.cn/s/u5R9ap  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ�����·���ⲿ������Ϊ������ʼ��ַ�ĵ�ַ��  \n\n�����ڷ������ϴ���?'))window.location='http://nodejs.cn/s/u5R9ap'" tppabs="http://nodejs.cn/s/u5R9ap" rel="nofollow">note on process I/O</a> for
+more information.</p><p>Example using the global <code>console</code>:</p><pre><code class="language-js">console.log(&apos;hello world&apos;);
+// Prints: hello world, to stdout
+console.log(&apos;hello %s&apos;, &apos;world&apos;);
+// Prints: hello world, to stdout
+console.error(new Error(&apos;Whoops, something bad happened&apos;));
+// Prints: [Error: Whoops, something bad happened], to stderr
+
+const name = &apos;Will Robinson&apos;;
+console.warn(`Danger ${name}! Danger!`);
+// Prints: Danger Will Robinson! Danger!, to stderr
+</code></pre><p>Example using the <code>Console</code> class:</p><pre><code class="language-js">const out = getStreamSomehow();
+const err = getStreamSomehow();
+const myConsole = new console.Console(out, err);
+
+myConsole.log(&apos;hello world&apos;);
+// Prints: hello world, to out
+myConsole.log(&apos;hello %s&apos;, &apos;world&apos;);
+// Prints: hello world, to out
+myConsole.error(new Error(&apos;Whoops, something bad happened&apos;));
+// Prints: [Error: Whoops, something bad happened], to err
+
+const name = &apos;Will Robinson&apos;;
+myConsole.warn(`Danger ${name}! Danger!`);
+// Prints: Danger Will Robinson! Danger!, to err
+</code></pre></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.write('<script src="' + (location.port ? '' : 'http://static.nodejs.cn/') + '/_static/js/api.js?1544712014493"><\/script>');
+  </script>
+</body>
+</html>
