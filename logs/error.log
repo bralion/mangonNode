@@ -1,0 +1,48 @@
+[2019-01-04T18:19:34.670] [ERROR] error - { method: 'GET',
+  url: '/user/save',
+  body: undefined,
+  costTime: undefined,
+  err: 
+   ReferenceError: mongoose is not defined
+       at router.get (C:\Users\Administrator\Desktop\studymango\mangonNode\appApi\user.js:12:22)
+       at dispatch (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\node_modules\koa-compose\index.js:44:32)
+       at next (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\node_modules\koa-compose\index.js:45:18)
+       at C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\lib\router.js:346:16
+       at dispatch (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\node_modules\koa-compose\index.js:44:32)
+       at C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\node_modules\koa-compose\index.js:36:12
+       at dispatch (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\lib\router.js:351:31)
+       at dispatch (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-compose\index.js:42:32)
+       at serve (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-static\index.js:53:15)
+       at <anonymous> }
+[2019-01-04T18:20:03.839] [ERROR] error - { method: 'GET',
+  url: '/user/save',
+  body: undefined,
+  costTime: undefined,
+  err: 
+   ReferenceError: mongoose is not defined
+       at router.get (C:\Users\Administrator\Desktop\studymango\mangonNode\appApi\user.js:12:22)
+       at dispatch (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\node_modules\koa-compose\index.js:44:32)
+       at next (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\node_modules\koa-compose\index.js:45:18)
+       at C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\lib\router.js:346:16
+       at dispatch (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\node_modules\koa-compose\index.js:44:32)
+       at C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\node_modules\koa-compose\index.js:36:12
+       at dispatch (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\lib\router.js:351:31)
+       at dispatch (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-compose\index.js:42:32)
+       at serve (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-static\index.js:53:15)
+       at <anonymous> }
+[2019-01-04T18:20:23.961] [ERROR] error - { method: 'GET',
+  url: '/user/save',
+  body: undefined,
+  costTime: undefined,
+  err: 
+   ReferenceError: mongoose is not defined
+       at router.get (C:\Users\Administrator\Desktop\studymango\mangonNode\appApi\user.js:12:22)
+       at dispatch (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\node_modules\koa-compose\index.js:44:32)
+       at next (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\node_modules\koa-compose\index.js:45:18)
+       at C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\lib\router.js:346:16
+       at dispatch (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\node_modules\koa-compose\index.js:44:32)
+       at C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\node_modules\koa-compose\index.js:36:12
+       at dispatch (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-router\lib\router.js:351:31)
+       at dispatch (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-compose\index.js:42:32)
+       at serve (C:\Users\Administrator\Desktop\studymango\mangonNode\node_modules\koa-static\index.js:53:15)
+       at <anonymous> }

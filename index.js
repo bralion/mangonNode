@@ -8,9 +8,6 @@ const {log4js} = require('./logSetting/log4js')
 //用于生成模板
 const {connect,initSchemas}=require('./database/init.js')
 
-//用于使用mango
-const mongoose = require ('mongoose')
-
 //用于使用路由
 const Router=require('koa-router')
 
@@ -83,15 +80,6 @@ colors.setTheme ({
 	console.log(111)
 	//初始化数据库schema模板
 	initSchemas();
-	const User=mongoose.model('User');
-	let oneUser=new User({userName:'yc12lqweqas',password:'1234'});
-	oneUser.save().then(()=>{
-		console.log('插入数据成功');
-	});
-	// let user=await User.findOne({})
-	let user=await User.findOne({}).exec()
-		console.log(user);
-		
 	}
 )()
 

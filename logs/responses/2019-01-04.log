@@ -1,0 +1,34 @@
+[2019-01-04T18:19:07.035] [INFO] response - { method: 'GET', url: '/', body: undefined, costTime: 15 }
+[2019-01-04T18:19:07.062] [INFO] response - { method: 'GET',
+  url: '/static/css/app.fc6a975d8f0d168333529765eb57c1ac.css',
+  body: undefined,
+  costTime: 1 }
+[2019-01-04T18:19:07.063] [INFO] response - { method: 'GET',
+  url: '/static/js/manifest.3ad1d5771e9b13dbdad2.js',
+  body: undefined,
+  costTime: 2 }
+[2019-01-04T18:19:07.064] [INFO] response - { method: 'GET',
+  url: '/static/js/vendor.0e6a08cfd62b2645f3f6.js',
+  body: undefined,
+  costTime: 1 }
+[2019-01-04T18:19:07.076] [INFO] response - { method: 'GET',
+  url: '/static/js/app.b04481134da7a800b680.js',
+  body: undefined,
+  costTime: 4 }
+[2019-01-04T18:19:07.482] [INFO] response - { method: 'GET',
+  url: '/favicon.ico',
+  body: undefined,
+  costTime: 1 }
+[2019-01-04T18:19:24.365] [INFO] response - { method: 'GET', url: '/user', body: undefined, costTime: 4 }
+[2019-01-04T18:21:38.275] [INFO] response - { method: 'GET',
+  url: '/user/save',
+  body: undefined,
+  costTime: 152 }
+[2019-01-04T18:25:07.195] [INFO] response - { method: 'POST',
+  url: '/user/save',
+  body: undefined,
+  costTime: 1 }
+[2019-01-04T18:25:39.365] [INFO] response - { method: 'GET',
+  url: '/user/save?name=ada&password=asda',
+  body: undefined,
+  costTime: 274 }
