@@ -1,0 +1,17 @@
+[2018-12-29T11:49:38.523] [INFO] response - { method: 'GET', url: '/', body: undefined, costTime: 12 }
+[2018-12-29T11:49:38.542] [INFO] response - { method: 'GET',
+  url: '/static/css/app.fc6a975d8f0d168333529765eb57c1ac.css',
+  body: undefined,
+  costTime: 4 }
+[2018-12-29T11:49:38.542] [INFO] response - { method: 'GET',
+  url: '/static/js/manifest.3ad1d5771e9b13dbdad2.js',
+  body: undefined,
+  costTime: 3 }
+[2018-12-29T11:49:38.543] [INFO] response - { method: 'GET',
+  url: '/static/js/vendor.0e6a08cfd62b2645f3f6.js',
+  body: undefined,
+  costTime: 3 }
+[2018-12-29T11:49:38.543] [INFO] response - { method: 'GET',
+  url: '/static/js/app.b04481134da7a800b680.js',
+  body: undefined,
+  costTime: 2 }
